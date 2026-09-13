@@ -26,7 +26,7 @@ export default function Meetings() {
   };
 
   const handleViewProfile = () => {
-    navigate('/profile');
+    navigate(`/${i18n.language}/profile`);
     setIsProfileDropdownOpen(false);
   };
 
@@ -399,12 +399,12 @@ export default function Meetings() {
             >
               {t('cta.register')}
             </button>
-            <a 
-              href="/contact" 
-              className="border-2 border-white text-white px-8 py-4 rounded-md hover:bg-white hover:text-blue-900 font-semibold whitespace-nowrap cursor-pointer"
+            <Link 
+              to={`/${i18n.language}/contact`} 
+              className="border-2 border-white text-white px-8 py-4 rounded-md hover:bg-white hover:text-blue-900 font-semibold whitespace-nowrap cursor-pointer flex items-center justify-center"
             >
               {t('cta.contact')}
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -621,7 +621,7 @@ export default function Meetings() {
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            <div >
+            <div>
               <h3 className="font-semibold text-lg mb-6">{t('footer.aboutUs')}</h3>
               <ul className="space-y-3">
                 <li><Link to={`/${i18n.language}/about`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.ourMission')}</Link></li>
@@ -639,7 +639,7 @@ export default function Meetings() {
                 <li><Link to={`/${i18n.language}/stakeholders`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.stakeholders')}</Link></li>
                 <li><Link to={`/${i18n.language}/agenda`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.forumStories')}</Link></li>
                 <li><Link to={`/${i18n.language}/publications`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.pressReleases')}</Link></li>
-                <li><Link to={`/${i18n.language}/gallery`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.gallery')}',</Link></li>
+                <li><Link to={`/${i18n.language}/gallery`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.gallery')}</Link></li>
                 <li><Link to={`/${i18n.language}/publications`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.podcasts')}</Link></li>
                 <li><Link to={`/${i18n.language}/publications`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.videos')}</Link></li>
               </ul>
