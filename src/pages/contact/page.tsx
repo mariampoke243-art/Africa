@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../supabase/client';
 
 export default function Contact() {
   const { user, signOut } = useAuth();
