@@ -1,25 +1,16 @@
-const modules = import.meta.glob('./*/*.ts', { eager: true });
+const modules = import.meta.glob('./*.json', { eager: true });
 
-const messages: Record<string, { translation: Record<string, string> }> = {};
+const messages: Record<string, { translation: Record<string, any> }> = {};
 
 Object.keys(modules).forEach((path) => {
-  const match = path.match(/\.\/([^/]+)\/([^/]+)\.ts$/);
+  const match = path.match(/\.\/([^/]+)\.json$/);
   if (match) {
     const [, lang] = match;
-    const module = modules[path] as { default?: Record<string, string> };
-    
-    if (!messages[lang]) {
-      messages[lang] = { translation: {} };
-    }
-    
-    // 合并翻译内容
-    if (module.default) {
-      messages[lang].translation = {
-        ...messages[lang].translation,
-        ...module.default
-      };
+    const module = modules[path] as { default?: Record<string, any> };
+    if (module) {
+      messages[lang] = { translation: module.default || module };
     }
   }
 });
 
-export default messages; 
+export default messages;
