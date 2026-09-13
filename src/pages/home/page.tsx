@@ -5,6 +5,8 @@ import { useAuth } from '../../contexts/AuthContext';
 export default function Home() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
   const { user, isAuthenticated, signOut } = useAuth();
   const navigate = useNavigate();
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -35,6 +37,14 @@ export default function Home() {
 
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
+  };
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newsletterEmail) {
+      setSubscribed(true);
+      setNewsletterEmail('');
+    }
   };
 
   const getInitials = (name: string) => {
@@ -269,7 +279,7 @@ export default function Home() {
                 <div className="space-y-6">
                   <p className="text-blue-200 text-lg font-medium">Our mission</p>
                   <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                    A premier platform convening leaders, governments, investors, and thinkers to shape Africa’s role in the new global order
+                    A premier platform convening leaders, governments, investors, and thinkers to shape Africa’s role in the new global order
                   </h1>
                   <Link
                     to="/about"
@@ -367,7 +377,7 @@ export default function Home() {
                 </a>
               </div>
 
-              {/* Existing right column content */}
+              {/* Right column content */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
@@ -547,7 +557,7 @@ export default function Home() {
                     <div className="flex items-center space-x-4 mb-4">
                       <span className="text-blue-600 font-medium text-sm">Global Cooperation</span>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 leading-tight">Unveiling investment-ready nations and transformative partnerships.</h3>
+                    <h3 className="text-xl font-bold text-gray-900 leading-tight">Unveiling investment-ready nations and transformative partnerships.</h3>
                   </div>
                 </article>
               </div>
@@ -716,6 +726,40 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Newsletter Section */}
+        <section className="py-16 bg-blue-900 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto text-center space-y-6">
+              <h2 className="text-3xl font-bold">Subscribe to our Newsletters</h2>
+              <p className="text-blue-200 text-lg">
+                Stay updated with the latest insights, reports, and announcements from the Africa Economic Forum.
+              </p>
+              {subscribed ? (
+                <div className="bg-teal-700/50 border border-teal-500 text-teal-100 px-6 py-4 rounded-md">
+                  Thank you for subscribing to our newsletters!
+                </div>
+              ) : (
+                <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+                  <input
+                    type="email"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="px-4 py-3 rounded-md text-gray-900 w-full sm:w-80 focus:outline-none"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-6 py-3 rounded-md transition-colors cursor-pointer whitespace-nowrap"
+                  >
+                    Subscribe
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
@@ -805,7 +849,7 @@ export default function Home() {
               <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <Link to="/privacy" className="hover:text-white cursor-pointer">Privacy Policy &amp; Terms of Service</Link>
         
-                <p>© 2025 Africa Economic Forum</p>
+                <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
             </div>
