@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { supabase } from '../../supabase/client';
 
@@ -18,21 +17,17 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({ className = '' }) => {
     setMessage('');
 
     try {
-      // Submit to the form service
-      const formData = new FormData();
-      formData.append('email', email);
-      if (name) formData.append('name', name);
+      // Enregistrer dans la table 'newsletters' de Supabase (email + name)
+      const { error: dbError } = await supabase
+        .from('newsletters')
+        .insert([{ email, name: name || null }]);
 
-      const formResponse = await fetch('https://readdy.ai/api/form/d3objcqj4bght59ko2q0', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData as any).toString(),
-      });
+      if (dbError) {
+        throw dbError;
+      }
 
-      // Also trigger our newsletter notification system
-      const notificationResponse = await supabase.functions.invoke('newsletter-notification', {
+      // Appeler votre Edge Function Supabase si nécessaire
+      await supabase.functions.invoke('newsletter-notification', {
         body: {
           email,
           name: name || null,
@@ -40,16 +35,12 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({ className = '' }) => {
         }
       });
 
-      if (formResponse.ok) {
-        setMessage('✅ Thank you for subscribing! Please check your email for confirmation.');
-        setEmail('');
-        setName('');
-      } else {
-        setMessage('Failed to subscribe. Please try again.');
-      }
+      setMessage('✅ Thank you for subscribing! Please check your email for confirmation.');
+      setEmail('');
+      setName('');
     } catch (error) {
       console.error('Newsletter subscription error:', error);
-      setMessage('An error occurred. Please try again.');
+      setMessage('Failed to subscribe or email already registered.');
     } finally {
       setIsSubmitting(false);
     }
