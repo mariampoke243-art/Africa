@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { supabase } from '../../lib/supabaseClient';
 
 export default function Contact() {
   const { user, signOut } = useAuth();
@@ -40,21 +40,29 @@ export default function Contact() {
     const formData = new FormData(e.currentTarget);
     
     try {
-      const response = await fetch('https://readdy.ai/api/form/d3edvgd2v2m9odki5mm0', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData as any).toString()
-      });
-      
-      if (response.ok) {
-        setFormSubmitted(true);
-        (e.target as HTMLFormElement).reset();
-      } else {
-        alert('Message failed to send. Please try again.');
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([
+          {
+            name: formData.get('first_name') as string,
+            'Last name': formData.get('last_name') as string,
+            'Email Address': formData.get('email') as string,
+            Organization: (formData.get('organization') as string) || null,
+            'Phone Number': (formData.get('phone') as string) || null,
+            Subject: formData.get('subject') as string,
+            Message: formData.get('message') as string,
+            Newsletters: formData.get('newsletter_consent') === 'yes',
+          },
+        ]);
+
+      if (error) {
+        throw error;
       }
+      
+      setFormSubmitted(true);
+      (e.target as HTMLFormElement).reset();
     } catch (error) {
+      console.error('Erreur Supabase :', error);
       alert('Message failed to send. Please try again.');
     }
   };
@@ -96,7 +104,6 @@ export default function Contact() {
     try {
       const formData = new FormData(e.currentTarget);
 
-      // Simulate sign-in process
       const email = formData.get('email') as string;
       const password = formData.get('password') as string;
 
@@ -117,7 +124,6 @@ export default function Contact() {
     try {
       const formData = new FormData(e.currentTarget);
 
-      // Simulate account creation process
       const email = formData.get('email') as string;
       const password = formData.get('password') as string;
       const confirmPassword = formData.get('confirm_password') as string;
@@ -184,7 +190,6 @@ export default function Contact() {
               </Link>
             </nav>
 
-            {/* Updated user profile section */}
             <div className="hidden md:flex items-center space-x-4">
               {user ? (
                 <div className="relative">
@@ -246,7 +251,6 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
             <div className="px-2 pt-2 pb-3 space-y-1">
@@ -372,7 +376,7 @@ export default function Contact() {
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleFormSubmit} data-readdy-form id="contact-form" className="space-y-6">
+                  <form onSubmit={handleFormSubmit} id="contact-form" className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
@@ -446,7 +450,7 @@ export default function Contact() {
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none"
                         placeholder="Please provide details about your inquiry..."
                       ></textarea>
-                      <div className="text-xs text-gray-5 mt-1">Maximum 500 characters</div>
+                      <div className="text-xs text-gray-500 mt-1">Maximum 500 characters</div>
                     </div>
                     <div>
                       <label className="flex items-start space-x-3">
@@ -602,7 +606,7 @@ export default function Contact() {
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
                 <h3 className="text-2xl font-bold mb-6">Newsletter Subscription</h3>
-                <form onSubmit={handleNewsletterSubmit} data-readdy-form id="newsletter-subscription" className="space-y-4">
+                <form onSubmit={handleNewsletterSubmit} id="newsletter-subscription" className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-blue-100 mb-2">Email Address *</label>
                     <input 
@@ -673,7 +677,6 @@ export default function Contact() {
                 </button>
               </div>
 
-              {/* Sign-In Form */}
               {!showCreateAccount && (
                 <>
                   <form onSubmit={handleSignInSubmit} className="space-y-4">
@@ -731,7 +734,6 @@ export default function Contact() {
                 </>
               )}
 
-              {/* Create Account Form */}
               {showCreateAccount && (
                 <>
                   <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
@@ -838,7 +840,6 @@ export default function Contact() {
                 </>
               )}
 
-              {/* Social Auth Buttons – shown only for sign-in */}
               {!showCreateAccount && (
                 <div className="mt-6">
                   <div className="relative">
@@ -952,7 +953,6 @@ export default function Contact() {
               </div>
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <Link to="/privacy" className="hover:text-white cursor-pointer">Privacy Policy &amp; Terms of Service</Link>
-                
                 <p>© 2025 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
