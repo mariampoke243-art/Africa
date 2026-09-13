@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { Forum } from '../../data/forumsData';
+import { Forum } from './forumsData';
 
 export default function Meetings() {
   const { user, signOut } = useAuth();
@@ -639,7 +639,7 @@ export default function Meetings() {
                 <li><Link to={`/${i18n.language}/stakeholders`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.stakeholders')}</Link></li>
                 <li><Link to={`/${i18n.language}/agenda`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.forumStories')}</Link></li>
                 <li><Link to={`/${i18n.language}/publications`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.pressReleases')}</Link></li>
-                <li><Link to={`/${i18n.language}/gallery`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.gallery')}</Link></li>
+                <li><Link to={`/${i18n.language}/gallery`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.gallery')}',</Link></li>
                 <li><Link to={`/${i18n.language}/publications`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.podcasts')}</Link></li>
                 <li><Link to={`/${i18n.language}/publications`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.videos')}</Link></li>
               </ul>
