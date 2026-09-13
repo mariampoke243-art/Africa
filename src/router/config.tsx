@@ -1,6 +1,6 @@
-
 import type { RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
+import { Layout } from '../components/Layout';
 
 // Lazy load components
 const HomePage = lazy(() => import('../pages/home/page'));
@@ -38,115 +38,121 @@ const YouthPage = lazy(() => import('../pages/stakeholders/youth/page'));
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/about',
-    element: <AboutPage />,
-  },
-  {
-    path: '/initiatives',
-    element: <InitiativesPage />,
-  },
-  {
-    path: '/publications',
-    element: <PublicationsPage />,
-  },
-  {
-    path: '/agenda',
-    element: <AgendaPage />,
-  },
-  {
-    path: '/contact',
-    element: <ContactPage />,
-  },
-  {
-    path: '/careers',
-    element: <CareersPage />,
-  },
-  {
-    path: '/framework',
-    element: <FrameworkPage />,
-  },
-  {
-    path: '/gallery',
-    element: <GalleryPage />,
-  },
-  {
-    path: '/history',
-    element: <HistoryPage />,
-  },
-  {
-    path: '/join',
-    element: <JoinPage />,
-  },
-  {
-    path: '/meetings',
-    element: <MeetingsPage />,
-  },
-  {
-    path: '/partners',
-    element: <PartnersPage />,
-  },
-  {
-    path: '/privacy',
-    element: <PrivacyPage />,
-  },
-  {
-    path: '/profile',
-    element: <ProfilePage />,
-  },
-  {
-    path: '/signin',
-    element: <SignInPage />,
-  },
-  {
-    path: '/admin',
-    element: <AdminPage />,
-  },
-  {
-    path: '/stakeholders',
-    element: <StakeholdersPage />,
-  },
-  {
-    path: '/stakeholders/academia',
-    element: <AcademiaPage />,
-  },
-  {
-    path: '/stakeholders/artists-athletes',
-    element: <ArtistsAthletesPage />,
-  },
-  {
-    path: '/stakeholders/businesses',
-    element: <BusinessesPage />,
-  },
-  {
-    path: '/stakeholders/governments',
-    element: <GovernmentsPage />,
-  },
-  {
-    path: '/stakeholders/international',
-    element: <InternationalPage />,
-  },
-  {
-    path: '/stakeholders/investors',
-    element: <InvestorsPage />,
-  },
-  {
-    path: '/stakeholders/media',
-    element: <MediaPage />,
-  },
-  {
-    path: '/stakeholders/social-entrepreneurs',
-    element: <SocialEntrepreneursPage />,
-  },
-  {
-    path: '/stakeholders/women',
-    element: <WomenPage />,
-  },
-  {
-    path: '/stakeholders/youth',
-    element: <YouthPage />,
+    element: <Layout />,
+    children: [
+      {
+        path: '',
+        element: <HomePage />,
+      },
+      {
+        path: 'about',
+        element: <AboutPage />,
+      },
+      {
+        path: 'initiatives',
+        element: <InitiativesPage />,
+      },
+      {
+        path: 'publications',
+        element: <PublicationsPage />,
+      },
+      {
+        path: 'agenda',
+        element: <AgendaPage />,
+      },
+      {
+        path: 'contact',
+        element: <ContactPage />,
+      },
+      {
+        path: 'careers',
+        element: <CareersPage />,
+      },
+      {
+        path: 'framework',
+        element: <FrameworkPage />,
+      },
+      {
+        path: 'gallery',
+        element: <GalleryPage />,
+      },
+      {
+        path: 'history',
+        element: <HistoryPage />,
+      },
+      {
+        path: 'join',
+        element: <JoinPage />,
+      },
+      {
+        path: 'meetings',
+        element: <MeetingsPage />,
+      },
+      {
+        path: 'partners',
+        element: <PartnersPage />,
+      },
+      {
+        path: 'privacy',
+        element: <PrivacyPage />,
+      },
+      {
+        path: 'profile',
+        element: <ProfilePage />,
+      },
+      {
+        path: 'signin',
+        element: <SignInPage />,
+      },
+      {
+        path: 'admin',
+        element: <AdminPage />,
+      },
+      {
+        path: 'stakeholders',
+        element: <StakeholdersPage />,
+      },
+      {
+        path: 'stakeholders/academia',
+        element: <AcademiaPage />,
+      },
+      {
+        path: 'stakeholders/artists-athletes',
+        element: <ArtistsAthletesPage />,
+      },
+      {
+        path: 'stakeholders/businesses',
+        element: <BusinessesPage />,
+      },
+      {
+        path: 'stakeholders/governments',
+        element: <GovernmentsPage />,
+      },
+      {
+        path: 'stakeholders/international',
+        element: <InternationalPage />,
+      },
+      {
+        path: 'stakeholders/investors',
+        element: <InvestorsPage />,
+      },
+      {
+        path: 'stakeholders/media',
+        element: <MediaPage />,
+      },
+      {
+        path: 'stakeholders/social-entrepreneurs',
+        element: <SocialEntrepreneursPage />,
+      },
+      {
+        path: 'stakeholders/women',
+        element: <WomenPage />,
+      },
+      {
+        path: 'stakeholders/youth',
+        element: <YouthPage />,
+      },
+    ],
   },
   {
     path: '*',
