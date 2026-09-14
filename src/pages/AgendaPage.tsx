@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import { jsPDF } from "jspdf";
-import { supabase } from '../../supabase/client';
+import { supabase } from '../supabase/client';
 
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
@@ -80,13 +80,13 @@ export default function AgendaPage() {
     setLoading(true);
     try {
       const { error } = await supabase
-        .from('event_registrations') //
+        .from('event_registrations')
         .insert([
           {
-            event_id: registeringEvent.id, //
-            full_name: formData.full_name, //
-            email: formData.email, //
-            organization: formData.organization //
+            event_id: registeringEvent.id,
+            full_name: formData.full_name,
+            email: formData.email,
+            organization: formData.organization
           }
         ]);
 
