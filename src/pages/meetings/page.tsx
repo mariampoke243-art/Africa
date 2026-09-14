@@ -17,7 +17,8 @@ export default function Meetings() {
   const [forumsData, setForumsData] = useState<Forum[]>([]);
 
   useEffect(() => {
-    setForumsData(t('forums', { returnObjects: true }) as Forum[]);
+    const rawData = t('forums', { returnObjects: true });
+    setForumsData(Array.isArray(rawData) ? (rawData as Forum[]) : []);
   }, [i18n.language, t]);
 
   const handleSignOut = async () => {
@@ -102,7 +103,7 @@ export default function Meetings() {
           <p className="text-gray-700 leading-relaxed">{forum.overview}</p>
         </div>
         
-        {forum.objectives && (
+        {Array.isArray(forum.objectives) && forum.objectives.length > 0 && (
           <div>
             <h4 className="text-lg font-semibold text-gray-900 mb-3">Forum Objectives</h4>
             <ul className="space-y-2">
@@ -116,7 +117,7 @@ export default function Meetings() {
           </div>
         )}
 
-        {forum.keyAreas && (
+        {Array.isArray(forum.keyAreas) && forum.keyAreas.length > 0 && (
           <div>
             <h4 className="text-lg font-semibold text-gray-900 mb-3">Key Focus Areas</h4>
             <ul className="space-y-2">
@@ -130,7 +131,7 @@ export default function Meetings() {
           </div>
         )}
 
-        {forum.pillars && (
+        {Array.isArray(forum.pillars) && forum.pillars.length > 0 && (
           <div>
             <h4 className="text-lg font-semibold text-gray-900 mb-3">Strategic Pillars</h4>
             <div className="space-y-4">
@@ -138,7 +139,7 @@ export default function Meetings() {
                 <div key={index} className="bg-gray-50 p-4 rounded-lg">
                   <h5 className="font-semibold text-gray-900 mb-2">{index + 1}. {pillar.title}</h5>
                   <ul className="space-y-1">
-                    {pillar.items.map((item: string, itemIndex: number) => (
+                    {Array.isArray(pillar.items) && pillar.items.map((item: string, itemIndex: number) => (
                       <li key={itemIndex} className="flex items-start">
                         <span className="text-teal-600 mr-2 text-sm">•</span>
                         <span className="text-gray-700 text-sm">{item}</span>
@@ -238,12 +239,12 @@ export default function Meetings() {
                   )}
                 </div>
               ) : (
-                <Link 
-                  to="/signin"
+                <button 
+                  onClick={handleSignIn}
                   className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
                 >
                   {t('header.signIn')}
-                </Link>
+                </button>
               )}
             </div>
             <button 
@@ -322,13 +323,15 @@ export default function Meetings() {
                     </button>
                   </div>
                 ) : (
-                  <Link 
-                    to="/signin"
+                  <button 
+                    onClick={() => {
+                      handleSignIn();
+                      setIsMobileMenuOpen(false);
+                    }}
                     className="w-full bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer block text-center"
-                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {t('header.signIn')}
-                  </Link>
+                  </button>
                 )}
               </div>
             </div>
@@ -373,7 +376,7 @@ export default function Meetings() {
                   
                   <button 
                     onClick={() => toggleCard(forum.id)}
-                    className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer flex items-center space-x-2"
+                    className="mt-4 bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer flex items-center space-x-2"
                   >
                     <span>{expandedCard === forum.id ? t('meetingsPage.showLess') : t('meetingsPage.readMore')}</span>
                     <i className={`ri-arrow-${expandedCard === forum.id ? 'up' : 'down'}-s-line`}></i>
@@ -653,9 +656,9 @@ export default function Meetings() {
                       {t('footer.logout')}
                     </button>
                   ) : (
-                    <Link to="/signin" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer">
+                    <button onClick={handleSignIn} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer">
                       {t('footer.signIn')}
-                    </Link>
+                    </button>
                   )}
                 </li>
                 <li><Link to={`/${i18n.language}/partners`} className="text-gray-300 hover:text-white cursor-pointer">{t('footer.partner')}</Link></li>
