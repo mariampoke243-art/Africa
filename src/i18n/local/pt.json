@@ -3,5 +3,78 @@
   "contact": {
     "title": "Fale conosco",
     "send": "Enviar mensagem"
-  }
+  },
+  "header": {
+    "home": "Início",
+    "about": "Sobre",
+    "initiatives": "Iniciativas",
+    "stakeholders": "Partes interessadas",
+    "agenda": "Agenda",
+    "publications": "Publicações",
+    "meetings": "Reuniões",
+    "contact": "Contato",
+    "signIn": "Entrar"
+  },
+  "meetingsPage": {
+    "heroTitle": "Fóruns & Reuniões",
+    "heroSubtitle": "Descubra nossas próximas cúpulas e diálogos estratégicos",
+    "sectionTitle": "Nossos Fóruns",
+    "sectionSubtitle": "Plataformas-chave impulsionando o crescimento econômico na África",
+    "readMore": "Ler mais",
+    "showLess": "Mostrar menos"
+  },
+  "cta": {
+    "title": "Junte-se ao Movimento",
+    "subtitle": "Faça parte do principal encontro econômico na África",
+    "register": "Registrar agora",
+    "contact": "Fale conosco"
+  },
+  "footer": {
+    "aboutUs": "Sobre nós",
+    "ourMission": "Nossa missão",
+    "ourFramework": "Nosso quadro",
+    "history": "História",
+    "leadership": "Liderança",
+    "ourImpact": "Nosso impacto",
+    "moreFromForum": "Mais do Fórum",
+    "centres": "Centres",
+    "meetings": "Reuniões",
+    "stakeholders": "Partes interessadas",
+    "forumStories": "Histórias",
+    "pressReleases": "Comunicados de imprensa",
+    "gallery": "Galeria",
+    "podcasts": "Podcasts",
+    "videos": "Vídeos",
+    "engage": "Engajar",
+    "logout": "Sair",
+    "signIn": "Entrar",
+    "partner": "Parceiro",
+    "member": "Membro",
+    "pressSignUp": "Inscrição de imprensa",
+    "newsletters": "Boletins",
+    "contactUs": "Fale conosco",
+    "quickLinks": "Links rápidos",
+    "sustainability": "Sustentabilidade",
+    "careers": "Carreiras",
+    "languageEditions": "Edições de idioma",
+    "privacy": "Política de privacidade",
+    "copyright": "© 2026 Africa Economic Forum. Todos os direitos reservados."
+  },
+  "forums": [
+    {
+      "id": 1,
+      "title": "Cúpula Empresarial Africana",
+      "description": "Conectando líderes da indústria e formuladores de políticas.",
+      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+      "overview": "Um encontro anual focado no comércio transfronteiriço e investimento.",
+      "keyAreas": ["Comércio", "Infraestrutura"],
+      "objectives": ["Fortalecer a integração regional"],
+      "pillars": [
+        {
+          "title": "Pilar 1: Inovação",
+          "items": ["Transformação digital", "Financiamento de startups"]
+        }
+      ]
+    }
+  ]
 }
