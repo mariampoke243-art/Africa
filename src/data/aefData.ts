@@ -47,3 +47,30 @@ export const aefMeetings = [
     image: 'https://readdy.ai/api/search-image?query=African%20economic%20development%20experts%20and%20social%20policy%20makers%20in%20modern%20conference%20center%2C%20diverse%20professionals%20discussing%20inclusive%20growth%20strategies%2C%20contemporary%20meeting%20space&width=400&height=300&seq=meeting9&orientation=landscape',
   },
 ];
+
+export const aefArticles = [
+  {
+    id: '1',
+    category: 'Intégration Économique',
+    title: 'ZLECAf & RDC : Accélérer les chaînes de valeur régionales au cœur de l’Afrique',
+    link: '/initiatives',
+  },
+  {
+    id: '2',
+    category: 'Rapports & Stratégie',
+    title: 'Africa Investment & Innovation Fund (AIIF) : Mécanismes de financement des infrastructures 2026–2030',
+    link: '/initiatives',
+  },
+  {
+    id: '3',
+    category: 'Coopération Globale',
+    title: 'Kinshasa 2026 : Mobilisation des délégations gouvernementales et des investisseurs institutionnels',
+    link: '/meetings',
+  },
+  {
+    id: '4',
+    category: 'Action Climatique & Énergie',
+    title: 'Transition énergétique et métaux critiques : Enjeux industriels pour le continent',
+    link: '/initiatives',
+  },
+];
