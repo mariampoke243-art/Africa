@@ -5,8 +5,6 @@ import { jsPDF } from "jspdf";
 import { supabase } from '../../supabase/client';
 
 export default function AgendaPage() {
-
-export default function AgendaPage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
