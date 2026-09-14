@@ -4,7 +4,10 @@ export interface Forum {
   description: string;
   image: string;
   overview: string;
-  keyAreas: string[];
+  keyAreas?: string[];
   objectives?: string[];
-  pillars?: { title: string; items: string[] }[];
+  pillars?: {
+    title: string;
+    items: string[];
+  }[];
 }
