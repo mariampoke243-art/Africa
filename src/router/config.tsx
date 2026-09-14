@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import AgendaPage from '../pages/AgendaPage';
+import AgendaPage from '../pages/agenda/page';
 // ... autres imports de pages
 
 export const router = createBrowserRouter([
