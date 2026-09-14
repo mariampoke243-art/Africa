@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { aefMeetings } from '../../data/aefData';
+import { aefMeetings, aefInitiatives } from '../../data/aefData'; // Assurez-vous d'importer vos données dynamiques ici
 
 export default function Home() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -375,51 +375,35 @@ export default function Home() {
                 </a>
               </div>
 
-              {/* Right column content */}
+              {/* Right column content - Remplacement dynamique des 4 blocs */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                    <img 
-                      src="https://readdy.ai/api/search-image?query=African%20economic%20leaders%20and%20business%20executives%20in%20modern%20conference%20setting%2C%20professional%20meeting%20with%20diverse%20African%20participants%20discussing%20economic%20development%2C%20contemporary%20architecture%20with%20African%20cultural%20elements%2C%20dignified%20cooperation%20and%20strategic%20partnerships&width=400&height=300&seq=centre1-updated&orientation=landscape" 
-                      alt="Advanced Manufacturing" 
-                      className="w-full h-48 object-cover object-top" 
-                    />
-                    <div className="p-4">
-                      <h4 className="font-semibold text-gray-900">Africa Investment & Innovation Fund (AIIF)</h4>
+                  {aefInitiatives?.slice(0, 2).map((item) => (
+                    <div key={item.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                      <img 
+                        src={item.image} 
+                        alt={item.title} 
+                        className="w-full h-48 object-cover object-top" 
+                      />
+                      <div className="p-4">
+                        <h4 className="font-semibold text-gray-900">{item.title}</h4>
+                      </div>
                     </div>
-                  </div>
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                    <img 
-                      src="https://readdy.ai/api/search-image?query=African%20technology%20innovation%20hub%20with%20young%20entrepreneurs%2C%20modern%20startup%20incubator%20in%20African%20city%2C%20digital%20solutions%20and%20fintech%20development%2C%20diverse%20African%20tech%20professionals%20working%20on%20computers&width=400&height=300&seq=centre2-updated&orientation=landscape" 
-                      alt="AI Excellence" 
-                      className="w-full h-48 object-cover object-top" 
-                    />
-                    <div className="p-4">
-                      <h4 className="font-semibold text-gray-900">African Economic Intelligence Hub</h4>
-                    </div>
-                  </div>
+                  ))}
                 </div>
                 <div className="space-y-4 mt-8">
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                    <img 
-                      src="https://readdy.ai/api/search-image?query=African%20cybersecurity%20operations%20center%2C%20modern%20tech%20security%20infrastructure%20in%20African%20business%20district%2C%20digital%20protection%20systems%20with%20African%20professionals%20monitoring%20networks&width=400&height=300&seq=centre3-updated&orientation=landscape" 
-                      alt="Cybersecurity" 
-                      className="w-full h-48 object-cover object-top" 
-                    />
-                    <div className="p-4">
-                      <h4 className="font-semibold text-gray-900">Next Africa Accelerator</h4>
+                  {aefInitiatives?.slice(2, 4).map((item) => (
+                    <div key={item.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                      <img 
+                        src={item.image} 
+                        alt={item.title} 
+                        className="w-full h-48 object-cover object-top" 
+                      />
+                      <div className="p-4">
+                        <h4 className="font-semibold text-gray-900">{item.title}</h4>
+                      </div>
                     </div>
-                  </div>
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                    <img 
-                      src="https://readdy.ai/api/search-image?query=African%20renewable%20energy%20infrastructure%20with%20solar%20panels%20and%20wind%20turbines%2C%20sustainable%20energy%20development%20in%20African%20landscape%2C%20clean%20technology%20with%20African%20engineers%20and%20technicians&width=400&height=300&seq=centre4-updated&orientation=landscape" 
-                      alt="Energy and Materials" 
-                      className="w-full h-48 object-cover object-top" 
-                    />
-                    <div className="p-4">
-                      <h4 className="font-semibold text-gray-900">AEF Labs</h4>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
