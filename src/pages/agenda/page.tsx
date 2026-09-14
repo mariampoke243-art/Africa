@@ -30,7 +30,7 @@ export default function AgendaPage() {
     }
   };
 
-  // Liste des événements
+  // Liste des événements (uniquement le 10-11 novembre 2026)
   const events = [
     {
       id: 1,
@@ -44,20 +44,6 @@ export default function AgendaPage() {
       description: "Africa and Global Realignment: Investment, Alliances & Strategic Opportunities",
       participants: "Governments, global capital, strategic industries and project owners.",
       outcomes: "Next generation of investment corridors into and across Africa.",
-      submitUrl: "https://readdy.ai/api/form/infrastructure-summit-registration"
-    },
-    {
-      id: 2,
-      title: "THE FEMALE-LED INAUGURATION",
-      subtitle: "Africa Women Forum",
-      date: "February 26-27, 2026",
-      location: "Kinshasa, DRC (AEF Host Country)",
-      objective: "Establish the women's economic leadership agenda as the cornerstone of continental sovereignty",
-      theme: "The Architects of Sovereignty: Women Forging Africa's Economic Future",
-      image: "/images/africa-lead.jpg",
-      description: "True sovereignty cannot be achieved without the full participation of women. This forum moves beyond empowerment rhetoric to focus on women as essential architects of economic resilience.",
-      participants: "Women leaders, top government officials, corporate board members, and investors.",
-      outcomes: "Board Appointments, Launch of Women-Backed Enterprises Investment Fund.",
       submitUrl: "https://readdy.ai/api/form/infrastructure-summit-registration"
     }
   ];
