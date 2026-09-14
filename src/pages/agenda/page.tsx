@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import MeetingRegistrationForm from '../../components/forms/MeetingRegistrationForm';
 import { jsPDF } from "jspdf";
-import { supabase } from '../../lib/supabase';
+import { supabase } from '../../supabase/client';
 
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
