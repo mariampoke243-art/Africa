@@ -40,7 +40,7 @@ export default function AgendaPage() {
       location: "Fleuve Congo Hotel, Kinshasa, DRC",
       objective: "Finaliser l'ordre du jour et recruter les sponsors",
       theme: "Africa and Global Realignment : Investment, Alliances & Strategic Opportunities",
-      image: "/public/images/Africa_forum_nov2026.jpg",
+      image: "/images/Africa_forum_nov2026.jpg",
       description: "Africa and Global Realignment: Investment, Alliances & Strategic Opportunities",
       participants: "Governments, global capital, strategic industries and project owners.",
       outcomes: "Next generation of investment corridors into and across Africa.",
