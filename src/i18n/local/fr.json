@@ -3,5 +3,78 @@
   "contact": {
     "title": "Contactez-nous",
     "send": "Envoyer le message"
-  }
+  },
+  "header": {
+    "home": "Accueil",
+    "about": "À propos",
+    "initiatives": "Initiatives",
+    "stakeholders": "Parties prenantes",
+    "agenda": "Agenda",
+    "publications": "Publications",
+    "meetings": "Réunions",
+    "contact": "Contact",
+    "signIn": "Connexion"
+  },
+  "meetingsPage": {
+    "heroTitle": "Forums & Réunions",
+    "heroSubtitle": "Découvrez nos sommets et dialogues stratégiques à venir",
+    "sectionTitle": "Nos Forums",
+    "sectionSubtitle": "Des plateformes clés stimulant la croissance économique en Afrique",
+    "readMore": "Lire plus",
+    "showLess": "Réduire"
+  },
+  "cta": {
+    "title": "Rejoignez le mouvement",
+    "subtitle": "Participez au premier rassemblement économique en Afrique",
+    "register": "S'inscrire maintenant",
+    "contact": "Contactez-nous"
+  },
+  "footer": {
+    "aboutUs": "À propos de nous",
+    "ourMission": "Notre mission",
+    "ourFramework": "Notre cadre",
+    "history": "Histoire",
+    "leadership": "Direction",
+    "ourImpact": "Notre impact",
+    "moreFromForum": "Plus du Forum",
+    "centres": "Centres",
+    "meetings": "Réunions",
+    "stakeholders": "Parties prenantes",
+    "forumStories": "Histoires",
+    "pressReleases": "Communiqués de presse",
+    "gallery": "Galerie",
+    "podcasts": "Podcasts",
+    "videos": "Vidéos",
+    "engage": "S'engager",
+    "logout": "Déconnexion",
+    "signIn": "Connexion",
+    "partner": "Partenaire",
+    "member": "Membre",
+    "pressSignUp": "Espace Presse",
+    "newsletters": "Infolettres",
+    "contactUs": "Contactez-nous",
+    "quickLinks": "Liens rapides",
+    "sustainability": "Durabilité",
+    "careers": "Carrières",
+    "languageEditions": "Éditions linguistiques",
+    "privacy": "Politique de confidentialité",
+    "copyright": "© 2026 Africa Economic Forum. Tous droits réservés."
+  },
+  "forums": [
+    {
+      "id": 1,
+      "title": "Sommet des Affaires Africaines",
+      "description": "Connecter les leaders de l'industrie et les décideurs politiques.",
+      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+      "overview": "Un rassemblement annuel axé sur le commerce transfrontalier et l'investissement.",
+      "keyAreas": ["Commerce", "Infrastructure"],
+      "objectives": ["Renforcer l'intégration régionale"],
+      "pillars": [
+        {
+          "title": "Pilier 1 : Innovation",
+          "items": ["Transformation numérique", "Financement des startups"]
+        }
+      ]
+    }
+  ]
 }
