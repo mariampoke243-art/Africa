@@ -1,5 +1,5 @@
 import HomePage from '../pages/home/page';
-import AgendaPage from '../pages/AgendaPage';
+import AgendaPage from '../pages/Agenda/page';
 
 const routes = [
   {
