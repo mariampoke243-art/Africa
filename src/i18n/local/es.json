@@ -1,7 +1,80 @@
 {
   "welcome": "Bienvenido",
   "contact": {
-    "title": "Contáctanos",
+    "title": "Contáctenos",
     "send": "Enviar mensaje"
-  }
+  },
+  "header": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "initiatives": "Iniciativas",
+    "stakeholders": "Partes interesadas",
+    "agenda": "Agenda",
+    "publications": "Publicaciones",
+    "meetings": "Reuniones",
+    "contact": "Contacto",
+    "signIn": "Iniciar sesión"
+  },
+  "meetingsPage": {
+    "heroTitle": "Foros y Reuniones",
+    "heroSubtitle": "Descubra nuestras próximas cumbres y diálogos estratégicos",
+    "sectionTitle": "Nuestros Foros",
+    "sectionSubtitle": "Plataformas clave que impulsan el crecimiento económico en África",
+    "readMore": "Leer más",
+    "showLess": "Ver menos"
+  },
+  "cta": {
+    "title": "Únase al movimiento",
+    "subtitle": "Forme parte de la principal reunión económica en África",
+    "register": "Registrarse ahora",
+    "contact": "Contáctenos"
+  },
+  "footer": {
+    "aboutUs": "Sobre nosotros",
+    "ourMission": "Nuestra misión",
+    "ourFramework": "Nuestro marco",
+    "history": "Historia",
+    "leadership": "Liderazgo",
+    "ourImpact": "Nuestro impacto",
+    "moreFromForum": "Más del Foro",
+    "centres": "Centros",
+    "meetings": "Reuniones",
+    "stakeholders": "Partes interesadas",
+    "forumStories": "Historias",
+    "pressReleases": "Comunicados de prensa",
+    "gallery": "Galería",
+    "podcasts": "Podcasts",
+    "videos": "Videos",
+    "engage": "Participar",
+    "logout": "Cerrar sesión",
+    "signIn": "Iniciar sesión",
+    "partner": "Socio",
+    "member": "Miembro",
+    "pressSignUp": "Registro de prensa",
+    "newsletters": "Boletines",
+    "contactUs": "Contáctenos",
+    "quickLinks": "Enlaces rápidos",
+    "sustainability": "Sostenibilidad",
+    "careers": "Carreras",
+    "languageEditions": "Ediciones de idioma",
+    "privacy": "Política de privacidad",
+    "copyright": "© 2026 Africa Economic Forum. Todos los derechos reservados."
+  },
+  "forums": [
+    {
+      "id": 1,
+      "title": "Cumbre Empresarial Africana",
+      "description": "Conectando líderes de la industria y responsables políticos.",
+      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+      "overview": "Una reunión anual centrada en el comercio transfronterizo y la inversión.",
+      "keyAreas": ["Comercio", "Infraestructura"],
+      "objectives": ["Fortalecer la integración regional"],
+      "pillars": [
+        {
+          "title": "Pilar 1: Innovación",
+          "items": ["Transformación digital", "Financiación de startups"]
+        }
+      ]
+    }
+  ]
 }
