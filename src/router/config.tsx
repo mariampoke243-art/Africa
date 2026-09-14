@@ -7,3 +7,5 @@ export const router = createBrowserRouter([
     element: <AgendaPage />,
   },
 ]);
+
+export default router;
