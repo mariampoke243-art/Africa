@@ -29,7 +29,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [authState, setAuthState] = useState<AuthState>(() => initializeAuth());
 
   useEffect(() => {
-    // Check for user on mount
     const user = getCurrentUser();
     setAuthState({
       user,
@@ -57,7 +56,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     accountType: 'personal' | 'organization';
   }) => {
     const result = await signUp(userData);
-    // Don't auto-login after signup, let user sign in manually
     return result;
   };
 
