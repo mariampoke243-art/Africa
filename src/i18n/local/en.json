@@ -3,5 +3,78 @@
   "contact": {
     "title": "Contact us",
     "send": "Send message"
-  }
+  },
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "initiatives": "Initiatives",
+    "stakeholders": "Stakeholders",
+    "agenda": "Agenda",
+    "publications": "Publications",
+    "meetings": "Meetings",
+    "contact": "Contact",
+    "signIn": "Sign In"
+  },
+  "meetingsPage": {
+    "heroTitle": "Forums & Meetings",
+    "heroSubtitle": "Discover our upcoming summits and strategic dialogues",
+    "sectionTitle": "Our Forums",
+    "sectionSubtitle": "Key platforms driving economic growth across Africa",
+    "readMore": "Read More",
+    "showLess": "Show Less"
+  },
+  "cta": {
+    "title": "Join the Movement",
+    "subtitle": "Be part of the premier economic gathering in Africa",
+    "register": "Register Now",
+    "contact": "Contact Us"
+  },
+  "footer": {
+    "aboutUs": "About Us",
+    "ourMission": "Our Mission",
+    "ourFramework": "Our Framework",
+    "history": "History",
+    "leadership": "Leadership",
+    "ourImpact": "Our Impact",
+    "moreFromForum": "More from Forum",
+    "centres": "Centres",
+    "meetings": "Meetings",
+    "stakeholders": "Stakeholders",
+    "forumStories": "Forum Stories",
+    "pressReleases": "Press Releases",
+    "gallery": "Gallery",
+    "podcasts": "Podcasts",
+    "videos": "Videos",
+    "engage": "Engage",
+    "logout": "Log Out",
+    "signIn": "Sign In",
+    "partner": "Partner",
+    "member": "Member",
+    "pressSignUp": "Press Sign Up",
+    "newsletters": "Newsletters",
+    "contactUs": "Contact Us",
+    "quickLinks": "Quick Links",
+    "sustainability": "Sustainability",
+    "careers": "Careers",
+    "languageEditions": "Language Editions",
+    "privacy": "Privacy Policy",
+    "copyright": "© 2026 Africa Economic Forum. All rights reserved."
+  },
+  "forums": [
+    {
+      "id": 1,
+      "title": "African Business Summit",
+      "description": "Connecting industry leaders and policymakers.",
+      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+      "overview": "An annual gathering focused on cross-border trade and investment.",
+      "keyAreas": ["Trade", "Infrastructure"],
+      "objectives": ["Strengthen regional integration"],
+      "pillars": [
+        {
+          "title": "Pillar 1: Innovation",
+          "items": ["Digital transformation", "Startup funding"]
+        }
+      ]
+    }
+  ]
 }
