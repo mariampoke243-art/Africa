@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User, AuthState, initializeAuth, signIn, signUp, signOut, getCurrentUser } from '../auth/localAuth';
+import type { User, AuthState } from '../auth/localAuth';
+import { initializeAuth, signIn, signUp, signOut, getCurrentUser } from '../auth/localAuth';
 
 interface AuthContextType extends AuthState {
   signIn: (email: string, password: string) => Promise<{ user: User | null; error: string | null }>;
