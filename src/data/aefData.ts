@@ -4,22 +4,26 @@ export const aefMeetings = [
   {
     id: 'ammf',
     title: 'The Africa Mining & Minerals Forum (AMMF)',
-    image: 'https://readdy.ai/api/search-image?query=African%20economic%20summit%20with%20government%20leaders%20and%20business%20executives%20in%20modern%20conference%20hall%2C%20professional%20meeting%20discussing%20economic%20development%20strategies%2C%20diverse%20African%20participants%20in%20formal%20business%20attire&width=400&height=300&seq=meeting1&orientation=landscape',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20economic%20summit%20with%20government%20leaders%20and%20business%20executives%20in%20modern%20conference%20hall%2C%20professional%20meeting%20discussing%20economic%20development%20strategies%2C%20diverse%20African%20participants%20in%20formal%20business%20attire&width=400&height=300&seq=meeting1&orientation=landscape',
   },
   {
     id: 'aaff',
     title: 'Africa Agriculture & Food Forum (AAFF)',
-    image: 'https://readdy.ai/api/search-image?query=African%20trade%20ministers%20and%20business%20leaders%20discussing%20regional%20trade%20agreements%2C%20modern%20conference%20room%20with%20African%20flags%2C%20professional%20diplomatic%20meeting%20focused%20on%20economic%20collaboration&width=400&height=300&seq=meeting2&orientation=landscape',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20trade%20ministers%20and%20business%20leaders%20discussing%20regional%20trade%20agreements%2C%20modern%20conference%20room%20with%20African%20flags%2C%20professional%20diplomatic%20meeting%20focused%20on%20economic%20collaboration&width=400&height=300&seq=meeting2&orientation=landscape',
   },
   {
     id: 'attf',
     title: 'Africa Tourism & Trade Forum (ATTF)',
-    image: 'https://readdy.ai/api/search-image?query=African%20investment%20conference%20with%20international%20investors%20and%20African%20entrepreneurs%2C%20modern%20business%20center%20with%20presentation%20screens%20showing%20investment%20opportunities%20&width=400&height=300&seq=meeting3&orientation=landscape',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20investment%20conference%20with%20international%20investors%20and%20African%20entrepreneurs%2C%20modern%20business%20center%20with%20presentation%20screens%20showing%20investment%20opportunities&width=400&height=300&seq=meeting3&orientation=landscape',
   },
   {
     id: 'adetf',
     title: 'Africa Digital Economy & Tech Forum (ADETF)',
-    image: 'https://readdy.ai/api/search-image?query=African%20technology%20leaders%20and%20innovators%20in%20modern%20tech%20conference%2C%20startup%20pitch%20presentations%20with%20digital%20displays%2C%20young%20African%20entrepreneurs%20showcasing%20technological%20solutions&width=400&height=300&seq=meeting4&orientation=landscape',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20technology%20leaders%20and%20innovators%20in%20modern%20tech%20conference%2C%20startup%20pitch%20presentations%20with%20digital%20displays%2C%20young%20African%20entrepreneurs%20showcasing%20technological%20solutions&width=400&height=300&seq=meeting4&orientation=landscape',
   },
   {
     id: 'awf',
@@ -29,48 +33,93 @@ export const aefMeetings = [
   {
     id: 'healthcare',
     title: 'Africa Healthcare & Pharmaceuticals Forum',
-    image: 'https://readdy.ai/api/search-image?query=African%20healthcare%20leaders%20and%20medical%20professionals%20in%20health%20policy%20conference%2C%20modern%20medical%20facility%20meeting%20room%2C%20diverse%20healthcare%20experts%20discussing%20public%20health%20strategies&width=400&height=300&seq=meeting6&orientation=landscape',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20healthcare%20leaders%20and%20medical%20professionals%20in%20health%20policy%20conference%2C%20modern%20medical%20facility%20meeting%20room%2C%20diverse%20healthcare%20experts%20discussing%20public%20health%20strategies&width=400&height=300&seq=meeting6&orientation=landscape',
   },
   {
     id: 'energy',
     title: 'Africa Energy & Infrastructure Forum',
-    image: 'https://readdy.ai/api/search-image?query=African%20environmental%20ministers%20and%20climate%20experts%20discussing%20sustainability%20policies%2C%20green%20conference%20venue%20with%20renewable%20energy%20displays%20&width=400&height=300&seq=meeting7&orientation=landscape',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20environmental%20ministers%20and%20climate%20experts%20discussing%20sustainability%20policies%2C%20green%20conference%20venue%20with%20renewable%20energy%20displays&width=400&height=300&seq=meeting7&orientation=landscape',
   },
   {
     id: 'wealth',
     title: 'Africa Wealth Forum',
-    image: 'https://readdy.ai/api/search-image?query=African%20trade%20officials%20and%20diplomats%20in%20international%20trade%20negotiations%2C%20formal%20diplomatic%20meeting%20room%20with%20world%20maps%20&width=400&height=300&seq=meeting8&orientation=landscape',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20trade%20officials%20and%20diplomats%20in%20international%20trade%20negotiations%2C%20formal%20diplomatic%20meeting%20room%20with%20world%20maps&width=400&height=300&seq=meeting8&orientation=landscape',
   },
   {
     id: 'ayf',
     title: 'Africa Youth Forum (AYF)',
-    image: 'https://readdy.ai/api/search-image?query=African%20economic%20development%20experts%20and%20social%20policy%20makers%20in%20modern%20conference%20center%2C%20diverse%20professionals%20discussing%20inclusive%20growth%20strategies%2C%20contemporary%20meeting%20space&width=400&height=300&seq=meeting9&orientation=landscape',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20economic%20development%20experts%20and%20social%20policy%20makers%20in%20modern%20conference%20center%2C%20diverse%20professionals%20discussing%20inclusive%20growth%20strategies%2C%20contemporary%20meeting%20space&width=400&height=300&seq=meeting9&orientation=landscape',
   },
 ];
+
+
+// ============================================================
+// INITIATIVES
+// ============================================================
+
+export const aefInitiatives = [
+  {
+    id: 'zlecaf',
+    title: 'ZLECAf & Intégration Économique Africaine',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20economic%20integration%20business%20meeting%20with%20African%20leaders%20and%20entrepreneurs%20discussing%20regional%20trade%20and%20investment%2C%20modern%20conference%20room&width=400&height=300&seq=initiative1&orientation=landscape',
+  },
+  {
+    id: 'aiif',
+    title: 'Africa Investment & Innovation Fund (AIIF)',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20investment%20fund%20conference%20with%20investors%20and%20African%20entrepreneurs%20discussing%20infrastructure%20and%20innovation%20projects&width=400&height=300&seq=initiative2&orientation=landscape',
+  },
+  {
+    id: 'energy-transition',
+    title: 'Transition Énergétique & Métaux Critiques',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20renewable%20energy%20infrastructure%20project%20with%20solar%20panels%20and%20modern%20industrial%20development%2C%20African%20business%20leaders&width=400&height=300&seq=initiative3&orientation=landscape',
+  },
+  {
+    id: 'regional-value',
+    title: 'Chaînes de Valeur Régionales',
+    image:
+      'https://readdy.ai/api/search-image?query=African%20industrial%20development%20and%20regional%20value%20chains%20with%20modern%20factories%20and%20African%20business%20leaders&width=400&height=300&seq=initiative4&orientation=landscape',
+  },
+];
+
+
+// ============================================================
+// ARTICLES
+// ============================================================
 
 export const aefArticles = [
   {
     id: '1',
     category: 'Intégration Économique',
-    title: 'ZLECAf & RDC : Accélérer les chaînes de valeur régionales au cœur de l’Afrique',
+    title:
+      'ZLECAf & RDC : Accélérer les chaînes de valeur régionales au cœur de l’Afrique',
     link: '/initiatives',
   },
   {
     id: '2',
     category: 'Rapports & Stratégie',
-    title: 'Africa Investment & Innovation Fund (AIIF) : Mécanismes de financement des infrastructures 2026–2030',
+    title:
+      'Africa Investment & Innovation Fund (AIIF) : Mécanismes de financement des infrastructures 2026–2030',
     link: '/initiatives',
   },
   {
     id: '3',
     category: 'Coopération Globale',
-    title: 'Kinshasa 2026 : Mobilisation des délégations gouvernementales et des investisseurs institutionnels',
+    title:
+      'Kinshasa 2026 : Mobilisation des délégations gouvernementales et des investisseurs institutionnels',
     link: '/meetings',
   },
   {
     id: '4',
     category: 'Action Climatique & Énergie',
-    title: 'Transition énergétique et métaux critiques : Enjeux industriels pour le continent',
+    title:
+      'Transition énergétique et métaux critiques : Enjeux industriels pour le continent',
     link: '/initiatives',
   },
 ];
