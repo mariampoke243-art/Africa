@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { jsPDF } from "jspdf";
-import { supabase } from '../supabase/client';
+import { supabase } from '../../supabase/client';
+
+export default function AgendaPage() {
 
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
