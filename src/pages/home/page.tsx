@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { aefMeetings } from '../../data/aefData';
 
 export default function Home() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -12,12 +13,9 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    // tenta iniciar reprodução por programa (fallback para navegadores que bloqueiam autoplay)
     if (videoRef.current) {
       videoRef.current.muted = true;
-      videoRef.current.play().catch(() => {
-        // autoplay pode ser bloqueado — manter muted ligado e o usuário pode clicar para reproduzir
-      });
+      videoRef.current.play().catch(() => {});
     }
   }, []);
 
@@ -277,7 +275,7 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-8">
                 <div className="space-y-6">
-                  <p className="text-blue-200 text-lg font-medium">Our mission</p>
+                  <p className="text-blue-200 text-lg font-medium">Africa Economic Forum 2026 • 10–11 Nov • Kinshasa</p>
                   <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
                     A premier platform convening leaders, governments, investors, and thinkers to shape Africa’s role in the new global order
                   </h1>
@@ -428,7 +426,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Our 10 Meetings */}
+        {/* Our Meetings (Dynamically mapped via aefMeetings) */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -436,96 +434,18 @@ export default function Home() {
               <p className="text-gray-600 text-lg max-w-3xl mx-auto">Explore our key meetings addressing Africa's most pressing economic challenges</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=African%20economic%20summit%20with%20government%20leaders%20and%20business%20executives%20in%20modern%20conference%20hall%2C%20professional%20meeting%20discussing%20economic%20development%20strategies%2C%20diverse%20African%20participants%20in%20formal%20business%20attire&width=400&height=300&seq=meeting1&orientation=landscape" 
-                  alt="Annual Economic Summit" 
-                  className="w-full h-48 object-cover object-top" 
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 text-lg leading-tight">the Africa Mining & Minerals Forum (AMMF)</h3>
+              {aefMeetings.map((meeting) => (
+                <div key={meeting.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                  <img 
+                    src={meeting.image} 
+                    alt={meeting.title} 
+                    className="w-full h-48 object-cover object-top" 
+                  />
+                  <div className="p-6">
+                    <h3 className="font-semibold text-gray-900 text-lg leading-tight">{meeting.title}</h3>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=African%20trade%20ministers%20and%20business%20leaders%20discussing%20regional%20trade%20agreements%2C%20modern%20conference%20room%20with%20African%20flags%2C%20professional%20diplomatic%20meeting%20focused%20on%20economic%20collaboration&width=400&height=300&seq=meeting2&orientation=landscape" 
-                  alt="Regional Trade Forum" 
-                  className="w-full h-48 object-cover object-top" 
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 text-lg leading-tight">Africa Agriculture & Food Forum (AAFF)</h3>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=African%20investment%20conference%20with%20international%20investors%20and%20African%20entrepreneurs%2C%20modern%20business%20center%20with%20presentation%20screens%20showing%20investment%20opportunities%20&width=400&height=300&seq=meeting3&orientation=landscape" 
-                  alt="Investment Conference" 
-                  className="w-full h-48 object-cover object-top" 
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 text-lg leading-tight">Africa Tourism & Trade Forum (ATTF)</h3>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=African%20technology%20leaders%20and%20innovators%20in%20modern%20tech%20conference%2C%20startup%20pitch%20presentations%20with%20digital%20displays%2C%20young%20African%20entrepreneurs%20showcasing%20technological%20solutions&width=400&height=300&seq=meeting4&orientation=landscape" 
-                  alt="Innovation Symposium" 
-                  className="w-full h-48 object-cover object-top" 
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 text-lg leading-tight">Africa Digital Economy & Tech Forum (ADETF)</h3>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <img 
-                  src="/images/africa-women.jpg" 
-                  alt="Africa Women Forum" 
-                  className="w-full h-48 object-cover object-top" 
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 text-lg leading-tight">Africa Women Forum (AWF)</h3>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=African%20healthcare%20leaders%20and%20medical%20professionals%20in%20health%20policy%20conference%2C%20modern%20medical%20facility%20meeting%20room%2C%20diverse%20healthcare%20experts%20discussing%20public%20health%20strategies&width=400&height=300&seq=meeting6&orientation=landscape" 
-                  alt="Healthcare Leadership Summit" 
-                  className="w-full h-48 object-cover object-top" 
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 text-lg leading-tight"> Africa Healthcare & Pharmaceuticals Forum</h3>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=African%20environmental%20ministers%20and%20climate%20experts%20discussing%20sustainability%20policies%2C%20green%20conference%20venue%20with%20renewable%20energy%20displays%20&width=400&height=300&seq=meeting7&orientation=landscape" 
-                  alt="Climate Action Assembly" 
-                  className="w-full h-48 object-cover object-top" 
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 text-lg leading-tight">Africa Energy & Infrastructure Forum</h3>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=African%20trade%20officials%20and%20diplomats%20in%20international%20trade%20negotiations%2C%20formal%20diplomatic%20meeting%20room%20with%20world%20maps%20&width=400&height=300&seq=meeting8&orientation=landscape" 
-                  alt="Trade Policy Roundtable" 
-                  className="w-full h-48 object-cover object-top" 
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 text-lg leading-tight">Africa Wealth Forum</h3>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                <img 
-                  src="https://readdy.ai/api/search-image?query=African%20economic%20development%20experts%20and%20social%20policy%20makers%20in%20modern%20conference%20center%2C%20diverse%20professionals%20discussing%20inclusive%20growth%20strategies%2C%20contemporary%20meeting%20space&width=400&height=300&seq=meeting9&orientation=landscape" 
-                  alt="Economic Development Workshop" 
-                  className="w-full h-48 object-cover object-top" 
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 text-lg leading-tight"> Africa Youth Forum (AYF)</h3>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -536,7 +456,7 @@ export default function Home() {
             <div className="flex justify-between items-center mb-12">
               <div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-4">Spotlight</h2>
-                <p className="text-gray-600 text-lg"> Invest in Africa. Country by Country.</p>
+                <p className="text-gray-600 text-lg">Invest in Africa. Country by Country.</p>
               </div>
               <button className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer">
                 <span>More Stories</span>
@@ -548,16 +468,16 @@ export default function Home() {
                 <article className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
                   <div className="relative">
                     <img 
-                      src="https://assets.weforum.org/article/image/Uwbfxacnvqw4k8cRvkrJtfWmaE3yh_DoZ6yD_QxdCeo.jpg" 
-                      alt="SDIM 2025: Surprising stats and key conversations from our New York meetings" 
+                      src="https://readdy.ai/api/search-image?query=Kinshasa%20panoramic%20view%20modern%20cityscape%20Congo%20river%20economic%20center%20dusk&width=800&height=500&seq=spotlight-main&orientation=landscape" 
+                      alt="Kinshasa 2026 : Carrefour des opportunités économiques et de la transformation en Afrique centrale" 
                       className="w-full h-64 object-cover object-top" 
                     />
                   </div>
                   <div className="p-6">
                     <div className="flex items-center space-x-4 mb-4">
-                      <span className="text-blue-600 font-medium text-sm">Global Cooperation</span>
+                      <span className="text-blue-600 font-medium text-sm">Global Cooperation / African Growth</span>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 leading-tight">Unveiling investment-ready nations and transformative partnerships.</h3>
+                    <h3 className="text-xl font-bold text-gray-900 leading-tight">Kinshasa 2026 : Carrefour des opportunités économiques et de la transformation en Afrique centrale.</h3>
                   </div>
                 </article>
               </div>
@@ -566,16 +486,16 @@ export default function Home() {
                   <div className="flex">
                     <div className="relative w-32 h-24 flex-shrink-0">
                       <img 
-                        src="https://assets.weforum.org/article/image/vxHpLiINOQ37FUtocfRZvxAwdPaUDjT3rBAlxjrbC0k.JPG" 
-                        alt="Europe is lagging in AI adoption – how can businesses close the gap?" 
+                        src="https://readdy.ai/api/search-image?query=Critical%20minerals%20mining%20cobalt%20copper%20Democratic%20Republic%20of%20Congo%20industrial%20site&width=300&height=200&seq=spotlight-1&orientation=landscape" 
+                        alt="Transition énergétique et chaînes de valeur des minerais stratégiques en RDC" 
                         className="w-full h-full object-cover object-top" 
                       />
                     </div>
                     <div className="p-4 flex-1">
                       <div className="mb-2">
-                        <span className="text-blue-600 font-medium text-sm">Emerging Technologies</span>
+                        <span className="text-blue-600 font-medium text-sm">Transition Énergétique</span>
                       </div>
-                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">Europe is lagging in AI adoption – how can businesses close the gap?</h4>
+                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">Transition énergétique et chaînes de valeur des minerais stratégiques en RDC.</h4>
                     </div>
                   </div>
                 </article>
@@ -583,16 +503,16 @@ export default function Home() {
                   <div className="flex">
                     <div className="relative w-32 h-24 flex-shrink-0">
                       <img 
-                        src="https://assets.weforum.org/report/cover_image/d6PK7yfSfpnxr5PWKuA6yy5B1R0Kc9uasr9W_V31XqE.png" 
-                        alt="Defossilizing Industry: Considerations for Scaling-up Carbon Capture and Utilization Pathways" 
+                        src="https://readdy.ai/api/search-image?query=African%20tech%20startup%20digital%20innovation%20Kinshasa%20developers%20working%20on%20laptops&width=300&height=200&seq=spotlight-2&orientation=landscape" 
+                        alt="L'écosystème tech et l'essor des solutions numériques en République Démocratique du Congo" 
                         className="w-full h-full object-cover object-top" 
                       />
                     </div>
                     <div className="p-4 flex-1">
                       <div className="mb-2">
-                        <span className="text-blue-600 font-medium text-sm">Reports</span>
+                        <span className="text-blue-600 font-medium text-sm">Écosystème Tech</span>
                       </div>
-                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">Defossilizing Industry: Considerations for Scaling-up Carbon Capture and Utilization Pathways</h4>
+                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">L'écosystème tech et l'essor des solutions numériques en République Démocratique du Congo.</h4>
                     </div>
                   </div>
                 </article>
@@ -600,16 +520,16 @@ export default function Home() {
                   <div className="flex">
                     <div className="relative w-32 h-24 flex-shrink-0">
                       <img 
-                        src="https://assets.weforum.org/article/image/liFHL8-4-8B-VTlVsvpRRostMNqNmaGbKv-TGGYu3Sg.JPG" 
-                        alt="Logistics Emergency Team: 20 years of coordinating humanitarian aid" 
+                        src="https://readdy.ai/api/search-image?query=Modern%20urban%20infrastructure%20public%20market%20renovation%20Kinshasa%20architecture&width=300&height=200&seq=spotlight-3&orientation=landscape" 
+                        alt="Modernisation des infrastructures urbaines et des marchés de Kinshasa" 
                         className="w-full h-full object-cover object-top" 
                       />
                     </div>
                     <div className="p-4 flex-1">
                       <div className="mb-2">
-                        <span className="text-blue-600 font-medium text-sm">Global Cooperation</span>
+                        <span className="text-blue-600 font-medium text-sm">Infrastructures</span>
                       </div>
-                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">Logistics Emergency Team: 20 years of coordinating humanitarian aid</h4>
+                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">Modernisation des infrastructures urbaines et des marchés de Kinshasa.</h4>
                     </div>
                   </div>
                 </article>
@@ -617,22 +537,16 @@ export default function Home() {
                   <div className="flex">
                     <div className="relative w-32 h-24 flex-shrink-0">
                       <img 
-                        src="https://cdn.jwplayer.com/thumbs/rqTBjlzG-1920.jpg" 
-                        alt="Climate change is threatening workers' health. Here are 8 ways businesses can protect their employees" 
+                        src="https://readdy.ai/api/search-image?query=Business%20meeting%20investors%20Kinshasa%20corporate%20partnership%20conference&width=300&height=200&seq=spotlight-4&orientation=landscape" 
+                        alt="Investir en RDC : Climat des affaires et partenariats stratégiques pour 2026" 
                         className="w-full h-full object-cover object-top" 
                       />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="bg-black/50 rounded-full p-2">
-                          <i className="ri-play-fill text-white text-lg"></i>
-                        </div>
-                      </div>
-                      <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">2:35</div>
                     </div>
                     <div className="p-4 flex-1">
                       <div className="mb-2">
-                        <span className="text-blue-600 font-medium text-sm">Climate Action</span>
+                        <span className="text-blue-600 font-medium text-sm">Climat des Affaires</span>
                       </div>
-                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">Climate change is threatening workers' health. Here are 8 ways businesses can protect their employees</h4>
+                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">Investir en RDC : Climat des affaires et partenariats stratégiques pour 2026.</h4>
                     </div>
                   </div>
                 </article>
@@ -848,7 +762,6 @@ export default function Home() {
               </div>
               <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <Link to="/privacy" className="hover:text-white cursor-pointer">Privacy Policy &amp; Terms of Service</Link>
-        
                 <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
