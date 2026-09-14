@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import MeetingRegistrationForm from '../../components/forms/MeetingRegistrationForm';
 import { jsPDF } from "jspdf";
 import { supabase } from '../../supabase/client';
 
@@ -9,28 +8,6 @@ export default function AgendaPage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
-  // Fonction d'enregistrement Supabase en première position
-  const handleRegistration = async (eventId: number, fullName: string, email: string, organization: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('event_registrations')
-        .insert([
-          {
-            event_id: eventId,
-            full_name: fullName,
-            email: email,
-            organization: organization
-          }
-        ]);
-      if (error) throw error;
-      alert('Inscription réussie ! Vos données ont été enregistrées.');
-    } catch (error: any) {
-      console.error('Erreur lors de l’inscription :', error.message);
-      alert('Une erreur est survenue lors de votre inscription.');
-    }
-  };
-
-  // Liste des événements (uniquement le 10-11 novembre 2026)
   const events = [
     {
       id: 1,
@@ -44,25 +21,24 @@ export default function AgendaPage() {
       description: "Africa and Global Realignment: Investment, Alliances & Strategic Opportunities",
       participants: "Governments, global capital, strategic industries and project owners.",
       outcomes: "Next generation of investment corridors into and across Africa.",
-      submitUrl: "https://readdy.ai/api/form/infrastructure-summit-registration"
     }
   ];
 
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
   const selectedEvent = events.find((e) => e.id === selectedEventId) ?? null;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
-  const [registrationData, setRegistrationData] = useState({
-    title: '',
-    date: '',
-    submitUrl: '',
-  });
-
-  const [showSignInModal, setShowSignInModal] = useState(false);
-  const [showCreateAccount, setShowCreateAccount] = useState(false);
   const [showChairmanModal, setShowChairmanModal] = useState(false);
+
+  // État pour le formulaire d'inscription Supabase intégré
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+  const [registeringEvent, setRegisteringEvent] = useState<{ id: number; title: string; date: string } | null>(null);
+  const [formData, setFormData] = useState({
+    full_name: '',
+    email: '',
+    organization: ''
+  });
+  const [loading, setLoading] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -78,46 +54,51 @@ export default function AgendaPage() {
     return name.split(" ").map((n) => n[0]).join("").toUpperCase();
   };
 
-  const handleSignInSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setShowSignInModal(false);
-  };
-
-  const handleCreateAccountSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setShowSignInModal(false);
-  };
-
-  const switchToCreateAccount = () => setShowCreateAccount(true);
-  const switchToSignIn = () => setShowCreateAccount(false);
-
-  const filteredEvents = selectedCategory === "all"
-    ? events
-    : events.filter((event) => (event as any).category === selectedCategory);
-
   const openEventDetails = (event: any) => setSelectedEventId(event.id);
   const closeEventDetails = () => setSelectedEventId(null);
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const handleRegister = (event: any, submitUrl: string) => {
-    setRegistrationData({
+  const openRegistrationModal = (event: any) => {
+    setRegisteringEvent({
+      id: event.id,
       title: event.title,
-      date: event.date,
-      submitUrl: submitUrl,
+      date: event.date
     });
-    setIsRegistrationOpen(true);
+    setIsRegistrationModalOpen(true);
   };
 
-  const closeRegistration = () => {
-    setIsRegistrationOpen(false);
-    setRegistrationData({
-      title: "",
-      date: "",
-      submitUrl: "",
-    });
+  const closeRegistrationModal = () => {
+    setIsRegistrationModalOpen(false);
+    setRegisteringEvent(null);
+    setFormData({ full_name: '', email: '', organization: '' });
+  };
+
+  const handleSupabaseSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!registeringEvent) return;
+
+    setLoading(true);
+    try {
+      const { error } = await supabase
+        .from('event_registrations') //
+        .insert([
+          {
+            event_id: registeringEvent.id, //
+            full_name: formData.full_name, //
+            email: formData.email, //
+            organization: formData.organization //
+          }
+        ]);
+
+      if (error) throw error;
+      alert('Inscription réussie ! Vos données ont été enregistrées dans Supabase.');
+      closeRegistrationModal();
+    } catch (error: any) {
+      console.error('Erreur lors de l’inscription :', error.message);
+      alert('Une erreur est survenue lors de votre inscription.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const downloadAgenda = () => {
@@ -135,15 +116,13 @@ export default function AgendaPage() {
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <Link to="/" className="flex items-center space-x-3">
-                <img
-                  src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/55c329d4d58fb687f70c222c549f7ec1.png"
-                  alt="AEF Logo"
-                  className="w-10 h-10 object-contain"
-                />
-              </Link>
-            </div>
+            <Link to="/" className="flex items-center space-x-3">
+              <img
+                src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/55c329d4d58fb687f70c222c549f7ec1.png"
+                alt="AEF Logo"
+                className="w-10 h-10 object-contain"
+              />
+            </Link>
 
             <nav className="hidden md:flex space-x-8">
               <Link to="/" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Home</Link>
@@ -280,7 +259,7 @@ export default function AgendaPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {filteredEvents.map((event) => (
+            {events.map((event) => (
               <div key={event.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div className="relative h-48">
                   <img src={event.image} alt={event.title} className="w-full h-full object-cover object-top" />
@@ -300,13 +279,13 @@ export default function AgendaPage() {
                   <div className="flex gap-3">
                     <button
                       onClick={() => openEventDetails(event)}
-                      className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium text-sm"
+                      className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium text-sm cursor-pointer"
                     >
                       Learn More
                     </button>
                     <button
-                      onClick={() => handleRegister(event, event.submitUrl)}
-                      className="border border-blue-900 text-blue-900 px-4 py-2 rounded-md hover:bg-blue-50 font-medium text-sm"
+                      onClick={() => openRegistrationModal(event)}
+                      className="border border-blue-900 text-blue-900 px-4 py-2 rounded-md hover:bg-blue-50 font-medium text-sm cursor-pointer"
                     >
                       Register
                     </button>
@@ -335,10 +314,10 @@ export default function AgendaPage() {
             <div className="flex justify-end">
               <button
                 onClick={() => {
-                  handleRegister(selectedEvent, selectedEvent.submitUrl);
                   closeEventDetails();
+                  openRegistrationModal(selectedEvent);
                 }}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md font-medium text-sm"
+                className="bg-blue-600 text-white px-4 py-2 rounded-md font-medium text-sm cursor-pointer"
               >
                 Register
               </button>
@@ -347,14 +326,73 @@ export default function AgendaPage() {
         </div>
       )}
 
-      {/* Meeting Registration Form */}
-      <MeetingRegistrationForm
-        isOpen={isRegistrationOpen}
-        onClose={closeRegistration}
-        meetingTitle={registrationData.title}
-        meetingDate={registrationData.date}
-        submitUrl={registrationData.submitUrl}
-      />
+      {/* Supabase Registration Modal */}
+      {isRegistrationModalOpen && registeringEvent && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={closeRegistrationModal}>
+          <div className="bg-white rounded-lg max-w-md w-full p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Inscription à l'événement</h3>
+            <p className="text-sm text-gray-600 mb-4">
+              <strong>{registeringEvent.title}</strong><br />
+              {registeringEvent.date}
+            </p>
+
+            <form onSubmit={handleSupabaseSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.full_name}
+                  onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  placeholder="Ex: Jean Dupont"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Adresse email</label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  placeholder="jean.dupont@exemple.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Organisation / Entreprise</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.organization}
+                  onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  placeholder="Ex: Ministère / Société"
+                />
+              </div>
+
+              <div className="flex justify-end space-x-3 pt-2">
+                <button
+                  type="button"
+                  onClick={closeRegistrationModal}
+                  className="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                >
+                  Annuler
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
+                >
+                  {loading ? 'Enregistrement...' : 'Confirmer l\'inscription'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
