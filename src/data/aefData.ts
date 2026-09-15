@@ -65,22 +65,22 @@ export const aefInitiatives = [
   {
     id: 'aiif',
     title: 'Africa Investment & Innovation Fund (AIIF)',
-    image: '/images/initiatives/AIIF.jpg',
+    image: '/images/AIIF.jpg',
   },
   {
     id: 'next-africa-accelerator',
     title: 'Next Africa Accelerator',
-    image: '/images/initiatives/Next-Africa-Accelerator.jpg',
+    image: '/images/Next-Africa-Accelerator.jpg',
   },
   {
     id: 'economic-intelligence-hub',
     title: 'African Economic Intelligence Hub',
-    image: '/images/initiatives/African-Economic-Intelligence-Hub.jpg',
+    image: '/images/African-Economic-Intelligence-Hub.jpg',
   },
   {
     id: 'aef-labs',
     title: 'AEF Labs',
-    image: '/images/initiatives/AEF-LABS.jpg',
+    image: '/images/AEF-LABS.jpg',
   },
 ];
 
