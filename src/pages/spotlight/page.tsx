@@ -19,6 +19,18 @@ export default function SpotlightPage() {
     ? spotlightArticles.find((article) => article.id === Number(id))
     : null;
 
+  // Liste filtrée
+  // IMPORTANT : le Hook doit être appelé avant le return conditionnel
+  const filteredArticles = useMemo(() => {
+    if (activeCategory === 'All') {
+      return spotlightArticles;
+    }
+
+    return spotlightArticles.filter(
+      (article) => article.category === activeCategory
+    );
+  }, [activeCategory]);
+
   // ============================================================
   // PAGE ARTICLE INDIVIDUEL
   // ============================================================
@@ -30,6 +42,7 @@ export default function SpotlightPage() {
         <div className="border-b border-gray-200 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
             <div className="flex flex-wrap items-center gap-2 text-gray-500">
+
               <Link
                 to="/"
                 className="hover:text-blue-700 transition"
@@ -51,6 +64,7 @@ export default function SpotlightPage() {
               <span className="text-gray-900">
                 {selectedArticle.category}
               </span>
+
             </div>
           </div>
         </div>
@@ -127,6 +141,7 @@ export default function SpotlightPage() {
 
           {/* BACK TO SPOTLIGHT */}
           <div className="max-w-5xl mx-auto mt-12 pt-8 border-t border-gray-200">
+
             <Link
               to="/spotlight"
               className="inline-flex items-center text-blue-900 font-semibold hover:text-blue-700 transition"
@@ -134,6 +149,7 @@ export default function SpotlightPage() {
               <i className="ri-arrow-left-line mr-2"></i>
               Back to Spotlight
             </Link>
+
           </div>
 
         </article>
@@ -145,22 +161,14 @@ export default function SpotlightPage() {
   // PAGE SPOTLIGHT / ALL
   // ============================================================
 
-  const filteredArticles = useMemo(() => {
-    if (activeCategory === 'All') {
-      return spotlightArticles;
-    }
-
-    return spotlightArticles.filter(
-      (article) => article.category === activeCategory
-    );
-  }, [activeCategory]);
-
   return (
     <div className="min-h-screen bg-gray-50">
 
       {/* HERO */}
       <section className="bg-gradient-to-r from-blue-950 via-blue-900 to-blue-700 text-white">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
           <div className="max-w-4xl">
 
             <p className="text-blue-200 uppercase tracking-wider text-sm font-semibold mb-4">
@@ -183,11 +191,14 @@ export default function SpotlightPage() {
             </p>
 
           </div>
+
         </div>
+
       </section>
 
       {/* CONTENT */}
       <section className="py-12">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* FILTERS */}
@@ -214,14 +225,17 @@ export default function SpotlightPage() {
           <div className="space-y-8">
 
             {filteredArticles.map((article) => (
+
               <article
                 key={article.id}
                 className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
+
                 <div className="grid md:grid-cols-3">
 
                   {/* IMAGE */}
                   <div className="h-64 md:h-full min-h-[260px] bg-gray-100">
+
                     <img
                       src={article.image}
                       alt={article.title}
@@ -230,6 +244,7 @@ export default function SpotlightPage() {
                         event.currentTarget.style.display = 'none';
                       }}
                     />
+
                   </div>
 
                   {/* CONTENT */}
@@ -259,7 +274,7 @@ export default function SpotlightPage() {
                       {article.description}
                     </p>
 
-                    {/* IMPORTANT : lien vers l'article */}
+                    {/* LIEN VERS L'ARTICLE */}
                     <Link
                       to={`/spotlight/${article.id}`}
                       className="inline-flex items-center text-blue-900 font-semibold hover:text-blue-700 transition"
@@ -271,7 +286,9 @@ export default function SpotlightPage() {
                   </div>
 
                 </div>
+
               </article>
+
             ))}
 
           </div>
@@ -286,8 +303,9 @@ export default function SpotlightPage() {
           )}
 
         </div>
+
       </section>
 
     </div>
   );
-}
+                    }
