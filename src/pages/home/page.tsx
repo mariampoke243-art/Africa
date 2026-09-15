@@ -613,7 +613,7 @@ export default function Home() {
               {spotlightArticles.length > 0 && (
                 <div className="lg:col-span-2">
                   <Link
-                    to={`/spotlight/${article.id}`}
+                    to="/spotlight"
                     className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
                   >
                     <div className="relative">
