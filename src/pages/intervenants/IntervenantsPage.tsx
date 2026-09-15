@@ -177,4 +177,4 @@ export default function IntervenantsPage() {
       </section>
     </div>
   );
-                      }
+}
