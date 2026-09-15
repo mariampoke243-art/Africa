@@ -168,7 +168,7 @@ export default function HomePopups() {
               ================================================= */}
           <div className="relative h-44">
             <img
-              src="/images/aef-2026-announcement.jpg"
+              src="/images/aef-2026-announcement.png"
               alt="Africa Economic Forum 2026 - 10–11 November 2026 - Kinshasa"
               className="w-full h-full object-cover"
             />
