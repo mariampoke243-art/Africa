@@ -36,6 +36,8 @@ const routes = [
   { path: '/privacy', element: <PrivacyPage /> },
   { path: '/admin', element: <AdminPage /> },
   { path: '/spotlight', element: <SpotlightPage /> },
+  { path: '/spotlight/:id', element: <SpotlightPage /> },
+];
 ];
 
 export default routes;
