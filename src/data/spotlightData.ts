@@ -16,7 +16,7 @@ export const spotlightArticles: SpotlightArticle[] = [
       'African Development Bank Becomes Technical Partner of the Africa Women Forum',
     description:
       'A strategic partnership strengthening collaboration around women’s economic leadership, investment and development across Africa.',
-    image: '/images/africa-women-forum.jpg',
+    image: '/images/africa-women.jpg',
   },
 
   {
