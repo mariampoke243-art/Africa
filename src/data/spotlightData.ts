@@ -38,18 +38,18 @@ export const spotlightArticles: SpotlightArticle[] = [
       'From Access to Alignment: Why AEF’s Deal Rooms Matter More Than Networking',
     description:
       'Turning high-level conversations into structured investment opportunities, partnerships and measurable outcomes.',
-    image: '/images/deal-rooms.jpg',
+    image: '/images/access-to-alignment.png',
   },
 
   {
     id: 4,
-    category: 'Strategic Architecture',
+    category: 'Continuity & Institutional Memory',
     date: 'Jan 28, 2026',
     title:
       'Why Multi-Sector Does Not Mean Fragmented: How AEF Creates Continuity for Investors and Governments',
     description:
       'AEF connects governments, investors, institutions and business leaders around a continuous economic agenda.',
-    image: '/images/multi-sector.jpg',
+    image: '/images/multi-sector-continuity.png',
   },
 
   {
@@ -59,6 +59,6 @@ export const spotlightArticles: SpotlightArticle[] = [
     title: 'Africa Women Forum 2026',
     description:
       'A flagship platform bringing together women leaders, investors, entrepreneurs and institutions to advance Africa’s economic transformation.',
-    image: '/images/africa-women-forum-2026.jpg',
+    image: '/images/africa-women-forum.jpg',
   },
 ];
