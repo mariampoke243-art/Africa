@@ -16,7 +16,7 @@ import SignInPage from '../pages/signin/page';
 import PrivacyPage from '../pages/privacy/page';
 import AdminPage from '../pages/admin/page';
 import SpotlightPage from '../pages/spotlight/page';
-import IntervenantsPage from './pages/intervenants/IntervenantsPage';
+import IntervenantsPage from '../pages/intervenants/IntervenantsPage';
 
 const routes = [
   { path: '/', element: <HomePage /> },
