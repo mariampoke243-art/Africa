@@ -16,7 +16,7 @@ export const spotlightArticles: SpotlightArticle[] = [
       'African Development Bank Becomes Technical Partner of the Africa Women Forum',
     description:
       'A strategic partnership strengthening collaboration around women’s economic leadership, investment and development across Africa.',
-    image: '/images/spotlight/africa-women-forum.jpg',
+    image: '/images/africa-women-forum.jpg',
   },
 
   {
@@ -27,7 +27,7 @@ export const spotlightArticles: SpotlightArticle[] = [
       'The African Table: How AEF Is Rebuilding Africa’s Seat in Global Economic Decision-Making',
     description:
       'Africa needs stronger representation, strategic coordination and a more influential role in global economic decision-making.',
-    image: '/images/spotlight/african-table.jpg',
+    image: '/images/african-table.jpg',
   },
 
   {
@@ -38,7 +38,7 @@ export const spotlightArticles: SpotlightArticle[] = [
       'From Access to Alignment: Why AEF’s Deal Rooms Matter More Than Networking',
     description:
       'Turning high-level conversations into structured investment opportunities, partnerships and measurable outcomes.',
-    image: '/images/spotlight/deal-rooms.jpg',
+    image: '/images/deal-rooms.jpg',
   },
 
   {
@@ -49,7 +49,7 @@ export const spotlightArticles: SpotlightArticle[] = [
       'Why Multi-Sector Does Not Mean Fragmented: How AEF Creates Continuity for Investors and Governments',
     description:
       'AEF connects governments, investors, institutions and business leaders around a continuous economic agenda.',
-    image: '/images/spotlight/multi-sector.jpg',
+    image: '/images/multi-sector.jpg',
   },
 
   {
@@ -59,6 +59,6 @@ export const spotlightArticles: SpotlightArticle[] = [
     title: 'Africa Women Forum 2026',
     description:
       'A flagship platform bringing together women leaders, investors, entrepreneurs and institutions to advance Africa’s economic transformation.',
-    image: '/images/spotlight/africa-women-forum-2026.jpg',
+    image: '/images/africa-women-forum-2026.jpg',
   },
 ];
