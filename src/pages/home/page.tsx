@@ -700,7 +700,7 @@ export default function Home() {
         {/* Intervenants */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
+
             {/* Header Intervenants */}
             <div className="flex justify-between items-center mb-12">
               <div>
@@ -734,42 +734,43 @@ export default function Home() {
                 </span>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* 2 cartes par ligne */}
+              <div className="grid grid-cols-2 gap-4 md:gap-8">
                 {intervenantsConfirmes.map((intervenant) => (
                   <Link
                     key={intervenant.id}
                     to="/intervenants"
-                    className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group"
+                    className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group border border-gray-200"
                   >
                     <div className="relative">
                       <img
                         src={intervenant.photoUrl}
                         alt={intervenant.nom}
-                        className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-64 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
                       />
 
-                      <span className="absolute top-4 left-4 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                      <span className="absolute top-4 left-4 bg-green-600 text-white text-xs font-semibold px-3 py-2 uppercase tracking-wider">
                         Confirmé
                       </span>
                     </div>
 
                     <div className="p-6">
-                      <h4 className="font-bold text-gray-900 text-lg leading-tight">
+                      <h4 className="font-bold text-gray-900 text-lg md:text-xl leading-tight">
                         {intervenant.nom}
                       </h4>
 
-                      <p className="text-gray-600 text-sm mt-3 line-clamp-4">
+                      <p className="text-gray-600 text-sm md:text-base mt-3 leading-relaxed line-clamp-4">
                         {intervenant.titre}
                       </p>
 
                       {intervenant.institution && (
-                        <p className="text-gray-400 text-xs mt-4">
+                        <p className="text-gray-400 text-xs md:text-sm mt-5 uppercase tracking-wider font-medium">
                           {intervenant.institution}
                         </p>
                       )}
 
                       {intervenant.domaineStrategique && (
-                        <p className="text-teal-600 text-xs mt-2 font-medium">
+                        <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
                           {intervenant.domaineStrategique}
                         </p>
                       )}
@@ -792,41 +793,46 @@ export default function Home() {
                   </span>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* 2 cartes par ligne */}
+                <div className="grid grid-cols-2 gap-4 md:gap-8">
                   {dirigeantsInvites.map((intervenant) => (
                     <Link
                       key={intervenant.id}
                       to="/intervenants"
-                      className="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group"
+                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group border border-gray-200"
                     >
-                      <div className="flex">
-                        <div className="relative w-36 h-40 flex-shrink-0">
-                          <img
-                            src={intervenant.photoUrl}
-                            alt={intervenant.nom}
-                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                          />
+                      <div className="relative">
+                        <img
+                          src={intervenant.photoUrl}
+                          alt={intervenant.nom}
+                          className="w-full h-64 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                        />
 
-                          <span className="absolute top-3 left-3 bg-yellow-600 text-white text-xs font-semibold px-2 py-1 rounded-full">
-                            Invité
-                          </span>
-                        </div>
+                        <span className="absolute top-4 left-4 bg-yellow-600 text-white text-xs font-semibold px-3 py-2 uppercase tracking-wider">
+                          Invité
+                        </span>
+                      </div>
 
-                        <div className="p-5 flex-1">
-                          <h4 className="font-bold text-gray-900 leading-tight">
-                            {intervenant.nom}
-                          </h4>
+                      <div className="p-6">
+                        <h4 className="font-bold text-gray-900 text-lg md:text-xl leading-tight">
+                          {intervenant.nom}
+                        </h4>
 
-                          <p className="text-gray-600 text-sm mt-2 line-clamp-4">
-                            {intervenant.titre}
+                        <p className="text-gray-600 text-sm md:text-base mt-3 leading-relaxed line-clamp-4">
+                          {intervenant.titre}
+                        </p>
+
+                        {intervenant.institution && (
+                          <p className="text-gray-400 text-xs md:text-sm mt-5 uppercase tracking-wider font-medium">
+                            {intervenant.institution}
                           </p>
+                        )}
 
-                          {intervenant.institution && (
-                            <p className="text-gray-400 text-xs mt-3">
-                              {intervenant.institution}
-                            </p>
-                          )}
-                        </div>
+                        {intervenant.domaineStrategique && (
+                          <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
+                            {intervenant.domaineStrategique}
+                          </p>
+                        )}
                       </div>
                     </Link>
                   ))}
@@ -1218,4 +1224,4 @@ export default function Home() {
       </footer>
     </div>
   );
-                        }
+        }
