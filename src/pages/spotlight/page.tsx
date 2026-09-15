@@ -14,13 +14,19 @@ export default function SpotlightPage() {
 
   const [activeCategory, setActiveCategory] = useState('All');
 
-  // Article sélectionné
+  // ============================================================
+  // ARTICLE SÉLECTIONNÉ
+  // ============================================================
+
   const selectedArticle = id
     ? spotlightArticles.find((article) => article.id === Number(id))
     : null;
 
-  // Liste filtrée
-  // IMPORTANT : le Hook doit être appelé avant le return conditionnel
+  // ============================================================
+  // LISTE FILTRÉE
+  // Le Hook est appelé avant tout return conditionnel
+  // ============================================================
+
   const filteredArticles = useMemo(() => {
     if (activeCategory === 'All') {
       return spotlightArticles;
@@ -34,6 +40,7 @@ export default function SpotlightPage() {
   // ============================================================
   // PAGE ARTICLE INDIVIDUEL
   // ============================================================
+
   if (selectedArticle) {
     return (
       <div className="min-h-screen bg-white">
@@ -86,6 +93,7 @@ export default function SpotlightPage() {
           <div className="flex items-center gap-4 border-b border-gray-200 pb-8 mb-12">
 
             <div className="w-14 h-14 rounded-full overflow-hidden bg-blue-950 flex items-center justify-center flex-shrink-0">
+
               <img
                 src="/images/logo.png"
                 alt="Africa Economic Forum"
@@ -94,9 +102,11 @@ export default function SpotlightPage() {
                   event.currentTarget.style.display = 'none';
                 }}
               />
+
             </div>
 
             <div>
+
               <p className="font-semibold text-gray-900">
                 Africa Economic Forum Public Relations Team
               </p>
@@ -104,17 +114,20 @@ export default function SpotlightPage() {
               <p className="text-gray-500">
                 {selectedArticle.date}
               </p>
+
             </div>
 
           </div>
 
           {/* IMAGE */}
           <div className="mb-14">
+
             <img
               src={selectedArticle.image}
               alt={selectedArticle.title}
               className="w-full max-h-[650px] object-cover rounded-2xl shadow-lg"
             />
+
           </div>
 
           {/* LONG ARTICLE CONTENT */}
@@ -153,6 +166,7 @@ export default function SpotlightPage() {
           </div>
 
         </article>
+
       </div>
     );
   }
@@ -296,9 +310,11 @@ export default function SpotlightPage() {
           {/* NO RESULTS */}
           {filteredArticles.length === 0 && (
             <div className="text-center py-16">
+
               <p className="text-gray-500">
                 No Spotlight articles found.
               </p>
+
             </div>
           )}
 
@@ -308,4 +324,4 @@ export default function SpotlightPage() {
 
     </div>
   );
-                    }
+}
