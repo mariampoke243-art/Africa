@@ -7,6 +7,8 @@ import {
 
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
+
 import { useAuth } from '../../contexts/AuthContext';
 
 import { aefInitiatives } from '../../data/aefData';
@@ -19,22 +21,50 @@ import { listeIntervenants } from '../../data/intervenantsData';
 
 import HomePopups from '../../components/HomePopups';
 
+import { LanguageSelector } from '../../components/LanguageSelector';
+
 
 export default function Home() {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  /* =========================================================
+     TRANSLATIONS
+     ========================================================= */
+
+  const { t, i18n } = useTranslation();
+
+
+  /* =========================================================
+     STATES
+     ========================================================= */
+
+  const [showMobileMenu, setShowMobileMenu] =
+    useState(false);
 
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] =
     useState(false);
 
-  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterEmail, setNewsletterEmail] =
+    useState('');
 
-  const [subscribed, setSubscribed] = useState(false);
+  const [subscribed, setSubscribed] =
+    useState(false);
 
-  const { user, isAuthenticated, signOut } = useAuth();
+
+  /* =========================================================
+     AUTH
+     ========================================================= */
+
+  const {
+    user,
+    isAuthenticated,
+    signOut,
+  } = useAuth();
+
 
   const navigate = useNavigate();
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const videoRef =
+    useRef<HTMLVideoElement | null>(null);
 
 
   /* =========================================================
@@ -42,34 +72,44 @@ export default function Home() {
      ========================================================= */
 
   useEffect(() => {
+
     if (videoRef.current) {
+
       videoRef.current.muted = true;
 
       videoRef.current.play().catch(() => {});
+
     }
+
   }, []);
 
 
   /* =========================================================
-     AUTH
+     AUTH FUNCTIONS
      ========================================================= */
 
   const handleSignIn = () => {
+
     navigate('/signin');
+
   };
 
 
   const handleLogout = async () => {
+
     await signOut();
 
     setIsProfileDropdownOpen(false);
+
   };
 
 
   const handleViewProfile = () => {
+
     navigate('/profile');
 
     setIsProfileDropdownOpen(false);
+
   };
 
 
@@ -78,7 +118,9 @@ export default function Home() {
      ========================================================= */
 
   const toggleMobileMenu = () => {
+
     setShowMobileMenu(!showMobileMenu);
+
   };
 
 
@@ -86,14 +128,20 @@ export default function Home() {
      NEWSLETTER
      ========================================================= */
 
-  const handleNewsletterSubmit = (e: FormEvent) => {
+  const handleNewsletterSubmit = (
+    e: FormEvent
+  ) => {
+
     e.preventDefault();
 
     if (newsletterEmail) {
+
       setSubscribed(true);
 
       setNewsletterEmail('');
+
     }
+
   };
 
 
@@ -102,12 +150,14 @@ export default function Home() {
      ========================================================= */
 
   const getInitials = (name: string) => {
+
     return name
       .split(' ')
       .map((word) => word.charAt(0))
       .join('')
       .toUpperCase()
       .slice(0, 2);
+
   };
 
 
@@ -115,23 +165,37 @@ export default function Home() {
      INTERVENANTS
      ========================================================= */
 
-  const intervenantsConfirmes = listeIntervenants
-    .filter(
-      (intervenant) =>
-        intervenant.statut === 'Confirmé'
-    )
-    .slice(0, 4);
+  const intervenantsConfirmes =
+    listeIntervenants
+      .filter(
+        (intervenant) =>
+          intervenant.statut === 'Confirmé'
+      )
+      .slice(0, 4);
 
 
-  const dirigeantsInvites = listeIntervenants
-    .filter(
-      (intervenant) =>
-        intervenant.statut === 'Invité'
-    )
-    .slice(0, 3);
+  const dirigeantsInvites =
+    listeIntervenants
+      .filter(
+        (intervenant) =>
+          intervenant.statut === 'Invité'
+      )
+      .slice(0, 3);
+
+
+  /* =========================================================
+     CHANGE LANGUAGE
+     ========================================================= */
+
+  const changeLanguage = (language: string) => {
+
+    i18n.changeLanguage(language);
+
+  };
 
 
   return (
+
     <div className="min-h-screen bg-white">
 
       {/* =====================================================
@@ -151,7 +215,9 @@ export default function Home() {
 
           <div className="flex justify-between items-center h-16">
 
-            {/* LOGO */}
+            {/* =================================================
+                LOGO
+                ================================================= */}
 
             <div className="flex items-center">
 
@@ -171,7 +237,9 @@ export default function Home() {
             </div>
 
 
-            {/* DESKTOP NAVIGATION */}
+            {/* =================================================
+                DESKTOP NAVIGATION
+                ================================================= */}
 
             <nav className="hidden md:flex space-x-8">
 
@@ -179,7 +247,7 @@ export default function Home() {
                 to="/"
                 className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600"
               >
-                Home
+                {t('header.home')}
               </Link>
 
 
@@ -187,7 +255,7 @@ export default function Home() {
                 to="/about"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
-                About
+                {t('header.about')}
               </Link>
 
 
@@ -195,7 +263,7 @@ export default function Home() {
                 to="/initiatives"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
-                Initiative
+                {t('header.initiatives')}
               </Link>
 
 
@@ -203,7 +271,7 @@ export default function Home() {
                 to="/stakeholders"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
-                Stakeholders
+                {t('header.stakeholders')}
               </Link>
 
 
@@ -211,7 +279,7 @@ export default function Home() {
                 to="/agenda"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
-                Agenda
+                {t('header.agenda')}
               </Link>
 
 
@@ -219,7 +287,7 @@ export default function Home() {
                 to="/publications"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
-                Publications
+                {t('header.publications')}
               </Link>
 
 
@@ -227,7 +295,7 @@ export default function Home() {
                 to="/meetings"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
-                Meetings
+                {t('header.meetings')}
               </Link>
 
 
@@ -235,15 +303,24 @@ export default function Home() {
                 to="/contact"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
-                Contact
+                {t('header.contact')}
               </Link>
 
             </nav>
 
 
-            {/* DESKTOP AUTH */}
+            {/* =================================================
+                DESKTOP ACTIONS
+                ================================================= */}
 
             <div className="hidden md:flex items-center space-x-4">
+
+              {/* LANGUAGE SELECTOR */}
+
+              <LanguageSelector />
+
+
+              {/* AUTH */}
 
               {isAuthenticated && user ? (
 
@@ -267,9 +344,7 @@ export default function Home() {
                     {user.user_metadata?.avatar_url ? (
 
                       <img
-                        src={
-                          user.user_metadata.avatar_url
-                        }
+                        src={user.user_metadata.avatar_url}
                         alt="Profile"
                         className="w-8 h-8 rounded-full object-cover"
                       />
@@ -280,8 +355,8 @@ export default function Home() {
 
                         {getInitials(
                           user.user_metadata?.full_name ||
-                            user.email?.charAt(0) ||
-                            'U'
+                          user.email?.charAt(0) ||
+                          'U'
                         )}
 
                       </div>
@@ -298,12 +373,17 @@ export default function Home() {
                       <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
 
                         <div className="font-medium">
+
                           {user.user_metadata?.full_name ||
                             'User'}
+
                         </div>
 
+
                         <div className="text-gray-500">
+
                           {user.email}
+
                         </div>
 
                       </div>
@@ -338,7 +418,7 @@ export default function Home() {
                   to="/signin"
                   className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
                 >
-                  Sign In
+                  {t('header.signIn')}
                 </Link>
 
               )}
@@ -346,7 +426,9 @@ export default function Home() {
             </div>
 
 
-            {/* MOBILE BUTTON */}
+            {/* =================================================
+                MOBILE BUTTON
+                ================================================= */}
 
             <button
               type="button"
@@ -357,7 +439,9 @@ export default function Home() {
 
               <i
                 className={`ri-${
-                  showMobileMenu ? 'close' : 'menu'
+                  showMobileMenu
+                    ? 'close'
+                    : 'menu'
                 }-line text-2xl`}
               />
 
@@ -381,76 +465,103 @@ export default function Home() {
               <Link
                 to="/"
                 className="block px-3 py-2 text-base font-medium text-teal-600 bg-teal-50 rounded-md"
-                onClick={() => setShowMobileMenu(false)}
+                onClick={() =>
+                  setShowMobileMenu(false)
+                }
               >
-                Home
+                {t('header.home')}
               </Link>
 
 
               <Link
                 to="/about"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setShowMobileMenu(false)}
+                onClick={() =>
+                  setShowMobileMenu(false)
+                }
               >
-                About
+                {t('header.about')}
               </Link>
 
 
               <Link
                 to="/initiatives"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setShowMobileMenu(false)}
+                onClick={() =>
+                  setShowMobileMenu(false)
+                }
               >
-                Initiative
+                {t('header.initiatives')}
               </Link>
 
 
               <Link
                 to="/stakeholders"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setShowMobileMenu(false)}
+                onClick={() =>
+                  setShowMobileMenu(false)
+                }
               >
-                Stakeholders
+                {t('header.stakeholders')}
               </Link>
 
 
               <Link
                 to="/agenda"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setShowMobileMenu(false)}
+                onClick={() =>
+                  setShowMobileMenu(false)
+                }
               >
-                Agenda
+                {t('header.agenda')}
               </Link>
 
 
               <Link
                 to="/publications"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setShowMobileMenu(false)}
+                onClick={() =>
+                  setShowMobileMenu(false)
+                }
               >
-                Publications
+                {t('header.publications')}
               </Link>
 
 
               <Link
                 to="/meetings"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setShowMobileMenu(false)}
+                onClick={() =>
+                  setShowMobileMenu(false)
+                }
               >
-                Meetings
+                {t('header.meetings')}
               </Link>
 
 
               <Link
                 to="/contact"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
-                onClick={() => setShowMobileMenu(false)}
+                onClick={() =>
+                  setShowMobileMenu(false)
+                }
               >
-                Contact
+                {t('header.contact')}
               </Link>
 
 
-              <div className="pt-4 pb-2">
+              {/* LANGUAGE MOBILE */}
+
+              <div className="px-3 py-4 border-t border-gray-100">
+
+                <LanguageSelector />
+
+              </div>
+
+
+              {/* MOBILE AUTH */}
+
+              <div className="pt-2 pb-2">
 
                 {isAuthenticated && user ? (
 
@@ -461,9 +572,7 @@ export default function Home() {
                       {user.user_metadata?.avatar_url ? (
 
                         <img
-                          src={
-                            user.user_metadata.avatar_url
-                          }
+                          src={user.user_metadata.avatar_url}
                           alt="Profile"
                           className="w-8 h-8 rounded-full object-cover"
                         />
@@ -474,8 +583,8 @@ export default function Home() {
 
                           {getInitials(
                             user.user_metadata?.full_name ||
-                              user.email?.charAt(0) ||
-                              'U'
+                            user.email?.charAt(0) ||
+                            'U'
                           )}
 
                         </div>
@@ -484,8 +593,10 @@ export default function Home() {
 
 
                       <span className="text-gray-700 font-medium">
+
                         {user.user_metadata?.full_name ||
                           'User'}
+
                       </span>
 
                     </div>
@@ -525,7 +636,7 @@ export default function Home() {
                       setShowMobileMenu(false)
                     }
                   >
-                    Sign In
+                    {t('header.signIn')}
                   </Link>
 
                 )}
@@ -578,9 +689,12 @@ export default function Home() {
                     to="/about"
                     className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
                   >
-                    <span>More about the Forum</span>
+                    <span>
+                      More about the Forum
+                    </span>
 
-                    <i className="ri-arrow-right-line"></i>
+                    <i className="ri-arrow-right-line" />
+
                   </Link>
 
                 </div>
@@ -602,7 +716,7 @@ export default function Home() {
                   preload="auto"
                 />
 
-                <div className="absolute inset-0 bg-black/10 rounded-lg pointer-events-none"></div>
+                <div className="absolute inset-0 bg-black/10 rounded-lg pointer-events-none" />
 
               </div>
 
@@ -634,7 +748,7 @@ export default function Home() {
                   to="/initiatives"
                   className="px-6 py-3 font-medium rounded-md transition-colors whitespace-nowrap cursor-pointer bg-blue-900 text-white hover:bg-blue-800"
                 >
-                  Initiatives
+                  {t('header.initiatives')}
                 </Link>
 
 
@@ -642,7 +756,7 @@ export default function Home() {
                   to="/meetings"
                   className="px-6 py-3 font-medium rounded-md transition-colors whitespace-nowrap cursor-pointer text-gray-600 hover:text-blue-900 hover:bg-gray-100"
                 >
-                  Meetings
+                  {t('header.meetings')}
                 </Link>
 
 
@@ -650,7 +764,7 @@ export default function Home() {
                   to="/stakeholders"
                   className="px-6 py-3 font-medium rounded-md transition-colors whitespace-nowrap cursor-pointer text-gray-600 hover:text-blue-900 hover:bg-gray-100"
                 >
-                  Stakeholders
+                  {t('header.stakeholders')}
                 </Link>
 
               </div>
@@ -680,9 +794,8 @@ export default function Home() {
                   <div className="flex items-start space-x-4">
 
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <i className="ri-lightbulb-line text-blue-600"></i>
+                      <i className="ri-lightbulb-line text-blue-600" />
                     </div>
-
 
                     <div>
 
@@ -704,9 +817,8 @@ export default function Home() {
                   <div className="flex items-start space-x-4">
 
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <i className="ri-handshake-line text-green-600"></i>
+                      <i className="ri-handshake-line text-green-600" />
                     </div>
-
 
                     <div>
 
@@ -728,9 +840,8 @@ export default function Home() {
                   <div className="flex items-start space-x-4">
 
                     <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <i className="ri-rocket-line text-purple-600"></i>
+                      <i className="ri-rocket-line text-purple-600" />
                     </div>
-
 
                     <div>
 
@@ -846,12 +957,11 @@ export default function Home() {
             <div className="text-center mb-12">
 
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                See our Different Meetings
+                {t('meetingsPage.sectionTitle')}
               </h2>
 
               <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-                Explore our key meetings addressing Africa's
-                most pressing economic challenges
+                {t('meetingsPage.sectionSubtitle')}
               </p>
 
             </div>
@@ -935,9 +1045,12 @@ export default function Home() {
                 to="/spotlight"
                 className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
               >
-                <span>View All Articles</span>
+                <span>
+                  View All Articles
+                </span>
 
-                <i className="ri-arrow-right-line"></i>
+                <i className="ri-arrow-right-line" />
+
               </Link>
 
             </div>
@@ -954,15 +1067,11 @@ export default function Home() {
                     className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
                   >
 
-                    <div className="relative">
-
-                      <img
-                        src={spotlightArticles[0].image}
-                        alt={spotlightArticles[0].title}
-                        className="w-full h-64 object-cover object-top"
-                      />
-
-                    </div>
+                    <img
+                      src={spotlightArticles[0].image}
+                      alt={spotlightArticles[0].title}
+                      className="w-full h-64 object-cover object-top"
+                    />
 
 
                     <div className="p-6">
@@ -1025,13 +1134,9 @@ export default function Home() {
 
                         <div className="p-4 flex-1">
 
-                          <div className="flex items-center justify-between mb-2 gap-2">
-
-                            <span className="text-blue-600 font-medium text-sm">
-                              {article.category}
-                            </span>
-
-                          </div>
+                          <span className="text-blue-600 font-medium text-sm">
+                            {article.category}
+                          </span>
 
 
                           <p className="text-gray-400 text-xs mb-1">
@@ -1087,9 +1192,12 @@ export default function Home() {
                 to="/intervenants"
                 className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
               >
-                <span>Voir tous les intervenants</span>
+                <span>
+                  Voir tous les intervenants
+                </span>
 
-                <i className="ri-arrow-right-line"></i>
+                <i className="ri-arrow-right-line" />
+
               </Link>
 
             </div>
@@ -1280,7 +1388,7 @@ export default function Home() {
                   Découvrir tous les intervenants
                 </span>
 
-                <i className="ri-arrow-right-line"></i>
+                <i className="ri-arrow-right-line" />
 
               </Link>
 
@@ -1330,7 +1438,9 @@ export default function Home() {
                     type="email"
                     value={newsletterEmail}
                     onChange={(e) =>
-                      setNewsletterEmail(e.target.value)
+                      setNewsletterEmail(
+                        e.target.value
+                      )
                     }
                     placeholder="Enter your email address"
                     className="px-4 py-3 rounded-md text-gray-900 w-full sm:w-80 focus:outline-none"
@@ -1368,13 +1478,17 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
 
-            {/* ABOUT */}
+
+            {/* =================================================
+                ABOUT
+                ================================================= */}
 
             <div>
 
               <h3 className="font-semibold text-lg mb-6">
-                About us
+                {t('footer.aboutUs')}
               </h3>
+
 
               <ul className="space-y-3">
 
@@ -1383,43 +1497,47 @@ export default function Home() {
                     to="/about"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Our mission
+                    {t('footer.ourMission')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/framework"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Our Institutional Framework
+                    {t('footer.ourFramework')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/history"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    History
+                    {t('footer.history')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/about"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Leadership and governance
+                    {t('footer.leadership')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/about"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Our Impact
+                    {t('footer.ourImpact')}
                   </Link>
                 </li>
 
@@ -1428,13 +1546,16 @@ export default function Home() {
             </div>
 
 
-            {/* MORE FROM FORUM */}
+            {/* =================================================
+                MORE FROM FORUM
+                ================================================= */}
 
             <div>
 
               <h3 className="font-semibold text-lg mb-6">
-                More from the Forum
+                {t('footer.moreFromForum')}
               </h3>
+
 
               <ul className="space-y-3">
 
@@ -1443,70 +1564,77 @@ export default function Home() {
                     to="/initiatives"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Centres
+                    {t('footer.centres')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/meetings"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Meetings
+                    {t('footer.meetings')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/stakeholders"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Stakeholders
+                    {t('footer.stakeholders')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/agenda"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Forum Stories
+                    {t('footer.forumStories')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/publications"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Press releases
+                    {t('footer.pressReleases')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/gallery"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Photo gallery
+                    {t('footer.gallery')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/publications"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Podcasts
+                    {t('footer.podcasts')}
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
                     to="/publications"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Videos
+                    {t('footer.videos')}
                   </Link>
                 </li>
 
@@ -1515,13 +1643,16 @@ export default function Home() {
             </div>
 
 
-            {/* ENGAGE */}
+            {/* =================================================
+                ENGAGE
+                ================================================= */}
 
             <div>
 
               <h3 className="font-semibold text-lg mb-6">
-                Engage with us
+                {t('footer.engage')}
               </h3>
+
 
               <ul className="space-y-3">
 
@@ -1534,7 +1665,7 @@ export default function Home() {
                       onClick={handleLogout}
                       className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
                     >
-                      Logout
+                      {t('footer.logout')}
                     </button>
 
                   ) : (
@@ -1543,7 +1674,7 @@ export default function Home() {
                       to="/signin"
                       className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer"
                     >
-                      Sign in
+                      {t('footer.signIn')}
                     </Link>
 
                   )}
@@ -1556,7 +1687,7 @@ export default function Home() {
                     to="/partners"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Partner with us
+                    {t('footer.partner')}
                   </Link>
                 </li>
 
@@ -1566,7 +1697,7 @@ export default function Home() {
                     to="/join"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Become a member
+                    {t('footer.member')}
                   </Link>
                 </li>
 
@@ -1576,7 +1707,7 @@ export default function Home() {
                     to="/contact"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Sign up for our press releases
+                    {t('footer.pressSignUp')}
                   </Link>
                 </li>
 
@@ -1586,7 +1717,7 @@ export default function Home() {
                     to="/contact"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Subscribe to our newsletters
+                    {t('footer.newsletters')}
                   </Link>
                 </li>
 
@@ -1596,7 +1727,7 @@ export default function Home() {
                     to="/contact"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Contact us
+                    {t('footer.contactUs')}
                   </Link>
                 </li>
 
@@ -1605,12 +1736,14 @@ export default function Home() {
             </div>
 
 
-            {/* QUICK LINKS */}
+            {/* =================================================
+                QUICK LINKS
+                ================================================= */}
 
             <div>
 
               <h3 className="font-semibold text-lg mb-6">
-                Quick links
+                {t('footer.quickLinks')}
               </h3>
 
 
@@ -1621,7 +1754,7 @@ export default function Home() {
                     to="/about"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Sustainability at the Forum
+                    {t('footer.sustainability')}
                   </Link>
                 </li>
 
@@ -1631,7 +1764,7 @@ export default function Home() {
                     to="/careers"
                     className="text-gray-300 hover:text-white cursor-pointer"
                   >
-                    Careers
+                    {t('footer.careers')}
                   </Link>
                 </li>
 
@@ -1641,51 +1774,67 @@ export default function Home() {
               <div>
 
                 <h4 className="font-semibold mb-4">
-                  Language editions
+                  {t('footer.languageEditions')}
                 </h4>
 
 
-                <div className="flex space-x-2">
+                <div className="flex flex-wrap gap-x-2 gap-y-2">
 
-                  <Link
-                    to="/"
-                    className="text-gray-300 hover:text-white cursor-pointer"
+                  <button
+                    type="button"
+                    onClick={() => changeLanguage('en')}
+                    className="text-gray-300 hover:text-white"
                   >
                     EN
-                  </Link>
+                  </button>
 
                   <span className="text-gray-500">
                     •
                   </span>
 
-                  <Link
-                    to="/"
-                    className="text-gray-300 hover:text-white cursor-pointer"
+                  <button
+                    type="button"
+                    onClick={() => changeLanguage('fr')}
+                    className="text-gray-300 hover:text-white"
+                  >
+                    FR
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => changeLanguage('pt')}
+                    className="text-gray-300 hover:text-white"
+                  >
+                    PT
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => changeLanguage('es')}
+                    className="text-gray-300 hover:text-white"
                   >
                     ES
-                  </Link>
+                  </button>
 
                   <span className="text-gray-500">
                     •
                   </span>
 
-                  <Link
-                    to="/"
-                    className="text-gray-300 hover:text-white cursor-pointer"
+                  <button
+                    type="button"
+                    onClick={() => changeLanguage('zh')}
+                    className="text-gray-300 hover:text-white"
                   >
                     中文
-                  </Link>
-
-                  <span className="text-gray-500">
-                    •
-                  </span>
-
-                  <Link
-                    to="/"
-                    className="text-gray-300 hover:text-white cursor-pointer"
-                  >
-                    日本語
-                  </Link>
+                  </button>
 
                 </div>
 
@@ -1696,11 +1845,14 @@ export default function Home() {
           </div>
 
 
-          {/* FOOTER BOTTOM */}
+          {/* =================================================
+              FOOTER BOTTOM
+              ================================================= */}
 
           <div className="border-t border-gray-700 pt-8">
 
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+
 
               {/* SOCIAL */}
 
@@ -1708,33 +1860,43 @@ export default function Home() {
 
                 <a
                   href="https://www.facebook.com/share/17Jr8NpqZJ/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                  aria-label="Facebook"
                 >
-                  <i className="ri-facebook-fill text-xl"></i>
+                  <i className="ri-facebook-fill text-xl" />
                 </a>
 
 
                 <a
                   href="https://www.linkedin.com/company/the-africa-economic-forum/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                  aria-label="LinkedIn"
                 >
-                  <i className="ri-linkedin-fill text-xl"></i>
+                  <i className="ri-linkedin-fill text-xl" />
                 </a>
 
 
                 <a
                   href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ=="
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                  aria-label="Instagram"
                 >
-                  <i className="ri-instagram-fill text-xl"></i>
+                  <i className="ri-instagram-fill text-xl" />
                 </a>
 
 
                 <a
                   href="#"
                   className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                  aria-label="YouTube"
                 >
-                  <i className="ri-youtube-fill text-xl"></i>
+                  <i className="ri-youtube-fill text-xl" />
                 </a>
 
               </div>
@@ -1748,17 +1910,19 @@ export default function Home() {
                   to="/privacy"
                   className="hover:text-white cursor-pointer"
                 >
-                  Privacy Policy &amp; Terms of Service
+                  {t('footer.privacy')}
                 </Link>
 
 
                 <p>
-                  © 2026 Africa Economic Forum
+                  {t('footer.copyright')}
                 </p>
 
 
                 <a
                   href="https://codesignglobal.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-white cursor-pointer"
                 >
                   Code Design Global
@@ -1775,5 +1939,7 @@ export default function Home() {
       </footer>
 
     </div>
+
   );
-}
+
+      }
