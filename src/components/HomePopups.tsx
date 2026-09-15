@@ -163,32 +163,28 @@ export default function HomePopups() {
             <i className="ri-close-line text-xl"></i>
           </button>
 
-          {/* Announcement header */}
-          <div
-            className="
-              h-44
-              bg-gradient-to-br
-              from-blue-950
-              via-blue-900
-              to-teal-700
-              text-white
-              flex
-              flex-col
-              items-center
-              justify-center
-              text-center
-              px-6
-            "
-          >
-            <i className="ri-calendar-event-line text-5xl mb-3"></i>
+          {/* =================================================
+              ANNOUNCEMENT IMAGE
+              ================================================= */}
+          <div className="relative h-44">
+            <img
+              src="/images/aef-2026-announcement.jpg"
+              alt="Africa Economic Forum 2026 - 10–11 November 2026 - Kinshasa"
+              className="w-full h-full object-cover"
+            />
 
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-200">
-              New Announcement
-            </p>
+            {/* Dark overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-blue-900/20 to-transparent"></div>
 
-            <p className="text-2xl font-bold mt-2">
-              AEF 2026
-            </p>
+            <div className="absolute bottom-4 left-5 right-5">
+              <p className="text-white text-xs font-bold uppercase tracking-[0.2em]">
+                New Announcement
+              </p>
+
+              <p className="text-white text-2xl font-bold mt-1">
+                AEF 2026
+              </p>
+            </div>
           </div>
 
           {/* Content */}
@@ -211,7 +207,10 @@ export default function HomePopups() {
 
             <div className="flex items-center gap-2 text-gray-600 text-sm mb-4">
               <i className="ri-map-pin-line text-teal-600"></i>
-              <span>Kinshasa, Democratic Republic of Congo</span>
+
+              <span>
+                Kinshasa, Democratic Republic of Congo
+              </span>
             </div>
 
             <p className="text-sm text-gray-600 leading-relaxed mb-5">
