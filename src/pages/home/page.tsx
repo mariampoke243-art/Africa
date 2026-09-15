@@ -1,94 +1,187 @@
-import { useState, useEffect, useRef } from 'react';
+import {
+  useState,
+  useEffect,
+  useRef,
+  type FormEvent,
+} from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
+
 import { aefInitiatives } from '../../data/aefData';
+
 import { forums } from '../meetings/forumsData';
+
 import { spotlightArticles } from '../../data/spotlightData';
+
 import { listeIntervenants } from '../../data/intervenantsData';
+
+import HomePopups from '../../components/HomePopups';
+
 
 export default function Home() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] =
+    useState(false);
+
   const [newsletterEmail, setNewsletterEmail] = useState('');
+
   const [subscribed, setSubscribed] = useState(false);
+
   const { user, isAuthenticated, signOut } = useAuth();
+
   const navigate = useNavigate();
+
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+
+  /* =========================================================
+     VIDEO
+     ========================================================= */
 
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = true;
+
       videoRef.current.play().catch(() => {});
     }
   }, []);
+
+
+  /* =========================================================
+     AUTH
+     ========================================================= */
 
   const handleSignIn = () => {
     navigate('/signin');
   };
 
+
   const handleLogout = async () => {
-    signOut();
+    await signOut();
+
     setIsProfileDropdownOpen(false);
   };
 
+
   const handleViewProfile = () => {
     navigate('/profile');
+
     setIsProfileDropdownOpen(false);
   };
+
+
+  /* =========================================================
+     MOBILE MENU
+     ========================================================= */
 
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
   };
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+
+  /* =========================================================
+     NEWSLETTER
+     ========================================================= */
+
+  const handleNewsletterSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     if (newsletterEmail) {
       setSubscribed(true);
+
       setNewsletterEmail('');
     }
   };
 
+
+  /* =========================================================
+     USER INITIALS
+     ========================================================= */
+
   const getInitials = (name: string) => {
     return name
       .split(' ')
-      .map(word => word.charAt(0))
+      .map((word) => word.charAt(0))
       .join('')
       .toUpperCase()
       .slice(0, 2);
   };
 
-  // Intervenants affichés sur la Home
+
+  /* =========================================================
+     INTERVENANTS
+     ========================================================= */
+
   const intervenantsConfirmes = listeIntervenants
-    .filter(intervenant => intervenant.statut === 'Confirmé')
+    .filter(
+      (intervenant) =>
+        intervenant.statut === 'Confirmé'
+    )
     .slice(0, 4);
 
+
   const dirigeantsInvites = listeIntervenants
-    .filter(intervenant => intervenant.statut === 'Invité')
+    .filter(
+      (intervenant) =>
+        intervenant.statut === 'Invité'
+    )
     .slice(0, 3);
+
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
+
+      {/* =====================================================
+          HOME POPUPS
+          ===================================================== */}
+
+      <HomePopups />
+
+
+      {/* =====================================================
+          HEADER
+          ===================================================== */}
+
       <header className="bg-white shadow-sm sticky top-0 z-50">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <div className="flex justify-between items-center h-16">
+
+            {/* LOGO */}
+
             <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-3">
+
+              <Link
+                to="/"
+                className="flex items-center space-x-3"
+              >
+
                 <img
                   src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/b4bfbdc8f08b91298cef1ff69a069583.png"
                   alt="Africa Economic Forum"
                   className="w-10 h-10 object-contain"
                 />
+
               </Link>
+
             </div>
 
+
+            {/* DESKTOP NAVIGATION */}
+
             <nav className="hidden md:flex space-x-8">
+
               <Link
                 to="/"
                 className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600"
               >
                 Home
               </Link>
+
 
               <Link
                 to="/about"
@@ -97,12 +190,14 @@ export default function Home() {
                 About
               </Link>
 
+
               <Link
                 to="/initiatives"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Initiative
               </Link>
+
 
               <Link
                 to="/stakeholders"
@@ -111,12 +206,14 @@ export default function Home() {
                 Stakeholders
               </Link>
 
+
               <Link
                 to="/agenda"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Agenda
               </Link>
+
 
               <Link
                 to="/publications"
@@ -125,6 +222,7 @@ export default function Home() {
                 Publications
               </Link>
 
+
               <Link
                 to="/meetings"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
@@ -132,93 +230,154 @@ export default function Home() {
                 Meetings
               </Link>
 
+
               <Link
                 to="/contact"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Contact
               </Link>
+
             </nav>
 
+
+            {/* DESKTOP AUTH */}
+
             <div className="hidden md:flex items-center space-x-4">
+
               {isAuthenticated && user ? (
+
                 <div className="relative">
+
                   <button
+                    type="button"
                     onClick={() =>
-                      setIsProfileDropdownOpen(!isProfileDropdownOpen)
+                      setIsProfileDropdownOpen(
+                        !isProfileDropdownOpen
+                      )
                     }
                     className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    title={user.user_metadata?.full_name || user.email}
+                    title={
+                      user.user_metadata?.full_name ||
+                      user.email ||
+                      'Profile'
+                    }
                   >
+
                     {user.user_metadata?.avatar_url ? (
+
                       <img
-                        src={user.user_metadata.avatar_url}
+                        src={
+                          user.user_metadata.avatar_url
+                        }
                         alt="Profile"
                         className="w-8 h-8 rounded-full object-cover"
                       />
+
                     ) : (
+
                       <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+
                         {getInitials(
                           user.user_metadata?.full_name ||
                             user.email?.charAt(0) ||
                             'U'
                         )}
+
                       </div>
+
                     )}
+
                   </button>
 
+
                   {isProfileDropdownOpen && (
+
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+
                       <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
+
                         <div className="font-medium">
-                          {user.user_metadata?.full_name || 'User'}
+                          {user.user_metadata?.full_name ||
+                            'User'}
                         </div>
-                        <div className="text-gray-500">{user.email}</div>
+
+                        <div className="text-gray-500">
+                          {user.email}
+                        </div>
+
                       </div>
 
+
                       <button
+                        type="button"
                         onClick={handleViewProfile}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         View Profile
                       </button>
 
+
                       <button
+                        type="button"
                         onClick={handleLogout}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         Sign Out
                       </button>
+
                     </div>
+
                   )}
+
                 </div>
+
               ) : (
+
                 <Link
                   to="/signin"
                   className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
                 >
                   Sign In
                 </Link>
+
               )}
+
             </div>
 
+
+            {/* MOBILE BUTTON */}
+
             <button
+              type="button"
               onClick={toggleMobileMenu}
               className="md:hidden p-2 cursor-pointer"
+              aria-label="Toggle mobile menu"
             >
+
               <i
                 className={`ri-${
                   showMobileMenu ? 'close' : 'menu'
                 }-line text-2xl`}
-              ></i>
+              />
+
             </button>
+
           </div>
+
         </div>
 
-        {/* Mobile Menu */}
+
+        {/* ===================================================
+            MOBILE MENU
+            =================================================== */}
+
         {showMobileMenu && (
+
           <div className="md:hidden bg-white border-t border-gray-200">
+
             <div className="px-4 py-2 space-y-1">
+
               <Link
                 to="/"
                 className="block px-3 py-2 text-base font-medium text-teal-600 bg-teal-50 rounded-md"
@@ -227,6 +386,7 @@ export default function Home() {
                 Home
               </Link>
 
+
               <Link
                 to="/about"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
@@ -234,6 +394,7 @@ export default function Home() {
               >
                 About
               </Link>
+
 
               <Link
                 to="/initiatives"
@@ -243,6 +404,7 @@ export default function Home() {
                 Initiative
               </Link>
 
+
               <Link
                 to="/stakeholders"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
@@ -250,6 +412,7 @@ export default function Home() {
               >
                 Stakeholders
               </Link>
+
 
               <Link
                 to="/agenda"
@@ -259,6 +422,7 @@ export default function Home() {
                 Agenda
               </Link>
 
+
               <Link
                 to="/publications"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
@@ -266,6 +430,7 @@ export default function Home() {
               >
                 Publications
               </Link>
+
 
               <Link
                 to="/meetings"
@@ -275,6 +440,7 @@ export default function Home() {
                 Meetings
               </Link>
 
+
               <Link
                 to="/contact"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md transition-colors"
@@ -283,32 +449,50 @@ export default function Home() {
                 Contact
               </Link>
 
+
               <div className="pt-4 pb-2">
+
                 {isAuthenticated && user ? (
+
                   <div className="space-y-2">
+
                     <div className="flex items-center space-x-3 px-3 py-2">
+
                       {user.user_metadata?.avatar_url ? (
+
                         <img
-                          src={user.user_metadata.avatar_url}
+                          src={
+                            user.user_metadata.avatar_url
+                          }
                           alt="Profile"
                           className="w-8 h-8 rounded-full object-cover"
                         />
+
                       ) : (
+
                         <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+
                           {getInitials(
                             user.user_metadata?.full_name ||
                               user.email?.charAt(0) ||
                               'U'
                           )}
+
                         </div>
+
                       )}
 
+
                       <span className="text-gray-700 font-medium">
-                        {user.user_metadata?.full_name || 'User'}
+                        {user.user_metadata?.full_name ||
+                          'User'}
                       </span>
+
                     </div>
 
+
                     <button
+                      type="button"
                       onClick={() => {
                         handleViewProfile();
                         setShowMobileMenu(false);
@@ -318,7 +502,9 @@ export default function Home() {
                       View Profile
                     </button>
 
+
                     <button
+                      type="button"
                       onClick={() => {
                         handleLogout();
                         setShowMobileMenu(false);
@@ -327,51 +513,83 @@ export default function Home() {
                     >
                       Sign Out
                     </button>
+
                   </div>
+
                 ) : (
+
                   <Link
                     to="/signin"
                     className="w-full bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer block text-center"
-                    onClick={() => setShowMobileMenu(false)}
+                    onClick={() =>
+                      setShowMobileMenu(false)
+                    }
                   >
                     Sign In
                   </Link>
+
                 )}
+
               </div>
+
             </div>
+
           </div>
+
         )}
+
       </header>
 
-      {/* Main Content */}
+
+      {/* =====================================================
+          MAIN
+          ===================================================== */}
+
       <main>
-        {/* Hero Section */}
+
+        {/* ===================================================
+            HERO
+            =================================================== */}
+
         <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20 lg:py-32">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
             <div className="grid lg:grid-cols-2 gap-12 items-center">
+
               <div className="space-y-8">
+
                 <div className="space-y-6">
+
                   <p className="text-blue-200 text-lg font-medium">
-                    Africa Economic Forum 2026 • 10–11 Nov • Kinshasa
+                    Africa Economic Forum 2026 • 10–11 Nov •
+                    Kinshasa
                   </p>
 
+
                   <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                    A premier platform convening leaders, governments,
-                    investors, and thinkers to shape Africa’s role in the new
-                    global order
+                    A premier platform convening leaders,
+                    governments, investors, and thinkers to
+                    shape Africa’s role in the new global order
                   </h1>
+
 
                   <Link
                     to="/about"
                     className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
                   >
                     <span>More about the Forum</span>
+
                     <i className="ri-arrow-right-line"></i>
                   </Link>
+
                 </div>
+
               </div>
 
+
               <div className="relative">
+
                 <video
                   ref={videoRef}
                   className="w-full h-96 rounded-lg shadow-lg object-cover"
@@ -385,257 +603,372 @@ export default function Home() {
                 />
 
                 <div className="absolute inset-0 bg-black/10 rounded-lg pointer-events-none"></div>
+
               </div>
+
             </div>
+
           </div>
+
         </section>
 
-        {/* How we drive impact */}
+
+        {/* ===================================================
+            HOW WE DRIVE IMPACT
+            =================================================== */}
+
         <section className="py-20 bg-gray-50">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
             <div className="text-center mb-16">
+
               <h2 className="text-4xl font-bold text-gray-900 mb-8">
                 How we drive impact
               </h2>
 
+
               <div className="flex justify-center space-x-8 mb-12">
-                <a
-                  href="/initiatives"
+
+                <Link
+                  to="/initiatives"
                   className="px-6 py-3 font-medium rounded-md transition-colors whitespace-nowrap cursor-pointer bg-blue-900 text-white hover:bg-blue-800"
                 >
                   Initiatives
-                </a>
+                </Link>
 
-                <a
-                  href="/meetings"
+
+                <Link
+                  to="/meetings"
                   className="px-6 py-3 font-medium rounded-md transition-colors whitespace-nowrap cursor-pointer text-gray-600 hover:text-blue-900 hover:bg-gray-100"
                 >
                   Meetings
-                </a>
+                </Link>
 
-                <a
-                  href="/stakeholders"
+
+                <Link
+                  to="/stakeholders"
                   className="px-6 py-3 font-medium rounded-md transition-colors whitespace-nowrap cursor-pointer text-gray-600 hover:text-blue-900 hover:bg-gray-100"
                 >
                   Stakeholders
-                </a>
+                </Link>
+
               </div>
+
             </div>
 
+
             <div className="grid lg:grid-cols-2 gap-16 items-center">
+
               <div className="space-y-8">
+
                 <h2 className="text-4xl font-bold text-gray-900">
                   How We Drive Impact
                 </h2>
 
+
                 <p className="text-lg text-gray-600 leading-relaxed">
-                  Through strategic initiatives, partnerships, and platforms,
-                  we create tangible pathways for Africa's economic
-                  transformation and global leadership.
+                  Through strategic initiatives, partnerships,
+                  and platforms, we create tangible pathways
+                  for Africa's economic transformation and
+                  global leadership.
                 </p>
 
+
                 <div className="space-y-4">
+
                   <div className="flex items-start space-x-4">
+
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                       <i className="ri-lightbulb-line text-blue-600"></i>
                     </div>
 
+
                     <div>
+
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Strategic Dialogue Platforms
                       </h3>
 
                       <p className="text-gray-600">
-                        Creating spaces for meaningful conversations between
-                        African leaders and global partners.
+                        Creating spaces for meaningful
+                        conversations between African leaders
+                        and global partners.
                       </p>
+
                     </div>
+
                   </div>
 
+
                   <div className="flex items-start space-x-4">
+
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                       <i className="ri-handshake-line text-green-600"></i>
                     </div>
 
+
                     <div>
+
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Partnership Facilitation
                       </h3>
 
                       <p className="text-gray-600">
-                        Connecting African opportunities with global capital,
-                        technology, and expertise.
+                        Connecting African opportunities with
+                        global capital, technology, and
+                        expertise.
                       </p>
+
                     </div>
+
                   </div>
 
+
                   <div className="flex items-start space-x-4">
+
                     <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                       <i className="ri-rocket-line text-purple-600"></i>
                     </div>
 
+
                     <div>
+
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Innovation Acceleration
                       </h3>
 
                       <p className="text-gray-600">
-                        Supporting breakthrough solutions that address Africa's
-                        most pressing challenges.
+                        Supporting breakthrough solutions
+                        that address Africa's most pressing
+                        challenges.
                       </p>
+
                     </div>
+
                   </div>
+
                 </div>
 
-                <a
-                  href="/initiatives"
+
+                <Link
+                  to="/initiatives"
                   className="bg-blue-900 text-white px-8 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer inline-block"
                 >
-                  <span>More about our Initiatives</span>
-                </a>
+                  More about our Initiatives
+                </Link>
+
               </div>
 
-              {/* Right column content */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  {aefInitiatives?.slice(0, 2).map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
-                    >
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-48 object-cover object-top"
-                      />
 
-                      <div className="p-4">
-                        <h4 className="font-semibold text-gray-900">
-                          {item.title}
-                        </h4>
+              <div className="grid grid-cols-2 gap-4">
+
+                <div className="space-y-4">
+
+                  {aefInitiatives?.slice(0, 2).map(
+                    (item) => (
+
+                      <div
+                        key={item.id}
+                        className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+                      >
+
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-48 object-cover object-top"
+                        />
+
+                        <div className="p-4">
+
+                          <h4 className="font-semibold text-gray-900">
+                            {item.title}
+                          </h4>
+
+                        </div>
+
                       </div>
-                    </div>
-                  ))}
+
+                    )
+                  )}
+
                 </div>
+
 
                 <div className="space-y-4 mt-8">
-                  {aefInitiatives?.slice(2, 4).map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
-                    >
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-48 object-cover object-top"
-                      />
 
-                      <div className="p-4">
-                        <h4 className="font-semibold text-gray-900">
-                          {item.title}
-                        </h4>
+                  {aefInitiatives?.slice(2, 4).map(
+                    (item) => (
+
+                      <div
+                        key={item.id}
+                        className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+                      >
+
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-48 object-cover object-top"
+                        />
+
+                        <div className="p-4">
+
+                          <h4 className="font-semibold text-gray-900">
+                            {item.title}
+                          </h4>
+
+                        </div>
+
                       </div>
-                    </div>
-                  ))}
+
+                    )
+                  )}
+
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
         </section>
 
-        {/* Our Meetings - même source que la page Meetings */}
+
+        {/* ===================================================
+            MEETINGS
+            =================================================== */}
+
         <section className="py-16 bg-white">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
             <div className="text-center mb-12">
+
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 See our Different Meetings
               </h2>
 
               <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-                Explore our key meetings addressing Africa's most pressing
-                economic challenges
+                Explore our key meetings addressing Africa's
+                most pressing economic challenges
               </p>
+
             </div>
 
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
               {forums.map((forum) => (
+
                 <Link
                   key={forum.id}
                   to="/meetings"
                   className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block"
                 >
+
                   <img
                     src={forum.image}
                     alt={forum.title}
                     className="w-full h-48 object-cover object-top"
                   />
 
+
                   <div className="p-6">
+
                     {forum.sectoralLabel && (
+
                       <p className="text-sm text-teal-600 font-medium mb-2">
                         {forum.sectoralLabel}
                       </p>
+
                     )}
+
 
                     <h3 className="font-semibold text-gray-900 text-lg leading-tight">
                       {forum.title}
                     </h3>
 
+
                     <p className="text-gray-600 text-sm mt-3 line-clamp-3">
                       {forum.description}
                     </p>
+
                   </div>
+
                 </Link>
+
               ))}
+
             </div>
+
           </div>
+
         </section>
 
-        {/* Spotlight */}
+
+        {/* ===================================================
+            SPOTLIGHT
+            =================================================== */}
+
         <section className="py-20 bg-gray-50">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            {/* Spotlight Header */}
+
             <div className="flex justify-between items-center mb-12">
+
               <div>
+
                 <h2 className="text-4xl font-bold text-gray-900 mb-4">
                   Spotlight
                 </h2>
 
                 <p className="text-gray-600 text-lg">
-                  AEF Strategic Announcements &amp; Institutional Milestones
+                  AEF Strategic Announcements &amp;
+                  Institutional Milestones
                 </p>
+
               </div>
+
 
               <Link
                 to="/spotlight"
                 className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
               >
                 <span>View All Articles</span>
+
                 <i className="ri-arrow-right-line"></i>
               </Link>
+
             </div>
 
-            {/* Spotlight Articles */}
+
             <div className="grid lg:grid-cols-3 gap-8">
-              
-              {/* Main Article */}
+
               {spotlightArticles.length > 0 && (
+
                 <div className="lg:col-span-2">
+
                   <Link
                     to="/spotlight"
                     className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
                   >
+
                     <div className="relative">
+
                       <img
                         src={spotlightArticles[0].image}
                         alt={spotlightArticles[0].title}
                         className="w-full h-64 object-cover object-top"
                       />
+
                     </div>
 
+
                     <div className="p-6">
+
                       <div className="flex items-center space-x-4 mb-4">
+
                         <span className="text-blue-600 font-medium text-sm">
                           {spotlightArticles[0].category}
                         </span>
@@ -643,67 +976,102 @@ export default function Home() {
                         <span className="text-gray-400 text-sm">
                           {spotlightArticles[0].date}
                         </span>
+
                       </div>
+
 
                       <h3 className="text-xl font-bold text-gray-900 leading-tight mb-3">
                         {spotlightArticles[0].title}
                       </h3>
 
+
                       <p className="text-gray-600 leading-relaxed">
                         {spotlightArticles[0].description}
                       </p>
+
                     </div>
+
                   </Link>
+
                 </div>
+
               )}
 
-              {/* Secondary Articles */}
-              <div className="space-y-6">
-                {spotlightArticles.slice(1, 5).map((article) => (
-                  <Link
-                    key={article.id}
-                    to={`/spotlight/${article.id}`}
-                    className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
-                  >
-                    <div className="flex">
-                      <div className="relative w-32 h-24 flex-shrink-0">
-                        <img
-                          src={article.image}
-                          alt={article.title}
-                          className="w-full h-full object-cover object-top"
-                        />
-                      </div>
 
-                      <div className="p-4 flex-1">
-                        <div className="flex items-center justify-between mb-2 gap-2">
-                          <span className="text-blue-600 font-medium text-sm">
-                            {article.category}
-                          </span>
+              <div className="space-y-6">
+
+                {spotlightArticles
+                  .slice(1, 5)
+                  .map((article) => (
+
+                    <Link
+                      key={article.id}
+                      to={`/spotlight/${article.id}`}
+                      className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+                    >
+
+                      <div className="flex">
+
+                        <div className="relative w-32 h-24 flex-shrink-0">
+
+                          <img
+                            src={article.image}
+                            alt={article.title}
+                            className="w-full h-full object-cover object-top"
+                          />
+
                         </div>
 
-                        <p className="text-gray-400 text-xs mb-1">
-                          {article.date}
-                        </p>
 
-                        <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
-                          {article.title}
-                        </h4>
+                        <div className="p-4 flex-1">
+
+                          <div className="flex items-center justify-between mb-2 gap-2">
+
+                            <span className="text-blue-600 font-medium text-sm">
+                              {article.category}
+                            </span>
+
+                          </div>
+
+
+                          <p className="text-gray-400 text-xs mb-1">
+                            {article.date}
+                          </p>
+
+
+                          <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
+                            {article.title}
+                          </h4>
+
+                        </div>
+
                       </div>
-                    </div>
-                  </Link>
-                ))}
+
+                    </Link>
+
+                  ))}
+
               </div>
+
             </div>
+
           </div>
+
         </section>
 
-        {/* Intervenants */}
+
+        {/* ===================================================
+            INTERVENANTS
+            =================================================== */}
+
         <section className="py-20 bg-white">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            {/* Header Intervenants */}
             <div className="flex justify-between items-center mb-12">
+
               <div>
+
                 <h2 className="text-4xl font-bold text-gray-900 mb-4">
                   Intervenants
                 </h2>
@@ -711,20 +1079,28 @@ export default function Home() {
                 <p className="text-gray-600 text-lg">
                   Les personnes qui façonnent la conversation
                 </p>
+
               </div>
+
 
               <Link
                 to="/intervenants"
                 className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
               >
                 <span>Voir tous les intervenants</span>
+
                 <i className="ri-arrow-right-line"></i>
               </Link>
+
             </div>
 
-            {/* Intervenants confirmés */}
+
+            {/* CONFIRMÉS */}
+
             <div className="mb-16">
+
               <div className="flex items-center justify-between mb-8">
+
                 <h3 className="text-2xl font-bold text-gray-900">
                   Intervenants confirmés
                 </h3>
@@ -732,58 +1108,86 @@ export default function Home() {
                 <span className="text-sm text-teal-600 font-medium">
                   AEF 2026
                 </span>
+
               </div>
 
-              {/* 2 cartes par ligne */}
+
               <div className="grid grid-cols-2 gap-4 md:gap-8">
-                {intervenantsConfirmes.map((intervenant) => (
-                  <Link
-                    key={intervenant.id}
-                    to="/intervenants"
-                    className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group border border-gray-200"
-                  >
-                    <div className="relative">
-                      <img
-                        src={intervenant.photoUrl}
-                        alt={intervenant.nom}
-                        className="w-full h-64 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                      />
 
-                      <span className="absolute top-4 left-4 bg-green-600 text-white text-xs font-semibold px-3 py-2 uppercase tracking-wider">
-                        Confirmé
-                      </span>
-                    </div>
+                {intervenantsConfirmes.map(
+                  (intervenant) => (
 
-                    <div className="p-6">
-                      <h4 className="font-bold text-gray-900 text-lg md:text-xl leading-tight">
-                        {intervenant.nom}
-                      </h4>
+                    <Link
+                      key={intervenant.id}
+                      to="/intervenants"
+                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group border border-gray-200"
+                    >
 
-                      <p className="text-gray-600 text-sm md:text-base mt-3 leading-relaxed line-clamp-4">
-                        {intervenant.titre}
-                      </p>
+                      <div className="relative">
 
-                      {intervenant.institution && (
-                        <p className="text-gray-400 text-xs md:text-sm mt-5 uppercase tracking-wider font-medium">
-                          {intervenant.institution}
+                        <img
+                          src={intervenant.photoUrl}
+                          alt={intervenant.nom}
+                          className="w-full h-64 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                        />
+
+
+                        <span className="absolute top-4 left-4 bg-green-600 text-white text-xs font-semibold px-3 py-2 uppercase tracking-wider">
+                          Confirmé
+                        </span>
+
+                      </div>
+
+
+                      <div className="p-6">
+
+                        <h4 className="font-bold text-gray-900 text-lg md:text-xl leading-tight">
+                          {intervenant.nom}
+                        </h4>
+
+
+                        <p className="text-gray-600 text-sm md:text-base mt-3 leading-relaxed line-clamp-4">
+                          {intervenant.titre}
                         </p>
-                      )}
 
-                      {intervenant.domaineStrategique && (
-                        <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
-                          {intervenant.domaineStrategique}
-                        </p>
-                      )}
-                    </div>
-                  </Link>
-                ))}
+
+                        {intervenant.institution && (
+
+                          <p className="text-gray-400 text-xs md:text-sm mt-5 uppercase tracking-wider font-medium">
+                            {intervenant.institution}
+                          </p>
+
+                        )}
+
+
+                        {intervenant.domaineStrategique && (
+
+                          <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
+                            {intervenant.domaineStrategique}
+                          </p>
+
+                        )}
+
+                      </div>
+
+                    </Link>
+
+                  )
+                )}
+
               </div>
+
             </div>
 
-            {/* Dirigeants invités */}
+
+            {/* DIRIGEANTS INVITÉS */}
+
             {dirigeantsInvites.length > 0 && (
+
               <div>
+
                 <div className="flex items-center justify-between mb-8">
+
                   <h3 className="text-2xl font-bold text-gray-900">
                     Dirigeants invités
                   </h3>
@@ -791,97 +1195,148 @@ export default function Home() {
                   <span className="text-sm text-yellow-700 font-medium">
                     AEF 2026
                   </span>
+
                 </div>
 
-                {/* 2 cartes par ligne */}
+
                 <div className="grid grid-cols-2 gap-4 md:gap-8">
-                  {dirigeantsInvites.map((intervenant) => (
-                    <Link
-                      key={intervenant.id}
-                      to="/intervenants"
-                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group border border-gray-200"
-                    >
-                      <div className="relative">
-                        <img
-                          src={intervenant.photoUrl}
-                          alt={intervenant.nom}
-                          className="w-full h-64 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                        />
 
-                        <span className="absolute top-4 left-4 bg-yellow-600 text-white text-xs font-semibold px-3 py-2 uppercase tracking-wider">
-                          Invité
-                        </span>
-                      </div>
+                  {dirigeantsInvites.map(
+                    (intervenant) => (
 
-                      <div className="p-6">
-                        <h4 className="font-bold text-gray-900 text-lg md:text-xl leading-tight">
-                          {intervenant.nom}
-                        </h4>
+                      <Link
+                        key={intervenant.id}
+                        to="/intervenants"
+                        className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group border border-gray-200"
+                      >
 
-                        <p className="text-gray-600 text-sm md:text-base mt-3 leading-relaxed line-clamp-4">
-                          {intervenant.titre}
-                        </p>
+                        <div className="relative">
 
-                        {intervenant.institution && (
-                          <p className="text-gray-400 text-xs md:text-sm mt-5 uppercase tracking-wider font-medium">
-                            {intervenant.institution}
+                          <img
+                            src={intervenant.photoUrl}
+                            alt={intervenant.nom}
+                            className="w-full h-64 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                          />
+
+
+                          <span className="absolute top-4 left-4 bg-yellow-600 text-white text-xs font-semibold px-3 py-2 uppercase tracking-wider">
+                            Invité
+                          </span>
+
+                        </div>
+
+
+                        <div className="p-6">
+
+                          <h4 className="font-bold text-gray-900 text-lg md:text-xl leading-tight">
+                            {intervenant.nom}
+                          </h4>
+
+
+                          <p className="text-gray-600 text-sm md:text-base mt-3 leading-relaxed line-clamp-4">
+                            {intervenant.titre}
                           </p>
-                        )}
 
-                        {intervenant.domaineStrategique && (
-                          <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
-                            {intervenant.domaineStrategique}
-                          </p>
-                        )}
-                      </div>
-                    </Link>
-                  ))}
+
+                          {intervenant.institution && (
+
+                            <p className="text-gray-400 text-xs md:text-sm mt-5 uppercase tracking-wider font-medium">
+                              {intervenant.institution}
+                            </p>
+
+                          )}
+
+
+                          {intervenant.domaineStrategique && (
+
+                            <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
+                              {intervenant.domaineStrategique}
+                            </p>
+
+                          )}
+
+                        </div>
+
+                      </Link>
+
+                    )
+                  )}
+
                 </div>
+
               </div>
+
             )}
 
+
             <div className="text-center mt-10">
+
               <Link
                 to="/intervenants"
                 className="inline-flex items-center bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium space-x-2 whitespace-nowrap cursor-pointer"
               >
-                <span>Découvrir tous les intervenants</span>
+
+                <span>
+                  Découvrir tous les intervenants
+                </span>
+
                 <i className="ri-arrow-right-line"></i>
+
               </Link>
+
             </div>
+
           </div>
+
         </section>
 
-        {/* Newsletter Section */}
+
+        {/* ===================================================
+            NEWSLETTER
+            =================================================== */}
+
         <section className="py-16 bg-blue-900 text-white">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
             <div className="max-w-3xl mx-auto text-center space-y-6">
+
               <h2 className="text-3xl font-bold">
                 Subscribe to our Newsletters
               </h2>
 
+
               <p className="text-blue-200 text-lg">
-                Stay updated with the latest insights, reports, and
-                announcements from the Africa Economic Forum.
+                Stay updated with the latest insights, reports,
+                and announcements from the Africa Economic
+                Forum.
               </p>
 
+
               {subscribed ? (
+
                 <div className="bg-teal-700/50 border border-teal-500 text-teal-100 px-6 py-4 rounded-md">
                   Thank you for subscribing to our newsletters!
                 </div>
+
               ) : (
+
                 <form
                   onSubmit={handleNewsletterSubmit}
                   className="flex flex-col sm:flex-row gap-4 justify-center mt-6"
                 >
+
                   <input
                     type="email"
                     value={newsletterEmail}
-                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    onChange={(e) =>
+                      setNewsletterEmail(e.target.value)
+                    }
                     placeholder="Enter your email address"
                     className="px-4 py-3 rounded-md text-gray-900 w-full sm:w-80 focus:outline-none"
                     required
                   />
+
 
                   <button
                     type="submit"
@@ -889,21 +1344,40 @@ export default function Home() {
                   >
                     Subscribe
                   </button>
+
                 </form>
+
               )}
+
             </div>
+
           </div>
+
         </section>
+
       </main>
 
-      {/* Footer */}
+
+      {/* =====================================================
+          FOOTER
+          ===================================================== */}
+
       <footer className="bg-gray-900 text-white py-16">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+
+            {/* ABOUT */}
+
             <div>
-              <h3 className="font-semibold text-lg mb-6">About us</h3>
+
+              <h3 className="font-semibold text-lg mb-6">
+                About us
+              </h3>
 
               <ul className="space-y-3">
+
                 <li>
                   <Link
                     to="/about"
@@ -948,15 +1422,22 @@ export default function Home() {
                     Our Impact
                   </Link>
                 </li>
+
               </ul>
+
             </div>
 
+
+            {/* MORE FROM FORUM */}
+
             <div>
+
               <h3 className="font-semibold text-lg mb-6">
                 More from the Forum
               </h3>
 
               <ul className="space-y-3">
+
                 <li>
                   <Link
                     to="/initiatives"
@@ -1028,32 +1509,47 @@ export default function Home() {
                     Videos
                   </Link>
                 </li>
+
               </ul>
+
             </div>
 
+
+            {/* ENGAGE */}
+
             <div>
+
               <h3 className="font-semibold text-lg mb-6">
                 Engage with us
               </h3>
 
               <ul className="space-y-3">
+
                 <li>
+
                   {user ? (
+
                     <button
+                      type="button"
                       onClick={handleLogout}
                       className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
                     >
                       Logout
                     </button>
+
                   ) : (
+
                     <Link
                       to="/signin"
                       className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer"
                     >
                       Sign in
                     </Link>
+
                   )}
+
                 </li>
+
 
                 <li>
                   <Link
@@ -1064,6 +1560,7 @@ export default function Home() {
                   </Link>
                 </li>
 
+
                 <li>
                   <Link
                     to="/join"
@@ -1072,6 +1569,7 @@ export default function Home() {
                     Become a member
                   </Link>
                 </li>
+
 
                 <li>
                   <Link
@@ -1082,6 +1580,7 @@ export default function Home() {
                   </Link>
                 </li>
 
+
                 <li>
                   <Link
                     to="/contact"
@@ -1091,6 +1590,7 @@ export default function Home() {
                   </Link>
                 </li>
 
+
                 <li>
                   <Link
                     to="/contact"
@@ -1099,13 +1599,23 @@ export default function Home() {
                     Contact us
                   </Link>
                 </li>
+
               </ul>
+
             </div>
 
+
+            {/* QUICK LINKS */}
+
             <div>
-              <h3 className="font-semibold text-lg mb-6">Quick links</h3>
+
+              <h3 className="font-semibold text-lg mb-6">
+                Quick links
+              </h3>
+
 
               <ul className="space-y-3 mb-8">
+
                 <li>
                   <Link
                     to="/about"
@@ -1115,6 +1625,7 @@ export default function Home() {
                   </Link>
                 </li>
 
+
                 <li>
                   <Link
                     to="/careers"
@@ -1123,14 +1634,19 @@ export default function Home() {
                     Careers
                   </Link>
                 </li>
+
               </ul>
 
+
               <div>
+
                 <h4 className="font-semibold mb-4">
                   Language editions
                 </h4>
 
+
                 <div className="flex space-x-2">
+
                   <Link
                     to="/"
                     className="text-gray-300 hover:text-white cursor-pointer"
@@ -1138,7 +1654,9 @@ export default function Home() {
                     EN
                   </Link>
 
-                  <span className="text-gray-500">•</span>
+                  <span className="text-gray-500">
+                    •
+                  </span>
 
                   <Link
                     to="/"
@@ -1147,7 +1665,9 @@ export default function Home() {
                     ES
                   </Link>
 
-                  <span className="text-gray-500">•</span>
+                  <span className="text-gray-500">
+                    •
+                  </span>
 
                   <Link
                     to="/"
@@ -1156,7 +1676,9 @@ export default function Home() {
                     中文
                   </Link>
 
-                  <span className="text-gray-500">•</span>
+                  <span className="text-gray-500">
+                    •
+                  </span>
 
                   <Link
                     to="/"
@@ -1164,20 +1686,33 @@ export default function Home() {
                   >
                     日本語
                   </Link>
+
                 </div>
+
               </div>
+
             </div>
+
           </div>
 
+
+          {/* FOOTER BOTTOM */}
+
           <div className="border-t border-gray-700 pt-8">
+
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+
+              {/* SOCIAL */}
+
               <div className="flex space-x-4">
+
                 <a
                   href="https://www.facebook.com/share/17Jr8NpqZJ/"
                   className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
                 >
                   <i className="ri-facebook-fill text-xl"></i>
                 </a>
+
 
                 <a
                   href="https://www.linkedin.com/company/the-africa-economic-forum/"
@@ -1186,6 +1721,7 @@ export default function Home() {
                   <i className="ri-linkedin-fill text-xl"></i>
                 </a>
 
+
                 <a
                   href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ=="
                   className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
@@ -1193,15 +1729,21 @@ export default function Home() {
                   <i className="ri-instagram-fill text-xl"></i>
                 </a>
 
+
                 <a
                   href="#"
                   className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
                 >
                   <i className="ri-youtube-fill text-xl"></i>
                 </a>
+
               </div>
 
+
+              {/* COPYRIGHT */}
+
               <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
+
                 <Link
                   to="/privacy"
                   className="hover:text-white cursor-pointer"
@@ -1209,7 +1751,11 @@ export default function Home() {
                   Privacy Policy &amp; Terms of Service
                 </Link>
 
-                <p>© 2026 Africa Economic Forum</p>
+
+                <p>
+                  © 2026 Africa Economic Forum
+                </p>
+
 
                 <a
                   href="https://codesignglobal.com"
@@ -1217,11 +1763,17 @@ export default function Home() {
                 >
                   Code Design Global
                 </a>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </footer>
+
     </div>
   );
-        }
+}
