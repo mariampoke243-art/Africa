@@ -16,6 +16,7 @@ import SignInPage from '../pages/signin/page';
 import PrivacyPage from '../pages/privacy/page';
 import AdminPage from '../pages/admin/page';
 import SpotlightPage from '../pages/spotlight/page';
+import IntervenantsPage from './pages/intervenants/IntervenantsPage';
 
 const routes = [
   { path: '/', element: <HomePage /> },
@@ -37,6 +38,7 @@ const routes = [
   { path: '/admin', element: <AdminPage /> },
   { path: '/spotlight', element: <SpotlightPage /> },
   { path: '/spotlight/:id', element: <SpotlightPage /> },
+  <Route path="/intervenants" element={<IntervenantsPage />},
 ];
 
 export default routes;
