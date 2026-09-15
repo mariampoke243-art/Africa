@@ -38,7 +38,7 @@ const routes = [
   { path: '/admin', element: <AdminPage /> },
   { path: '/spotlight', element: <SpotlightPage /> },
   { path: '/spotlight/:id', element: <SpotlightPage /> },
-  <Route path="/intervenants" element={<IntervenantsPage />},
+  { path: '/intervenants', element: <IntervenantsPage /> },
 ];
 
 export default routes;
