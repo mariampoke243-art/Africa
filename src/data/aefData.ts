@@ -63,28 +63,24 @@ export const aefMeetings = [
 
 export const aefInitiatives = [
   {
-    id: 'zlecaf',
-    title: 'ZLECAf & Intégration Économique Africaine',
-    image:
-      'https://readdy.ai/api/search-image?query=African%20economic%20integration%20business%20meeting%20with%20African%20leaders%20and%20entrepreneurs%20discussing%20regional%20trade%20and%20investment%2C%20modern%20conference%20room&width=400&height=300&seq=initiative1&orientation=landscape',
-  },
-  {
     id: 'aiif',
     title: 'Africa Investment & Innovation Fund (AIIF)',
-    image:
-      'https://readdy.ai/api/search-image?query=African%20investment%20fund%20conference%20with%20investors%20and%20African%20entrepreneurs%20discussing%20infrastructure%20and%20innovation%20projects&width=400&height=300&seq=initiative2&orientation=landscape',
+    image: '/images/initiatives/AIIF.jpg',
   },
   {
-    id: 'energy-transition',
-    title: 'Transition Énergétique & Métaux Critiques',
-    image:
-      'https://readdy.ai/api/search-image?query=African%20renewable%20energy%20infrastructure%20project%20with%20solar%20panels%20and%20modern%20industrial%20development%2C%20African%20business%20leaders&width=400&height=300&seq=initiative3&orientation=landscape',
+    id: 'next-africa-accelerator',
+    title: 'Next Africa Accelerator',
+    image: '/images/initiatives/Next-Africa-Accelerator.jpg',
   },
   {
-    id: 'regional-value',
-    title: 'Chaînes de Valeur Régionales',
-    image:
-      'https://readdy.ai/api/search-image?query=African%20industrial%20development%20and%20regional%20value%20chains%20with%20modern%20factories%20and%20African%20business%20leaders&width=400&height=300&seq=initiative4&orientation=landscape',
+    id: 'economic-intelligence-hub',
+    title: 'African Economic Intelligence Hub',
+    image: '/images/initiatives/African-Economic-Intelligence-Hub.jpg',
+  },
+  {
+    id: 'aef-labs',
+    title: 'AEF Labs',
+    image: '/images/initiatives/AEF-LABS.jpg',
   },
 ];
 
