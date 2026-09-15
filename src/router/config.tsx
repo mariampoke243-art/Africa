@@ -38,6 +38,5 @@ const routes = [
   { path: '/spotlight', element: <SpotlightPage /> },
   { path: '/spotlight/:id', element: <SpotlightPage /> },
 ];
-];
 
 export default routes;
