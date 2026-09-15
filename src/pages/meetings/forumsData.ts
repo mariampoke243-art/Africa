@@ -42,7 +42,7 @@ export const forums: Forum[] = [
     description:
       'Shaping Africa’s Peace, Security and Strategic Cooperation.',
 
-    image: '/images/meetings/peaceforum.jpg',
+    image: '/images/peaceforum.jpg',
 
     overview:
       'The Africa Peace Forum convenes leaders, governments, diplomats, security experts, investors and thinkers to address Africa’s peace and security challenges and advance the conditions for sustainable economic transformation.',
@@ -119,7 +119,7 @@ export const forums: Forum[] = [
     description:
       'Transforming African agriculture from subsistence farming to a modern, productive, and sustainable system.',
 
-    image: '/images/meetings/africafood.jpg',
+    image: '/images/africafood.jpg',
 
     overview: `The Agriculture and Food Security Forum addresses one of Africa's most critical development challenges and opportunities.
 
