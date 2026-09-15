@@ -613,7 +613,7 @@ export default function Home() {
               {spotlightArticles.length > 0 && (
                 <div className="lg:col-span-2">
                   <Link
-                    to="/spotlight"
+                    to={`/spotlight/${article.id}`}
                     className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
                   >
                     <div className="relative">
@@ -652,7 +652,7 @@ export default function Home() {
                 {spotlightArticles.slice(1, 5).map((article) => (
                   <Link
                     key={article.id}
-                    to="/spotlight"
+                    to={`/spotlight/${article.id}`}
                     className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
                   >
                     <div className="flex">
