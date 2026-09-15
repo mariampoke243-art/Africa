@@ -15,6 +15,7 @@ import ProfilePage from '../pages/profile/page';
 import SignInPage from '../pages/signin/page';
 import PrivacyPage from '../pages/privacy/page';
 import AdminPage from '../pages/admin/page';
+import SpotlightPage from '../pages/spotlight/page';
 
 const routes = [
   { path: '/', element: <HomePage /> },
@@ -34,6 +35,7 @@ const routes = [
   { path: '/signin', element: <SignInPage /> },
   { path: '/privacy', element: <PrivacyPage /> },
   { path: '/admin', element: <AdminPage /> },
+  { path: '/spotlight', element: <SpotlightPage /> },
 ];
 
 export default routes;
