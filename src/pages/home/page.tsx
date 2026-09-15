@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { aefInitiatives } from '../../data/aefData';
 import { forums } from '../meetings/forumsData';
+import { spotlightArticles } from '../../data/spotlightData';
 
 export default function Home() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -433,6 +434,7 @@ export default function Home() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Strategic Dialogue Platforms
                       </h3>
+
                       <p className="text-gray-600">
                         Creating spaces for meaningful conversations between
                         African leaders and global partners.
@@ -449,6 +451,7 @@ export default function Home() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Partnership Facilitation
                       </h3>
+
                       <p className="text-gray-600">
                         Connecting African opportunities with global capital,
                         technology, and expertise.
@@ -465,6 +468,7 @@ export default function Home() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Innovation Acceleration
                       </h3>
+
                       <p className="text-gray-600">
                         Supporting breakthrough solutions that address Africa's
                         most pressing challenges.
@@ -580,148 +584,104 @@ export default function Home() {
         {/* Spotlight */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            {/* Spotlight Header */}
             <div className="flex justify-between items-center mb-12">
               <div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-4">
                   Spotlight
                 </h2>
+
                 <p className="text-gray-600 text-lg">
-                  Invest in Africa. Country by Country.
+                  AEF Strategic Announcements &amp; Institutional Milestones
                 </p>
               </div>
 
-              <button className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer">
-                <span>More Stories</span>
+              <Link
+                to="/spotlight"
+                className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
+              >
+                <span>View All Articles</span>
                 <i className="ri-arrow-right-line"></i>
-              </button>
+              </Link>
             </div>
 
+            {/* Spotlight Articles */}
             <div className="grid lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2">
-                <article className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="relative">
-                    <img
-                      src="https://readdy.ai/api/search-image?query=Kinshasa%20panoramic%20view%20modern%20cityscape%20Congo%20river%20economic%20center%20dusk&width=800&height=500&seq=spotlight-main&orientation=landscape"
-                      alt="Kinshasa 2026 : Carrefour des opportunités économiques et de la transformation en Afrique centrale"
-                      className="w-full h-64 object-cover object-top"
-                    />
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex items-center space-x-4 mb-4">
-                      <span className="text-blue-600 font-medium text-sm">
-                        Global Cooperation / African Growth
-                      </span>
+              
+              {/* Main Article */}
+              {spotlightArticles.length > 0 && (
+                <div className="lg:col-span-2">
+                  <Link
+                    to="/spotlight"
+                    className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+                  >
+                    <div className="relative">
+                      <img
+                        src={spotlightArticles[0].image}
+                        alt={spotlightArticles[0].title}
+                        className="w-full h-64 object-cover object-top"
+                      />
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-900 leading-tight">
-                      Kinshasa 2026 : Carrefour des opportunités économiques et
-                      de la transformation en Afrique centrale.
-                    </h3>
-                  </div>
-                </article>
-              </div>
+                    <div className="p-6">
+                      <div className="flex items-center space-x-4 mb-4">
+                        <span className="text-blue-600 font-medium text-sm">
+                          {spotlightArticles[0].category}
+                        </span>
 
+                        <span className="text-gray-400 text-sm">
+                          {spotlightArticles[0].date}
+                        </span>
+                      </div>
+
+                      <h3 className="text-xl font-bold text-gray-900 leading-tight mb-3">
+                        {spotlightArticles[0].title}
+                      </h3>
+
+                      <p className="text-gray-600 leading-relaxed">
+                        {spotlightArticles[0].description}
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              )}
+
+              {/* Secondary Articles */}
               <div className="space-y-6">
-                <article className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="flex">
-                    <div className="relative w-32 h-24 flex-shrink-0">
-                      <img
-                        src="https://readdy.ai/api/search-image?query=Critical%20minerals%20mining%20cobalt%20copper%20Democratic%20Republic%20of%20Congo%20industrial%20site&width=300&height=200&seq=spotlight-1&orientation=landscape"
-                        alt="Transition énergétique et chaînes de valeur des minerais stratégiques en RDC"
-                        className="w-full h-full object-cover object-top"
-                      />
-                    </div>
-
-                    <div className="p-4 flex-1">
-                      <div className="mb-2">
-                        <span className="text-blue-600 font-medium text-sm">
-                          Transition Énergétique
-                        </span>
+                {spotlightArticles.slice(1, 5).map((article) => (
+                  <Link
+                    key={article.id}
+                    to="/spotlight"
+                    className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+                  >
+                    <div className="flex">
+                      <div className="relative w-32 h-24 flex-shrink-0">
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          className="w-full h-full object-cover object-top"
+                        />
                       </div>
 
-                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
-                        Transition énergétique et chaînes de valeur des
-                        minerais stratégiques en RDC.
-                      </h4>
-                    </div>
-                  </div>
-                </article>
+                      <div className="p-4 flex-1">
+                        <div className="flex items-center justify-between mb-2 gap-2">
+                          <span className="text-blue-600 font-medium text-sm">
+                            {article.category}
+                          </span>
+                        </div>
 
-                <article className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="flex">
-                    <div className="relative w-32 h-24 flex-shrink-0">
-                      <img
-                        src="https://readdy.ai/api/search-image?query=African%20tech%20startup%20digital%20innovation%20Kinshasa%20developers%20working%20on%20laptops&width=300&height=200&seq=spotlight-2&orientation=landscape"
-                        alt="L'écosystème tech et l'essor des solutions numériques en République Démocratique du Congo"
-                        className="w-full h-full object-cover object-top"
-                      />
-                    </div>
+                        <p className="text-gray-400 text-xs mb-1">
+                          {article.date}
+                        </p>
 
-                    <div className="p-4 flex-1">
-                      <div className="mb-2">
-                        <span className="text-blue-600 font-medium text-sm">
-                          Écosystème Tech
-                        </span>
+                        <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
+                          {article.title}
+                        </h4>
                       </div>
-
-                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
-                        L'écosystème tech et l'essor des solutions numériques
-                        en République Démocratique du Congo.
-                      </h4>
                     </div>
-                  </div>
-                </article>
-
-                <article className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="flex">
-                    <div className="relative w-32 h-24 flex-shrink-0">
-                      <img
-                        src="https://readdy.ai/api/search-image?query=Modern%20urban%20infrastructure%20public%20market%20renovation%20Kinshasa%20architecture&width=300&height=200&seq=spotlight-3&orientation=landscape"
-                        alt="Modernisation des infrastructures urbaines et des marchés de Kinshasa"
-                        className="w-full h-full object-cover object-top"
-                      />
-                    </div>
-
-                    <div className="p-4 flex-1">
-                      <div className="mb-2">
-                        <span className="text-blue-600 font-medium text-sm">
-                          Infrastructures
-                        </span>
-                      </div>
-
-                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
-                        Modernisation des infrastructures urbaines et des
-                        marchés de Kinshasa.
-                      </h4>
-                    </div>
-                  </div>
-                </article>
-
-                <article className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="flex">
-                    <div className="relative w-32 h-24 flex-shrink-0">
-                      <img
-                        src="https://readdy.ai/api/search-image?query=Business%20meeting%20investors%20Kinshasa%20corporate%20partnership%20conference&width=300&height=200&seq=spotlight-4&orientation=landscape"
-                        alt="Investir en RDC : Climat des affaires et partenariats stratégiques pour 2026"
-                        className="w-full h-full object-cover object-top"
-                      />
-                    </div>
-
-                    <div className="p-4 flex-1">
-                      <div className="mb-2">
-                        <span className="text-blue-600 font-medium text-sm">
-                          Climat des Affaires
-                        </span>
-                      </div>
-
-                      <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
-                        Investir en RDC : Climat des affaires et partenariats
-                        stratégiques pour 2026.
-                      </h4>
-                    </div>
-                  </div>
-                </article>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
@@ -735,6 +695,7 @@ export default function Home() {
                 <h2 className="text-4xl font-bold text-gray-900 mb-4">
                   Discover
                 </h2>
+
                 <p className="text-gray-600 text-lg">
                   Find stories through a selection of our key strategic topics
                 </p>
@@ -1228,4 +1189,4 @@ export default function Home() {
       </footer>
     </div>
   );
-                  }
+                }
