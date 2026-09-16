@@ -19,8 +19,8 @@ export default function Join() {
     try {
       const formData = new FormData(e.currentTarget);
 
-      const email = (formData.get('email') as string)?.trim();
-      const password = formData.get('password') as string;
+      const email = String(formData.get('email') || '').trim();
+      const password = String(formData.get('password') || '');
 
       if (!email || !password) {
         alert('Please fill in all required fields.');
@@ -74,139 +74,284 @@ export default function Join() {
       const applicationReference =
         generateApplicationReference();
 
+      // Application date stored as YYYY-MM-DD
+      const applicationDate = new Date()
+        .toISOString()
+        .split('T')[0];
+
+      // Annual contribution
+      const contributionText = String(
+        formData.get('annual_membership_contribution') || ''
+      ).trim();
+
+      const annualMembershipContribution =
+        contributionText === ''
+          ? null
+          : Number(contributionText);
+
+      if (
+        annualMembershipContribution !== null &&
+        !Number.isFinite(annualMembershipContribution)
+      ) {
+        alert(
+          'Please enter a valid annual membership contribution.'
+        );
+        return;
+      }
+
       const { error } = await supabase
         .from('membership_applications')
         .insert([
           {
-            first_name: formData.get('first_name'),
-            last_name: formData.get('last_name'),
-            position_title: formData.get('position_title'),
-            professional_email: formData.get('professional_email'),
+            // --------------------------------
+            // 1. APPLICANT INFORMATION
+            // --------------------------------
+            first_name: String(
+              formData.get('first_name') || ''
+            ).trim(),
+
+            last_name: String(
+              formData.get('last_name') || ''
+            ).trim(),
+
+            position_title: String(
+              formData.get('position_title') || ''
+            ).trim(),
+
+            professional_email: String(
+              formData.get('professional_email') || ''
+            ).trim(),
+
             telephone_whatsapp:
-              formData.get('telephone_whatsapp') || null,
-            country: formData.get('country'),
+              String(
+                formData.get('telephone_whatsapp') || ''
+              ).trim() || null,
 
-            organization_name:
-              formData.get('organization_name'),
-            organization_type:
-              formData.get('organization_type'),
+            country: String(
+              formData.get('country') || ''
+            ).trim(),
+
+            // --------------------------------
+            // 2. ORGANIZATION INFORMATION
+            // --------------------------------
+            organization_name: String(
+              formData.get('organization_name') || ''
+            ).trim(),
+
+            organization_type: String(
+              formData.get('organization_type') || ''
+            ).trim(),
+
             organization_type_other:
-              formData.get('organization_type_other') || null,
-            country_of_registration:
-              formData.get('country_of_registration'),
+              String(
+                formData.get('organization_type_other') || ''
+              ).trim() || null,
+
+            country_of_registration: String(
+              formData.get('country_of_registration') || ''
+            ).trim(),
+
             city_headquarters:
-              formData.get('city_headquarters') || null,
-            website: formData.get('website') || null,
-            organization_email:
-              formData.get('organization_email'),
-            organization_description:
-              formData.get('organization_description'),
+              String(
+                formData.get('city_headquarters') || ''
+              ).trim() || null,
 
-            primary_sector:
-              formData.get('primary_sector'),
+            website:
+              String(
+                formData.get('website') || ''
+              ).trim() || null,
+
+            organization_email: String(
+              formData.get('organization_email') || ''
+            ).trim(),
+
+            organization_description: String(
+              formData.get('organization_description') || ''
+            ).trim(),
+
+            // --------------------------------
+            // 3. SECTOR
+            // --------------------------------
+            primary_sector: String(
+              formData.get('primary_sector') || ''
+            ).trim(),
+
             primary_sector_other:
-              formData.get('primary_sector_other') || null,
+              String(
+                formData.get('primary_sector_other') || ''
+              ).trim() || null,
 
+            // --------------------------------
+            // 4. AGCP - 10 PRINCIPLES
+            // --------------------------------
             principle_1_sovereignty:
-              formData.get('principle_1_sovereignty') !== null,
+              formData.get(
+                'principle_1_sovereignty'
+              ) !== null,
+
             principle_2_long_term_investment:
               formData.get(
                 'principle_2_long_term_investment'
               ) !== null,
+
             principle_3_transparency_ethics:
               formData.get(
                 'principle_3_transparency_ethics'
               ) !== null,
+
             principle_4_skills_technology_transfer:
               formData.get(
                 'principle_4_skills_technology_transfer'
               ) !== null,
+
             principle_5_sme_value_chains:
               formData.get(
                 'principle_5_sme_value_chains'
               ) !== null,
+
             principle_6_environmental_responsibility:
               formData.get(
                 'principle_6_environmental_responsibility'
               ) !== null,
+
             principle_7_women_youth:
-              formData.get('principle_7_women_youth') !== null,
+              formData.get(
+                'principle_7_women_youth'
+              ) !== null,
+
             principle_8_fair_taxation:
-              formData.get('principle_8_fair_taxation') !== null,
+              formData.get(
+                'principle_8_fair_taxation'
+              ) !== null,
+
             principle_9_stakeholder_dialogue:
               formData.get(
                 'principle_9_stakeholder_dialogue'
               ) !== null,
+
             principle_10_impact_accountability:
               formData.get(
                 'principle_10_impact_accountability'
               ) !== null,
 
+            // --------------------------------
+            // 5. COMMITMENT
+            // --------------------------------
             commitment_read_understood:
               formData.get(
                 'commitment_read_understood'
               ) !== null,
+
             commitment_support_principles:
               formData.get(
                 'commitment_support_principles'
               ) !== null,
+
             commitment_uphold_principles:
               formData.get(
                 'commitment_uphold_principles'
               ) !== null,
+
             commitment_responsible_cooperation:
               formData.get(
                 'commitment_responsible_cooperation'
               ) !== null,
+
             commitment_promote_principles:
               formData.get(
                 'commitment_promote_principles'
               ) !== null,
+
             commitment_participate_dialogue:
               formData.get(
                 'commitment_participate_dialogue'
               ) !== null,
 
+            // --------------------------------
+            // 6. AUTHORIZED REPRESENTATIVE
+            // --------------------------------
             representative_full_name:
-              formData.get(
-                'representative_full_name'
-              ),
+              String(
+                formData.get(
+                  'representative_full_name'
+                ) || ''
+              ).trim(),
+
             representative_position_title:
-              formData.get(
-                'representative_position_title'
-              ),
+              String(
+                formData.get(
+                  'representative_position_title'
+                ) || ''
+              ).trim(),
+
             representative_organization:
-              formData.get(
-                'representative_organization'
-              ),
+              String(
+                formData.get(
+                  'representative_organization'
+                ) || ''
+              ).trim(),
+
+            application_date:
+              applicationDate,
+
             electronic_signature:
-              formData.get('electronic_signature'),
+              String(
+                formData.get(
+                  'electronic_signature'
+                ) || ''
+              ).trim(),
 
             authorized_to_sign:
-              formData.get('authorized_to_sign') !== null,
+              formData.get(
+                'authorized_to_sign'
+              ) !== null,
+
             agrees_to_pact:
-              formData.get('agrees_to_pact') !== null,
+              formData.get(
+                'agrees_to_pact'
+              ) !== null,
+
             agrees_to_signatory_register:
               formData.get(
                 'agrees_to_signatory_register'
               ) !== null,
 
+            // --------------------------------
+            // 7. MEMBERSHIP CATEGORY
+            // --------------------------------
             membership_category:
-              formData.get('membership_category'),
-            membership_category_other:
-              formData.get(
-                'membership_category_other'
-              ) || null,
+              String(
+                formData.get(
+                  'membership_category'
+                ) || ''
+              ).trim(),
 
+            membership_category_other:
+              String(
+                formData.get(
+                  'membership_category_other'
+                ) || ''
+              ).trim() || null,
+
+            annual_membership_contribution:
+              annualMembershipContribution,
+
+            // --------------------------------
+            // 8. FINAL CONFIRMATIONS
+            // --------------------------------
             application_and_pact_confirmation:
               formData.get(
                 'application_and_pact_confirmation'
               ) !== null,
+
             information_accuracy_confirmation:
               formData.get(
                 'information_accuracy_confirmation'
               ) !== null,
 
+            // --------------------------------
+            // SYSTEM FIELDS
+            // --------------------------------
             application_reference:
               applicationReference,
 
@@ -227,8 +372,10 @@ export default function Join() {
         return;
       }
 
+      // Success
       setApplicationReference(applicationReference);
       setFormSubmitted(true);
+
       form.reset();
 
       window.scrollTo({
@@ -457,28 +604,52 @@ export default function Join() {
             </div>
 
             <nav className="hidden md:flex space-x-8">
-              <a href="/" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">
+              <a
+                href="/"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium"
+              >
                 Home
               </a>
-              <a href="/about" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">
+              <a
+                href="/about"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium"
+              >
                 About
               </a>
-              <a href="/initiatives" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">
+              <a
+                href="/initiatives"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium"
+              >
                 Initiatives
               </a>
-              <a href="/stakeholders" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">
+              <a
+                href="/stakeholders"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium"
+              >
                 Stakeholders
               </a>
-              <a href="/agenda" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">
+              <a
+                href="/agenda"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium"
+              >
                 Agenda
               </a>
-              <a href="/publications" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">
+              <a
+                href="/publications"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium"
+              >
                 Publications
               </a>
-              <a href="/meetings" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">
+              <a
+                href="/meetings"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium"
+              >
                 Meetings
               </a>
-              <a href="/contact" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">
+              <a
+                href="/contact"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium"
+              >
                 Contact
               </a>
             </nav>
@@ -512,6 +683,7 @@ export default function Join() {
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Membership Application
             </h1>
+
             <p className="text-lg md:text-xl text-blue-100 max-w-4xl mx-auto">
               Join the Africa Economic Forum and become a Signatory of the Africa Global Cooperation Pact.
             </p>
@@ -525,6 +697,7 @@ export default function Join() {
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 JOIN THE AFRICA ECONOMIC FORUM
               </h2>
+
               <p className="text-gray-600 max-w-3xl mx-auto">
                 Thank you for your interest in joining the Africa Economic Forum (AEF).
               </p>
@@ -537,11 +710,15 @@ export default function Join() {
                   className="bg-gray-50 rounded-lg p-6 text-center"
                 >
                   <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i className={`${benefit.icon} text-2xl text-blue-700`}></i>
+                    <i
+                      className={`${benefit.icon} text-2xl text-blue-700`}
+                    ></i>
                   </div>
+
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {benefit.title}
                   </h3>
+
                   <p className="text-gray-600 text-sm leading-relaxed">
                     {benefit.description}
                   </p>
@@ -576,6 +753,7 @@ export default function Join() {
                   <p className="text-sm text-gray-500 mb-1">
                     Application Reference
                   </p>
+
                   <p className="text-2xl font-bold text-blue-900 tracking-wider">
                     {applicationReference}
                   </p>
@@ -885,6 +1063,7 @@ export default function Join() {
                           required
                           className="mt-1 w-5 h-5"
                         />
+
                         <span className="text-gray-700">
                           I confirm that I am authorized to sign the Africa Global Cooperation Pact on behalf of the organization identified in this application.
                         </span>
@@ -897,6 +1076,7 @@ export default function Join() {
                           required
                           className="mt-1 w-5 h-5"
                         />
+
                         <span className="text-gray-700">
                           I have read, understood and agree to the principles and commitments of the Africa Global Cooperation Pact.
                         </span>
@@ -909,6 +1089,7 @@ export default function Join() {
                           required
                           className="mt-1 w-5 h-5"
                         />
+
                         <span className="text-gray-700">
                           I agree to the publication of my organization's name, country and Signatory status in the AGCP Global Signatory Register.
                         </span>
@@ -939,6 +1120,7 @@ export default function Join() {
                             required
                             className="w-5 h-5"
                           />
+
                           <span className="text-gray-700">
                             {category}
                           </span>
@@ -983,6 +1165,7 @@ export default function Join() {
                           required
                           className="mt-1 w-5 h-5"
                         />
+
                         <span className="text-gray-700 leading-relaxed">
                           I understand that this application constitutes both my application for AEF Membership and my organization's formal signature of the Africa Global Cooperation Pact.
                         </span>
@@ -995,6 +1178,7 @@ export default function Join() {
                           required
                           className="mt-1 w-5 h-5"
                         />
+
                         <span className="text-gray-700 leading-relaxed">
                           I confirm that the information provided is accurate and complete.
                         </span>
@@ -1080,27 +1264,46 @@ export default function Join() {
 
               <ul className="space-y-3">
                 <li>
-                  <a href="/about" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/about"
+                    className="text-gray-300 hover:text-white"
+                  >
                     Our mission
                   </a>
                 </li>
+
                 <li>
-                  <a href="/framework" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/framework"
+                    className="text-gray-300 hover:text-white"
+                  >
                     Our Institutional Framework
                   </a>
                 </li>
+
                 <li>
-                  <a href="/history" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/history"
+                    className="text-gray-300 hover:text-white"
+                  >
                     History
                   </a>
                 </li>
+
                 <li>
-                  <a href="/about" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/about"
+                    className="text-gray-300 hover:text-white"
+                  >
                     Leadership and governance
                   </a>
                 </li>
+
                 <li>
-                  <a href="/about" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/about"
+                    className="text-gray-300 hover:text-white"
+                  >
                     Our Impact
                   </a>
                 </li>
@@ -1113,14 +1316,77 @@ export default function Join() {
               </h3>
 
               <ul className="space-y-3">
-                <li><a href="/initiatives" className="text-gray-300 hover:text-white">Centres</a></li>
-                <li><a href="/meetings" className="text-gray-300 hover:text-white">Meetings</a></li>
-                <li><a href="/stakeholders" className="text-gray-300 hover:text-white">Stakeholders</a></li>
-                <li><a href="/agenda" className="text-gray-300 hover:text-white">Forum Stories</a></li>
-                <li><a href="/publications" className="text-gray-300 hover:text-white">Press releases</a></li>
-                <li><a href="/gallery" className="text-gray-300 hover:text-white">Photo gallery</a></li>
-                <li><a href="/publications" className="text-gray-300 hover:text-white">Podcasts</a></li>
-                <li><a href="/publications" className="text-gray-300 hover:text-white">Videos</a></li>
+                <li>
+                  <a
+                    href="/initiatives"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    Centres
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/meetings"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    Meetings
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/stakeholders"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    Stakeholders
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/agenda"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    Forum Stories
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/publications"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    Press releases
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/gallery"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    Photo gallery
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/publications"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    Podcasts
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/publications"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    Videos
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -1140,19 +1406,28 @@ export default function Join() {
                 </li>
 
                 <li>
-                  <a href="/partners" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/partners"
+                    className="text-gray-300 hover:text-white"
+                  >
                     Partner with us
                   </a>
                 </li>
 
                 <li>
-                  <a href="/join" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/join"
+                    className="text-gray-300 hover:text-white"
+                  >
                     Become a member
                   </a>
                 </li>
 
                 <li>
-                  <a href="/contact" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/contact"
+                    className="text-gray-300 hover:text-white"
+                  >
                     Contact us
                   </a>
                 </li>
@@ -1166,13 +1441,19 @@ export default function Join() {
 
               <ul className="space-y-3">
                 <li>
-                  <a href="/about" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/about"
+                    className="text-gray-300 hover:text-white"
+                  >
                     Sustainability at the Forum
                   </a>
                 </li>
 
                 <li>
-                  <a href="/careers" className="text-gray-300 hover:text-white">
+                  <a
+                    href="/careers"
+                    className="text-gray-300 hover:text-white"
+                  >
                     Careers
                   </a>
                 </li>
@@ -1184,13 +1465,39 @@ export default function Join() {
                 </h4>
 
                 <div className="flex space-x-2">
-                  <a href="/" className="text-gray-300 hover:text-white">EN</a>
+                  <a
+                    href="/"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    EN
+                  </a>
+
                   <span className="text-gray-500">•</span>
-                  <a href="/pt" className="text-gray-300 hover:text-white">PT</a>
+
+                  <a
+                    href="/pt"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    PT
+                  </a>
+
                   <span className="text-gray-500">•</span>
-                  <a href="/es" className="text-gray-300 hover:text-white">ES</a>
+
+                  <a
+                    href="/es"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    ES
+                  </a>
+
                   <span className="text-gray-500">•</span>
-                  <a href="/fr" className="text-gray-300 hover:text-white">FR</a>
+
+                  <a
+                    href="/fr"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    FR
+                  </a>
                 </div>
               </div>
             </div>
@@ -1247,6 +1554,8 @@ function Input({
   placeholder,
   value,
   readOnly = false,
+  min,
+  step,
 }: {
   label: string;
   name: string;
@@ -1255,6 +1564,8 @@ function Input({
   placeholder?: string;
   value?: string;
   readOnly?: boolean;
+  min?: string;
+  step?: string;
 }) {
   return (
     <div>
@@ -1268,9 +1579,10 @@ function Input({
         name={name}
         required={required}
         placeholder={placeholder}
-        value={value}
+        defaultValue={value}
         readOnly={readOnly}
-        onChange={() => {}}
+        min={min}
+        step={step}
         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
       />
     </div>
@@ -1338,4 +1650,4 @@ function TextArea({
       />
     </div>
   );
-}
+      }
