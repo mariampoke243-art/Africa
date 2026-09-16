@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { jsPDF } from 'jspdf';
 import { supabase } from '../../supabase/client';
+import { listeIntervenants } from '../../data/intervenantsData';
 
 type Session = {
   time: string;
@@ -161,6 +162,14 @@ const registrationCategories = [
   'Media',
   'Other',
 ];
+
+/* ===================================================
+   APERÇU DES INTERVENANTS
+   =================================================== */
+
+const intervenantsApercu = listeIntervenants
+  .filter((intervenant) => intervenant.statut === 'Confirmé')
+  .slice(0, 4);
 
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
@@ -607,6 +616,88 @@ export default function AgendaPage() {
           <div className="space-y-16">
             {renderDay(dayOne)}
             {renderDay(dayTwo)}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ===================================================
+          INTERVENANTS
+          =================================================== */}
+      <section className="bg-white border-t border-gray-100">
+
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+
+            <div>
+
+              <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
+                AEF 2026
+              </p>
+
+              <h2 className="mt-2 text-3xl font-bold text-gray-900">
+                Intervenants
+              </h2>
+
+              <p className="mt-4 max-w-2xl leading-7 text-gray-600">
+                Découvrez quelques-unes des personnalités qui prendront
+                part aux échanges des 10 et 11 novembre 2026.
+              </p>
+
+            </div>
+
+            <Link
+              to="/intervenants"
+              className="inline-flex w-fit rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-800"
+            >
+              Voir tous les intervenants
+            </Link>
+
+          </div>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+            {intervenantsApercu.map((intervenant) => (
+
+              <Link
+                key={intervenant.id}
+                to="/intervenants"
+                className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              >
+
+                <div className="aspect-[4/5] overflow-hidden bg-gray-100">
+
+                  <img
+                    src={intervenant.photoUrl}
+                    alt={intervenant.nom}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+
+                </div>
+
+                <div className="p-5">
+
+                  <h3 className="text-lg font-semibold leading-tight text-gray-900">
+                    {intervenant.nom}
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-gray-600">
+                    {intervenant.titre}
+                  </p>
+
+                  {intervenant.institution && (
+                    <p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-gray-400">
+                      {intervenant.institution}
+                    </p>
+                  )}
+
+                </div>
+
+              </Link>
+
+            ))}
+
           </div>
 
         </div>
