@@ -30,13 +30,14 @@ export default function AgendaPage() {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [showChairmanModal, setShowChairmanModal] = useState(false);
 
-  // État pour le formulaire d'inscription Supabase intégré
+  // État pour le formulaire d'inscription Supabase intégré (avec category)
   const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
   const [registeringEvent, setRegisteringEvent] = useState<{ id: number; title: string; date: string } | null>(null);
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
-    organization: ''
+    organization: '',
+    category: ''
   });
   const [loading, setLoading] = useState(false);
 
@@ -70,7 +71,7 @@ export default function AgendaPage() {
   const closeRegistrationModal = () => {
     setIsRegistrationModalOpen(false);
     setRegisteringEvent(null);
-    setFormData({ full_name: '', email: '', organization: '' });
+    setFormData({ full_name: '', email: '', organization: '', category: '' });
   };
 
   const handleSupabaseSubmit = async (e: React.FormEvent) => {
@@ -86,11 +87,21 @@ export default function AgendaPage() {
             event_id: registeringEvent.id,
             full_name: formData.full_name,
             email: formData.email,
-            organization: formData.organization
+            organization: formData.organization,
+            category: formData.category
           }
         ]);
 
-      if (error) throw error;
+      if (error) {
+        // Gestion de l'erreur de doublon d'email (code 23505 de PostgreSQL)
+        if (error.code === '23505') {
+          alert("Cet e-mail est déjà enregistré pour cet événement !");
+        } else {
+          throw error;
+        }
+        return;
+      }
+
       alert('Inscription réussie ! Vos données ont été enregistrées dans Supabase.');
       closeRegistrationModal();
     } catch (error: any) {
@@ -199,11 +210,11 @@ export default function AgendaPage() {
         )}
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section avec la nouvelle image de fond */}
       <section
         className="relative py-32 bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.8)), url('https://readdy.ai/api/search-image?query=Kinshasa%20Congo%20conference&width=1920&height=800&seq=agenda-hero-2026&orientation=landscape')`,
+          backgroundImage: `linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.8)), url('/images/tour-kinshasa.jpg')`,
         }}
       >
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
@@ -371,6 +382,28 @@ export default function AgendaPage() {
                   className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
                   placeholder="Ex: Ministère / Société"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Catégorie / Fonction</label>
+                <select
+                  required
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                >
+                  <option value="">Sélectionnez une catégorie</option>
+                  <option value="CEO / Business Leader">CEO / Business Leader</option>
+                  <option value="Investor / Fund">Investor / Fund</option>
+                  <option value="Government / Public Sector">Government / Public Sector</option>
+                  <option value="Financial / Development Institution">Financial / Development Institution</option>
+                  <option value="Project Developer / Entrepreneur">Project Developer / Entrepreneur</option>
+                  <option value="Expert / Thought Leader">Expert / Thought Leader</option>
+                  <option value="Diplomat / International Institution">Diplomat / International Institution</option>
+                  <option value="Corporate Executive">Corporate Executive</option>
+                  <option value="Media">Media</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
 
               <div className="flex justify-end space-x-3 pt-2">
