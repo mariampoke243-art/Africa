@@ -1,360 +1,242 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { jsPDF } from 'jspdf';
 import { supabase } from '../../supabase/client';
 
-import {
-  intervenantsConfirmes,
-  dirigeantsInvites,
-} from '../../data/intervenantsData';
-
-type AgendaSession = {
+type Session = {
   time: string;
   title: string;
-  subtitle?: string;
-  description?: string;
+  description: string;
   dealTrack?: string;
 };
 
-type AgendaDay = {
+type Day = {
   title: string;
-  sessions: AgendaSession[];
+  sessions: Session[];
 };
 
-type AgendaEvent = {
-  id: number;
-  title: string;
-  subtitle: string;
-  date: string;
-  location: string;
-  objective: string;
-  theme: string;
-  image: string;
-  description: string;
-  participants: string;
-  outcomes: string;
-  dayOne: AgendaDay;
-  dayTwo: AgendaDay;
+const event = {
+  id: 1,
+  title: 'Africa Economic Forum 2026',
+  subtitle:
+    'Africa and Global Realignment: Investments, Alliances & Strategic Opportunities',
+  date: '10–11 November 2026',
+  location:
+    'Fleuve Congo Hotel, Kinshasa, Democratic Republic of Congo',
 };
+
+const dayOne: Day = {
+  title: 'DAY ONE — THE GEOPOLITICS OF CAPITAL',
+  sessions: [
+    {
+      time: '08:00–09:00',
+      title: 'DIPLOMATIC BREAKFAST',
+      description:
+        'Ministers × Gulf Investors × CEOs. Curated 1:1 meetings focused on relationships, investment priorities and strategic opportunities.',
+      dealTrack:
+        'Deal Matchmaking: Sector × Geography × Capital × Project × Partnership',
+    },
+    {
+      time: '09:00–10:30',
+      title: 'AFRICA IN THE GEOPOLITICS OF INVESTMENT',
+      description:
+        'US–China–Gulf rivalries, investor sentiment, Gulf capital, equity versus debt, technology investment and Africa’s strategic positioning.',
+      dealTrack: 'Africa–Gulf Investment Pipeline',
+    },
+    {
+      time: '10:30–12:00',
+      title: 'CURRENCY WARS & FINANCIAL SOVEREIGNTY',
+      description:
+        'Dollar, Yuan, Gold and Digital Assets. Currency risk, financial sovereignty, gold and tangible assets, blockchain and development finance.',
+      dealTrack: 'Strategic Financial Partnerships',
+    },
+    {
+      time: '12:00–14:00',
+      title: 'THE VIP LUNCHEON',
+      description:
+        'Countries, capital and strategic partners at the same table. Ten curated investment tables connecting selected projects with qualified investors.',
+      dealTrack:
+        'Tech Exit Strategies • Infrastructure PPPs • Energy Finance • Critical Minerals • Gulf–Africa Investment • Industrial Partnerships',
+    },
+    {
+      time: '14:00–15:30',
+      title: 'TECHNOLOGY & DIGITAL SOVEREIGNTY',
+      description:
+        'AI, Fintech, Digital Infrastructure, patient capital and technology partnerships.',
+      dealTrack: 'Technology Partnerships & Investment',
+    },
+    {
+      time: '15:30–17:00',
+      title: 'ENERGY & NEW ALLIANCES',
+      description:
+        'Oil, Gas, Green and Nuclear energy. Energy security, industrialisation, transition and long-term capital.',
+      dealTrack: 'Selected African Energy Projects',
+    },
+    {
+      time: '17:00–18:30',
+      title: 'THE GRAND AFRICAN DEAL',
+      description:
+        'A platform for potential announcements covering investment commitments, MoUs, joint ventures, infrastructure partnerships, financing agreements and strategic alliances.',
+      dealTrack:
+        'AEF Deal Dashboard: Deals Announced • Capital Mobilised • Projects Advanced • Partnerships Formed',
+    },
+    {
+      time: '18:30+',
+      title: 'CLOSED-DOOR SIGNINGS',
+      description:
+        'Selected negotiations continue beyond the public programme in a private setting.',
+    },
+  ],
+};
+
+const dayTwo: Day = {
+  title: 'DAY TWO — FROM STRATEGIC CAPITAL TO SECTOR OPPORTUNITIES',
+  sessions: [
+    {
+      time: '08:00–09:00',
+      title: 'SECTOR INVESTMENT BREAKFASTS',
+      description:
+        'Focused investment discussions covering Agriculture, Critical Minerals, Health, Infrastructure and Tourism.',
+      dealTrack:
+        'Sector → Priority → Projects → Capital → Partners',
+    },
+    {
+      time: '09:00–10:30',
+      title: 'THE INTRA-AFRICAN TRADE REVOLUTION',
+      description:
+        'Pan-African Payments, Border Modernisation, Digital Trade, AfCFTA and market access.',
+      dealTrack: 'Action Track: Africa Trade Gateway',
+    },
+    {
+      time: '10:30–12:00',
+      title: 'SECTOR DEAL TRACKS',
+      description:
+        'Investment opportunities across Agriculture & Agri-Tech, Critical Minerals, Health Sovereignty, Infrastructure and Tourism.',
+      dealTrack:
+        'Agriculture & Agri-Tech • Critical Minerals • Health Sovereignty • Infrastructure • Tourism',
+    },
+    {
+      time: '12:00–14:00',
+      title: 'DEAL-MAKING LUNCHES',
+      description:
+        'Country, capital, project and investment conversations structured around concrete next steps.',
+      dealTrack:
+        'Government Priority → Project → Capital Requirement → Investor → Next Step',
+    },
+    {
+      time: '14:00–15:30',
+      title: 'COMMERCE WARS',
+      description:
+        'US Trade Policy, China, Belt and Road Initiative, AfCFTA, market access, trade diversification and strategic autonomy.',
+    },
+    {
+      time: '15:30–17:00',
+      title: 'THE FUTURE ECONOMY',
+      description:
+        'Five frontiers: Future Food, Space & Strategic Resources, AI & Health, Next-Generation Infrastructure and Future Tourism.',
+      dealTrack:
+        'Innovation → African Capital → Industry → Investment Opportunity',
+    },
+    {
+      time: '17:00–18:30',
+      title: 'CLOSING DEAL RALLY',
+      description:
+        'Investments, MoUs, joint ventures, financing, trade partnerships and strategic alliances. Verified outcomes are presented through the AEF Investment Scoreboard.',
+      dealTrack:
+        'AEF Scale-Up / Unicorn Award — investment and growth recognition',
+    },
+  ],
+};
+
+const registrationCategories = [
+  'CEO / Business Leader',
+  'Investor / Fund',
+  'Government / Public Sector',
+  'Financial / Development Institution',
+  'Project Developer / Entrepreneur',
+  'Expert / Thought Leader',
+  'Diplomat / International Institution',
+  'Corporate Executive',
+  'Media',
+  'Other',
+];
 
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
-  /* =====================================================
-     ÉVÉNEMENT AEF 2026 + PROGRAMME COMPLET
-  ===================================================== */
-
-  const events: AgendaEvent[] = [
-    {
-      id: 1,
-      title: 'AFRICA ECONOMIC FORUM 2026',
-      subtitle:
-        'The Global Platform for Africa’s Capital, Partnerships and Economic Transformation',
-      date: '10–11 Novembre 2026',
-      location: 'Fleuve Congo Hotel, Kinshasa, Democratic Republic of Congo',
-      objective:
-        'Réunir gouvernements, investisseurs, porteurs de projets et partenaires stratégiques autour d’opportunités concrètes.',
-      theme:
-        'Africa and Global Realignment: Investments, Alliances & Strategic Opportunities',
-      image: '/images/Africa_forum_nov2026.jpg',
-      description:
-        'Deux jours où les gouvernements, les capitaux internationaux, les industries stratégiques et les porteurs de projets se réunissent pour construire la prochaine génération de corridors d’investissement en Afrique.',
-      participants:
-        'Governments, global capital, strategic industries and project owners.',
-      outcomes:
-        'Investment opportunities, partnerships, project pipelines, strategic alliances and pathways toward execution.',
-
-      dayOne: {
-        title: 'THE GEOPOLITICS OF CAPITAL',
-        sessions: [
-          {
-            time: '08:00 – 09:00',
-            title: 'DIPLOMATIC BREAKFAST',
-            subtitle: 'MINISTERS × GULF INVESTORS × CEOs',
-            description:
-              'Conversations 1:1 soigneusement sélectionnées pour identifier les relations et priorités d’investissement à développer pendant le Forum.',
-            dealTrack:
-              'DEAL MATCHMAKING — Sector × Geography × Capital × Project × Partnership',
-          },
-          {
-            time: '09:00 – 10:30',
-            title: 'AFRICA IN THE GEOPOLITICS OF INVESTMENT',
-            subtitle:
-              'HOW AFRICA CAN LEVERAGE US–CHINA–GULF RIVALRIES FOR CAPITAL FLOWS',
-            description:
-              'Sentiment des investisseurs, capitaux du Golfe, equity versus debt, investissements technologiques et positionnement stratégique de l’Afrique.',
-            dealTrack: 'AFRICA–GULF INVESTMENT PIPELINE',
-          },
-          {
-            time: '10:30 – 12:00',
-            title: 'CURRENCY WARS & FINANCIAL SOVEREIGNTY',
-            subtitle: 'DOLLAR. YUAN. GOLD. DIGITAL ASSETS.',
-            description:
-              'Currency risk, souveraineté financière, or et actifs tangibles, blockchain et financement du développement.',
-            dealTrack: 'STRATEGIC FINANCIAL PARTNERSHIPS',
-          },
-          {
-            time: '12:00 – 14:00',
-            title: 'THE VIP LUNCHEON',
-            subtitle:
-              'WHERE COUNTRIES, CAPITAL AND STRATEGIC PARTNERS SIT AT THE SAME TABLE',
-            description:
-              'Déjeuner d’investissement avec des tables thématiques autour de la technologie, des PPP, de l’énergie, des minerais critiques, du financement et des partenariats industriels.',
-            dealTrack:
-              'INVESTMENT SHOWCASE — Selected projects presented to qualified investors',
-          },
-          {
-            time: '14:00 – 15:30',
-            title: 'TECHNOLOGY & DIGITAL SOVEREIGNTY',
-            subtitle:
-              'CAN AFRICA BUILD DIGITAL INFRASTRUCTURE ON ITS OWN TERMS?',
-            description:
-              'AI, Fintech, infrastructures digitales, patient capital et partenariats technologiques.',
-            dealTrack: 'TECHNOLOGY PARTNERSHIPS & INVESTMENT',
-          },
-          {
-            time: '15:30 – 17:00',
-            title: 'ENERGY & NEW ALLIANCES',
-            subtitle: 'OIL. GAS. GREEN. NUCLEAR.',
-            description:
-              'Qui financera les infrastructures énergétiques nécessaires au prochain cycle économique africain ? Énergie, industrialisation, transition et capital à long terme.',
-            dealTrack: 'SELECTED AFRICAN ENERGY PROJECTS',
-          },
-          {
-            time: '17:00 – 18:30',
-            title: 'THE GRAND AFRICAN DEAL',
-            subtitle: 'WHERE STRATEGIC INTENT BECOMES VISIBLE',
-            description:
-              'Annonces potentielles : investissements, MoUs, joint ventures, partenariats d’infrastructure, accords de financement et alliances stratégiques.',
-            dealTrack:
-              'AEF DEAL DASHBOARD — Deals Announced • Capital Mobilised • Projects Advanced • Partnerships Formed',
-          },
-          {
-            time: '18:30+',
-            title: 'CLOSED-DOOR SIGNINGS',
-            subtitle: 'THE DEAL ROOM REMAINS OPEN',
-            description:
-              'Les négociations sélectionnées se poursuivent dans des espaces dédiés pour les discussions finales, la documentation et les signatures.',
-          },
-        ],
-      },
-
-      dayTwo: {
-        title: 'FROM STRATEGIC CAPITAL TO SECTOR OPPORTUNITIES',
-        sessions: [
-          {
-            time: '08:00 – 09:00',
-            title: 'SECTOR INVESTMENT BREAKFASTS',
-            subtitle:
-              'AGRICULTURE • CRITICAL MINERALS • HEALTH • INFRASTRUCTURE • TOURISM',
-            description:
-              'Rencontres sectorielles autour du cadre : Sector → Priority → Projects → Capital → Partners.',
-          },
-          {
-            time: '09:00 – 10:30',
-            title: 'THE INTRA-AFRICAN TRADE REVOLUTION',
-            subtitle: 'FROM BORDERS TO DIGITAL CORRIDORS',
-            description:
-              'Pan-African Payments, Border Modernisation, Digital Trade, AfCFTA et Market Access.',
-            dealTrack: 'ACTION TRACK — AFRICA TRADE GATEWAY',
-          },
-          {
-            time: '10:30 – 12:00',
-            title: 'SECTOR DEAL TRACKS',
-            subtitle: 'FROM STRATEGIC CAPITAL TO EXECUTABLE OPPORTUNITIES',
-            description:
-              'Agriculture & Agri-Tech, Critical Minerals, Health Sovereignty, Infrastructure et Tourism.',
-            dealTrack:
-              'Agricultural Investment • Mineral Processing & Industrial Partnerships • Health Manufacturing • PPP & Project Finance • Tourism Investment',
-          },
-          {
-            time: '12:00 – 14:00',
-            title: 'DEAL-MAKING LUNCHES',
-            subtitle: 'COUNTRY. CAPITAL. PROJECT. TABLE.',
-            description:
-              'Government Priority → Project → Capital Requirement → Investor → Next Step.',
-            dealTrack:
-              'STARTUP INVESTMENT SHOWCASE — Selected companies presented to qualified investors',
-          },
-          {
-            time: '14:00 – 15:30',
-            title: 'COMMERCE WARS',
-            subtitle: 'AFRICA BETWEEN COMPETING TRADE BLOCS',
-            description:
-              'US Trade Policy, China, BRI, AfCFTA, Market Access, Trade Diversification et Strategic Autonomy.',
-          },
-          {
-            time: '15:30 – 17:00',
-            title: 'THE FUTURE ECONOMY',
-            subtitle: 'FIVE INVESTMENT FRONTIERS',
-            description:
-              'Future Food • Space & Strategic Resources • AI & Health • Next-Generation Infrastructure • Future Tourism.',
-            dealTrack:
-              'Chaque innovation doit répondre à une question : que signifie-t-elle pour le capital, l’industrie et l’investissement africains ?',
-          },
-          {
-            time: '17:00 – 18:30',
-            title: 'CLOSING DEAL RALLY',
-            subtitle: 'WHAT MOVED FROM CONVERSATION TO COMMITMENT?',
-            description:
-              'Investments, MoUs, Joint Ventures, Financing, Trade Partnerships et Strategic Alliances.',
-            dealTrack:
-              'AFRICA INVESTMENT SCOREBOARD • AEF SCALE-UP / UNICORN AWARD',
-          },
-        ],
-      },
-    },
-  ];
-
-  const [selectedEventId, setSelectedEventId] = useState<number | null>(
-    null
-  );
-
-  const selectedEvent =
-    events.find((event) => event.id === selectedEventId) ?? null;
-
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showCreateAccountModal, setShowCreateAccountModal] =
+    useState(false);
   const [showChairmanModal, setShowChairmanModal] = useState(false);
-
-  /* =====================================================
-     INSCRIPTION SUPABASE
-  ===================================================== */
-
-  const [isRegistrationModalOpen, setIsRegistrationModalOpen] =
+  const [showProgrammeModal, setShowProgrammeModal] = useState(false);
+  const [showRegistrationModal, setShowRegistrationModal] =
     useState(false);
 
-  const [registeringEvent, setRegisteringEvent] = useState<{
-    id: number;
-    title: string;
-    date: string;
-  } | null>(null);
-
-  const [formData, setFormData] = useState({
+  const [registrationData, setRegistrationData] = useState({
     full_name: '',
     email: '',
     organization: '',
     category: '',
   });
 
-  const [loading, setLoading] = useState(false);
+  const [registrationMessage, setRegistrationMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  /* =====================================================
-     AUTH
-  ===================================================== */
-
-  const handleSignOut = async () => {
-    await signOut();
-    setIsProfileDropdownOpen(false);
-  };
-
-  const handleViewProfile = () => {
-    navigate('/profile');
-    setIsProfileDropdownOpen(false);
-  };
-
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .toUpperCase();
-  };
-
-  /* =====================================================
-     MODALES
-  ===================================================== */
-
-  const openEventDetails = (event: AgendaEvent) => {
-    setSelectedEventId(event.id);
-  };
-
-  const closeEventDetails = () => {
-    setSelectedEventId(null);
-  };
-
-  const openRegistrationModal = (event: AgendaEvent) => {
-    setRegisteringEvent({
-      id: event.id,
-      title: event.title,
-      date: event.date,
-    });
-
-    setIsRegistrationModalOpen(true);
-  };
-
-  const closeRegistrationModal = () => {
-    setIsRegistrationModalOpen(false);
-    setRegisteringEvent(null);
-
-    setFormData({
-      full_name: '',
-      email: '',
-      organization: '',
-      category: '',
-    });
-  };
-
-  /* =====================================================
-     INSCRIPTION SUPABASE
-  ===================================================== */
-
-  const handleSupabaseSubmit = async (e: React.FormEvent) => {
+  const handleRegister = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
-    if (!registeringEvent) return;
-
-    setLoading(true);
+    setRegistrationMessage('');
+    setIsSubmitting(true);
 
     try {
       const { error } = await supabase
         .from('event_registrations')
         .insert([
           {
-            event_id: registeringEvent.id,
-            full_name: formData.full_name,
-            email: formData.email,
-            organization: formData.organization,
-            category: formData.category,
+            event_id: event.id,
+            full_name: registrationData.full_name,
+            email: registrationData.email,
+            organization: registrationData.organization,
+            category: registrationData.category,
           },
         ]);
 
       if (error) {
         if (error.code === '23505') {
-          alert(
-            'Cet e-mail est déjà enregistré pour cet événement !'
+          setRegistrationMessage(
+            'This email is already registered for this event.'
           );
         } else {
-          throw error;
+          setRegistrationMessage(
+            'Unable to complete your registration. Please try again.'
+          );
         }
 
         return;
       }
 
-      alert(
-        'Inscription réussie ! Vos données ont été enregistrées dans Supabase.'
+      setRegistrationMessage(
+        'Registration submitted successfully. We look forward to welcoming you to AEF 2026.'
       );
 
-      closeRegistrationModal();
-    } catch (error: any) {
-      console.error(
-        'Erreur lors de l’inscription :',
-        error.message
-      );
-
-      alert(
-        'Une erreur est survenue lors de votre inscription.'
+      setRegistrationData({
+        full_name: '',
+        email: '',
+        organization: '',
+        category: '',
+      });
+    } catch {
+      setRegistrationMessage(
+        'An unexpected error occurred. Please try again.'
       );
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
-
-  /* =====================================================
-     PDF
-  ===================================================== */
 
   const downloadAgenda = () => {
     const doc = new jsPDF();
@@ -363,1207 +245,645 @@ export default function AgendaPage() {
 
     const addText = (
       text: string,
-      size = 11,
-      bold = false,
-      spacing = 7
+      x: number,
+      fontSize = 10,
+      maxWidth = 175
     ) => {
-      if (y > 275) {
+      doc.setFontSize(fontSize);
+
+      const lines = doc.splitTextToSize(text, maxWidth);
+
+      if (y + lines.length * 6 > 275) {
         doc.addPage();
         y = 20;
       }
 
-      doc.setFontSize(size);
-      doc.setFont('helvetica', bold ? 'bold' : 'normal');
-
-      const lines = doc.splitTextToSize(text, 185);
-
-      doc.text(lines, 10, y);
-
-      y += lines.length * spacing;
+      doc.text(lines, x, y);
+      y += lines.length * 6 + 3;
     };
 
-    addText('THE AFRICA ECONOMIC FORUM 2026', 18, true, 9);
+    doc.setFont('helvetica', 'bold');
+    addText('AFRICA ECONOMIC FORUM 2026', 20, 18);
+
+    doc.setFont('helvetica', 'normal');
 
     addText(
       'Africa and Global Realignment: Investments, Alliances & Strategic Opportunities',
-      11,
-      true
+      20,
+      11
     );
 
     addText(
-      '10–11 Novembre 2026 | Fleuve Congo Hotel | Kinshasa, Democratic Republic of Congo',
+      '10–11 November 2026 — Fleuve Congo Hotel, Kinshasa, Democratic Republic of Congo',
+      20,
       10
     );
 
     y += 5;
 
-    addText(
-      'TWO DAYS. ONE ECONOMIC MISSION.',
-      14,
-      true
-    );
+    const addDay = (day: Day) => {
+      doc.setFont('helvetica', 'bold');
+      addText(day.title, 20, 13);
 
-    y += 5;
+      doc.setFont('helvetica', 'normal');
 
-    addText('DAY ONE — THE GEOPOLITICS OF CAPITAL', 14, true);
+      day.sessions.forEach((session) => {
+        addText(`${session.time} — ${session.title}`, 20, 10);
+        addText(session.description, 25, 9);
 
-    events[0].dayOne.sessions.forEach((session) => {
-      addText(`${session.time} — ${session.title}`, 11, true);
-      if (session.subtitle) {
-        addText(session.subtitle, 9, true);
-      }
-      if (session.description) {
-        addText(session.description, 9);
-      }
-      if (session.dealTrack) {
-        addText(`Deal Track: ${session.dealTrack}`, 9, true);
-      }
-      y += 3;
-    });
+        if (session.dealTrack) {
+          doc.setFont('helvetica', 'italic');
+          addText(
+            `Deal Track: ${session.dealTrack}`,
+            25,
+            9
+          );
+          doc.setFont('helvetica', 'normal');
+        }
+      });
 
-    y += 5;
+      y += 4;
+    };
 
-    addText(
-      'DAY TWO — FROM STRATEGIC CAPITAL TO SECTOR OPPORTUNITIES',
-      14,
-      true
-    );
+    addDay(dayOne);
+    addDay(dayTwo);
 
-    events[0].dayTwo.sessions.forEach((session) => {
-      addText(`${session.time} — ${session.title}`, 11, true);
-      if (session.subtitle) {
-        addText(session.subtitle, 9, true);
-      }
-      if (session.description) {
-        addText(session.description, 9);
-      }
-      if (session.dealTrack) {
-        addText(`Deal Track: ${session.dealTrack}`, 9, true);
-      }
-      y += 3;
-    });
-
-    if (y > 260) {
-      doc.addPage();
-    }
-
-    const pageHeight = doc.internal.pageSize.height;
-
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-
-    doc.text(
-      'www.africaef.com | info@africaef.com',
-      10,
-      pageHeight - 10
-    );
-
-    doc.save('agenda_aef_2026.pdf');
+    doc.save('AEF-2026-Agenda.pdf');
   };
 
-  return (
-    <div className="min-h-screen bg-white">
+  const renderDay = (day: Day) => (
+    <div className="space-y-4">
+      <div className="border-b border-gray-200 pb-4">
+        <h3 className="text-xl font-bold text-gray-900">
+          {day.title}
+        </h3>
+      </div>
 
-      {/* =====================================================
-          HEADER
-      ===================================================== */}
-
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="flex justify-between items-center h-16">
-
-            <Link to="/" className="flex items-center space-x-3">
-              <img
-                src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/55c329d4d58fb687f70c222c549f7ec1.png"
-                alt="AEF Logo"
-                className="w-10 h-10 object-contain"
-              />
-            </Link>
-
-            <nav className="hidden md:flex space-x-6 lg:space-x-8">
-
-              <Link
-                to="/"
-                className="text-gray-700 hover:text-teal-600 px-2 py-2 text-sm font-medium"
-              >
-                Home
-              </Link>
-
-              <Link
-                to="/about"
-                className="text-gray-700 hover:text-teal-600 px-2 py-2 text-sm font-medium"
-              >
-                About
-              </Link>
-
-              <Link
-                to="/initiatives"
-                className="text-gray-700 hover:text-teal-600 px-2 py-2 text-sm font-medium"
-              >
-                Initiatives
-              </Link>
-
-              <Link
-                to="/stakeholders"
-                className="text-gray-700 hover:text-teal-600 px-2 py-2 text-sm font-medium"
-              >
-                Stakeholders
-              </Link>
-
-              <Link
-                to="/agenda"
-                className="text-teal-600 px-2 py-2 text-sm font-medium border-b-2 border-teal-600"
-              >
-                Agenda
-              </Link>
-
-              <Link
-                to="/publications"
-                className="text-gray-700 hover:text-teal-600 px-2 py-2 text-sm font-medium"
-              >
-                Publications
-              </Link>
-
-              <Link
-                to="/meetings"
-                className="text-gray-700 hover:text-teal-600 px-2 py-2 text-sm font-medium"
-              >
-                Meetings
-              </Link>
-
-              <Link
-                to="/contact"
-                className="text-gray-700 hover:text-teal-600 px-2 py-2 text-sm font-medium"
-              >
-                Contact
-              </Link>
-
-            </nav>
-
-            {/* Profile */}
-
-            <div className="hidden md:flex items-center space-x-4">
-
-              {user ? (
-                <div className="relative">
-
-                  <button
-                    onClick={() =>
-                      setIsProfileDropdownOpen(
-                        !isProfileDropdownOpen
-                      )
-                    }
-                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
-                  >
-                    {user.user_metadata?.avatar_url ? (
-                      <img
-                        src={user.user_metadata.avatar_url}
-                        alt="Profile"
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                        {getInitials(
-                          user.user_metadata?.full_name ||
-                            user.email?.charAt(0) ||
-                            'U'
-                        )}
-                      </div>
-                    )}
-                  </button>
-
-                  {isProfileDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-52 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
-
-                      <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
-                        <div className="font-medium">
-                          {user.user_metadata?.full_name ||
-                            'User'}
-                        </div>
-
-                        <div className="text-gray-500 truncate">
-                          {user.email}
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={handleViewProfile}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        View Profile
-                      </button>
-
-                      <button
-                        onClick={handleSignOut}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        Sign Out
-                      </button>
-
-                    </div>
-                  )}
-
-                </div>
-              ) : (
-                <Link
-                  to="/signin"
-                  className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap"
-                >
-                  Sign In
-                </Link>
-              )}
-
-            </div>
-
-            {/* Mobile menu button */}
-
-            <button
-              className="md:hidden p-2"
-              onClick={() =>
-                setIsMobileMenuOpen(!isMobileMenuOpen)
-              }
-            >
-              <i
-                className={`ri-${
-                  isMobileMenuOpen ? 'close' : 'menu'
-                }-line text-2xl`}
-              />
-            </button>
-
+      {day.sessions.map((session) => (
+        <div
+          key={`${day.title}-${session.time}-${session.title}`}
+          className="grid gap-4 border-b border-gray-100 pb-5 md:grid-cols-[140px_1fr]"
+        >
+          <div className="font-bold text-gray-900">
+            {session.time}
           </div>
-        </div>
-
-        {/* Mobile menu */}
-
-        {isMobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200">
-
-            <div className="px-4 py-3 space-y-1">
-
-              <Link
-                to="/"
-                className="block px-3 py-2 text-gray-700"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-
-              <Link
-                to="/about"
-                className="block px-3 py-2 text-gray-700"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                About
-              </Link>
-
-              <Link
-                to="/initiatives"
-                className="block px-3 py-2 text-gray-700"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Initiatives
-              </Link>
-
-              <Link
-                to="/stakeholders"
-                className="block px-3 py-2 text-gray-700"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Stakeholders
-              </Link>
-
-              <Link
-                to="/agenda"
-                className="block px-3 py-2 text-teal-600 bg-teal-50 rounded-md font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Agenda
-              </Link>
-
-              <Link
-                to="/publications"
-                className="block px-3 py-2 text-gray-700"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Publications
-              </Link>
-
-              <Link
-                to="/meetings"
-                className="block px-3 py-2 text-gray-700"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Meetings
-              </Link>
-
-              <Link
-                to="/contact"
-                className="block px-3 py-2 text-gray-700"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
-
-              <div className="pt-3 border-t border-gray-100">
-
-                {user ? (
-                  <button
-                    onClick={handleSignOut}
-                    className="block w-full text-left px-3 py-2 text-gray-700"
-                  >
-                    Sign Out
-                  </button>
-                ) : (
-                  <Link
-                    to="/signin"
-                    className="w-full bg-blue-900 text-white px-4 py-2 rounded-md block text-center"
-                  >
-                    Sign In
-                  </Link>
-                )}
-
-              </div>
-
-            </div>
-
-          </div>
-        )}
-
-      </header>
-
-      {/* =====================================================
-          HERO
-      ===================================================== */}
-
-      <section
-        className="relative py-24 md:py-32 bg-cover bg-center"
-        style={{
-          backgroundImage: `
-            linear-gradient(
-              rgba(30,58,138,0.82),
-              rgba(30,58,138,0.82)
-            ),
-            url('/images/tour-kinshasa.jpg')
-          `,
-        }}
-      >
-
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-
-          <p className="text-teal-300 font-semibold tracking-[0.25em] text-sm mb-4">
-            AFRICA ECONOMIC FORUM 2026
-          </p>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            AFRICA’S NEXT INVESTMENT CORRIDORS
-            <br className="hidden md:block" />
-            ARE BEING BUILT IN KINSHASA.
-          </h1>
-
-          <p className="text-lg md:text-xl mb-4 max-w-4xl mx-auto leading-relaxed">
-            Africa and Global Realignment:
-            Investments, Alliances & Strategic Opportunities
-          </p>
-
-          <p className="text-sm md:text-base mb-8 text-gray-200">
-            10–11 November 2026 | Fleuve Congo Hotel |
-            Kinshasa, Democratic Republic of Congo
-          </p>
-
-          <p className="max-w-3xl mx-auto text-gray-200 mb-8 leading-relaxed">
-            Two days where governments, global capital,
-            strategic industries and project owners come
-            together to build the next generation of
-            investment corridors into and across Africa.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-
-            <button
-              onClick={downloadAgenda}
-              className="bg-white text-blue-900 px-7 py-3 rounded-md hover:bg-gray-100 font-semibold"
-            >
-              Download Full Agenda
-            </button>
-
-            <button
-              onClick={() =>
-                openRegistrationModal(events[0])
-              }
-              className="bg-teal-500 text-white px-7 py-3 rounded-md hover:bg-teal-600 font-semibold"
-            >
-              Get Your Delegate Pass
-            </button>
-
-          </div>
-
-          <p className="mt-6 text-xs md:text-sm text-gray-300">
-            For Governments | Investors | Project Owners |
-            Strategic Partners
-          </p>
-
-        </div>
-      </section>
-
-      {/* =====================================================
-          PREMISE
-      ===================================================== */}
-
-      <section className="py-16 md:py-20 bg-white">
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-
-          <p className="text-teal-600 font-semibold tracking-widest text-sm mb-4">
-            THE PREMISE
-          </p>
-
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            THE WORLD IS REALIGNING.
-            <br />
-            AFRICA IS NEGOTIATING ITS PLACE.
-          </h2>
-
-          <p className="text-gray-600 text-lg leading-relaxed">
-            The architecture of global economic cooperation is
-            changing. Capital is becoming geopolitical. Energy is
-            becoming strategic. Critical minerals are becoming
-            instruments of industrial policy. Trade corridors are
-            being redesigned. Technology is becoming infrastructure.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-10">
-
-            {[
-              'CAPITAL',
-              'ENERGY',
-              'CRITICAL MINERALS',
-              'TECHNOLOGY',
-              'TRADE',
-              'INDUSTRIAL CAPACITY',
-            ].map((item) => (
-              <div
-                key={item}
-                className="border border-gray-200 rounded-lg p-4 text-xs md:text-sm font-semibold text-gray-700"
-              >
-                {item}
-              </div>
-            ))}
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* =====================================================
-          CHAIRMAN
-      ===================================================== */}
-
-      <section className="py-14 bg-gradient-to-r from-blue-900 to-teal-700 text-white">
-
-        <div className="max-w-5xl mx-auto px-4 text-center">
-
-          <p className="text-teal-200 text-sm uppercase tracking-widest mb-3">
-            Leadership
-          </p>
-
-          <h2 className="text-3xl font-bold mb-5">
-            A Message from the Chairman
-          </h2>
-
-          <button
-            onClick={() => setShowChairmanModal(true)}
-            className="bg-white text-blue-900 px-7 py-3 rounded-md hover:bg-gray-100 font-semibold"
-          >
-            Read the Full Message
-          </button>
-
-        </div>
-      </section>
-
-      {/* =====================================================
-          EVENT / PROGRAMME INTRO
-      ===================================================== */}
-
-      <section className="py-20 bg-gray-50">
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-14">
-
-            <p className="text-teal-600 font-semibold tracking-widest text-sm mb-3">
-              PROGRAMME
-            </p>
-
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              TWO DAYS. ONE ECONOMIC MISSION.
-            </h2>
-
-            <p className="text-gray-600 max-w-3xl mx-auto mt-5">
-              Every session at AEF is designed around a
-              strategic question, a decision-maker conversation
-              or a transaction pathway.
-            </p>
-
-          </div>
-
-          {/* EVENT CARD */}
-
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-
-              <div className="relative min-h-[300px]">
-
-                <img
-                  src={events[0].image}
-                  alt={events[0].title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-
-                <div className="absolute inset-0 bg-blue-900/40" />
-
-                <div className="absolute top-5 left-5 bg-teal-500 text-white px-4 py-2 rounded-md text-sm font-semibold">
-                  10–11 NOVEMBRE 2026
-                </div>
-
-              </div>
-
-              <div className="p-7 md:p-10">
-
-                <p className="text-teal-600 font-semibold text-sm mb-2">
-                  AFRICA ECONOMIC FORUM 2026
-                </p>
-
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  {events[0].title}
-                </h3>
-
-                <p className="text-gray-600 leading-relaxed mb-5">
-                  {events[0].description}
-                </p>
-
-                <div className="flex items-start gap-3 mb-4">
-                  <i className="ri-map-pin-line text-teal-600 text-xl mt-0.5" />
-
-                  <span className="text-gray-700 text-sm">
-                    {events[0].location}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-7">
-
-                  <div className="border border-gray-200 rounded-lg p-4">
-                    <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">
-                      Participants
-                    </p>
-                    <p className="text-sm text-gray-700">
-                      Governments, global capital, strategic
-                      industries and project owners.
-                    </p>
-                  </div>
-
-                  <div className="border border-gray-200 rounded-lg p-4">
-                    <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">
-                      Focus
-                    </p>
-                    <p className="text-sm text-gray-700">
-                      Capital, partnerships, projects and
-                      strategic opportunities.
-                    </p>
-                  </div>
-
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-
-                  <button
-                    onClick={() =>
-                      openEventDetails(events[0])
-                    }
-                    className="flex-1 bg-blue-900 text-white px-5 py-3 rounded-md hover:bg-blue-800 font-semibold"
-                  >
-                    Voir le programme
-                  </button>
-
-                  <button
-                    onClick={() =>
-                      openRegistrationModal(events[0])
-                    }
-                    className="flex-1 border border-blue-900 text-blue-900 px-5 py-3 rounded-md hover:bg-blue-50 font-semibold"
-                  >
-                    Get Your Delegate Pass
-                  </button>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* =====================================================
-          PROGRAMME VISIBLE
-      ===================================================== */}
-
-      <section className="py-20 bg-white">
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-14">
-
-            <p className="text-teal-600 font-semibold tracking-widest text-sm mb-3">
-              10–11 NOVEMBER 2026
-            </p>
-
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              PROGRAMME AEF 2026
-            </h2>
-
-            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">
-              Un programme construit autour du capital,
-              des investissements, des projets et des
-              partenariats stratégiques.
-            </p>
-
-          </div>
-
-          {/* DAY ONE */}
-
-          <div className="mb-16">
-
-            <div className="bg-blue-900 text-white rounded-t-xl p-6 md:p-8">
-
-              <p className="text-teal-300 text-sm font-semibold tracking-widest mb-2">
-                DAY ONE
-              </p>
-
-              <h3 className="text-2xl md:text-3xl font-bold">
-                {events[0].dayOne.title}
-              </h3>
-
-            </div>
-
-            <div className="border border-gray-200 border-t-0 rounded-b-xl">
-
-              {events[0].dayOne.sessions.map(
-                (session, index) => (
-                  <div
-                    key={index}
-                    className="p-6 md:p-7 border-b border-gray-200 last:border-b-0"
-                  >
-
-                    <div className="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-4">
-
-                      <div>
-                        <span className="inline-block bg-gray-100 text-blue-900 font-bold text-sm px-3 py-2 rounded-md">
-                          {session.time}
-                        </span>
-                      </div>
-
-                      <div>
-
-                        <h4 className="text-xl font-bold text-gray-900 mb-2">
-                          {session.title}
-                        </h4>
-
-                        {session.subtitle && (
-                          <p className="text-teal-600 font-semibold text-sm mb-3">
-                            {session.subtitle}
-                          </p>
-                        )}
-
-                        {session.description && (
-                          <p className="text-gray-600 leading-relaxed">
-                            {session.description}
-                          </p>
-                        )}
-
-                        {session.dealTrack && (
-                          <div className="mt-4 bg-teal-50 border-l-4 border-teal-500 p-4">
-                            <p className="text-xs text-teal-700 font-bold uppercase tracking-wider mb-1">
-                              Deal Track
-                            </p>
-                            <p className="text-sm text-gray-700">
-                              {session.dealTrack}
-                            </p>
-                          </div>
-                        )}
-
-                      </div>
-
-                    </div>
-
-                  </div>
-                )
-              )}
-
-            </div>
-
-          </div>
-
-          {/* DAY TWO */}
 
           <div>
+            <h4 className="text-lg font-bold text-gray-900">
+              {session.title}
+            </h4>
 
-            <div className="bg-teal-700 text-white rounded-t-xl p-6 md:p-8">
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              {session.description}
+            </p>
 
-              <p className="text-teal-100 text-sm font-semibold tracking-widest mb-2">
-                DAY TWO
-              </p>
+            {session.dealTrack && (
+              <div className="mt-3 rounded-lg bg-gray-50 p-3 text-sm">
+                <span className="font-semibold text-gray-900">
+                  Deal Track:
+                </span>{' '}
+                <span className="text-gray-600">
+                  {session.dealTrack}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
-              <h3 className="text-2xl md:text-3xl font-bold">
-                {events[0].dayTwo.title}
-              </h3>
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
 
+      {/* HEADER */}
+      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
+
+          <Link to="/" className="flex items-center">
+            <img
+              src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/55c329d4d58fb687f70c222c549f7ec1.png"
+              alt="Africa Economic Forum"
+              className="h-12 w-auto"
+            />
+          </Link>
+
+          <nav className="hidden items-center gap-6 lg:flex">
+            <Link to="/" className="text-sm hover:text-gray-600">
+              Home
+            </Link>
+
+            <Link to="/about" className="text-sm hover:text-gray-600">
+              About
+            </Link>
+
+            <Link
+              to="/initiatives"
+              className="text-sm hover:text-gray-600"
+            >
+              Initiatives
+            </Link>
+
+            <Link
+              to="/stakeholders"
+              className="text-sm hover:text-gray-600"
+            >
+              Stakeholders
+            </Link>
+
+            <Link
+              to="/agenda"
+              className="text-sm font-semibold text-gray-900"
+            >
+              Agenda
+            </Link>
+
+            <Link
+              to="/publications"
+              className="text-sm hover:text-gray-600"
+            >
+              Publications
+            </Link>
+
+            <Link
+              to="/meetings"
+              className="text-sm hover:text-gray-600"
+            >
+              Meetings
+            </Link>
+
+            <Link
+              to="/contact"
+              className="text-sm hover:text-gray-600"
+            >
+              Contact
+            </Link>
+          </nav>
+
+          <div className="hidden items-center gap-3 lg:flex">
+            {user ? (
+              <button
+                onClick={signOut}
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm"
+              >
+                Sign out
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowSignInModal(true)}
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm"
+              >
+                Sign in
+              </button>
+            )}
+          </div>
+
+          <button
+            className="rounded-lg border border-gray-300 px-3 py-2 lg:hidden"
+            onClick={() => navigate('/agenda')}
+          >
+            Menu
+          </button>
+        </div>
+      </header>
+
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-gray-900">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-40"
+          style={{
+            backgroundImage: "url('/images/tour-kinshasa.jpg')",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-7xl px-4 py-24 lg:px-8">
+          <div className="max-w-4xl">
+
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-white">
+              10–11 November 2026
+            </p>
+
+            <h1 className="text-4xl font-bold leading-tight text-white md:text-6xl">
+              Africa Economic Forum 2026
+            </h1>
+
+            <p className="mt-6 text-xl leading-8 text-white/90">
+              Africa and Global Realignment: Investments, Alliances &
+              Strategic Opportunities
+            </p>
+
+            <p className="mt-4 text-sm text-white/80">
+              Fleuve Congo Hotel, Kinshasa, Democratic Republic of Congo
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+              <button
+                onClick={() => setShowRegistrationModal(true)}
+                className="rounded-lg bg-white px-6 py-3 font-semibold text-gray-900"
+              >
+                Register
+              </button>
+
+              <button
+                onClick={downloadAgenda}
+                className="rounded-lg border border-white px-6 py-3 font-semibold text-white"
+              >
+                Download Agenda
+              </button>
             </div>
 
-            <div className="border border-gray-200 border-t-0 rounded-b-xl">
+          </div>
+        </div>
+      </section>
 
-              {events[0].dayTwo.sessions.map(
-                (session, index) => (
-                  <div
-                    key={index}
-                    className="p-6 md:p-7 border-b border-gray-200 last:border-b-0"
-                  >
+      {/* INTRODUCTION */}
+      <section className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
 
-                    <div className="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-4">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.15em] text-gray-500">
+              TWO DAYS. ONE ECONOMIC MISSION.
+            </p>
 
-                      <div>
-                        <span className="inline-block bg-gray-100 text-teal-700 font-bold text-sm px-3 py-2 rounded-md">
-                          {session.time}
-                        </span>
-                      </div>
+            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+              A platform for capital, projects and strategic partnerships.
+            </h2>
 
-                      <div>
+            <p className="mt-6 leading-8 text-gray-600">
+              AEF 2026 brings together Governments, Capital, Projects and
+              Strategic Partners around concrete economic opportunities.
+              Every session is designed around a strategic question,
+              decision-maker conversation or transaction pathway.
+            </p>
 
-                        <h4 className="text-xl font-bold text-gray-900 mb-2">
-                          {session.title}
-                        </h4>
+            <div className="mt-8 flex flex-wrap gap-4">
 
-                        {session.subtitle && (
-                          <p className="text-teal-600 font-semibold text-sm mb-3">
-                            {session.subtitle}
-                          </p>
-                        )}
+              <button
+                onClick={() => setShowProgrammeModal(true)}
+                className="rounded-lg bg-gray-900 px-5 py-3 text-sm font-semibold text-white"
+              >
+                View Full Programme
+              </button>
 
-                        {session.description && (
-                          <p className="text-gray-600 leading-relaxed">
-                            {session.description}
-                          </p>
-                        )}
-
-                        {session.dealTrack && (
-                          <div className="mt-4 bg-teal-50 border-l-4 border-teal-500 p-4">
-                            <p className="text-xs text-teal-700 font-bold uppercase tracking-wider mb-1">
-                              Deal Track
-                            </p>
-
-                            <p className="text-sm text-gray-700">
-                              {session.dealTrack}
-                            </p>
-                          </div>
-                        )}
-
-                      </div>
-
-                    </div>
-
-                  </div>
-                )
-              )}
+              <button
+                onClick={() => setShowChairmanModal(true)}
+                className="rounded-lg border border-gray-300 px-5 py-3 text-sm font-semibold"
+              >
+                Chairman's Message
+              </button>
 
             </div>
+          </div>
 
+          <div className="overflow-hidden rounded-2xl">
+            <img
+              src="/images/Africa_forum_nov2026.jpg"
+              alt="Africa Economic Forum 2026"
+              className="h-full w-full object-cover"
+            />
           </div>
 
         </div>
       </section>
 
-      {/* =====================================================
-          DEAL ROOM SIMPLE
-      ===================================================== */}
+      {/* PROGRAMME */}
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
 
-      <section className="py-20 bg-gray-50">
+          <div className="mb-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.15em] text-gray-500">
+              Programme
+            </p>
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="mt-2 text-3xl font-bold">
+              10–11 November 2026
+            </h2>
+          </div>
 
-          <p className="text-teal-600 font-semibold tracking-widest text-sm mb-3">
-            AEF DEAL ROOM
+          <div className="space-y-16">
+            {renderDay(dayOne)}
+            {renderDay(dayTwo)}
+          </div>
+
+        </div>
+      </section>
+
+      {/* DEAL ROOM */}
+      <section className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
+        <div className="rounded-2xl bg-gray-900 p-8 text-white md:p-12">
+
+          <p className="text-sm font-semibold uppercase tracking-[0.15em] text-white/60">
+            AEF Deal Room
           </p>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-5">
-            WHERE CAPITAL MEETS THE PROJECT.
+          <h2 className="mt-3 text-3xl font-bold">
+            From project identification to agreement.
           </h2>
 
-          <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
-            The Deal Room is the operational core of AEF,
-            where qualified projects meet investors and
-            strategic partners through structured conversations.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
-
+          <div className="mt-10 grid gap-4 md:grid-cols-4">
             {[
               'PROJECT OWNER',
               'AEF SCREENING',
               'INVESTOR MATCHING',
               'CURATED MEETING',
-              'TERM DISCUSSION',
+              'TERM / PARTNERSHIP DISCUSSION',
               'DUE DILIGENCE',
               'AGREEMENT',
               'FOLLOW-UP',
             ].map((step, index) => (
               <div
                 key={step}
-                className="bg-white border border-gray-200 rounded-lg p-4"
+                className="rounded-xl border border-white/20 p-5"
               >
-                <div className="text-teal-600 font-bold text-sm mb-2">
+                <div className="text-sm text-white/50">
                   {String(index + 1).padStart(2, '0')}
                 </div>
 
-                <p className="text-xs font-semibold text-gray-700">
+                <div className="mt-2 font-semibold">
                   {step}
-                </p>
+                </div>
               </div>
             ))}
-
           </div>
 
         </div>
       </section>
 
-      {/* =====================================================
-          INTERVENANTS
-      ===================================================== */}
+      {/* STRATEGIC PATHWAYS */}
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
 
-      <section className="py-20 bg-white">
+          <h2 className="text-3xl font-bold">
+            Three Strategic Pathways
+          </h2>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
 
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-5 mb-12">
+            <div className="rounded-2xl border border-gray-200 bg-white p-7">
+              <h3 className="text-xl font-bold">
+                Investors
+              </h3>
+
+              <p className="mt-3 text-gray-600">
+                Find Projects
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-7">
+              <h3 className="text-xl font-bold">
+                Projects
+              </h3>
+
+              <p className="mt-3 text-gray-600">
+                Find Capital
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-7">
+              <h3 className="text-xl font-bold">
+                Governments
+              </h3>
+
+              <p className="mt-3 text-gray-600">
+                Find Strategic Partners
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* COUNTRY ROUNDTABLES */}
+      <section className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
+
+        <h2 className="text-3xl font-bold">
+          Country-Specific Roundtables
+        </h2>
+
+        <p className="mt-4 max-w-3xl leading-7 text-gray-600">
+          Structured conversations connecting government priorities,
+          projects, capital requirements, investors and concrete next
+          steps.
+        </p>
+
+        <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-6 md:p-8">
+
+          <div className="flex flex-wrap items-center gap-3 text-sm font-semibold">
+            {[
+              'COUNTRY',
+              'PRIORITY SECTOR',
+              'PROJECTS',
+              'CAPITAL REQUIREMENT',
+              'INVESTORS',
+              'NEXT STEP',
+            ].map((item, index) => (
+              <React.Fragment key={item}>
+
+                <span>{item}</span>
+
+                {index < 5 && (
+                  <span className="text-gray-400">
+                    →
+                  </span>
+                )}
+
+              </React.Fragment>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* WHY KINSHASA */}
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
+
+          <div className="grid gap-8 md:grid-cols-2">
 
             <div>
-
-              <p className="text-teal-600 font-semibold tracking-widest text-sm mb-3">
-                AEF 2026
-              </p>
-
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-                Intervenants
+              <h2 className="text-3xl font-bold">
+                Why Kinshasa?
               </h2>
 
-              <p className="text-gray-600 text-lg">
-                Les personnes qui façonnent la conversation
+              <p className="mt-5 leading-8 text-gray-600">
+                Kinshasa provides the setting for strategic conversations
+                connecting African markets with global capital,
+                investment opportunities and long-term partnerships.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-gray-900 p-8 text-white">
+
+              <p className="text-sm font-semibold uppercase tracking-[0.15em] text-white/60">
+                At the table
+              </p>
+
+              <h3 className="mt-3 text-2xl font-bold">
+                Who will be at the table?
+              </h3>
+
+              <p className="mt-4 leading-7 text-white/75">
+                Governments, CEOs, investors, development finance
+                institutions, project developers, entrepreneurs,
+                experts, diplomats, strategic partners and media.
               </p>
 
             </div>
 
-            <Link
-              to="/intervenants"
-              className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center justify-center gap-2 whitespace-nowrap"
-            >
-              <span>Voir tous les intervenants</span>
-              <i className="ri-arrow-right-line" />
-            </Link>
-
           </div>
+        </div>
+      </section>
 
-          {/* CONFIRMÉS */}
+      {/* CTA */}
+      <section className="bg-gray-900">
+        <div className="mx-auto max-w-7xl px-4 py-16 text-center lg:px-8">
 
-          {intervenantsConfirmes.length > 0 && (
-            <div className="mb-16">
+          <h2 className="text-3xl font-bold text-white md:text-4xl">
+            Join Africa Economic Forum 2026
+          </h2>
 
-              <div className="flex items-center justify-between mb-8">
+          <p className="mx-auto mt-4 max-w-2xl leading-7 text-white/70">
+            Participate in two days of strategic conversations,
+            investment opportunities and partnership discussions.
+          </p>
 
-                <h3 className="text-2xl font-bold text-gray-900">
-                  Intervenants confirmés
-                </h3>
-
-                <span className="text-sm text-teal-600 font-medium">
-                  AEF 2026
-                </span>
-
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 md:gap-8">
-
-                {intervenantsConfirmes.map(
-                  (intervenant: any) => (
-                    <Link
-                      key={intervenant.id}
-                      to="/intervenants"
-                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow block group border border-gray-200"
-                    >
-
-                      <div className="relative">
-
-                        <img
-                          src={intervenant.photoUrl}
-                          alt={intervenant.nom}
-                          className="w-full h-56 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                        />
-
-                        <span className="absolute top-3 left-3 md:top-4 md:left-4 bg-green-600 text-white text-[10px] md:text-xs font-semibold px-2 md:px-3 py-2 uppercase tracking-wider">
-                          Confirmé
-                        </span>
-
-                      </div>
-
-                      <div className="p-4 md:p-6">
-
-                        <h4 className="font-bold text-gray-900 text-base md:text-xl leading-tight">
-                          {intervenant.nom}
-                        </h4>
-
-                        <p className="text-gray-600 text-xs md:text-base mt-3 leading-relaxed line-clamp-4">
-                          {intervenant.titre}
-                        </p>
-
-                        {intervenant.institution && (
-                          <p className="text-gray-400 text-[10px] md:text-sm mt-4 uppercase tracking-wider font-medium">
-                            {intervenant.institution}
-                          </p>
-                        )}
-
-                        {intervenant.domaineStrategique && (
-                          <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
-                            {intervenant.domaineStrategique}
-                          </p>
-                        )}
-
-                      </div>
-
-                    </Link>
-                  )
-                )}
-
-              </div>
-
-            </div>
-          )}
-
-          {/* INVITÉS */}
-
-          {dirigeantsInvites.length > 0 && (
-            <div>
-
-              <div className="flex items-center justify-between mb-8">
-
-                <h3 className="text-2xl font-bold text-gray-900">
-                  Dirigeants invités
-                </h3>
-
-                <span className="text-sm text-yellow-700 font-medium">
-                  AEF 2026
-                </span>
-
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 md:gap-8">
-
-                {dirigeantsInvites.map(
-                  (intervenant: any) => (
-                    <Link
-                      key={intervenant.id}
-                      to="/intervenants"
-                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow block group border border-gray-200"
-                    >
-
-                      <div className="relative">
-
-                        <img
-                          src={intervenant.photoUrl}
-                          alt={intervenant.nom}
-                          className="w-full h-56 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                        />
-
-                        <span className="absolute top-3 left-3 md:top-4 md:left-4 bg-yellow-600 text-white text-[10px] md:text-xs font-semibold px-2 md:px-3 py-2 uppercase tracking-wider">
-                          Invité
-                        </span>
-
-                      </div>
-
-                      <div className="p-4 md:p-6">
-
-                        <h4 className="font-bold text-gray-900 text-base md:text-xl leading-tight">
-                          {intervenant.nom}
-                        </h4>
-
-                        <p className="text-gray-600 text-xs md:text-base mt-3 leading-relaxed line-clamp-4">
-                          {intervenant.titre}
-                        </p>
-
-                        {intervenant.institution && (
-                          <p className="text-gray-400 text-[10px] md:text-sm mt-4 uppercase tracking-wider font-medium">
-                            {intervenant.institution}
-                          </p>
-                        )}
-
-                        {intervenant.domaineStrategique && (
-                          <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
-                            {intervenant.domaineStrategique}
-                          </p>
-                        )}
-
-                      </div>
-
-                    </Link>
-                  )
-                )}
-
-              </div>
-
-            </div>
-          )}
-
-          <div className="text-center mt-10">
-
-            <Link
-              to="/intervenants"
-              className="inline-flex items-center bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium gap-2"
-            >
-              <span>Découvrir tous les intervenants</span>
-              <i className="ri-arrow-right-line" />
-            </Link>
-
-          </div>
+          <button
+            onClick={() => setShowRegistrationModal(true)}
+            className="mt-8 rounded-lg bg-white px-7 py-3 font-semibold text-gray-900"
+          >
+            Register for AEF 2026
+          </button>
 
         </div>
       </section>
 
-      {/* =====================================================
-          FOOTER
-      ===================================================== */}
+      {/* FOOTER */}
+      <footer className="border-t border-gray-200 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 lg:px-8">
 
-      <footer className="bg-gray-900 text-white py-14">
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="flex flex-col justify-between gap-6 md:flex-row">
 
             <div>
-
-              <img
-                src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/55c329d4d58fb687f70c222c549f7ec1.png"
-                alt="AEF Logo"
-                className="w-12 h-12 object-contain mb-4"
-              />
-
-              <p className="text-gray-400 text-sm leading-relaxed">
-                The global platform for Africa’s capital,
-                partnerships and economic transformation.
+              <p className="font-bold">
+                Africa Economic Forum
               </p>
 
+              <p className="mt-2 text-sm text-gray-500">
+                Investments. Alliances. Strategic Opportunities.
+              </p>
             </div>
 
-            <div>
-
-              <h3 className="font-semibold mb-4">
-                Africa Economic Forum 2026
-              </h3>
-
-              <p className="text-gray-400 text-sm">
-                10–11 November 2026
-              </p>
-
-              <p className="text-gray-400 text-sm mt-1">
-                Fleuve Congo Hotel
-              </p>
-
-              <p className="text-gray-400 text-sm mt-1">
-                Kinshasa, Democratic Republic of Congo
-              </p>
-
-            </div>
-
-            <div>
-
-              <h3 className="font-semibold mb-4">
-                Contact
-              </h3>
-
-              <p className="text-gray-400 text-sm">
-                info@africaef.com
-              </p>
-
-              <p className="text-gray-400 text-sm mt-1">
-                www.africaef.com
-              </p>
-
+            <div className="flex flex-wrap gap-5 text-sm text-gray-600">
+              <Link to="/about">About</Link>
+              <Link to="/agenda">Agenda</Link>
+              <Link to="/contact">Contact</Link>
             </div>
 
           </div>
 
-          <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500 text-sm">
+          <div className="mt-8 border-t border-gray-100 pt-6 text-sm text-gray-500">
             © 2026 Africa Economic Forum. All rights reserved.
           </div>
 
         </div>
-
       </footer>
 
-      {/* =====================================================
-          CHAIRMAN MODAL
-      ===================================================== */}
-
+      {/* CHAIRMAN MODAL */}
       {showChairmanModal && (
-        <div
-          className="fixed inset-0 bg-black/60 flex items-center justify-center z-[60] p-4"
-          onClick={() => setShowChairmanModal(false)}
-        >
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
-          <div
-            className="bg-white rounded-xl max-w-3xl w-full max-h-[85vh] overflow-auto shadow-2xl p-6 md:p-8"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-7">
 
-            <div className="flex justify-between items-start gap-5 mb-6">
+            <div className="flex items-center justify-between">
 
-              <h3 className="text-2xl md:text-3xl font-bold text-blue-900">
-                A Message from the Chairman
-              </h3>
+              <h2 className="text-2xl font-bold">
+                Chairman's Message
+              </h2>
 
               <button
                 onClick={() => setShowChairmanModal(false)}
-                className="text-gray-400 hover:text-gray-700"
+                className="text-2xl text-gray-500"
               >
-                <i className="ri-close-line text-2xl" />
+                ×
               </button>
 
             </div>
 
-            <p className="text-gray-700 leading-relaxed mb-5">
-              The world is recalibrating. The old paradigms
-              are shifting. Capital, technology, energy,
-              trade and strategic partnerships are being
-              reorganised.
-            </p>
+            <div className="mt-6 space-y-4 leading-7 text-gray-600">
 
-            <p className="text-gray-700 leading-relaxed mb-5">
-              Africa must engage this changing environment
-              with greater strategic agency and with the
-              ability to connect its priorities to capital,
-              expertise, technology and markets.
-            </p>
+              <p>
+                Africa Economic Forum 2026 convenes leaders around the
+                economic and strategic questions shaping Africa's future.
+              </p>
 
-            <p className="text-gray-700 leading-relaxed">
-              Africa Economic Forum is designed around that
-              objective: creating the conditions for governments,
-              investors, project owners and strategic partners
-              to move from access to alignment and from
-              alignment toward transactions.
-            </p>
+              <p>
+                The Forum is designed to connect Governments, Capital,
+                Projects and Strategic Partners around concrete
+                opportunities and long-term partnerships.
+              </p>
 
-            <div className="flex justify-end mt-8">
+              <p>
+                Across two days, participants will engage in high-level
+                discussions, curated meetings, sector investment
+                conversations and deal-making sessions.
+              </p>
+
+              <p className="font-semibold text-gray-900">
+                We look forward to welcoming you to Kinshasa on 10–11
+                November 2026.
+              </p>
+
+            </div>
+
+            <button
+              onClick={() => setShowChairmanModal(false)}
+              className="mt-8 rounded-lg bg-gray-900 px-5 py-3 text-sm font-semibold text-white"
+            >
+              Close
+            </button>
+
+          </div>
+        </div>
+      )}
+
+      {/* PROGRAMME MODAL */}
+      {showProgrammeModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
+
+          <div className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-white p-7">
+
+            <div className="flex items-center justify-between">
+
+              <h2 className="text-2xl font-bold">
+                Full Programme
+              </h2>
 
               <button
-                onClick={() => setShowChairmanModal(false)}
-                className="px-6 py-2.5 bg-blue-900 text-white rounded-md"
+                onClick={() => setShowProgrammeModal(false)}
+                className="text-2xl text-gray-500"
+              >
+                ×
+              </button>
+
+            </div>
+
+            <div className="mt-8 space-y-12">
+              {renderDay(dayOne)}
+              {renderDay(dayTwo)}
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+
+              <button
+                onClick={downloadAgenda}
+                className="rounded-lg bg-gray-900 px-5 py-3 text-sm font-semibold text-white"
+              >
+                Download PDF
+              </button>
+
+              <button
+                onClick={() => setShowProgrammeModal(false)}
+                className="rounded-lg border border-gray-300 px-5 py-3 text-sm font-semibold"
               >
                 Close
               </button>
@@ -1571,476 +891,240 @@ export default function AgendaPage() {
             </div>
 
           </div>
-
         </div>
       )}
 
-      {/* =====================================================
-          PROGRAMME MODAL
-      ===================================================== */}
+      {/* REGISTRATION MODAL */}
+      {showRegistrationModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
-      {selectedEvent && (
-        <div
-          className="fixed inset-0 bg-black/60 flex items-center justify-center z-[60] p-4"
-          onClick={closeEventDetails}
-        >
+          <div className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white p-7">
 
-          <div
-            className="bg-white rounded-xl max-w-5xl w-full max-h-[90vh] overflow-auto shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-5 md:p-6 z-10">
-
-              <div className="flex justify-between items-start gap-4">
-
-                <div>
-
-                  <p className="text-teal-600 text-xs font-semibold tracking-widest mb-1">
-                    AFRICA ECONOMIC FORUM 2026
-                  </p>
-
-                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-                    Programme complet
-                  </h3>
-
-                  <p className="text-gray-500 text-sm mt-1">
-                    {selectedEvent.date} •{' '}
-                    {selectedEvent.location}
-                  </p>
-
-                </div>
-
-                <button
-                  onClick={closeEventDetails}
-                  className="text-gray-400 hover:text-gray-700"
-                >
-                  <i className="ri-close-line text-2xl" />
-                </button>
-
-              </div>
-
-            </div>
-
-            <div className="p-5 md:p-8">
-
-              <div className="bg-blue-50 rounded-lg p-5 mb-8">
-
-                <h4 className="font-bold text-blue-900 mb-2">
-                  Africa and Global Realignment
-                </h4>
-
-                <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                  {selectedEvent.theme}
-                </p>
-
-              </div>
-
-              {/* Day One */}
-
-              <div className="mb-10">
-
-                <div className="bg-blue-900 text-white rounded-lg p-5 mb-4">
-
-                  <p className="text-teal-300 text-xs font-semibold tracking-widest">
-                    DAY ONE
-                  </p>
-
-                  <h4 className="text-xl md:text-2xl font-bold mt-1">
-                    {selectedEvent.dayOne.title}
-                  </h4>
-
-                </div>
-
-                <div className="space-y-4">
-
-                  {selectedEvent.dayOne.sessions.map(
-                    (session, index) => (
-                      <div
-                        key={index}
-                        className="border border-gray-200 rounded-lg p-5"
-                      >
-
-                        <div className="flex flex-col md:flex-row gap-4">
-
-                          <div className="md:w-32 flex-shrink-0">
-
-                            <span className="inline-block bg-gray-100 text-blue-900 rounded-md px-3 py-2 text-sm font-bold">
-                              {session.time}
-                            </span>
-
-                          </div>
-
-                          <div>
-
-                            <h5 className="font-bold text-gray-900">
-                              {session.title}
-                            </h5>
-
-                            {session.subtitle && (
-                              <p className="text-teal-600 text-xs font-semibold mt-1">
-                                {session.subtitle}
-                              </p>
-                            )}
-
-                            {session.description && (
-                              <p className="text-gray-600 text-sm leading-relaxed mt-3">
-                                {session.description}
-                              </p>
-                            )}
-
-                            {session.dealTrack && (
-                              <p className="text-gray-700 text-xs mt-3 bg-teal-50 p-3 rounded">
-                                <strong>Deal Track:</strong>{' '}
-                                {session.dealTrack}
-                              </p>
-                            )}
-
-                          </div>
-
-                        </div>
-
-                      </div>
-                    )
-                  )}
-
-                </div>
-
-              </div>
-
-              {/* Day Two */}
+            <div className="flex items-center justify-between">
 
               <div>
+                <h2 className="text-2xl font-bold">
+                  Register for AEF 2026
+                </h2>
 
-                <div className="bg-teal-700 text-white rounded-lg p-5 mb-4">
-
-                  <p className="text-teal-100 text-xs font-semibold tracking-widest">
-                    DAY TWO
-                  </p>
-
-                  <h4 className="text-xl md:text-2xl font-bold mt-1">
-                    {selectedEvent.dayTwo.title}
-                  </h4>
-
-                </div>
-
-                <div className="space-y-4">
-
-                  {selectedEvent.dayTwo.sessions.map(
-                    (session, index) => (
-                      <div
-                        key={index}
-                        className="border border-gray-200 rounded-lg p-5"
-                      >
-
-                        <div className="flex flex-col md:flex-row gap-4">
-
-                          <div className="md:w-32 flex-shrink-0">
-
-                            <span className="inline-block bg-gray-100 text-teal-700 rounded-md px-3 py-2 text-sm font-bold">
-                              {session.time}
-                            </span>
-
-                          </div>
-
-                          <div>
-
-                            <h5 className="font-bold text-gray-900">
-                              {session.title}
-                            </h5>
-
-                            {session.subtitle && (
-                              <p className="text-teal-600 text-xs font-semibold mt-1">
-                                {session.subtitle}
-                              </p>
-                            )}
-
-                            {session.description && (
-                              <p className="text-gray-600 text-sm leading-relaxed mt-3">
-                                {session.description}
-                              </p>
-                            )}
-
-                            {session.dealTrack && (
-                              <p className="text-gray-700 text-xs mt-3 bg-teal-50 p-3 rounded">
-                                <strong>Deal Track:</strong>{' '}
-                                {session.dealTrack}
-                              </p>
-                            )}
-
-                          </div>
-
-                        </div>
-
-                      </div>
-                    )
-                  )}
-
-                </div>
-
-              </div>
-
-              {/* CTA */}
-
-              <div className="mt-10 bg-gray-900 rounded-xl p-6 md:p-8 text-white">
-
-                <h4 className="text-xl font-bold mb-3">
-                  AEF Deal Room
-                </h4>
-
-                <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                  Where capital meets the project. Les
-                  opportunités sont structurées autour du
-                  matching, de la négociation, de la due
-                  diligence et du suivi.
+                <p className="mt-1 text-sm text-gray-500">
+                  10–11 November 2026 · Kinshasa
                 </p>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-
-                  <button
-                    onClick={() => {
-                      closeEventDetails();
-                      openRegistrationModal(selectedEvent);
-                    }}
-                    className="bg-teal-500 text-white px-6 py-3 rounded-md hover:bg-teal-600 font-semibold"
-                  >
-                    Get Your Delegate Pass
-                  </button>
-
-                  <button
-                    onClick={downloadAgenda}
-                    className="border border-white text-white px-6 py-3 rounded-md hover:bg-white hover:text-gray-900 font-semibold"
-                  >
-                    Download Agenda
-                  </button>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      )}
-
-      {/* =====================================================
-          REGISTRATION MODAL
-      ===================================================== */}
-
-      {isRegistrationModalOpen && registeringEvent && (
-        <div
-          className="fixed inset-0 bg-black/60 flex items-center justify-center z-[70] p-4"
-          onClick={closeRegistrationModal}
-        >
-
-          <div
-            className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-auto p-6 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-
-            <div className="flex justify-between items-start mb-5">
-
-              <div>
-
-                <p className="text-teal-600 text-xs font-semibold tracking-widest mb-1">
-                  AEF 2026
-                </p>
-
-                <h3 className="text-xl font-bold text-gray-900">
-                  Inscription à l'événement
-                </h3>
-
               </div>
 
               <button
-                onClick={closeRegistrationModal}
-                className="text-gray-400 hover:text-gray-700"
+                onClick={() => setShowRegistrationModal(false)}
+                className="text-2xl text-gray-500"
               >
-                <i className="ri-close-line text-2xl" />
+                ×
               </button>
 
             </div>
 
-            <p className="text-sm text-gray-600 mb-6">
-
-              <strong className="text-gray-900">
-                {registeringEvent.title}
-              </strong>
-
-              <br />
-
-              {registeringEvent.date}
-
-            </p>
-
             <form
-              onSubmit={handleSupabaseSubmit}
-              className="space-y-4"
+              onSubmit={handleRegister}
+              className="mt-7 space-y-5"
             >
 
               <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Nom complet
+                <label className="mb-2 block text-sm font-semibold">
+                  Full name
                 </label>
 
                 <input
-                  type="text"
                   required
-                  value={formData.full_name}
+                  type="text"
+                  value={registrationData.full_name}
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
+                    setRegistrationData({
+                      ...registrationData,
                       full_name: e.target.value,
                     })
                   }
-                  className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
-                  placeholder="Ex: Jean Dupont"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-gray-900"
+                  placeholder="Your full name"
                 />
-
               </div>
 
               <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Adresse email
+                <label className="mb-2 block text-sm font-semibold">
+                  Email
                 </label>
 
                 <input
-                  type="email"
                   required
-                  value={formData.email}
+                  type="email"
+                  value={registrationData.email}
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
+                    setRegistrationData({
+                      ...registrationData,
                       email: e.target.value,
                     })
                   }
-                  className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
-                  placeholder="jean.dupont@exemple.com"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-gray-900"
+                  placeholder="you@example.com"
                 />
-
               </div>
 
               <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Organisation / Entreprise
+                <label className="mb-2 block text-sm font-semibold">
+                  Organization
                 </label>
 
                 <input
-                  type="text"
                   required
-                  value={formData.organization}
+                  type="text"
+                  value={registrationData.organization}
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
+                    setRegistrationData({
+                      ...registrationData,
                       organization: e.target.value,
                     })
                   }
-                  className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
-                  placeholder="Ex: Ministère / Société"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-gray-900"
+                  placeholder="Organization / Company"
                 />
-
               </div>
 
               <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Catégorie / Fonction
+                <label className="mb-2 block text-sm font-semibold">
+                  Category
                 </label>
 
                 <select
                   required
-                  value={formData.category}
+                  value={registrationData.category}
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
+                    setRegistrationData({
+                      ...registrationData,
                       category: e.target.value,
                     })
                   }
-                  className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-gray-900"
                 >
-
                   <option value="">
-                    Sélectionnez une catégorie
+                    Select your category
                   </option>
 
-                  <option value="CEO / Business Leader">
-                    CEO / Business Leader
-                  </option>
-
-                  <option value="Investor / Fund">
-                    Investor / Fund
-                  </option>
-
-                  <option value="Government / Public Sector">
-                    Government / Public Sector
-                  </option>
-
-                  <option value="Financial / Development Institution">
-                    Financial / Development Institution
-                  </option>
-
-                  <option value="Project Developer / Entrepreneur">
-                    Project Developer / Entrepreneur
-                  </option>
-
-                  <option value="Expert / Thought Leader">
-                    Expert / Thought Leader
-                  </option>
-
-                  <option value="Diplomat / International Institution">
-                    Diplomat / International Institution
-                  </option>
-
-                  <option value="Corporate Executive">
-                    Corporate Executive
-                  </option>
-
-                  <option value="Media">
-                    Media
-                  </option>
-
-                  <option value="Other">
-                    Other
-                  </option>
-
+                  {registrationCategories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
                 </select>
-
               </div>
 
-              <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-3">
+              {registrationMessage && (
+                <div className="rounded-lg bg-gray-50 p-4 text-sm text-gray-700">
+                  {registrationMessage}
+                </div>
+              )}
 
-                <button
-                  type="button"
-                  onClick={closeRegistrationModal}
-                  className="px-5 py-2.5 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50"
-                >
-                  Annuler
-                </button>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="px-5 py-2.5 bg-blue-900 text-white rounded-md text-sm hover:bg-blue-800 disabled:opacity-50"
-                >
-                  {loading
-                    ? 'Enregistrement...'
-                    : "Confirmer l'inscription"}
-                </button>
-
-              </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full rounded-lg bg-gray-900 px-5 py-3 font-semibold text-white disabled:opacity-50"
+              >
+                {isSubmitting
+                  ? 'Submitting...'
+                  : 'Submit Registration'}
+              </button>
 
             </form>
 
           </div>
+        </div>
+      )}
 
+      {/* SIGN IN MODAL */}
+      {showSignInModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
+
+          <div className="w-full max-w-md rounded-2xl bg-white p-7">
+
+            <div className="flex items-center justify-between">
+
+              <h2 className="text-2xl font-bold">
+                Sign in
+              </h2>
+
+              <button
+                onClick={() => setShowSignInModal(false)}
+                className="text-2xl text-gray-500"
+              >
+                ×
+              </button>
+
+            </div>
+
+            <p className="mt-5 leading-7 text-gray-600">
+              Please use the account access available on the AEF
+              platform.
+            </p>
+
+            <div className="mt-7 flex gap-3">
+
+              <Link
+                to="/login"
+                onClick={() => setShowSignInModal(false)}
+                className="rounded-lg bg-gray-900 px-5 py-3 text-sm font-semibold text-white"
+              >
+                Continue
+              </Link>
+
+              <button
+                onClick={() => {
+                  setShowSignInModal(false);
+                  setShowCreateAccountModal(true);
+                }}
+                className="rounded-lg border border-gray-300 px-5 py-3 text-sm font-semibold"
+              >
+                Create account
+              </button>
+
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* CREATE ACCOUNT MODAL */}
+      {showCreateAccountModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
+
+          <div className="w-full max-w-md rounded-2xl bg-white p-7">
+
+            <div className="flex items-center justify-between">
+
+              <h2 className="text-2xl font-bold">
+                Create account
+              </h2>
+
+              <button
+                onClick={() => setShowCreateAccountModal(false)}
+                className="text-2xl text-gray-500"
+              >
+                ×
+              </button>
+
+            </div>
+
+            <p className="mt-5 leading-7 text-gray-600">
+              Create your AEF account to access the platform.
+            </p>
+
+            <Link
+              to="/register"
+              onClick={() => setShowCreateAccountModal(false)}
+              className="mt-7 block rounded-lg bg-gray-900 px-5 py-3 text-center text-sm font-semibold text-white"
+            >
+              Create account
+            </Link>
+
+          </div>
         </div>
       )}
 
     </div>
   );
-      }
+                }
