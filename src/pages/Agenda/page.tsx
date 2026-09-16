@@ -72,7 +72,8 @@ const dayOne: Day = {
         'Technology investment',
         'Africa’s strategic positioning',
       ],
-      dealTrack: 'DEAL TRACK — AFRICA–GULF INVESTMENT PIPELINE',
+      dealTrack:
+        'DEAL TRACK — AFRICA–GULF INVESTMENT PIPELINE',
     },
     {
       time: '10:30 – 12:00',
@@ -460,6 +461,19 @@ export default function AgendaPage() {
   const [showRegistrationModal, setShowRegistrationModal] =
     useState(false);
 
+  /*
+   * ===================================================
+   * PROGRAMME — SESSIONS REPLIABLES
+   * ===================================================
+   *
+   * Chaque session possède une clé unique.
+   * Plusieurs sessions peuvent donc être ouvertes
+   * indépendamment les unes des autres.
+   */
+
+  const [expandedSessions, setExpandedSessions] =
+    useState<Set<string>>(new Set());
+
   const [conversionType, setConversionType] =
     useState<ConversionType>(null);
 
@@ -481,6 +495,24 @@ export default function AgendaPage() {
 
   const [isSubmitting, setIsSubmitting] =
     useState(false);
+
+  /* ===================================================
+     TOGGLE SESSION
+     =================================================== */
+
+  const toggleSession = (sessionKey: string) => {
+    setExpandedSessions((previous) => {
+      const next = new Set(previous);
+
+      if (next.has(sessionKey)) {
+        next.delete(sessionKey);
+      } else {
+        next.add(sessionKey);
+      }
+
+      return next;
+    });
+  };
 
   /* ===================================================
      CONVERSION JOURNEY
@@ -563,11 +595,15 @@ export default function AgendaPage() {
   };
 
   /* ===================================================
-     RENDU JOUR
+     RENDU JOUR — PROGRAMME REPLIABLE
      =================================================== */
 
   const renderDay = (day: Day) => (
     <div className="space-y-6">
+
+      {/* ===================================================
+          TITRE DU JOUR
+          =================================================== */}
 
       <div className="border-b border-gray-200 pb-5">
         <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
@@ -581,90 +617,191 @@ export default function AgendaPage() {
         )}
       </div>
 
-      {day.sessions.map((session) => (
-        <div
-          key={`${day.title}-${session.time}-${session.title}`}
-          className="grid gap-5 border-b border-gray-100 pb-7 md:grid-cols-[150px_1fr]"
-        >
-          <div className="font-bold text-blue-900">
-            {session.time}
-          </div>
+      {/* ===================================================
+          SESSIONS
+          =================================================== */}
 
-          <div>
-            <h4 className="text-xl font-bold text-gray-900">
-              {session.title}
-            </h4>
+      {day.sessions.map((session) => {
+        const sessionKey =
+          `${day.title}-${session.time}-${session.title}`;
 
-            <p className="mt-2 text-sm font-semibold leading-6 text-gray-700">
-              {session.description}
-            </p>
+        const isExpanded =
+          expandedSessions.has(sessionKey);
 
-            {session.format && (
-              <p className="mt-4 text-sm leading-6 text-gray-600">
-                <span className="font-semibold text-gray-900">
-                  Format:
-                </span>{' '}
-                {session.format}
-              </p>
-            )}
+        return (
+          <div
+            key={sessionKey}
+            className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300"
+          >
 
-            {session.purpose && (
-              <p className="mt-3 text-sm leading-6 text-gray-600">
-                <span className="font-semibold text-gray-900">
-                  Purpose:
-                </span>{' '}
-                {session.purpose}
-              </p>
-            )}
+            {/* ===================================================
+                PARTIE PRINCIPALE — TOUJOURS VISIBLE
+                =================================================== */}
 
-            {session.questions && (
-              <div className="mt-5">
-                <p className="text-sm font-semibold text-gray-900">
-                  Strategic questions:
-                </p>
+            <div className="grid gap-5 p-5 md:grid-cols-[150px_1fr_auto] md:items-start">
 
-                <ul className="mt-2 space-y-2">
-                  {session.questions.map((question) => (
-                    <li
-                      key={question}
-                      className="text-sm leading-6 text-gray-600"
-                    >
-                      - {question}
-                    </li>
-                  ))}
-                </ul>
+              {/* HEURE */}
+
+              <div className="font-bold text-blue-900">
+                {session.time}
               </div>
-            )}
 
-            {session.focus && (
-              <div className="mt-5">
-                <p className="text-sm font-semibold text-gray-900">
-                  Focus:
+              {/* TITRE + DESCRIPTION */}
+
+              <div>
+                <h4 className="text-xl font-bold leading-tight text-gray-900">
+                  {session.title}
+                </h4>
+
+                <p className="mt-2 text-sm font-semibold leading-6 text-gray-700">
+                  {session.description}
                 </p>
+              </div>
 
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {session.focus.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-lg bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700"
-                    >
-                      {item}
-                    </span>
-                  ))}
+              {/* BOUTON */}
+
+              <button
+                type="button"
+                onClick={() => toggleSession(sessionKey)}
+                aria-expanded={isExpanded}
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-teal-600 px-4 py-2 text-sm font-semibold text-teal-700 transition-colors hover:bg-teal-50"
+              >
+                {isExpanded
+                  ? 'HIDE DETAILS'
+                  : 'VIEW DETAILS'}
+
+                <span
+                  className={`text-base transition-transform duration-300 ${
+                    isExpanded ? 'rotate-180' : ''
+                  }`}
+                >
+                  ↓
+                </span>
+              </button>
+            </div>
+
+            {/* ===================================================
+                CONTENU DÉTAILLÉ — REPLIABLE
+                =================================================== */}
+
+            {isExpanded && (
+              <div className="border-t border-gray-100 bg-gray-50 px-5 py-6 md:px-7">
+
+                <div className="md:ml-[150px]">
+
+                  {/* ===================================================
+                      FORMAT
+                      =================================================== */}
+
+                  {session.format && (
+                    <div className="mb-5 rounded-xl border border-gray-200 bg-white p-5">
+                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
+                        Format
+                      </p>
+
+                      <p className="mt-2 text-sm leading-7 text-gray-600">
+                        {session.format}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* ===================================================
+                      PURPOSE
+                      =================================================== */}
+
+                  {session.purpose && (
+                    <div className="mb-5 rounded-xl border border-gray-200 bg-white p-5">
+                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
+                        Purpose
+                      </p>
+
+                      <p className="mt-2 text-sm leading-7 text-gray-600">
+                        {session.purpose}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* ===================================================
+                      QUESTIONS
+                      =================================================== */}
+
+                  {session.questions &&
+                    session.questions.length > 0 && (
+                      <div className="mb-5 rounded-xl border border-gray-200 bg-white p-5">
+
+                        <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
+                          Strategic Questions
+                        </p>
+
+                        <ul className="mt-4 space-y-3">
+                          {session.questions.map(
+                            (question) => (
+                              <li
+                                key={question}
+                                className="flex gap-3 text-sm leading-6 text-gray-600"
+                              >
+                                <span className="font-bold text-teal-600">
+                                  →
+                                </span>
+
+                                <span>
+                                  {question}
+                                </span>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )}
+
+                  {/* ===================================================
+                      FOCUS
+                      =================================================== */}
+
+                  {session.focus &&
+                    session.focus.length > 0 && (
+                      <div className="mb-5 rounded-xl border border-gray-200 bg-white p-5">
+
+                        <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
+                          Focus
+                        </p>
+
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {session.focus.map((item) => (
+                            <span
+                              key={item}
+                              className="rounded-lg bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                  {/* ===================================================
+                      DEAL TRACK
+                      =================================================== */}
+
+                  {session.dealTrack && (
+                    <div className="rounded-xl border border-teal-100 bg-teal-50 p-5">
+
+                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
+                        Deal Track
+                      </p>
+
+                      <p className="mt-2 text-sm font-semibold leading-7 text-teal-800">
+                        {session.dealTrack}
+                      </p>
+                    </div>
+                  )}
+
                 </div>
               </div>
             )}
-
-            {session.dealTrack && (
-              <div className="mt-5 rounded-lg bg-teal-50 p-4">
-                <span className="font-semibold text-teal-700">
-                  {session.dealTrack}
-                </span>
-              </div>
-            )}
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 
@@ -2938,4 +3075,4 @@ export default function AgendaPage() {
 
     </div>
   );
-      }
+}
