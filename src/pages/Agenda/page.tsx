@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { jsPDF } from 'jspdf';
 import { supabase } from '../../supabase/client';
 import { listeIntervenants } from '../../data/intervenantsData';
 
@@ -26,6 +25,17 @@ const event = {
   location:
     'Fleuve Congo Hotel, Kinshasa, Democratic Republic of Congo',
 };
+
+/* ===================================================
+   PDF AGENDA EXISTANT
+   =================================================== */
+
+const agendaPdfUrl =
+  '/images/AEF_2026_Kinshasa_Brochure_FINAL-1.pdf';
+
+/* ===================================================
+   DAY ONE
+   =================================================== */
 
 const dayOne: Day = {
   title: 'DAY ONE — THE GEOPOLITICS OF CAPITAL',
@@ -91,6 +101,10 @@ const dayOne: Day = {
   ],
 };
 
+/* ===================================================
+   DAY TWO
+   =================================================== */
+
 const dayTwo: Day = {
   title: 'DAY TWO — FROM STRATEGIC CAPITAL TO SECTOR OPPORTUNITIES',
   sessions: [
@@ -150,6 +164,10 @@ const dayTwo: Day = {
   ],
 };
 
+/* ===================================================
+   CATEGORIES D'INSCRIPTION
+   =================================================== */
+
 const registrationCategories = [
   'CEO / Business Leader',
   'Investor / Fund',
@@ -170,6 +188,10 @@ const registrationCategories = [
 const intervenantsApercu = listeIntervenants
   .filter((intervenant) => intervenant.statut === 'Confirmé')
   .slice(0, 4);
+
+/* ===================================================
+   PAGE AGENDA
+   =================================================== */
 
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
@@ -192,6 +214,10 @@ export default function AgendaPage() {
 
   const [registrationMessage, setRegistrationMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  /* ===================================================
+     INSCRIPTION
+     =================================================== */
 
   const handleRegister = async (
     e: React.FormEvent<HTMLFormElement>
@@ -247,80 +273,9 @@ export default function AgendaPage() {
     }
   };
 
-  const downloadAgenda = () => {
-    const doc = new jsPDF();
-
-    let y = 20;
-
-    const addText = (
-      text: string,
-      x: number,
-      fontSize = 10,
-      maxWidth = 175
-    ) => {
-      doc.setFontSize(fontSize);
-
-      const lines = doc.splitTextToSize(text, maxWidth);
-
-      if (y + lines.length * 6 > 275) {
-        doc.addPage();
-        y = 20;
-      }
-
-      doc.text(lines, x, y);
-      y += lines.length * 6 + 3;
-    };
-
-    doc.setFont('helvetica', 'bold');
-    addText('AFRICA ECONOMIC FORUM 2026', 20, 18);
-
-    doc.setFont('helvetica', 'normal');
-
-    addText(
-      'Africa and Global Realignment: Investments, Alliances & Strategic Opportunities',
-      20,
-      11
-    );
-
-    addText(
-      '10–11 November 2026 — Fleuve Congo Hotel, Kinshasa, Democratic Republic of Congo',
-      20,
-      10
-    );
-
-    y += 5;
-
-    const addDay = (day: Day) => {
-      doc.setFont('helvetica', 'bold');
-      addText(day.title, 20, 13);
-
-      doc.setFont('helvetica', 'normal');
-
-      day.sessions.forEach((session) => {
-        addText(`${session.time} — ${session.title}`, 20, 10);
-        addText(session.description, 25, 9);
-
-        if (session.dealTrack) {
-          doc.setFont('helvetica', 'italic');
-
-          addText(
-            `Deal Track: ${session.dealTrack}`,
-            25,
-            9
-          );
-
-          doc.setFont('helvetica', 'normal');
-        }
-      });
-
-      y += 4;
-    };
-
-    addDay(dayOne);
-    addDay(dayTwo);
-
-    doc.save('AEF-2026-Agenda.pdf');
-  };
+  /* ===================================================
+     RENDU D'UNE JOURNÉE
+     =================================================== */
 
   const renderDay = (day: Day) => (
     <div className="space-y-4">
@@ -366,6 +321,7 @@ export default function AgendaPage() {
             )}
 
           </div>
+
         </div>
       ))}
 
@@ -375,12 +331,16 @@ export default function AgendaPage() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
 
-      {/* HEADER */}
+      {/* ===================================================
+          HEADER
+          =================================================== */}
+
       <header className="sticky top-0 z-50 bg-white shadow-sm">
 
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
 
           {/* LOGO */}
+
           <Link to="/" className="flex items-center">
 
             <img
@@ -391,7 +351,8 @@ export default function AgendaPage() {
 
           </Link>
 
-          {/* DESKTOP MENU */}
+          {/* MENU DESKTOP */}
+
           <nav className="hidden items-center gap-6 md:flex">
 
             <Link
@@ -452,7 +413,8 @@ export default function AgendaPage() {
 
           </nav>
 
-          {/* DESKTOP AUTH */}
+          {/* AUTH DESKTOP */}
+
           <div className="hidden items-center gap-3 md:flex">
 
             {user ? (
@@ -473,7 +435,8 @@ export default function AgendaPage() {
 
           </div>
 
-          {/* MOBILE MENU BUTTON */}
+          {/* MOBILE MENU */}
+
           <button
             className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-50 hover:text-teal-600 md:hidden"
             onClick={() => navigate('/agenda')}
@@ -485,7 +448,10 @@ export default function AgendaPage() {
         </div>
       </header>
 
-      {/* HERO */}
+      {/* ===================================================
+          HERO
+          =================================================== */}
+
       <section className="relative overflow-hidden bg-gradient-to-r from-blue-900 to-blue-700">
 
         <div
@@ -504,16 +470,27 @@ export default function AgendaPage() {
             </p>
 
             <h1 className="text-4xl font-bold leading-tight text-white md:text-6xl">
-              Africa Economic Forum 2026
+              AFRICA’S NEXT INVESTMENT CORRIDORS ARE BEING BUILT IN KINSHASA.
             </h1>
 
             <p className="mt-6 text-xl leading-8 text-blue-100">
-              Africa and Global Realignment: Investments, Alliances &
-              Strategic Opportunities
+              AFRICA AND GLOBAL REALIGNMENT:
             </p>
 
-            <p className="mt-4 text-sm text-blue-200">
-              Fleuve Congo Hotel, Kinshasa, Democratic Republic of Congo
+            <p className="mt-2 text-xl font-semibold leading-8 text-white">
+              INVESTMENTS, ALLIANCES &amp; STRATEGIC OPPORTUNITIES
+            </p>
+
+            <p className="mt-5 text-sm leading-6 text-blue-200">
+              10–11 November 2026 | Fleuve Congo Hotel | Kinshasa,
+              Democratic Republic of Congo
+            </p>
+
+            <p className="mt-5 max-w-3xl text-base leading-7 text-blue-100">
+              «Two days where governments, global capital, strategic
+              industries and project owners come together to build the
+              next generation of investment corridors into and across
+              Africa.»
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -522,23 +499,114 @@ export default function AgendaPage() {
                 onClick={() => setShowRegistrationModal(true)}
                 className="rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-teal-700"
               >
-                Register
+                GET YOUR DELEGATE PASS
               </button>
 
-              <button
-                onClick={downloadAgenda}
+              <Link
+                to="/contact"
+                className="rounded-lg border border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                BECOME AN AEF PARTNER
+              </Link>
+
+              <a
+                href={agendaPdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-lg border border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
               >
                 Download Agenda
-              </button>
+              </a>
+
+            </div>
+
+            <p className="mt-5 text-sm font-medium text-blue-100">
+              For Governments | Investors | Project Owners | Strategic Partners
+            </p>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ===================================================
+          02 — THE PREMISE
+          =================================================== */}
+
+      <section className="bg-white">
+
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+
+          <div className="max-w-5xl">
+
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-600">
+              02 — THE PREMISE
+            </p>
+
+            <h2 className="mt-4 text-3xl font-bold leading-tight text-gray-900 md:text-5xl">
+              THE WORLD IS REALIGNING. AFRICA IS NEGOTIATING ITS PLACE.
+            </h2>
+
+            <div className="mt-8 space-y-6 text-lg leading-8 text-gray-600">
+
+              <p>
+                The architecture of global economic cooperation is
+                changing.
+              </p>
+
+              <p>
+                Capital is becoming geopolitical. Energy is becoming
+                strategic. Critical minerals are becoming instruments of
+                industrial policy. Trade corridors are being redesigned.
+                Technology is becoming infrastructure.
+              </p>
+
+              <p>
+                Governments are competing not simply for trade, but for
+                investment, productive capacity, industrial partnerships
+                and strategic alliances.
+              </p>
+
+              <p>
+                AEF exists to help African countries engage this new
+                environment from a position of greater strategic agency.
+              </p>
+
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+              {[
+                'CAPITAL',
+                'ENERGY',
+                'CRITICAL MINERALS',
+                'TECHNOLOGY',
+                'TRADE',
+                'INDUSTRIAL CAPACITY',
+              ].map((item) => (
+
+                <div
+                  key={item}
+                  className="rounded-xl border border-gray-200 bg-gray-50 p-5"
+                >
+                  <p className="font-bold text-blue-900">
+                    {item}
+                  </p>
+                </div>
+
+              ))}
 
             </div>
 
           </div>
+
         </div>
       </section>
 
-      {/* INTRODUCTION */}
+      {/* ===================================================
+          INTRODUCTION
+          =================================================== */}
+
       <section className="bg-white">
 
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -593,10 +661,14 @@ export default function AgendaPage() {
             </div>
 
           </div>
+
         </div>
       </section>
 
-      {/* PROGRAMME */}
+      {/* ===================================================
+          PROGRAMME
+          =================================================== */}
+
       <section className="bg-gray-50">
 
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -614,8 +686,11 @@ export default function AgendaPage() {
           </div>
 
           <div className="space-y-16">
+
             {renderDay(dayOne)}
+
             {renderDay(dayTwo)}
+
           </div>
 
         </div>
@@ -624,7 +699,8 @@ export default function AgendaPage() {
       {/* ===================================================
           INTERVENANTS
           =================================================== */}
-      <section className="bg-white border-t border-gray-100">
+
+      <section className="border-t border-gray-100 bg-white">
 
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 
@@ -703,7 +779,10 @@ export default function AgendaPage() {
         </div>
       </section>
 
-      {/* DEAL ROOM */}
+      {/* ===================================================
+          DEAL ROOM
+          =================================================== */}
+
       <section className="bg-white">
 
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -730,6 +809,7 @@ export default function AgendaPage() {
                 'AGREEMENT',
                 'FOLLOW-UP',
               ].map((step, index) => (
+
                 <div
                   key={step}
                   className="rounded-xl border border-white/20 bg-white/5 p-5"
@@ -744,15 +824,20 @@ export default function AgendaPage() {
                   </div>
 
                 </div>
+
               ))}
 
             </div>
 
           </div>
+
         </div>
       </section>
 
-      {/* STRATEGIC PATHWAYS */}
+      {/* ===================================================
+          STRATEGIC PATHWAYS
+          =================================================== */}
+
       <section className="bg-gray-50">
 
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -808,7 +893,10 @@ export default function AgendaPage() {
         </div>
       </section>
 
-      {/* COUNTRY ROUNDTABLES */}
+      {/* ===================================================
+          COUNTRY ROUNDTABLES
+          =================================================== */}
+
       <section className="bg-white">
 
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -839,6 +927,7 @@ export default function AgendaPage() {
                 'INVESTORS',
                 'NEXT STEP',
               ].map((item, index) => (
+
                 <React.Fragment key={item}>
 
                   <span className="text-blue-900">
@@ -852,6 +941,7 @@ export default function AgendaPage() {
                   )}
 
                 </React.Fragment>
+
               ))}
 
             </div>
@@ -861,7 +951,10 @@ export default function AgendaPage() {
         </div>
       </section>
 
-      {/* WHY KINSHASA */}
+      {/* ===================================================
+          WHY KINSHASA
+          =================================================== */}
+
       <section className="bg-gray-50">
 
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -909,7 +1002,10 @@ export default function AgendaPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ===================================================
+          CTA FINAL
+          =================================================== */}
+
       <section className="bg-gradient-to-r from-blue-900 to-blue-700">
 
         <div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8">
@@ -933,7 +1029,10 @@ export default function AgendaPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* ===================================================
+          FOOTER
+          =================================================== */}
+
       <footer className="bg-gray-900 py-16 text-white">
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -986,8 +1085,12 @@ export default function AgendaPage() {
         </div>
       </footer>
 
-      {/* CHAIRMAN MODAL */}
+      {/* ===================================================
+          CHAIRMAN MODAL
+          =================================================== */}
+
       {showChairmanModal && (
+
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
           <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-7">
@@ -1044,8 +1147,12 @@ export default function AgendaPage() {
         </div>
       )}
 
-      {/* PROGRAMME MODAL */}
+      {/* ===================================================
+          PROGRAMME MODAL
+          =================================================== */}
+
       {showProgrammeModal && (
+
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
           <div className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-white p-7">
@@ -1066,18 +1173,23 @@ export default function AgendaPage() {
             </div>
 
             <div className="mt-8 space-y-12">
+
               {renderDay(dayOne)}
+
               {renderDay(dayTwo)}
+
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
 
-              <button
-                onClick={downloadAgenda}
+              <a
+                href={agendaPdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
               >
                 Download PDF
-              </button>
+              </a>
 
               <button
                 onClick={() => setShowProgrammeModal(false)}
@@ -1092,8 +1204,12 @@ export default function AgendaPage() {
         </div>
       )}
 
-      {/* REGISTRATION MODAL */}
+      {/* ===================================================
+          REGISTRATION MODAL
+          =================================================== */}
+
       {showRegistrationModal && (
+
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
           <div className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white p-7">
@@ -1215,9 +1331,11 @@ export default function AgendaPage() {
                   </option>
 
                   {registrationCategories.map((category) => (
+
                     <option key={category} value={category}>
                       {category}
                     </option>
+
                   ))}
 
                 </select>
@@ -1225,9 +1343,11 @@ export default function AgendaPage() {
               </div>
 
               {registrationMessage && (
+
                 <div className="rounded-lg bg-teal-50 p-4 text-sm text-teal-800">
                   {registrationMessage}
                 </div>
+
               )}
 
               <button
@@ -1246,8 +1366,12 @@ export default function AgendaPage() {
         </div>
       )}
 
-      {/* SIGN IN MODAL */}
+      {/* ===================================================
+          SIGN IN MODAL
+          =================================================== */}
+
       {showSignInModal && (
+
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
           <div className="w-full max-w-md rounded-2xl bg-white p-7">
@@ -1298,8 +1422,12 @@ export default function AgendaPage() {
         </div>
       )}
 
-      {/* CREATE ACCOUNT MODAL */}
+      {/* ===================================================
+          CREATE ACCOUNT MODAL
+          =================================================== */}
+
       {showCreateAccountModal && (
+
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
           <div className="w-full max-w-md rounded-2xl bg-white p-7">
@@ -1337,4 +1465,4 @@ export default function AgendaPage() {
 
     </div>
   );
-      }
+              }
