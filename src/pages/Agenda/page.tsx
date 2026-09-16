@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { jsPDF } from 'jspdf';
 import { supabase } from '../../supabase/client';
-import { useTranslation } from 'react-i18next';
-import LanguageSelector from '../../components/LanguageSelector';
 
 type Session = {
   time: string;
@@ -165,8 +163,8 @@ const registrationCategories = [
 ];
 
 export default function AgendaPage() {
-  const { t } = useTranslation();
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showCreateAccountModal, setShowCreateAccountModal] =
@@ -175,9 +173,6 @@ export default function AgendaPage() {
   const [showProgrammeModal, setShowProgrammeModal] = useState(false);
   const [showRegistrationModal, setShowRegistrationModal] =
     useState(false);
-
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   const [registrationData, setRegistrationData] = useState({
     full_name: '',
@@ -298,11 +293,13 @@ export default function AgendaPage() {
 
         if (session.dealTrack) {
           doc.setFont('helvetica', 'italic');
+
           addText(
             `Deal Track: ${session.dealTrack}`,
             25,
             9
           );
+
           doc.setFont('helvetica', 'normal');
         }
       });
@@ -318,6 +315,7 @@ export default function AgendaPage() {
 
   const renderDay = (day: Day) => (
     <div className="space-y-4">
+
       <div className="border-b border-gray-200 pb-4">
         <h3 className="text-xl font-bold text-gray-900">
           {day.title}
@@ -329,11 +327,13 @@ export default function AgendaPage() {
           key={`${day.title}-${session.time}-${session.title}`}
           className="grid gap-4 border-b border-gray-100 pb-5 md:grid-cols-[140px_1fr]"
         >
+
           <div className="font-bold text-blue-900">
             {session.time}
           </div>
 
           <div>
+
             <h4 className="text-lg font-bold text-gray-900">
               {session.title}
             </h4>
@@ -344,149 +344,115 @@ export default function AgendaPage() {
 
             {session.dealTrack && (
               <div className="mt-3 rounded-lg bg-teal-50 p-3 text-sm">
+
                 <span className="font-semibold text-teal-700">
                   Deal Track:
                 </span>{' '}
+
                 <span className="text-gray-600">
                   {session.dealTrack}
                 </span>
+
               </div>
             )}
+
           </div>
         </div>
       ))}
+
     </div>
   );
-
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-  };
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
 
       {/* HEADER */}
       <header className="sticky top-0 z-50 bg-white shadow-sm">
+
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
 
           {/* LOGO */}
-          <Link
-            to="/"
-            onClick={closeMobileMenu}
-            className="flex items-center"
-          >
+          <Link to="/" className="flex items-center">
+
             <img
-              src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/b4bf8c90b5a4e5f8e0d7e7c8d5f5d4b2.png"
+              src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/55c329d4d58fb687f70c222c549f7ec1.png"
               alt="Africa Economic Forum"
               className="h-12 w-auto"
             />
+
           </Link>
 
-          {/* DESKTOP NAVIGATION */}
-          <nav className="hidden items-center gap-5 md:flex">
+          {/* DESKTOP MENU */}
+          <nav className="hidden items-center gap-6 md:flex">
 
             <Link
               to="/"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              {t('nav.home', 'Home')}
+              Home
             </Link>
 
             <Link
               to="/about"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              {t('nav.about', 'About')}
+              About
             </Link>
 
             <Link
               to="/initiatives"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              {t('nav.initiatives', 'Initiatives')}
+              Initiatives
             </Link>
 
             <Link
               to="/stakeholders"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              {t('nav.stakeholders', 'Stakeholders')}
+              Stakeholders
             </Link>
 
             <Link
               to="/agenda"
               className="border-b-2 border-teal-600 py-1 text-sm font-semibold text-teal-600"
             >
-              {t('nav.agenda', 'Agenda')}
+              Agenda
             </Link>
 
             <Link
               to="/publications"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              {t('nav.publications', 'Publications')}
+              Publications
             </Link>
 
             <Link
               to="/meetings"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              {t('nav.meetings', 'Meetings')}
+              Meetings
             </Link>
 
             <Link
               to="/contact"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              {t('nav.contact', 'Contact')}
+              Contact
             </Link>
 
           </nav>
 
-          {/* DESKTOP ACTIONS */}
+          {/* DESKTOP AUTH */}
           <div className="hidden items-center gap-3 md:flex">
 
-            <LanguageSelector />
-
             {user ? (
-              <div className="relative">
-
-                <button
-                  onClick={() =>
-                    setProfileMenuOpen(!profileMenuOpen)
-                  }
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white"
-                >
-                  {user.email?.charAt(0).toUpperCase() || 'U'}
-                </button>
-
-                {profileMenuOpen && (
-                  <div className="absolute right-0 mt-3 w-56 rounded-xl border border-gray-200 bg-white p-2 shadow-lg">
-
-                    <div className="border-b border-gray-100 px-3 py-3">
-                      <p className="text-xs text-gray-500">
-                        Signed in as
-                      </p>
-
-                      <p className="mt-1 truncate text-sm font-medium text-gray-900">
-                        {user.email}
-                      </p>
-                    </div>
-
-                    <button
-                      onClick={async () => {
-                        setProfileMenuOpen(false);
-                        await signOut();
-                      }}
-                      className="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 hover:text-teal-600"
-                    >
-                      Sign out
-                    </button>
-
-                  </div>
-                )}
-
-              </div>
+              <button
+                onClick={signOut}
+                className="rounded-lg bg-blue-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-800"
+              >
+                Sign out
+              </button>
             ) : (
               <button
                 onClick={() => setShowSignInModal(true)}
@@ -498,143 +464,16 @@ export default function AgendaPage() {
 
           </div>
 
-          {/* MOBILE BUTTON */}
+          {/* MOBILE MENU BUTTON */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="rounded-lg p-2 text-gray-700 hover:bg-gray-50 md:hidden"
-            aria-label="Toggle menu"
-            aria-expanded={mobileMenuOpen}
+            className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-50 hover:text-teal-600 md:hidden"
+            onClick={() => navigate('/agenda')}
+            aria-label="Menu"
           >
-            {mobileMenuOpen ? (
-              <span className="text-2xl">×</span>
-            ) : (
-              <span className="text-2xl">☰</span>
-            )}
+            <span className="text-xl">☰</span>
           </button>
 
         </div>
-
-        {/* MOBILE MENU */}
-        {mobileMenuOpen && (
-          <div className="border-t border-gray-200 bg-white md:hidden">
-
-            <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
-
-              <nav className="space-y-1">
-
-                <Link
-                  to="/"
-                  onClick={closeMobileMenu}
-                  className="block rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-teal-600"
-                >
-                  {t('nav.home', 'Home')}
-                </Link>
-
-                <Link
-                  to="/about"
-                  onClick={closeMobileMenu}
-                  className="block rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-teal-600"
-                >
-                  {t('nav.about', 'About')}
-                </Link>
-
-                <Link
-                  to="/initiatives"
-                  onClick={closeMobileMenu}
-                  className="block rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-teal-600"
-                >
-                  {t('nav.initiatives', 'Initiatives')}
-                </Link>
-
-                <Link
-                  to="/stakeholders"
-                  onClick={closeMobileMenu}
-                  className="block rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-teal-600"
-                >
-                  {t('nav.stakeholders', 'Stakeholders')}
-                </Link>
-
-                <Link
-                  to="/agenda"
-                  onClick={closeMobileMenu}
-                  className="block rounded-md bg-teal-50 px-3 py-2 font-semibold text-teal-600"
-                >
-                  {t('nav.agenda', 'Agenda')}
-                </Link>
-
-                <Link
-                  to="/publications"
-                  onClick={closeMobileMenu}
-                  className="block rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-teal-600"
-                >
-                  {t('nav.publications', 'Publications')}
-                </Link>
-
-                <Link
-                  to="/meetings"
-                  onClick={closeMobileMenu}
-                  className="block rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-teal-600"
-                >
-                  {t('nav.meetings', 'Meetings')}
-                </Link>
-
-                <Link
-                  to="/contact"
-                  onClick={closeMobileMenu}
-                  className="block rounded-md px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-teal-600"
-                >
-                  {t('nav.contact', 'Contact')}
-                </Link>
-
-              </nav>
-
-              <div className="mt-4 border-t border-gray-100 pt-4">
-
-                <div className="mb-4">
-                  <LanguageSelector />
-                </div>
-
-                {user ? (
-                  <div>
-
-                    <div className="mb-3 rounded-lg bg-gray-50 px-3 py-3">
-                      <p className="text-xs text-gray-500">
-                        Signed in as
-                      </p>
-
-                      <p className="mt-1 truncate text-sm font-medium text-gray-900">
-                        {user.email}
-                      </p>
-                    </div>
-
-                    <button
-                      onClick={async () => {
-                        closeMobileMenu();
-                        await signOut();
-                      }}
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700"
-                    >
-                      Sign out
-                    </button>
-
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => {
-                      closeMobileMenu();
-                      setShowSignInModal(true);
-                    }}
-                    className="w-full rounded-lg bg-blue-900 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800"
-                  >
-                    Sign in
-                  </button>
-                )}
-
-              </div>
-
-            </div>
-          </div>
-        )}
       </header>
 
       {/* HERO */}
@@ -647,7 +486,7 @@ export default function AgendaPage() {
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-32">
 
           <div className="max-w-4xl">
 
@@ -679,7 +518,7 @@ export default function AgendaPage() {
 
               <button
                 onClick={downloadAgenda}
-                className="rounded-lg border border-white/60 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+                className="rounded-lg border border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
               >
                 Download Agenda
               </button>
@@ -692,6 +531,7 @@ export default function AgendaPage() {
 
       {/* INTRODUCTION */}
       <section className="bg-white">
+
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -734,11 +574,13 @@ export default function AgendaPage() {
             </div>
 
             <div className="overflow-hidden rounded-2xl shadow-lg">
+
               <img
                 src="/images/Africa_forum_nov2026.jpg"
                 alt="Africa Economic Forum 2026"
                 className="h-full w-full object-cover"
               />
+
             </div>
 
           </div>
@@ -747,6 +589,7 @@ export default function AgendaPage() {
 
       {/* PROGRAMME */}
       <section className="bg-gray-50">
+
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 
           <div className="mb-10">
@@ -771,6 +614,7 @@ export default function AgendaPage() {
 
       {/* DEAL ROOM */}
       <section className="bg-white">
+
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 
           <div className="rounded-2xl bg-gradient-to-r from-blue-900 to-blue-700 p-8 text-white md:p-12">
@@ -797,7 +641,7 @@ export default function AgendaPage() {
               ].map((step, index) => (
                 <div
                   key={step}
-                  className="rounded-xl border border-white/20 bg-white/5 p-5 transition-colors hover:bg-white/10"
+                  className="rounded-xl border border-white/20 bg-white/5 p-5"
                 >
 
                   <div className="text-sm text-blue-200">
@@ -819,6 +663,7 @@ export default function AgendaPage() {
 
       {/* STRATEGIC PATHWAYS */}
       <section className="bg-gray-50">
+
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
@@ -831,10 +676,7 @@ export default function AgendaPage() {
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
 
-            <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition-shadow hover:shadow-md">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-lg font-bold text-blue-900">
-                01
-              </div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
 
               <h3 className="text-xl font-bold text-gray-900">
                 Investors
@@ -843,12 +685,10 @@ export default function AgendaPage() {
               <p className="mt-3 text-gray-600">
                 Find Projects
               </p>
+
             </div>
 
-            <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition-shadow hover:shadow-md">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 text-lg font-bold text-teal-600">
-                02
-              </div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
 
               <h3 className="text-xl font-bold text-gray-900">
                 Projects
@@ -857,12 +697,10 @@ export default function AgendaPage() {
               <p className="mt-3 text-gray-600">
                 Find Capital
               </p>
+
             </div>
 
-            <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition-shadow hover:shadow-md">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-lg font-bold text-blue-900">
-                03
-              </div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
 
               <h3 className="text-xl font-bold text-gray-900">
                 Governments
@@ -871,14 +709,17 @@ export default function AgendaPage() {
               <p className="mt-3 text-gray-600">
                 Find Strategic Partners
               </p>
+
             </div>
 
           </div>
+
         </div>
       </section>
 
       {/* COUNTRY ROUNDTABLES */}
       <section className="bg-white">
+
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
@@ -925,11 +766,13 @@ export default function AgendaPage() {
             </div>
 
           </div>
+
         </div>
       </section>
 
       {/* WHY KINSHASA */}
       <section className="bg-gray-50">
+
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 
           <div className="grid gap-8 md:grid-cols-2">
@@ -971,11 +814,13 @@ export default function AgendaPage() {
             </div>
 
           </div>
+
         </div>
       </section>
 
       {/* CTA */}
       <section className="bg-gradient-to-r from-blue-900 to-blue-700">
+
         <div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8">
 
           <h2 className="text-3xl font-bold text-white md:text-4xl">
@@ -1002,66 +847,48 @@ export default function AgendaPage() {
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-          <div className="grid gap-10 md:grid-cols-3">
+          <div className="flex flex-col justify-between gap-6 md:flex-row">
 
             <div>
-              <p className="text-lg font-bold">
+
+              <p className="font-bold">
                 Africa Economic Forum
-              </p>
-
-              <p className="mt-3 max-w-sm text-sm leading-6 text-gray-400">
-                Investments. Alliances. Strategic Opportunities.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold">
-                Explore
-              </h3>
-
-              <div className="mt-4 flex flex-col gap-3 text-sm text-gray-300">
-
-                <Link
-                  to="/about"
-                  className="transition-colors hover:text-teal-400"
-                >
-                  About
-                </Link>
-
-                <Link
-                  to="/agenda"
-                  className="transition-colors hover:text-teal-400"
-                >
-                  Agenda
-                </Link>
-
-                <Link
-                  to="/contact"
-                  className="transition-colors hover:text-teal-400"
-                >
-                  Contact
-                </Link>
-
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-semibold">
-                Africa Economic Forum
-              </h3>
-
-              <p className="mt-4 text-sm leading-6 text-gray-400">
-                Kinshasa, Democratic Republic of Congo
               </p>
 
               <p className="mt-2 text-sm text-gray-400">
-                10–11 November 2026
+                Investments. Alliances. Strategic Opportunities.
               </p>
+
+            </div>
+
+            <div className="flex flex-wrap gap-5 text-sm text-gray-300">
+
+              <Link
+                to="/about"
+                className="transition-colors hover:text-teal-400"
+              >
+                About
+              </Link>
+
+              <Link
+                to="/agenda"
+                className="transition-colors hover:text-teal-400"
+              >
+                Agenda
+              </Link>
+
+              <Link
+                to="/contact"
+                className="transition-colors hover:text-teal-400"
+              >
+                Contact
+              </Link>
+
             </div>
 
           </div>
 
-          <div className="mt-12 border-t border-gray-700 pt-6 text-sm text-gray-400">
+          <div className="mt-8 border-t border-gray-700 pt-6 text-sm text-gray-400">
             © 2026 Africa Economic Forum. All rights reserved.
           </div>
 
@@ -1072,7 +899,7 @@ export default function AgendaPage() {
       {showChairmanModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
-          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-7 shadow-2xl">
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-7">
 
             <div className="flex items-center justify-between">
 
@@ -1130,7 +957,7 @@ export default function AgendaPage() {
       {showProgrammeModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
-          <div className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-white p-7 shadow-2xl">
+          <div className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-white p-7">
 
             <div className="flex items-center justify-between">
 
@@ -1178,11 +1005,12 @@ export default function AgendaPage() {
       {showRegistrationModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
-          <div className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white p-7 shadow-2xl">
+          <div className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white p-7">
 
             <div className="flex items-center justify-between">
 
               <div>
+
                 <h2 className="text-2xl font-bold text-gray-900">
                   Register for AEF 2026
                 </h2>
@@ -1190,6 +1018,7 @@ export default function AgendaPage() {
                 <p className="mt-1 text-sm text-gray-500">
                   10–11 November 2026 · Kinshasa
                 </p>
+
               </div>
 
               <button
@@ -1207,6 +1036,7 @@ export default function AgendaPage() {
             >
 
               <div>
+
                 <label className="mb-2 block text-sm font-semibold text-gray-900">
                   Full name
                 </label>
@@ -1221,12 +1051,14 @@ export default function AgendaPage() {
                       full_name: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
                   placeholder="Your full name"
                 />
+
               </div>
 
               <div>
+
                 <label className="mb-2 block text-sm font-semibold text-gray-900">
                   Email
                 </label>
@@ -1241,12 +1073,14 @@ export default function AgendaPage() {
                       email: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
                   placeholder="you@example.com"
                 />
+
               </div>
 
               <div>
+
                 <label className="mb-2 block text-sm font-semibold text-gray-900">
                   Organization
                 </label>
@@ -1261,12 +1095,14 @@ export default function AgendaPage() {
                       organization: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
                   placeholder="Organization / Company"
                 />
+
               </div>
 
               <div>
+
                 <label className="mb-2 block text-sm font-semibold text-gray-900">
                   Category
                 </label>
@@ -1280,8 +1116,9 @@ export default function AgendaPage() {
                       category: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-teal-600"
                 >
+
                   <option value="">
                     Select your category
                   </option>
@@ -1291,7 +1128,9 @@ export default function AgendaPage() {
                       {category}
                     </option>
                   ))}
+
                 </select>
+
               </div>
 
               {registrationMessage && (
@@ -1303,7 +1142,7 @@ export default function AgendaPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-lg bg-blue-900 px-5 py-3 font-semibold text-white transition-colors hover:bg-blue-800 disabled:opacity-50"
+                className="w-full rounded-lg bg-blue-900 px-5 py-3 font-semibold text-white hover:bg-blue-800 disabled:opacity-50"
               >
                 {isSubmitting
                   ? 'Submitting...'
@@ -1320,7 +1159,7 @@ export default function AgendaPage() {
       {showSignInModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
-          <div className="w-full max-w-md rounded-2xl bg-white p-7 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-white p-7">
 
             <div className="flex items-center justify-between">
 
@@ -1345,7 +1184,7 @@ export default function AgendaPage() {
             <div className="mt-7 flex gap-3">
 
               <Link
-                to="/signin"
+                to="/login"
                 onClick={() => setShowSignInModal(false)}
                 className="rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
               >
@@ -1372,7 +1211,7 @@ export default function AgendaPage() {
       {showCreateAccountModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
 
-          <div className="w-full max-w-md rounded-2xl bg-white p-7 shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-white p-7">
 
             <div className="flex items-center justify-between">
 
@@ -1407,4 +1246,4 @@ export default function AgendaPage() {
 
     </div>
   );
-                }
+      }
