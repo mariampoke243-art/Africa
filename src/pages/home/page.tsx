@@ -17,8 +17,6 @@ import { forums } from '../meetings/forumsData';
 
 import { spotlightArticles } from '../../data/spotlightData';
 
-import { listeIntervenants } from '../../data/intervenantsData';
-
 import HomePopups from '../../components/HomePopups';
 
 import { LanguageSelector } from '../../components/LanguageSelector';
@@ -162,28 +160,6 @@ export default function Home() {
 
 
   /* =========================================================
-     INTERVENANTS
-     ========================================================= */
-
-  const intervenantsConfirmes =
-    listeIntervenants
-      .filter(
-        (intervenant) =>
-          intervenant.statut === 'Confirmé'
-      )
-      .slice(0, 4);
-
-
-  const dirigeantsInvites =
-    listeIntervenants
-      .filter(
-        (intervenant) =>
-          intervenant.statut === 'Invité'
-      )
-      .slice(0, 3);
-
-
-  /* =========================================================
      CHANGE LANGUAGE
      ========================================================= */
 
@@ -314,8 +290,6 @@ export default function Home() {
                 ================================================= */}
 
             <div className="hidden md:flex items-center space-x-4">
-
-              {/* LANGUAGE SELECTOR */}
 
               <LanguageSelector />
 
@@ -1166,240 +1140,6 @@ export default function Home() {
 
 
         {/* ===================================================
-            INTERVENANTS
-            =================================================== */}
-
-        <section className="py-20 bg-white">
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <div className="flex justify-between items-center mb-12">
-
-              <div>
-
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                  Intervenants
-                </h2>
-
-                <p className="text-gray-600 text-lg">
-                  Les personnes qui façonnent la conversation
-                </p>
-
-              </div>
-
-
-              <Link
-                to="/intervenants"
-                className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
-              >
-                <span>
-                  Voir tous les intervenants
-                </span>
-
-                <i className="ri-arrow-right-line" />
-
-              </Link>
-
-            </div>
-
-
-            {/* CONFIRMÉS */}
-
-            <div className="mb-16">
-
-              <div className="flex items-center justify-between mb-8">
-
-                <h3 className="text-2xl font-bold text-gray-900">
-                  Intervenants confirmés
-                </h3>
-
-                <span className="text-sm text-teal-600 font-medium">
-                  AEF 2026
-                </span>
-
-              </div>
-
-
-              <div className="grid grid-cols-2 gap-4 md:gap-8">
-
-                {intervenantsConfirmes.map(
-                  (intervenant) => (
-
-                    <Link
-                      key={intervenant.id}
-                      to="/intervenants"
-                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group border border-gray-200"
-                    >
-
-                      <div className="relative">
-
-                        <img
-                          src={intervenant.photoUrl}
-                          alt={intervenant.nom}
-                          className="w-full h-64 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                        />
-
-
-                        <span className="absolute top-4 left-4 bg-green-600 text-white text-xs font-semibold px-3 py-2 uppercase tracking-wider">
-                          Confirmé
-                        </span>
-
-                      </div>
-
-
-                      <div className="p-6">
-
-                        <h4 className="font-bold text-gray-900 text-lg md:text-xl leading-tight">
-                          {intervenant.nom}
-                        </h4>
-
-
-                        <p className="text-gray-600 text-sm md:text-base mt-3 leading-relaxed line-clamp-4">
-                          {intervenant.titre}
-                        </p>
-
-
-                        {intervenant.institution && (
-
-                          <p className="text-gray-400 text-xs md:text-sm mt-5 uppercase tracking-wider font-medium">
-                            {intervenant.institution}
-                          </p>
-
-                        )}
-
-
-                        {intervenant.domaineStrategique && (
-
-                          <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
-                            {intervenant.domaineStrategique}
-                          </p>
-
-                        )}
-
-                      </div>
-
-                    </Link>
-
-                  )
-                )}
-
-              </div>
-
-            </div>
-
-
-            {/* DIRIGEANTS INVITÉS */}
-
-            {dirigeantsInvites.length > 0 && (
-
-              <div>
-
-                <div className="flex items-center justify-between mb-8">
-
-                  <h3 className="text-2xl font-bold text-gray-900">
-                    Dirigeants invités
-                  </h3>
-
-                  <span className="text-sm text-yellow-700 font-medium">
-                    AEF 2026
-                  </span>
-
-                </div>
-
-
-                <div className="grid grid-cols-2 gap-4 md:gap-8">
-
-                  {dirigeantsInvites.map(
-                    (intervenant) => (
-
-                      <Link
-                        key={intervenant.id}
-                        to="/intervenants"
-                        className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block group border border-gray-200"
-                      >
-
-                        <div className="relative">
-
-                          <img
-                            src={intervenant.photoUrl}
-                            alt={intervenant.nom}
-                            className="w-full h-64 md:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                          />
-
-
-                          <span className="absolute top-4 left-4 bg-yellow-600 text-white text-xs font-semibold px-3 py-2 uppercase tracking-wider">
-                            Invité
-                          </span>
-
-                        </div>
-
-
-                        <div className="p-6">
-
-                          <h4 className="font-bold text-gray-900 text-lg md:text-xl leading-tight">
-                            {intervenant.nom}
-                          </h4>
-
-
-                          <p className="text-gray-600 text-sm md:text-base mt-3 leading-relaxed line-clamp-4">
-                            {intervenant.titre}
-                          </p>
-
-
-                          {intervenant.institution && (
-
-                            <p className="text-gray-400 text-xs md:text-sm mt-5 uppercase tracking-wider font-medium">
-                              {intervenant.institution}
-                            </p>
-
-                          )}
-
-
-                          {intervenant.domaineStrategique && (
-
-                            <p className="text-teal-600 text-xs md:text-sm mt-2 font-medium">
-                              {intervenant.domaineStrategique}
-                            </p>
-
-                          )}
-
-                        </div>
-
-                      </Link>
-
-                    )
-                  )}
-
-                </div>
-
-              </div>
-
-            )}
-
-
-            <div className="text-center mt-10">
-
-              <Link
-                to="/intervenants"
-                className="inline-flex items-center bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium space-x-2 whitespace-nowrap cursor-pointer"
-              >
-
-                <span>
-                  Découvrir tous les intervenants
-                </span>
-
-                <i className="ri-arrow-right-line" />
-
-              </Link>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* ===================================================
             NEWSLETTER
             =================================================== */}
 
@@ -1942,4 +1682,4 @@ export default function Home() {
 
   );
 
-      }
+                  }
