@@ -6,960 +6,1646 @@ import { supabase } from '../../supabase/client';
 export default function Contact() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+
+  // =========================
+  // STATES
+  // =========================
+
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  // =========================
+  // SIGN OUT
+  // =========================
+
   const handleSignOut = async () => {
-    await signOut();
-    setIsProfileDropdownOpen(false);
+    try {
+      await signOut();
+      setIsProfileDropdownOpen(false);
+      navigate('/');
+    } catch (error) {
+      console.error('Sign out error:', error);
+      alert('Unable to sign out. Please try again.');
+    }
   };
+
+  // =========================
+  // PROFILE
+  // =========================
 
   const handleViewProfile = () => {
-    navigate('/profile');
     setIsProfileDropdownOpen(false);
+    navigate('/profile');
   };
 
-  const getInitials = (name: string) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  const getInitials = () => {
+    if (!user) return 'U';
+
+    const metadata = user.user_metadata || {};
+
+    const firstName =
+      metadata.first_name ||
+      metadata.full_name?.split(' ')[0] ||
+      '';
+
+    const lastName =
+      metadata.last_name ||
+      metadata.full_name?.split(' ').slice(1).join(' ') ||
+      '';
+
+    if (firstName && lastName) {
+      return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+    }
+
+    if (firstName) {
+      return firstName.substring(0, 2).toUpperCase();
+    }
+
+    return user.email?.substring(0, 2).toUpperCase() || 'U';
   };
+
+  // =========================
+  // OPEN SIGN IN
+  // =========================
 
   const handleSignIn = () => {
-    setShowSignInModal(true);
     setShowCreateAccount(false);
+    setShowSignInModal(true);
   };
+
+  // =========================
+  // OPEN CREATE ACCOUNT
+  // =========================
+
+  const handleOpenCreateAccount = () => {
+    setShowSignInModal(false);
+    setShowCreateAccount(true);
+  };
+
+  // =========================
+  // MOBILE MENU
+  // =========================
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsMobileMenuOpen((prev) => !prev);
   };
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  // =========================
+  // CONTACT FORM
+  // =========================
+
+  const handleContactSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    
+
     try {
+      const formData = new FormData(e.currentTarget);
+
+      const name = (formData.get('name') as string)?.trim();
+      const lastName = (formData.get('Last name') as string)?.trim();
+      const email = (formData.get('Email Address') as string)?.trim();
+      const organization =
+        (formData.get('Organization') as string)?.trim() || '';
+      const phone =
+        (formData.get('Phone Number') as string)?.trim() || '';
+      const subject =
+        (formData.get('Subject') as string)?.trim() || '';
+      const message =
+        (formData.get('Message') as string)?.trim() || '';
+
+      const newsletter =
+        formData.get('Newsletters') !== null;
+
+      if (!name || !lastName || !email || !message) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
       const { error } = await supabase
         .from('contact_messages')
         .insert([
           {
-            name: formData.get('first_name') as string,
-            'Last name': formData.get('last_name') as string,
-            'Email Address': formData.get('email') as string,
-            Organization: (formData.get('organization') as string) || null,
-            'Phone Number': (formData.get('phone') as string) || null,
-            Subject: formData.get('subject') as string,
-            Message: formData.get('message') as string,
-            Newsletters: formData.get('newsletter_consent') === 'yes',
+            name,
+            'Last name': lastName,
+            'Email Address': email,
+            Organization: organization,
+            'Phone Number': phone,
+            Subject: subject,
+            Message: message,
+            Newsletters: newsletter,
           },
         ]);
 
       if (error) {
-        throw error;
-      }
-      
-      setFormSubmitted(true);
-      (e.target as HTMLFormElement).reset();
-    } catch (error) {
-      console.error('Erreur Supabase :', error);
-      alert('Message failed to send. Please try again.');
-    }
-  };
-
-  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    
-    try {
-      const response = await fetch('https://readdy.ai/api/form/d3edvgd2v2m9odki5mlg', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData as any).toString()
-      });
-      
-      if (response.ok) {
-        alert('Successfully subscribed to our newsletter!');
-        (e.target as HTMLFormElement).reset();
-      } else {
-        alert('Subscription failed. Please try again.');
-      }
-    } catch (error) {
-      alert('Subscription failed. Please try again.');
-    }
-  };
-
-  const switchToCreateAccount = () => {
-    setShowCreateAccount(true);
-  };
-
-  const switchToSignIn = () => {
-    setShowCreateAccount(false);
-  };
-
-  const handleSignInSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData(e.currentTarget);
-
-      const email = formData.get('email') as string;
-      const password = formData.get('password') as string;
-
-      if (email && password) {
-        alert('Sign in successful! Welcome back.');
-        setShowSignInModal(false);
-      } else {
-        alert('Please fill in all required fields.');
-      }
-    } catch (err) {
-      console.error('Sign-in error:', err);
-      alert('An unexpected error occurred. Please try again later.');
-    }
-  };
-
-  const handleCreateAccountSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData(e.currentTarget);
-
-      const email = formData.get('email') as string;
-      const password = formData.get('password') as string;
-      const confirmPassword = formData.get('confirm_password') as string;
-      const firstName = formData.get('first_name') as string;
-      const lastName = formData.get('last_name') as string;
-
-      if (password !== confirmPassword) {
-        alert('Passwords do not match. Please try again.');
+        console.error('Contact form error:', error);
+        alert(
+          `Unable to send your message: ${error.message}`
+        );
         return;
       }
 
-      if (email && password && firstName && lastName) {
-        alert('Account created successfully! Welcome to Africa Economic Forum.');
-        setShowSignInModal(false);
-        setShowCreateAccount(false);
-      } else {
-        alert('Please fill in all required fields.');
-      }
-    } catch (err) {
-      console.error('Account creation error:', err);
-      alert('An unexpected error occurred. Please try again later.');
+      setFormSubmitted(true);
+
+      e.currentTarget.reset();
+    } catch (error: unknown) {
+      console.error('Unexpected contact form error:', error);
+
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'An unexpected error occurred.';
+
+      alert(`${errorMessage} Please try again later.`);
     }
   };
 
+  // =========================
+  // NEWSLETTER
+  // =========================
+
+  const handleNewsletterSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData(e.currentTarget);
+
+      const email = (
+        formData.get('email') as string
+      )?.trim();
+
+      if (!email) {
+        alert('Please enter your email address.');
+        return;
+      }
+
+      const response = await fetch(
+        'https://readdy.ai/api/form/d3edvgd2v2m9odki5mlg',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Newsletter subscription failed.');
+      }
+
+      alert(
+        'Thank you! You have successfully subscribed to our newsletter.'
+      );
+
+      e.currentTarget.reset();
+    } catch (error) {
+      console.error('Newsletter error:', error);
+      alert(
+        'Unable to subscribe at the moment. Please try again later.'
+      );
+    }
+  };
+
+  // =========================
+  // REAL SUPABASE SIGN IN
+  // =========================
+
+  const handleSignInSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData(e.currentTarget);
+
+      const email = (
+        formData.get('email') as string
+      )?.trim();
+
+      const password =
+        formData.get('password') as string;
+
+      if (!email || !password) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      const { error } =
+        await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+      if (error) {
+        console.error(
+          'Supabase sign-in error:',
+          error
+        );
+
+        const errorMessage =
+          error.message.toLowerCase();
+
+        if (
+          errorMessage.includes(
+            'invalid login credentials'
+          )
+        ) {
+          alert(
+            'Invalid email or password. Please try again.'
+          );
+        } else if (
+          errorMessage.includes(
+            'email not confirmed'
+          )
+        ) {
+          alert(
+            'Please confirm your email address before signing in.'
+          );
+        } else {
+          alert(
+            `Sign in failed: ${error.message}`
+          );
+        }
+
+        return;
+      }
+
+      alert(
+        'Sign in successful! Welcome back.'
+      );
+
+      setShowSignInModal(false);
+      setShowCreateAccount(false);
+    } catch (error: unknown) {
+      console.error(
+        'Unexpected sign-in error:',
+        error
+      );
+
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'An unexpected error occurred.';
+
+      alert(
+        `${errorMessage} Please try again later.`
+      );
+    }
+  };
+
+  // =========================
+  // REAL SUPABASE CREATE ACCOUNT
+  // =========================
+
+  const handleCreateAccountSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData(e.currentTarget);
+
+      const email = (
+        formData.get('email') as string
+      )?.trim();
+
+      const password =
+        formData.get('password') as string;
+
+      const confirmPassword =
+        formData.get('confirm_password') as string;
+
+      const firstName = (
+        formData.get('first_name') as string
+      )?.trim();
+
+      const lastName = (
+        formData.get('last_name') as string
+      )?.trim();
+
+      const organization =
+        (
+          formData.get('organization') as string
+        )?.trim() || '';
+
+      if (
+        !firstName ||
+        !lastName ||
+        !email ||
+        !password ||
+        !confirmPassword
+      ) {
+        alert(
+          'Please fill in all required fields.'
+        );
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert(
+          'Passwords do not match. Please try again.'
+        );
+        return;
+      }
+
+      if (password.length < 6) {
+        alert(
+          'Password must contain at least 6 characters.'
+        );
+        return;
+      }
+
+      const newsletterConsent =
+        formData.get('newsletter_consent') !== null;
+
+      const { data, error } =
+        await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: `${firstName} ${lastName}`,
+              first_name: firstName,
+              last_name: lastName,
+              organization,
+              newsletter_consent:
+                newsletterConsent,
+            },
+          },
+        });
+
+      if (error) {
+        console.error(
+          'Supabase account creation error:',
+          error
+        );
+
+        if (
+          error.message
+            .toLowerCase()
+            .includes('already registered')
+        ) {
+          alert(
+            'An account with this email already exists. Please sign in instead.'
+          );
+        } else {
+          alert(
+            `Account creation failed: ${error.message}`
+          );
+        }
+
+        return;
+      }
+
+      if (data.user) {
+        if (data.session) {
+          alert(
+            'Account created successfully! Welcome to Africa Economic Forum.'
+          );
+        } else {
+          alert(
+            'Account created successfully! Please check your email to confirm your account.'
+          );
+        }
+
+        setShowSignInModal(false);
+        setShowCreateAccount(false);
+      }
+    } catch (error: unknown) {
+      console.error(
+        'Unexpected account creation error:',
+        error
+      );
+
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'An unexpected error occurred.';
+
+      alert(
+        `${errorMessage} Please try again later.`
+      );
+    }
+  };
+
+  // =========================
+  // PAGE
+  // =========================
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+    <div className="min-h-screen bg-white text-gray-900">
+
+      {/* =====================================
+          HEADER
+      ====================================== */}
+
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Link to="/" className="flex items-center">
-                <img 
-                  src="https://static.readdy.ai/image/433d1257c1dbc1f8bb2f3f1c418f6689/0727857f21d196505f8ef18cfc1cd897.png" 
-                  alt="Africa Economic Forum" 
-                  className="h-10 w-auto" 
-                />
-              </Link>
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+          <div className="h-20 flex items-center justify-between">
+
+            {/* LOGO */}
+            <Link
+              to="/"
+              className="flex items-center gap-3"
+              onClick={closeMobileMenu}
+            >
+              <div className="w-11 h-11 bg-blue-900 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">
+                  AEF
+                </span>
+              </div>
+
+              <div className="hidden sm:block">
+                <div className="font-bold text-blue-900 text-lg leading-tight">
+                  Africa Economic Forum
+                </div>
+                <div className="text-xs text-gray-500">
+                  Connecting Africa's Future
+                </div>
+              </div>
+            </Link>
+
+            {/* DESKTOP NAVIGATION */}
+            <nav className="hidden lg:flex items-center gap-7">
+
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-blue-900 transition"
+              >
                 Home
               </Link>
-              <Link to="/about" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+              <Link
+                to="/about"
+                className="text-gray-700 hover:text-blue-900 transition"
+              >
                 About
               </Link>
-              <Link to="/initiatives" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+              <Link
+                to="/initiatives"
+                className="text-gray-700 hover:text-blue-900 transition"
+              >
                 Initiatives
               </Link>
-              <Link to="/stakeholders" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                Stakeholders
-              </Link>
-              <Link to="/agenda" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                Agenda
-              </Link>
-              <Link to="/publications" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                Publications
-              </Link>
-              <Link to="/meetings" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+              <Link
+                to="/meetings"
+                className="text-gray-700 hover:text-blue-900 transition"
+              >
                 Meetings
               </Link>
-              <Link to="/contact" className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600">
+
+              <Link
+                to="/agenda"
+                className="text-gray-700 hover:text-blue-900 transition"
+              >
+                Agenda
+              </Link>
+
+              <Link
+                to="/intervenants"
+                className="text-gray-700 hover:text-blue-900 transition"
+              >
+                Intervenants
+              </Link>
+
+              <Link
+                to="/partners"
+                className="text-gray-700 hover:text-blue-900 transition"
+              >
+                Partners
+              </Link>
+
+              <Link
+                to="/publications"
+                className="text-gray-700 hover:text-blue-900 transition"
+              >
+                Publications
+              </Link>
+
+              <Link
+                to="/contact"
+                className="text-blue-900 font-semibold"
+              >
                 Contact
               </Link>
             </nav>
 
-            <div className="hidden md:flex items-center space-x-4">
-              {user ? (
-                <div className="relative">
+            {/* RIGHT SIDE */}
+            <div className="hidden lg:flex items-center gap-4">
+
+              {!user ? (
+                <>
                   <button
-                    onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    title={user.user_metadata?.full_name || user.email}
+                    type="button"
+                    onClick={handleSignIn}
+                    className="text-blue-900 font-medium hover:text-blue-700 transition"
                   >
-                    {user.user_metadata?.avatar_url ? (
-                      <img
-                        src={user.user_metadata.avatar_url}
-                        alt="Profile"
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                        {getInitials(user.user_metadata?.full_name || user.email?.charAt(0) || 'U')}
+                    Sign In
+                  </button>
+
+                  <Link
+                    to="/join"
+                    className="bg-blue-900 text-white px-5 py-2.5 rounded-md hover:bg-blue-800 transition font-medium"
+                  >
+                    Become a Member
+                  </Link>
+                </>
+              ) : (
+                <div className="relative">
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setIsProfileDropdownOpen(
+                        (prev) => !prev
+                      )
+                    }
+                    className="flex items-center gap-3"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-blue-900 text-white flex items-center justify-center font-semibold">
+                      {getInitials()}
+                    </div>
+
+                    <div className="text-left">
+                      <div className="text-sm font-semibold text-gray-900">
+                        {user.user_metadata
+                          ?.full_name ||
+                          user.email}
                       </div>
-                    )}
+
+                      <div className="text-xs text-gray-500">
+                        My Account
+                      </div>
+                    </div>
+
+                    <i className="ri-arrow-down-s-line text-lg text-gray-500" />
                   </button>
 
                   {isProfileDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
-                      <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
-                        <div className="font-medium">{user.user_metadata?.full_name || 'User'}</div>
-                        <div className="text-gray-500">{user.email}</div>
-                      </div>
+                    <div className="absolute right-0 mt-3 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-2">
+
                       <button
+                        type="button"
                         onClick={handleViewProfile}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3"
                       >
-                        View Profile
+                        <i className="ri-user-line text-blue-900" />
+                        <span>My Profile</span>
                       </button>
+
                       <button
+                        type="button"
                         onClick={handleSignOut}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 text-red-600"
                       >
-                        Sign Out
+                        <i className="ri-logout-box-r-line" />
+                        <span>Sign Out</span>
                       </button>
+
                     </div>
                   )}
                 </div>
-              ) : (
-                <Link 
-                  to="/signin"
-                  className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
-                >
-                  Sign In
-                </Link>
               )}
             </div>
 
-            <button 
-              className="md:hidden p-2 cursor-pointer"
+            {/* MOBILE BUTTON */}
+            <button
+              type="button"
               onClick={toggleMobileMenu}
+              className="lg:hidden w-10 h-10 flex items-center justify-center text-gray-700"
+              aria-label="Open menu"
             >
-              <i className={`ri-${isMobileMenuOpen ? 'close' : 'menu'}-line text-2xl`}></i>
+              <i
+                className={
+                  isMobileMenuOpen
+                    ? 'ri-close-line text-2xl'
+                    : 'ri-menu-line text-2xl'
+                }
+              />
             </button>
+
           </div>
         </div>
 
+        {/* MOBILE MENU */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link to="/" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
+          <div className="lg:hidden border-t border-gray-200 bg-white">
+
+            <nav className="px-5 py-5 space-y-1">
+
+              <Link
+                to="/"
+                onClick={closeMobileMenu}
+                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
+              >
                 Home
               </Link>
-              <Link to="/about" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
+
+              <Link
+                to="/about"
+                onClick={closeMobileMenu}
+                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
+              >
                 About
               </Link>
-              <Link to="/initiatives" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
+
+              <Link
+                to="/initiatives"
+                onClick={closeMobileMenu}
+                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
+              >
                 Initiatives
               </Link>
-              <Link to="/stakeholders" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                Stakeholders
-              </Link>
-              <Link to="/agenda" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                Agenda
-              </Link>
-              <Link to="/publications" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                Publications
-              </Link>
-              <Link to="/meetings" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
+
+              <Link
+                to="/meetings"
+                onClick={closeMobileMenu}
+                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
+              >
                 Meetings
               </Link>
-              <Link to="/contact" className="block px-3 py-2 text-base font-medium text-teal-600 bg-teal-50 rounded-md">
+
+              <Link
+                to="/agenda"
+                onClick={closeMobileMenu}
+                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
+              >
+                Agenda
+              </Link>
+
+              <Link
+                to="/intervenants"
+                onClick={closeMobileMenu}
+                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
+              >
+                Intervenants
+              </Link>
+
+              <Link
+                to="/partners"
+                onClick={closeMobileMenu}
+                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
+              >
+                Partners
+              </Link>
+
+              <Link
+                to="/publications"
+                onClick={closeMobileMenu}
+                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
+              >
+                Publications
+              </Link>
+
+              <Link
+                to="/contact"
+                onClick={closeMobileMenu}
+                className="block px-3 py-3 rounded-lg bg-blue-50 text-blue-900 font-semibold"
+              >
                 Contact
               </Link>
-              <div className="px-3 py-2">
-                {user ? (
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2 px-3 py-2">
-                      {user.user_metadata?.avatar_url ? (
-                        <img
-                          src={user.user_metadata.avatar_url}
-                          alt="Profile"
-                          className="w-6 h-6 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                          <span className="text-blue-600 text-xs font-medium">
-                            {getInitials(user.user_metadata?.full_name || user.email?.charAt(0) || 'U')}
-                          </span>
-                        </div>
-                      )}
-                      <span className="text-gray-700 font-medium">{user.user_metadata?.full_name || 'User'}</span>
-                    </div>
-                    <button 
+
+              <div className="pt-4 border-t border-gray-200 mt-3">
+
+                {!user ? (
+                  <div className="space-y-3">
+
+                    <button
+                      type="button"
                       onClick={() => {
-                        handleViewProfile();
-                        setIsMobileMenuOpen(false);
+                        closeMobileMenu();
+                        handleSignIn();
                       }}
-                      className="block w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium text-center"
+                      className="w-full px-4 py-3 border border-blue-900 text-blue-900 rounded-md font-medium"
                     >
-                      View Profile
+                      Sign In
                     </button>
-                    <button 
-                      onClick={() => {
-                        handleSignOut();
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 font-medium whitespace-nowrap cursor-pointer"
+
+                    <Link
+                      to="/join"
+                      onClick={closeMobileMenu}
+                      className="block w-full bg-blue-900 text-white text-center px-4 py-3 rounded-md font-medium"
                     >
-                      Sign Out
-                    </button>
+                      Become a Member
+                    </Link>
+
                   </div>
                 ) : (
-                  <Link 
-                    to="/signin"
-                    className="w-full bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer block text-center"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Sign In
-                  </Link>
+                  <div className="space-y-2">
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        closeMobileMenu();
+                        handleViewProfile();
+                      }}
+                      className="w-full text-left px-4 py-3 rounded-md hover:bg-gray-50"
+                    >
+                      <i className="ri-user-line mr-2" />
+                      My Profile
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        closeMobileMenu();
+                        handleSignOut();
+                      }}
+                      className="w-full text-left px-4 py-3 rounded-md text-red-600 hover:bg-red-50"
+                    >
+                      <i className="ri-logout-box-r-line mr-2" />
+                      Sign Out
+                    </button>
+
+                  </div>
                 )}
+
               </div>
-            </div>
+
+            </nav>
           </div>
         )}
       </header>
 
-      {/* Main Content */}
-      <main>
-        {/* Hero Section */}
-        <section 
-          className="relative py-32 bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.8)), url('https://readdy.ai/api/search-image?query=Modern%20African%20business%20office%20with%20professional%20staff%20ready%20to%20assist%2C%20customer%20service%20representatives%20in%20contemporary%20workspace%20with%20communication%20technology&width=1920&height=800&seq=contact-hero&orientation=landscape')`
-          }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">Contact Us</h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">Get in touch with our team to learn more about our initiatives, partnerships, or how you can contribute to Africa's economic transformation.</p>
-          </div>
-        </section>
+      {/* =====================================
+          HERO
+      ====================================== */}
 
-        {/* Contact Form Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16">
-              <div className="space-y-8">
-                <div>
-                  <h2 className="text-4xl font-bold text-gray-900 mb-6">Send us a message</h2>
-                  <p className="text-lg text-gray-600 leading-relaxed">
-                    Whether you're interested in partnership opportunities, have questions about our programs, 
-                    or want to contribute to our mission, we'd love to hear from you.
-                  </p>
-                </div>
-                
-                {formSubmitted ? (
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                    <div className="flex items-center">
-                      <i className="ri-check-circle-fill text-green-600 text-2xl mr-3"></i>
-                      <div>
-                        <h3 className="text-lg font-semibold text-green-800">Message Sent Successfully!</h3>
-                        <p className="text-green-700">Thank you for contacting us. We'll get back to you within 24 hours.</p>
-                      </div>
+      <section className="pt-20">
+
+        <div className="relative bg-blue-950 text-white overflow-hidden">
+
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-teal-800 opacity-95" />
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+
+            <div className="max-w-3xl">
+
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 mb-6">
+                <i className="ri-mail-line" />
+                <span className="text-sm">
+                  Get in touch
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                Contact the Africa Economic Forum
+              </h1>
+
+              <p className="text-lg sm:text-xl text-blue-100 leading-relaxed max-w-2xl">
+                Connect with our team, share your ideas,
+                explore partnerships and learn more about
+                the Africa Economic Forum.
+              </p>
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      {/* =====================================
+          CONTACT CONTENT
+      ====================================== */}
+
+      <section className="py-20 lg:py-24">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <div className="grid lg:grid-cols-5 gap-12">
+
+            {/* LEFT INFO */}
+            <div className="lg:col-span-2">
+
+              <div className="sticky top-28">
+
+                <span className="text-blue-900 font-semibold uppercase tracking-wider text-sm">
+                  Contact Us
+                </span>
+
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mt-3 mb-6">
+                  Let's build Africa's future together
+                </h2>
+
+                <p className="text-gray-600 leading-relaxed mb-10">
+                  Whether you are interested in membership,
+                  partnerships, investment opportunities,
+                  events or collaboration, our team is ready
+                  to hear from you.
+                </p>
+
+                <div className="space-y-6">
+
+                  <div className="flex gap-4">
+
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center flex-shrink-0">
+                      <i className="ri-mail-line text-xl" />
                     </div>
-                    <button 
-                      onClick={() => setFormSubmitted(false)}
-                      className="mt-4 text-green-600 hover:text-green-800 font-medium cursor-pointer"
+
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        Email
+                      </h3>
+                      <p className="text-gray-600 mt-1">
+                        contact@africaeconomicforum.com
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <div className="flex gap-4">
+
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center flex-shrink-0">
+                      <i className="ri-map-pin-line text-xl" />
+                    </div>
+
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        Location
+                      </h3>
+                      <p className="text-gray-600 mt-1">
+                        Kinshasa, Democratic Republic of Congo
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <div className="flex gap-4">
+
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center flex-shrink-0">
+                      <i className="ri-global-line text-xl" />
+                    </div>
+
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        Africa Economic Forum
+                      </h3>
+                      <p className="text-gray-600 mt-1">
+                        Connecting leaders, institutions,
+                        investors and changemakers.
+                      </p>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* FORM */}
+            <div className="lg:col-span-3">
+
+              <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8 lg:p-10">
+
+                {formSubmitted ? (
+                  <div className="py-12 text-center">
+
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                      <i className="ri-check-line text-3xl" />
+                    </div>
+
+                    <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                      Message sent successfully
+                    </h2>
+
+                    <p className="text-gray-600 max-w-md mx-auto mb-8">
+                      Thank you for contacting the Africa
+                      Economic Forum. Our team will get back
+                      to you as soon as possible.
+                    </p>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setFormSubmitted(false)
+                      }
+                      className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 transition font-medium"
                     >
                       Send another message
                     </button>
+
                   </div>
                 ) : (
-                  <form onSubmit={handleFormSubmit} id="contact-form" className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
+                  <>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                      Send us a message
+                    </h2>
+
+                    <p className="text-gray-600 mb-8">
+                      Fill in the form below and our team
+                      will contact you.
+                    </p>
+
+                    <form
+                      onSubmit={handleContactSubmit}
+                      className="space-y-6"
+                    >
+
+                      <div className="grid sm:grid-cols-2 gap-5">
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            First Name *
+                          </label>
+
+                          <input
+                            type="text"
+                            name="name"
+                            required
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent"
+                            placeholder="Your first name"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Last Name *
+                          </label>
+
+                          <input
+                            type="text"
+                            name="Last name"
+                            required
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent"
+                            placeholder="Your last name"
+                          />
+                        </div>
+
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 gap-5">
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Email Address *
+                          </label>
+
+                          <input
+                            type="email"
+                            name="Email Address"
+                            required
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent"
+                            placeholder="you@example.com"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Phone Number
+                          </label>
+
+                          <input
+                            type="tel"
+                            name="Phone Number"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent"
+                            placeholder="+243 ..."
+                          />
+                        </div>
+
+                      </div>
+
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                        <input 
-                          type="text" 
-                          name="first_name" 
-                          required 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Organization
+                        </label>
+
+                        <input
+                          type="text"
+                          name="Organization"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent"
+                          placeholder="Your organization"
                         />
                       </div>
+
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                        <input 
-                          type="text" 
-                          name="last_name" 
-                          required 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Subject
+                        </label>
+
+                        <input
+                          type="text"
+                          name="Subject"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent"
+                          placeholder="How can we help?"
                         />
                       </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                      <input 
-                        type="email" 
-                        name="email" 
-                        required 
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
+
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Organization</label>
-                        <input 
-                          type="text" 
-                          name="organization" 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Message *
+                        </label>
+
+                        <textarea
+                          name="Message"
+                          required
+                          rows={6}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent resize-none"
+                          placeholder="Write your message..."
                         />
                       </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                        <input 
-                          type="tel" 
-                          name="phone" 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+
+                      <label className="flex items-start gap-3 cursor-pointer">
+
+                        <input
+                          type="checkbox"
+                          name="Newsletters"
+                          className="mt-1 w-4 h-4"
                         />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
-                      <select 
-                        name="subject" 
-                        required 
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm pr-8"
-                      >
-                        <option value="">Select a subject</option>
-                        <option value="Partnership Inquiry">Partnership Inquiry</option>
-                        <option value="Membership Information">Membership Information</option>
-                        <option value="Event Registration">Event Registration</option>
-                        <option value="Media Inquiry">Media Inquiry</option>
-                        <option value="General Question">General Question</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-                      <textarea 
-                        name="message" 
-                        rows={6}
-                        required
-                        maxLength={500}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none"
-                        placeholder="Please provide details about your inquiry..."
-                      ></textarea>
-                      <div className="text-xs text-gray-500 mt-1">Maximum 500 characters</div>
-                    </div>
-                    <div>
-                      <label className="flex items-start space-x-3">
-                        <input 
-                          type="checkbox" 
-                          name="newsletter_consent" 
-                          value="yes"
-                          className="mt-1 cursor-pointer"
-                        />
+
                         <span className="text-sm text-gray-600">
-                          I would like to receive updates about Forum activities and events
+                          I would like to receive Africa Economic
+                          Forum news, announcements and newsletters.
                         </span>
+
                       </label>
-                    </div>
-                    <button 
-                      type="submit"
-                      className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
-                    >
-                      Send Message
-                    </button>
-                  </form>
+
+                      <button
+                        type="submit"
+                        className="w-full sm:w-auto bg-blue-900 text-white px-8 py-3.5 rounded-lg hover:bg-blue-800 transition font-semibold flex items-center justify-center gap-2"
+                      >
+                        <span>Send Message</span>
+                        <i className="ri-send-plane-line" />
+                      </button>
+
+                    </form>
+                  </>
                 )}
+
               </div>
 
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h3>
-                  <div className="space-y-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i className="ri-map-pin-line text-blue-600 text-xl"></i>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">Headquarters</h4>
-                        <p className="text-gray-600">
-                          Africa Economic Forum<br />
-                          28, avenue Isiro Kinshasa-Gombe<br />
-                          Belgian Embassy Building
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i className="ri-phone-line text-blue-600 text-xl"></i>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
-                        <p className="text-gray-600">+243 896 656 905</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i className="ri-mail-line text-blue-600 text-xl"></i>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                        <p className="text-gray-600">info@africaef.com</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i className="ri-time-line text-blue-600 text-xl"></i>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">Office Hours</h4>
-                        <p className="text-gray-600">
-                          Monday - Friday: 8:00 AM - 6:00 PM (SAST)<br />
-                          Saturday: 9:00 AM - 1:00 PM (SAST)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* =====================================
+          NEWSLETTER
+      ====================================== */}
+
+      <section className="bg-gray-50 py-16">
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+          <div className="w-14 h-14 mx-auto mb-5 rounded-full bg-blue-100 text-blue-900 flex items-center justify-center">
+            <i className="ri-mail-send-line text-2xl" />
+          </div>
+
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">
+            Stay connected
+          </h2>
+
+          <p className="text-gray-600 mb-8">
+            Subscribe to the Africa Economic Forum newsletter
+            for the latest news, events and opportunities.
+          </p>
+
+          <form
+            onSubmit={handleNewsletterSubmit}
+            className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto"
+          >
+
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="Enter your email address"
+              className="flex-1 px-5 py-3.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-900"
+            />
+
+            <button
+              type="submit"
+              className="bg-blue-900 text-white px-7 py-3.5 rounded-lg hover:bg-blue-800 transition font-semibold"
+            >
+              Subscribe
+            </button>
+
+          </form>
+
+        </div>
+
+      </section>
+
+      {/* =====================================
+          FOOTER
+      ====================================== */}
+
+      <footer className="bg-blue-950 text-white">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+            <div>
+
+              <div className="flex items-center gap-3 mb-5">
+
+                <div className="w-11 h-11 bg-white/10 rounded-lg flex items-center justify-center">
+                  <span className="font-bold">
+                    AEF
+                  </span>
                 </div>
 
-                {/* Regional Offices */}
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Regional Offices</h3>
-                  <div className="space-y-4">
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">West Africa Office</h4>
-                      <p className="text-gray-600 text-sm">
-                        Soon to be announced<br />
-                        +243 896 656 905
-                      </p>
-                    </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">East Africa Office</h4>
-                      <p className="text-gray-600 text-sm">
-                        Soon to be announced<br />
-                        +243 896 656 905
-                      </p>
-                    </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">North Africa Office</h4>
-                      <p className="text-gray-600 text-sm">
-                        Soon to be announced<br />
-                        +243 896 656 905
-                      </p>
-                    </div>
-                  </div>
+                <div className="font-bold text-lg">
+                  Africa Economic Forum
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Map Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Find Us</h2>
-              <p className="text-lg text-gray-600">Visit our headquarters in 28, avenue Isiro Kinshasa-Gombe Belgian Embassy Building</p>
-            </div>
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.7729!2d28.0473!3d-26.2041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDEyJzE0LjgiUyAyOMKwMDInNTAuMyJF!5e0!3m2!1sen!2sza!4v1234567890"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Africa Economic Forum Location"
-              ></iframe>
-            </div>
-          </div>
-        </section>
-
-        {/* Newsletter Section */}
-        <section className="py-20 bg-blue-900 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold">Stay Connected</h2>
-                <p className="text-xl text-blue-100">
-                  Subscribe to our newsletter for the latest updates on African economic development, 
-                  upcoming events, and exclusive insights from our experts.
-                </p>
-                <div className="flex space-x-4">
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                    <i className="ri-facebook-fill text-xl"></i>
-                  </a>
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                    <i className="ri-twitter-x-fill text-xl"></i>
-                  </a>
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                    <i className="ri-linkedin-fill text-xl"></i>
-                  </a>
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                    <i className="ri-instagram-fill text-xl"></i>
-                  </a>
-                </div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
-                <h3 className="text-2xl font-bold mb-6">Newsletter Subscription</h3>
-                <form onSubmit={handleNewsletterSubmit} id="newsletter-subscription" className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-blue-100 mb-2">Email Address *</label>
-                    <input 
-                      type="email"
-                      name="email"
-                      required
-                      className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white placeholder-blue-200 text-sm"
-                      placeholder="Enter your email address"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-blue-100 mb-2">Name</label>
-                    <input 
-                      type="text"
-                      name="name"
-                      className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white placeholder-blue-200 text-sm"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-blue-100 mb-2">Interests</label>
-                    <div className="space-y-2">
-                      <label className="flex items-center space-x-3">
-                        <input type="checkbox" name="interests" value="Economic Policy" className="cursor-pointer" />
-                        <span className="text-sm text-blue-100">Economic Policy</span>
-                      </label>
-                      <label className="flex items-center space-x-3">
-                        <input type="checkbox" name="interests" value="Technology Innovation" className="cursor-pointer" />
-                        <span className="text-sm text-blue-100">Technology Innovation</span>
-                      </label>
-                      <label className="flex items-center space-x-3">
-                        <input type="checkbox" name="interests" value="Sustainable Development" className="cursor-pointer" />
-                        <span className="text-sm text-blue-100">Sustainable Development</span>
-                      </label>
-                      <label className="flex items-center space-x-3">
-                        <input type="checkbox" name="interests" value="Events & Meetings" className="cursor-pointer" />
-                        <span className="text-sm text-blue-100">Events & Meetings</span>
-                      </label>
-                    </div>
-                  </div>
-                  <button 
-                    type="submit"
-                    className="w-full bg-white text-blue-900 px-6 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
-                  >
-                    Subscribe Now
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
 
-      {/* Sign In Modal */}
-      {showSignInModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">
-                  {showCreateAccount ? 'Create Account' : 'Sign In'}
-                </h3>
-                <button
-                  onClick={() => setShowSignInModal(false)}
-                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+              <p className="text-blue-200 text-sm leading-relaxed">
+                Connecting African leaders, institutions,
+                investors and changemakers to shape a
+                prosperous and sustainable future.
+              </p>
+
+            </div>
+
+            <div>
+
+              <h3 className="font-semibold text-lg mb-5">
+                Explore
+              </h3>
+
+              <div className="space-y-3 text-sm">
+
+                <Link
+                  to="/about"
+                  className="block text-blue-200 hover:text-white transition"
                 >
-                  <i className="ri-close-line text-2xl"></i>
-                </button>
+                  About
+                </Link>
+
+                <Link
+                  to="/initiatives"
+                  className="block text-blue-200 hover:text-white transition"
+                >
+                  Initiatives
+                </Link>
+
+                <Link
+                  to="/meetings"
+                  className="block text-blue-200 hover:text-white transition"
+                >
+                  Meetings
+                </Link>
+
+                <Link
+                  to="/intervenants"
+                  className="block text-blue-200 hover:text-white transition"
+                >
+                  Intervenants
+                </Link>
+
               </div>
 
-              {!showCreateAccount && (
-                <>
-                  <form onSubmit={handleSignInSubmit} className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Enter your email address"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Password *
-                      </label>
-                      <input
-                        type="password"
-                        name="password"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Enter your password"
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label className="flex items-center space-x-2">
-                        <input type="checkbox" name="remember_me" className="cursor-pointer" />
-                        <span className="text-sm text-gray-600">Remember me</span>
-                      </label>
-                      <button type="button" className="text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
-                        Forgot password?
-                      </button>
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
-                    >
-                      Sign In
-                    </button>
-                  </form>
-                  <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-600">
-                      Don't have an account?
-                      <button
-                        onClick={switchToCreateAccount}
-                        className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
-                      >
-                        Create Account
-                      </button>
-                    </p>
-                  </div>
-                </>
-              )}
-
-              {showCreateAccount && (
-                <>
-                  <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                        <input
-                          type="text"
-                          name="first_name"
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                          placeholder="First name"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                        <input
-                          type="text"
-                          name="last_name"
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                          placeholder="Last name"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Enter your email address"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Organization</label>
-                      <input
-                        type="text"
-                        name="organization"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Your organization"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Password *</label>
-                      <input
-                        type="password"
-                        name="password"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Create a password"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password *</label>
-                      <input
-                        type="password"
-                        name="confirm_password"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Confirm your password"
-                      />
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <input
-                        type="checkbox"
-                        name="terms_agreement"
-                        required
-                        className="mt-1 cursor-pointer"
-                      />
-                      <span className="text-sm text-gray-600">
-                        I agree to the Terms of Service and Privacy Policy
-                      </span>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <input
-                        type="checkbox"
-                        name="newsletter_consent"
-                        className="mt-1 cursor-pointer"
-                      />
-                      <span className="text-sm text-gray-600">
-                        I would like to receive updates about Forum activities and events
-                      </span>
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
-                    >
-                      Create Account
-                    </button>
-                  </form>
-                  <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-600">
-                      Already have an account?
-                      <button
-                        onClick={switchToSignIn}
-                        className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
-                      >
-                        Sign In
-                      </button>
-                    </p>
-                  </div>
-                </>
-              )}
-
-              {!showCreateAccount && (
-                <div className="mt-6">
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-gray-300"></div>
-                    </div>
-                    <div className="relative flex justify-center text-sm">
-                      <span className="px-2 bg-white text-gray-500">Or continue with</span>
-                    </div>
-                  </div>
-                  <div className="mt-4 grid grid-cols-2 gap-3">
-                    <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
-                      <i className="ri-google-fill text-red-500 text-lg"></i>
-                      <span className="ml-2">Google</span>
-                    </button>
-                    <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
-                      <i className="ri-linkedin-fill text-blue-600 text-lg"></i>
-                      <span className="ml-2">LinkedIn</span>
-                    </button>
-                  </div>
-                </div>
-              )}
             </div>
+
+            <div>
+
+              <h3 className="font-semibold text-lg mb-5">
+                Resources
+              </h3>
+
+              <div className="space-y-3 text-sm">
+
+                <Link
+                  to="/agenda"
+                  className="block text-blue-200 hover:text-white transition"
+                >
+                  Agenda
+                </Link>
+
+                <Link
+                  to="/partners"
+                  className="block text-blue-200 hover:text-white transition"
+                >
+                  Partners
+                </Link>
+
+                <Link
+                  to="/publications"
+                  className="block text-blue-200 hover:text-white transition"
+                >
+                  Publications
+                </Link>
+
+                <Link
+                  to="/contact"
+                  className="block text-blue-200 hover:text-white transition"
+                >
+                  Contact
+                </Link>
+
+              </div>
+
+            </div>
+
+            <div>
+
+              <h3 className="font-semibold text-lg mb-5">
+                Join AEF
+              </h3>
+
+              <p className="text-blue-200 text-sm leading-relaxed mb-5">
+                Become part of a growing community working
+                together to advance Africa's economic future.
+              </p>
+
+              <Link
+                to="/join"
+                className="inline-flex items-center gap-2 bg-white text-blue-950 px-5 py-3 rounded-md font-semibold hover:bg-blue-50 transition"
+              >
+                Become a Member
+                <i className="ri-arrow-right-line" />
+              </Link>
+
+            </div>
+
           </div>
+
+          <div className="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-4 text-sm text-blue-300">
+
+            <p>
+              © {new Date().getFullYear()} Africa Economic Forum.
+              All rights reserved.
+            </p>
+
+            <div className="flex gap-5">
+              <Link
+                to="/privacy"
+                className="hover:text-white transition"
+              >
+                Privacy
+              </Link>
+
+              <Link
+                to="/terms"
+                className="hover:text-white transition"
+              >
+                Terms
+              </Link>
+            </div>
+
+          </div>
+
+        </div>
+
+      </footer>
+
+      {/* =====================================
+          SIGN IN MODAL
+      ====================================== */}
+
+      {showSignInModal && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() =>
+              setShowSignInModal(false)
+            }
+          />
+
+          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
+
+            <button
+              type="button"
+              onClick={() =>
+                setShowSignInModal(false)
+              }
+              className="absolute right-4 top-4 z-10 w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition"
+              aria-label="Close"
+            >
+              <i className="ri-close-line text-xl" />
+            </button>
+
+            <div className="bg-blue-950 text-white px-7 py-7">
+
+              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
+                <i className="ri-user-line text-2xl" />
+              </div>
+
+              <h2 className="text-2xl font-bold">
+                Welcome Back
+              </h2>
+
+              <p className="text-blue-200 mt-1">
+                Sign in to your Africa Economic Forum account.
+              </p>
+
+            </div>
+
+            <form
+              onSubmit={handleSignInSubmit}
+              className="p-7 space-y-5"
+            >
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Email Address
+                </label>
+
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
+                />
+
+              </div>
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Password
+                </label>
+
+                <input
+                  type="password"
+                  name="password"
+                  required
+                  autoComplete="current-password"
+                  placeholder="Your password"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
+                />
+
+              </div>
+
+              <div className="text-right">
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    alert(
+                      'Please use the password reset page to recover your password.'
+                    )
+                  }
+                  className="text-sm text-blue-900 hover:underline"
+                >
+                  Forgot password?
+                </button>
+
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-blue-900 text-white py-3.5 rounded-lg hover:bg-blue-800 transition font-semibold"
+              >
+                Sign In
+              </button>
+
+              <div className="relative py-2">
+
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200" />
+                </div>
+
+                <div className="relative flex justify-center">
+                  <span className="bg-white px-3 text-sm text-gray-500">
+                    New to AEF?
+                  </span>
+                </div>
+
+              </div>
+
+              <button
+                type="button"
+                onClick={handleOpenCreateAccount}
+                className="w-full border border-blue-900 text-blue-900 py-3.5 rounded-lg hover:bg-blue-50 transition font-semibold"
+              >
+                Create an Account
+              </button>
+
+            </form>
+
+          </div>
+
         </div>
       )}
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            <div>
-              <h3 className="font-semibold text-lg mb-6">About us</h3>
-              <ul className="space-y-3">
-                <li><Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">Our mission</Link></li>
-                <li><Link to="/framework" className="text-gray-300 hover:text-white cursor-pointer">Our Institutional Framework</Link></li>
-                <li><Link to="/history" className="text-gray-300 hover:text-white cursor-pointer">History</Link></li>
-                <li><Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">Leadership and governance</Link></li>
-                <li><Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">Our Impact</Link></li>
-              </ul>
+      {/* =====================================
+          CREATE ACCOUNT MODAL
+      ====================================== */}
+
+      {showCreateAccount && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() =>
+              setShowCreateAccount(false)
+            }
+          />
+
+          <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[95vh] overflow-y-auto">
+
+            <button
+              type="button"
+              onClick={() =>
+                setShowCreateAccount(false)
+              }
+              className="absolute right-4 top-4 z-10 w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition"
+              aria-label="Close"
+            >
+              <i className="ri-close-line text-xl" />
+            </button>
+
+            <div className="bg-blue-950 text-white px-7 py-7">
+
+              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
+                <i className="ri-user-add-line text-2xl" />
+              </div>
+
+              <h2 className="text-2xl font-bold">
+                Create Your Account
+              </h2>
+
+              <p className="text-blue-200 mt-1">
+                Join the Africa Economic Forum community.
+              </p>
+
             </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-6">More from the Forum</h3>
-              <ul className="space-y-3">
-                <li><Link to="/initiatives" className="text-gray-300 hover:text-white cursor-pointer">Centres</Link></li>
-                <li><Link to="/meetings" className="text-gray-300 hover:text-white cursor-pointer">Meetings</Link></li>
-                <li><Link to="/stakeholders" className="text-gray-300 hover:text-white cursor-pointer">Stakeholders</Link></li>
-                <li><Link to="/agenda" className="text-gray-300 hover:text-white cursor-pointer">Forum Stories</Link></li>
-                <li><Link to="/publications" className="text-gray-300 hover:text-white cursor-pointer">Press releases</Link></li>
-                <li><Link to="/gallery" className="text-gray-300 hover:text-white cursor-pointer">Photo gallery</Link></li>
-                <li><Link to="/publications" className="text-gray-300 hover:text-white cursor-pointer">Podcasts</Link></li>
-                <li><Link to="/publications" className="text-gray-300 hover:text-white cursor-pointer">Videos</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-6">Engage with us</h3>
-              <ul className="space-y-3">
-                <li>
-                  {user ? (
-                    <button onClick={signOut} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer">
-                      Logout
-                    </button>
-                  ) : (
-                    <Link to="/signin" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer">
-                      Sign in
-                    </Link>
-                  )}
-                </li>
-                <li><Link to="/partners" className="text-gray-300 hover:text-white cursor-pointer">Partner with us</Link></li>
-                <li><Link to="/join" className="text-gray-300 hover:text-white cursor-pointer">Become a member</Link></li>
-                <li><Link to="/contact" className="text-gray-300 hover:text-white cursor-pointer">Sign up for our press releases</Link></li>
-                <li><Link to="/contact" className="text-gray-300 hover:text-white cursor-pointer">Subscribe to our newsletters</Link></li>
-                <li><Link to="/contact" className="text-gray-300 hover:text-white cursor-pointer">Contact us</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-6">Quick links</h3>
-              <ul className="space-y-3 mb-8">
-                <li><Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">Sustainability at the Forum</Link></li>
-                <li><Link to="/careers" className="text-gray-300 hover:text-white cursor-pointer">Careers</Link></li>
-              </ul>
-              <div>
-                <h4 className="font-semibold mb-4">Language editions</h4>
-                <div className="flex space-x-2">
-                  <Link to="/" className="text-gray-300 hover:text-white cursor-pointer">EN</Link>
-                  <span className="text-gray-500">•</span>
-                  <Link to="/" className="text-gray-300 hover:text-white cursor-pointer">ES</Link>
-                  <span className="text-gray-500">•</span>
-                  <Link to="/" className="text-gray-300 hover:text-white cursor-pointer">中文</Link>
-                  <span className="text-gray-500">•</span>
-                  <Link to="/" className="text-gray-300 hover:text-white cursor-pointer">日本語</Link>
+
+            <form
+              onSubmit={handleCreateAccountSubmit}
+              className="p-7 space-y-5"
+            >
+
+              <div className="grid sm:grid-cols-2 gap-5">
+
+                <div>
+
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    First Name *
+                  </label>
+
+                  <input
+                    type="text"
+                    name="first_name"
+                    required
+                    autoComplete="given-name"
+                    placeholder="First name"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
+                  />
+
                 </div>
+
+                <div>
+
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Last Name *
+                  </label>
+
+                  <input
+                    type="text"
+                    name="last_name"
+                    required
+                    autoComplete="family-name"
+                    placeholder="Last name"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
+                  />
+
+                </div>
+
               </div>
-            </div>
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Organization
+                </label>
+
+                <input
+                  type="text"
+                  name="organization"
+                  autoComplete="organization"
+                  placeholder="Your organization"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
+                />
+
+              </div>
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Email Address *
+                </label>
+
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
+                />
+
+              </div>
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Password *
+                </label>
+
+                <input
+                  type="password"
+                  name="password"
+                  required
+                  minLength={6}
+                  autoComplete="new-password"
+                  placeholder="At least 6 characters"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
+                />
+
+              </div>
+
+              <div>
+
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Confirm Password *
+                </label>
+
+                <input
+                  type="password"
+                  name="confirm_password"
+                  required
+                  minLength={6}
+                  autoComplete="new-password"
+                  placeholder="Confirm your password"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
+                />
+
+              </div>
+
+              <label className="flex items-start gap-3 cursor-pointer">
+
+                <input
+                  type="checkbox"
+                  name="newsletter_consent"
+                  className="mt-1 w-4 h-4"
+                />
+
+                <span className="text-sm text-gray-600">
+                  I would like to receive Africa Economic
+                  Forum news, events and newsletters.
+                </span>
+
+              </label>
+
+              <button
+                type="submit"
+                className="w-full bg-blue-900 text-white py-3.5 rounded-lg hover:bg-blue-800 transition font-semibold"
+              >
+                Create Account
+              </button>
+
+              <p className="text-xs text-gray-500 text-center leading-relaxed">
+                By creating an account, you agree to the
+                Africa Economic Forum terms and policies.
+              </p>
+
+              <div className="text-center">
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowCreateAccount(false);
+                    setShowSignInModal(true);
+                  }}
+                  className="text-sm text-blue-900 font-medium hover:underline"
+                >
+                  Already have an account? Sign In
+                </button>
+
+              </div>
+
+            </form>
+
           </div>
-          <div className="border-t border-gray-700 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="flex space-x-4">
-                <a href="https://www.facebook.com/share/17Jr8NpqZJ/" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
-                  <i className="ri-facebook-fill text-xl"></i>
-                </a>
-                <a href="https://www.linkedin.com/company/the-africa-economic-forum/" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
-                  <i className="ri-linkedin-fill text-xl"></i>
-                </a>
-                <a href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ==" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
-                  <i className="ri-instagram-fill text-xl"></i>
-                </a>
-                <a href="#" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
-                  <i className="ri-youtube-fill text-xl"></i>
-                </a>
-              </div>
-              <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
-                <Link to="/privacy" className="hover:text-white cursor-pointer">Privacy Policy &amp; Terms of Service</Link>
-                <p>© 2025 Africa Economic Forum</p>
-                <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
-              </div>
-            </div>
-          </div>
+
         </div>
-      </footer>
+      )}
+
     </div>
   );
 }
