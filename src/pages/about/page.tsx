@@ -16,6 +16,9 @@ const advisoryBoard: CommitteeMember[] = [
     image: '/images/Hon.Dr.Akwasi.jpg',
     bio: `Hon. Dr. Akwasi Opong-Fosu is a distinguished Ghanaian politician, governance and public policy expert with over four decades of public service. He spent almost two decades in local government leadership, including as Mayor, and later served as President of the African Union of Local Authorities and UN Special Advisor on Local Authorities. A former Member of Parliament, he held key ministerial portfolios, including Minister of State at the Presidency responsible for Development Authorities. He currently chairs the Ghana Investment Promotion Centre and founded the Africa Global Emergence Centre, a research, policy and advocacy think tank working at the intersection of governance and economic growth through increased trade and investment flows to Africa.`,
   },
+];
+
+const executiveBoard: CommitteeMember[] = [
   {
     name: 'Zarinah Traci Silas',
     role: 'Chair and Executive Board Member of the Africa Economic Forum',
@@ -34,9 +37,6 @@ const advisoryBoard: CommitteeMember[] = [
     image: '/images/Dr. Femi Salami.jpg',
     bio: `Dr. Femi Salami (Ph.D., P.E., MAusIMM) is a distinguished mining engineer, academic, and professional with expertise in mining innovation, energy sustainability, critical minerals development, and climate-smart mining. He earned a First-Class Bachelor’s degree in Mining Engineering from the Federal University of Technology Akure, Nigeria and a Ph.D. in Mining Engineering from Missouri University of Science and Technology, USA. Dr. Salami has received over 70 awards and recognitions for scholarly excellence in Mining. He is a licensed mining engineer in the United Kingdom and Nigeria and a Professional Engineer (P.E.) in the United States. He is also a member of several leading professional and scientific organizations.`,
   },
-];
-
-const executiveBoard: CommitteeMember[] = [
   {
     name: 'H.E. Abraham Dwuma Odoom',
     role: 'Former Member of Parliament and Deputy Minister of Agriculture, Ghana',
@@ -1066,4 +1066,4 @@ export default function AboutPage() {
 
     </div>
   );
-                    }
+}
