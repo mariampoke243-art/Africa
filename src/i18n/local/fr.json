@@ -1,9 +1,6 @@
 {
   "welcome": "Bienvenue",
-  "contact": {
-    "title": "Contactez-nous",
-    "send": "Envoyer le message"
-  },
+
   "header": {
     "home": "Accueil",
     "about": "À propos",
@@ -13,22 +10,102 @@
     "publications": "Publications",
     "meetings": "Réunions",
     "contact": "Contact",
-    "signIn": "Connexion"
+    "signIn": "Connexion",
+    "signOut": "Déconnexion",
+    "profile": "Profil",
+    "viewProfile": "Voir le profil",
+    "user": "Utilisateur"
   },
+
+  "contact": {
+    "title": "Contactez-nous",
+    "send": "Envoyer le message"
+  },
+
   "meetingsPage": {
     "heroTitle": "Forums & Réunions",
     "heroSubtitle": "Découvrez nos sommets et dialogues stratégiques à venir",
     "sectionTitle": "Nos Forums",
     "sectionSubtitle": "Des plateformes clés stimulant la croissance économique en Afrique",
     "readMore": "Lire plus",
-    "showLess": "Réduire"
+    "showLess": "Réduire",
+    "overview": "Présentation",
+    "objectives": "Objectifs du Forum",
+    "keyFocusAreas": "Domaines d'intervention",
+    "strategicPillars": "Piliers stratégiques",
+    "platform": "La Plateforme",
+    "whoWeConvene": "Qui nous réunissons",
+    "fromDialogueToAction": "Du dialogue à l'action",
+    "joinForum": "Rejoindre le Forum"
   },
+
   "cta": {
     "title": "Rejoignez le mouvement",
     "subtitle": "Participez au premier rassemblement économique en Afrique",
     "register": "S'inscrire maintenant",
     "contact": "Contactez-nous"
   },
+
+  "auth": {
+    "createAccount": "Créer un compte",
+    "signIn": "Connexion",
+    "emailAddress": "Adresse e-mail",
+    "emailPlaceholder": "Entrez votre adresse e-mail",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "firstName": "Prénom",
+    "firstNamePlaceholder": "Prénom",
+    "lastName": "Nom",
+    "lastNamePlaceholder": "Nom",
+    "organization": "Organisation",
+    "organizationPlaceholder": "Votre organisation",
+    "createPasswordPlaceholder": "Créez un mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+    "terms": "J'accepte les Conditions d'utilisation et la Politique de confidentialité",
+    "newsletterConsent": "Je souhaite recevoir les actualités concernant les activités et événements du Forum",
+    "alreadyAccount": "Vous avez déjà un compte ?",
+    "orContinueWith": "Ou continuer avec",
+    "google": "Google",
+    "linkedin": "LinkedIn",
+    "signInSuccess": "Connexion réussie ! Bienvenue.",
+    "requiredFields": "Veuillez remplir tous les champs obligatoires.",
+    "passwordMismatch": "Les mots de passe ne correspondent pas. Veuillez réessayer.",
+    "accountCreated": "Compte créé avec succès ! Bienvenue à l'Africa Economic Forum.",
+    "user": "Utilisateur",
+    "profile": "Profil",
+    "viewProfile": "Voir le profil",
+    "signOut": "Déconnexion"
+  },
+
+  "home": {
+    "heroEyebrow": "Africa Economic Forum 2026 • 10–11 Nov • Kinshasa",
+    "heroTitle": "Africa Economic Forum 2026",
+    "heroSubtitle": "Une plateforme de premier plan réunissant gouvernements, investisseurs, dirigeants et penseurs pour façonner le rôle de l'Afrique dans le nouvel ordre mondial",
+    "moreAboutForum": "En savoir plus sur le Forum",
+
+    "impactTitle": "Comment nous créons de l'impact",
+    "impactSubtitle": "Une plateforme conçue pour transformer le dialogue stratégique en opportunités concrètes et en partenariats durables",
+
+    "strategicDialogue": "Plateformes de dialogue stratégique",
+    "strategicDialogueDescription": "Réunir les décideurs autour des enjeux économiques et géopolitiques majeurs de l'Afrique.",
+
+    "partnershipFacilitation": "Facilitation des partenariats",
+    "partnershipFacilitationDescription": "Créer des connexions structurées entre gouvernements, investisseurs, entreprises et partenaires stratégiques.",
+
+    "innovationAcceleration": "Accélération de l'innovation",
+    "innovationAccelerationDescription": "Soutenir les initiatives, projets et solutions capables d'accélérer la transformation économique du continent.",
+
+    "newsletterTitle": "Abonnez-vous à nos newsletters",
+    "newsletterDescription": "Recevez les dernières actualités, analyses et annonces stratégiques de l'Africa Economic Forum.",
+    "newsletterPlaceholder": "Entrez votre adresse e-mail",
+    "subscribe": "S'abonner",
+    "subscriptionSuccess": "Merci ! Votre inscription à notre newsletter a bien été prise en compte."
+  },
+
   "footer": {
     "aboutUs": "À propos de nous",
     "ourMission": "Notre mission",
@@ -36,6 +113,7 @@
     "history": "Histoire",
     "leadership": "Direction",
     "ourImpact": "Notre impact",
+
     "moreFromForum": "Plus du Forum",
     "centres": "Centres",
     "meetings": "Réunions",
@@ -45,36 +123,6 @@
     "gallery": "Galerie",
     "podcasts": "Podcasts",
     "videos": "Vidéos",
+
     "engage": "S'engager",
-    "logout": "Déconnexion",
-    "signIn": "Connexion",
-    "partner": "Partenaire",
-    "member": "Membre",
-    "pressSignUp": "Espace Presse",
-    "newsletters": "Infolettres",
-    "contactUs": "Contactez-nous",
-    "quickLinks": "Liens rapides",
-    "sustainability": "Durabilité",
-    "careers": "Carrières",
-    "languageEditions": "Éditions linguistiques",
-    "privacy": "Politique de confidentialité",
-    "copyright": "© 2026 Africa Economic Forum. Tous droits réservés."
-  },
-  "forums": [
-    {
-      "id": 1,
-      "title": "Sommet des Affaires Africaines",
-      "description": "Connecter les leaders de l'industrie et les décideurs politiques.",
-      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
-      "overview": "Un rassemblement annuel axé sur le commerce transfrontalier et l'investissement.",
-      "keyAreas": ["Commerce", "Infrastructure"],
-      "objectives": ["Renforcer l'intégration régionale"],
-      "pillars": [
-        {
-          "title": "Pilier 1 : Innovation",
-          "items": ["Transformation numérique", "Financement des startups"]
-        }
-      ]
-    }
-  ]
-}
+    "logout": "Dé
