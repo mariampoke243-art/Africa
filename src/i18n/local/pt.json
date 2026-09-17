@@ -86,6 +86,10 @@
     "heroTitle": "Africa Economic Forum 2026",
     "heroSubtitle": "Uma plataforma de referência que reúne governos, investidores, líderes e pensadores para moldar o papel da África na nova ordem global",
     "moreAboutForum": "Saiba mais sobre o Fórum",
+    "moreAboutInitiatives": "Saiba mais sobre nossas Iniciativas",
+    "spotlightTitle": "Em destaque",
+    "spotlightSubtitle": "Anúncios Estratégicos e Marcos Institucionais do AEF",
+    "viewAllArticles": "Ver todos os artigos",
 
     "impactTitle": "Como geramos impacto",
     "impactSubtitle": "Uma plataforma concebida para transformar o diálogo estratégico em oportunidades concretas e parcerias duradouras",
@@ -104,6 +108,38 @@
     "newsletterPlaceholder": "Digite seu endereço de e-mail",
     "subscribe": "Inscrever-se",
     "subscriptionSuccess": "Obrigado! Sua inscrição em nossa newsletter foi realizada com sucesso."
+  },
+
+  "spotlight": {
+    "afdbWomenForum": {
+      "category": "Fórum & Liderança",
+      "title": "Africa Women Forum",
+      "description": "Destacando a liderança, os investimentos e as oportunidades para as mulheres africanas."
+    },
+
+    "africanTable": {
+      "category": "Liderança & Diálogo",
+      "title": "A Mesa Africana",
+      "description": "Um espaço de diálogo estratégico que reúne os atores que moldam o futuro econômico da África."
+    },
+
+    "dealRooms": {
+      "category": "Investimento & Negócios",
+      "title": "Deal Rooms",
+      "description": "Espaços dedicados a conectar projetos, investidores, governos e parceiros estratégicos."
+    },
+
+    "multiSectorContinuity": {
+      "category": "Estratégia & Investimento",
+      "title": "Continuidade Multissetorial",
+      "description": "Promovendo uma abordagem integrada aos investimentos e às oportunidades nos setores estratégicos da África."
+    },
+
+    "africaWomenForum2026": {
+      "category": "Evento",
+      "title": "Africa Women Forum 2026",
+      "description": "Uma plataforma dedicada à liderança, ao investimento e à participação das mulheres na transformação econômica da África."
+    }
   },
 
   "footer": {
