@@ -1,9 +1,6 @@
 {
   "welcome": "欢迎",
-  "contact": {
-    "title": "联系我们",
-    "send": "发送消息"
-  },
+
   "header": {
     "home": "首页",
     "about": "关于我们",
@@ -11,70 +8,253 @@
     "stakeholders": "利益相关者",
     "agenda": "议程",
     "publications": "出版物",
-    "meetings": "会议与论坛",
-    "contact": "联系方式",
-    "signIn": "登录"
+    "meetings": "会议",
+    "contact": "联系我们",
+    "signIn": "登录",
+    "signOut": "退出登录",
+    "profile": "个人资料",
+    "viewProfile": "查看个人资料",
+    "user": "用户"
   },
+
+  "contact": {
+    "title": "联系我们",
+    "send": "发送消息"
+  },
+
   "meetingsPage": {
     "heroTitle": "论坛与会议",
-    "heroSubtitle": "探索我们即将举行的峰会和战略对话",
+    "heroSubtitle": "了解即将举行的峰会和战略对话",
     "sectionTitle": "我们的论坛",
-    "sectionSubtitle": "推动非洲经济增长的主要平台",
-    "readMore": "阅读更多",
-    "showLess": "收起"
+    "sectionSubtitle": "推动非洲经济增长的重要平台",
+    "readMore": "了解更多",
+    "showLess": "收起",
+    "overview": "概述",
+    "objectives": "论坛目标",
+    "keyFocusAreas": "重点领域",
+    "strategicPillars": "战略支柱",
+    "platform": "平台",
+    "whoWeConvene": "我们汇聚的参与者",
+    "fromDialogueToAction": "从对话到行动",
+    "joinForum": "加入论坛"
   },
+
   "cta": {
-    "title": "加入行动",
-    "subtitle": "参与非洲首屈一指的经济聚会",
+    "title": "加入这一行动",
+    "subtitle": "参与非洲重要的经济盛会",
     "register": "立即注册",
     "contact": "联系我们"
   },
+
+  "auth": {
+    "createAccount": "创建账户",
+    "signIn": "登录",
+    "emailAddress": "电子邮箱",
+    "emailPlaceholder": "请输入您的电子邮箱",
+    "password": "密码",
+    "passwordPlaceholder": "请输入您的密码",
+    "rememberMe": "记住我",
+    "forgotPassword": "忘记密码？",
+    "noAccount": "还没有账户？",
+    "firstName": "名字",
+    "firstNamePlaceholder": "请输入名字",
+    "lastName": "姓氏",
+    "lastNamePlaceholder": "请输入姓氏",
+    "organization": "组织机构",
+    "organizationPlaceholder": "您的组织机构",
+    "createPasswordPlaceholder": "创建密码",
+    "confirmPassword": "确认密码",
+    "confirmPasswordPlaceholder": "请确认您的密码",
+    "terms": "我同意服务条款和隐私政策",
+    "newsletterConsent": "我希望接收有关论坛活动和会议的最新信息",
+    "alreadyAccount": "已经有账户？",
+    "orContinueWith": "或继续使用",
+    "google": "Google",
+    "linkedin": "LinkedIn",
+    "signInSuccess": "登录成功！欢迎回来。",
+    "requiredFields": "请填写所有必填字段。",
+    "passwordMismatch": "两次输入的密码不一致。请重试。",
+    "accountCreated": "账户创建成功！欢迎加入 Africa Economic Forum。",
+    "user": "用户",
+    "profile": "个人资料",
+    "viewProfile": "查看个人资料",
+    "signOut": "退出登录"
+  },
+
+  "home": {
+    "heroEyebrow": "Africa Economic Forum 2026 • 10–11 Nov • 金沙萨",
+    "heroTitle": "Africa Economic Forum 2026",
+    "heroSubtitle": "汇聚政府、投资者、领导者和思想家，共同塑造非洲在全球新秩序中的角色的重要平台",
+    "moreAboutForum": "了解更多关于论坛的信息",
+
+    "impactTitle": "我们如何创造影响力",
+    "impactSubtitle": "一个旨在将战略对话转化为具体机遇和长期伙伴关系的平台",
+
+    "strategicDialogue": "战略对话平台",
+    "strategicDialogueDescription": "围绕非洲面临的重大经济和地缘政治议题汇聚决策者。",
+
+    "partnershipFacilitation": "伙伴关系促进",
+    "partnershipFacilitationDescription": "在政府、投资者、企业和战略合作伙伴之间建立结构化联系。",
+
+    "innovationAcceleration": "创新加速",
+    "innovationAccelerationDescription": "支持能够推动非洲大陆经济转型的倡议、项目和解决方案。",
+
+    "newsletterTitle": "订阅我们的新闻通讯",
+    "newsletterDescription": "获取 Africa Economic Forum 的最新消息、分析和战略公告。",
+    "newsletterPlaceholder": "请输入您的电子邮箱",
+    "subscribe": "订阅",
+    "subscriptionSuccess": "感谢您！您已成功订阅我们的新闻通讯。"
+  },
+
   "footer": {
     "aboutUs": "关于我们",
     "ourMission": "我们的使命",
     "ourFramework": "我们的框架",
     "history": "历史",
     "leadership": "领导层",
-    "ourImpact": "我们的影响",
-    "moreFromForum": "论坛更多内容",
+    "ourImpact": "我们的影响力",
+
+    "moreFromForum": "更多论坛内容",
     "centres": "中心",
     "meetings": "会议",
     "stakeholders": "利益相关者",
     "forumStories": "论坛故事",
     "pressReleases": "新闻稿",
-    "gallery": "画廊",
+    "gallery": "图库",
     "podcasts": "播客",
     "videos": "视频",
+
     "engage": "参与",
-    "logout": "登出",
+    "logout": "退出登录",
     "signIn": "登录",
     "partner": "合作伙伴",
     "member": "会员",
     "pressSignUp": "媒体注册",
-    "newsletters": "通讯",
+    "newsletters": "新闻通讯",
     "contactUs": "联系我们",
     "quickLinks": "快速链接",
     "sustainability": "可持续发展",
-    "careers": "职业发展",
+    "careers": "招聘",
     "languageEditions": "语言版本",
     "privacy": "隐私政策",
-    "copyright": "© 2026 Africa Economic Forum. 版权所有。"
+
+    "copyright": "© 2026 Africa Economic Forum。版权所有。"
   },
-  "forums": [
-    {
-      "id": 1,
-      "title": "非洲商业峰会",
-      "description": "连接行业领袖和决策者。",
-      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
-      "overview": "专注于跨境贸易和投资的年度聚会。",
-      "keyAreas": ["贸易", "基础设施"],
-      "objectives": ["加强区域一体化"],
+
+  "forums": {
+    "africaPeaceForum": {
+      "title": "非洲和平论坛",
+      "sectoralLabel": "Africa Economic Forum 的行业论坛",
+      "description": "推动非洲和平、安全与战略合作。",
+      "overview": "非洲和平论坛汇聚领导人、政府、外交官、安全专家、投资者和思想家，共同应对非洲的和平与安全挑战，并推动实现可持续经济转型所需的条件。",
+      "platform": {
+        "title": "平台",
+        "description": "一个围绕和平、安全与经济发展交汇点开展战略对话、区域合作与行动的常设平台。",
+        "items": [
+          {
+            "title": "和平与投资对话",
+            "description": "将和平与安全重点与投资者及发展伙伴联系起来。"
+          },
+          {
+            "title": "区域和平对话",
+            "description": "聚焦非洲主要地区及其冲突动态开展对话。"
+          },
+          {
+            "title": "外交圆桌会议",
+            "description": "通过 AEF 外交俱乐部开展高级别外交对话。"
+          },
+          {
+            "title": "和平与发展情报",
+            "description": "研究和分析冲突与不稳定如何影响投资、贸易和发展。"
+          },
+          {
+            "title": "青年和平学者计划",
+            "description": "培养下一代和平建设者和非洲领导者。"
+          },
+          {
+            "title": "非洲年度和平论坛",
+            "description": "在 Africa Economic Forum 框架下汇聚全球论坛成员的重要年度会议。"
+          }
+        ]
+      },
+      "keyAreas": [
+        "冲突预防与和平促进",
+        "安全与区域合作",
+        "和平与投资",
+        "外交与地缘政治",
+        "青年和妇女参与和平建设",
+        "治理与人类安全"
+      ],
+      "objectives": [],
+      "whoWeConvene": [
+        "国家元首和政府首脑",
+        "部长",
+        "外交官",
+        "区域机构",
+        "和平与安全领域领导者",
+        "投资者",
+        "企业领导者",
+        "思想家",
+        "青年领导者和女性领导者"
+      ],
+      "fromDialogueToAction": "连接政治领导、机构、企业和资本，为非洲的和平、稳定与繁荣建立更加坚实的基础。",
+      "ctaText": "加入非洲和平论坛",
+      "pillars": []
+    },
+
+    "africaAgricultureFoodForum": {
+      "title": "非洲农业与食品论坛（AAFF）",
+      "description": "推动非洲农业从自给型农业转向现代、高效和可持续的农业体系。",
+      "overview": "农业与粮食安全论坛关注非洲发展面临的最重要挑战和机遇之一。\n\n该论坛致力于推动非洲农业转型，建立现代、高效和可持续的农业体系，在保障非洲不断增长人口粮食安全的同时创造经济繁荣。",
+      "keyAreas": [
+        "通过先进技术和精准农业实现农业实践现代化",
+        "发展连接小农户、市场和分销网络的一体化价值链",
+        "推动可持续土地管理和水资源保护",
+        "促进农业基础设施、加工设施和储存能力方面的投资",
+        "推动支持农业发展、跨境贸易和私人投资的政策改革"
+      ],
+      "objectives": [
+        "加强非洲粮食安全",
+        "提高农业生产力",
+        "支持小农户",
+        "发展现代农业价值链",
+        "吸引农业综合企业投资",
+        "推动气候适应型农业"
+      ],
       "pillars": [
         {
-          "title": "支柱一：创新",
-          "items": ["数字转型", "初创企业融资"]
+          "title": "现代农业",
+          "items": [
+            "精准农业和先进技术",
+            "气候适应型农业技术",
+            "农业实践现代化"
+          ]
+        },
+        {
+          "title": "农业价值链",
+          "items": [
+            "连接农民与市场",
+            "食品加工与分销",
+            "减少收获后的损失"
+          ]
+        },
+        {
+          "title": "可持续发展",
+          "items": [
+            "可持续土地管理",
+            "水资源保护",
+            "气候智能型农业"
+          ]
+        },
+        {
+          "title": "投资与政策",
+          "items": [
+            "农业基础设施投资",
+            "农业综合企业发展",
+            "政策改革与跨境贸易"
+          ]
         }
       ]
     }
-  ]
+  }
 }
