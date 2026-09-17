@@ -105,6 +105,10 @@
     "heroTitle": "Africa Economic Forum 2026",
     "heroSubtitle": "A premier platform convening leaders, governments, investors, and thinkers to shape Africa’s role in the new global order",
     "moreAboutForum": "More about the Forum",
+    "moreAboutInitiatives": "More about our Initiatives",
+    "spotlightTitle": "Spotlight",
+    "spotlightSubtitle": "AEF Strategic Announcements & Institutional Milestones",
+    "viewAllArticles": "View All Articles",
 
     "impactTitle": "How We Drive Impact",
     "impactSubtitle": "A platform designed to transform strategic dialogue into partnerships, investment and execution.",
@@ -123,6 +127,38 @@
     "newsletterPlaceholder": "Enter your email address",
     "subscribe": "Subscribe",
     "subscriptionSuccess": "Thank you for subscribing to the Africa Economic Forum newsletter."
+  },
+
+  "spotlight": {
+    "afdbWomenForum": {
+      "category": "Forum & Leadership",
+      "title": "Africa Women Forum",
+      "description": "Highlighting African women's leadership, investment and opportunities."
+    },
+
+    "africanTable": {
+      "category": "Leadership & Dialogue",
+      "title": "The African Table",
+      "description": "A strategic dialogue space bringing together the actors shaping Africa's economic future."
+    },
+
+    "dealRooms": {
+      "category": "Investment & Business",
+      "title": "Deal Rooms",
+      "description": "Dedicated spaces connecting projects, investors, governments and strategic partners."
+    },
+
+    "multiSectorContinuity": {
+      "category": "Strategy & Investment",
+      "title": "Multi-Sector Continuity",
+      "description": "Promoting an integrated approach to investment and opportunities across Africa's strategic sectors."
+    },
+
+    "africaWomenForum2026": {
+      "category": "Event",
+      "title": "Africa Women Forum 2026",
+      "description": "A platform focused on leadership, investment and women's participation in Africa's economic transformation."
+    }
   },
 
   "footer": {
