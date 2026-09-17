@@ -859,7 +859,7 @@ export default function Contact() {
                         Email
                       </h3>
                       <p className="text-gray-600 mt-1">
-                        contact@africaeconomicforum.com
+                          info@africaef.com
                       </p>
                     </div>
 
