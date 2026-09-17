@@ -86,6 +86,10 @@
     "heroTitle": "Africa Economic Forum 2026",
     "heroSubtitle": "Une plateforme de premier plan réunissant gouvernements, investisseurs, dirigeants et penseurs pour façonner le rôle de l'Afrique dans le nouvel ordre mondial",
     "moreAboutForum": "En savoir plus sur le Forum",
+    "moreAboutInitiatives": "En savoir plus sur nos initiatives",
+    "spotlightTitle": "À la une",
+    "spotlightSubtitle": "Annonces stratégiques et étapes institutionnelles de l'AEF",
+    "viewAllArticles": "Voir tous les articles",
 
     "impactTitle": "Comment nous créons de l'impact",
     "impactSubtitle": "Une plateforme conçue pour transformer le dialogue stratégique en opportunités concrètes et en partenariats durables",
@@ -104,6 +108,34 @@
     "newsletterPlaceholder": "Entrez votre adresse e-mail",
     "subscribe": "S'abonner",
     "subscriptionSuccess": "Merci ! Votre inscription à notre newsletter a bien été prise en compte."
+  },
+
+  "spotlight": {
+    "afdbWomenForum": {
+      "category": "Forum & Leadership",
+      "title": "Africa Women Forum",
+      "description": "Mettre en lumière le leadership, l'investissement et les opportunités pour les femmes africaines."
+    },
+    "africanTable": {
+      "category": "Leadership & Dialogue",
+      "title": "La table africaine",
+      "description": "Un espace de dialogue stratégique réunissant les acteurs qui façonnent l'avenir économique de l'Afrique."
+    },
+    "dealRooms": {
+      "category": "Investissement & Affaires",
+      "title": "Deal Rooms",
+      "description": "Des espaces dédiés pour connecter les projets, les investisseurs, les gouvernements et les partenaires stratégiques."
+    },
+    "multiSectorContinuity": {
+      "category": "Stratégie & Investissement",
+      "title": "Continuité multisectorielle",
+      "description": "Favoriser une approche intégrée des investissements et des opportunités dans les secteurs stratégiques africains."
+    },
+    "africaWomenForum2026": {
+      "category": "Événement",
+      "title": "Africa Women Forum 2026",
+      "description": "Une plateforme consacrée au leadership, à l'investissement et à la participation des femmes dans la transformation économique de l'Afrique."
+    }
   },
 
   "footer": {
