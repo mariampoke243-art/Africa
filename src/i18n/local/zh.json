@@ -99,11 +99,49 @@
     "innovationAcceleration": "创新加速",
     "innovationAccelerationDescription": "支持能够推动非洲大陆经济转型的倡议、项目和解决方案。",
 
+    "moreAboutInitiatives": "了解更多关于我们的倡议",
+
+    "spotlightTitle": "焦点",
+    "spotlightSubtitle": "AEF 战略公告与机构里程碑",
+    "viewAllArticles": "查看所有文章",
+
     "newsletterTitle": "订阅我们的新闻通讯",
     "newsletterDescription": "获取 Africa Economic Forum 的最新消息、分析和战略公告。",
     "newsletterPlaceholder": "请输入您的电子邮箱",
     "subscribe": "订阅",
     "subscriptionSuccess": "感谢您！您已成功订阅我们的新闻通讯。"
+  },
+
+  "spotlight": {
+    "afdbWomenForum": {
+      "category": "论坛与领导力",
+      "title": "Africa Women Forum",
+      "description": "展示非洲女性的领导力、投资与发展机遇。"
+    },
+
+    "africanTable": {
+      "category": "领导力与对话",
+      "title": "非洲圆桌",
+      "description": "一个汇聚塑造非洲经济未来的重要参与者的战略对话平台。"
+    },
+
+    "dealRooms": {
+      "category": "投资与商业",
+      "title": "Deal Rooms",
+      "description": "专门连接项目、投资者、政府和战略合作伙伴的交流空间。"
+    },
+
+    "multiSectorContinuity": {
+      "category": "战略与投资",
+      "title": "多领域协同",
+      "description": "推动非洲战略性行业投资与机遇的综合性发展方式。"
+    },
+
+    "africaWomenForum2026": {
+      "category": "活动",
+      "title": "Africa Women Forum 2026",
+      "description": "一个专注于领导力、投资以及女性参与非洲经济转型的平台。"
+    }
   },
 
   "footer": {
