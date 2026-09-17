@@ -13,16 +13,11 @@ i18n
 
     // Ne force PAS une langue au démarrage.
     // La langue peut donc être changée avec i18n.changeLanguage().
-    
     debug: false,
 
     interpolation: {
       escapeValue: false,
     },
-
-    // Permet de gérer correctement les objets et tableaux
-    // présents dans les fichiers JSON.
-    returnObjects: true,
   });
 
 export default i18n;
