@@ -44,22 +44,10 @@ const executiveBoard: CommitteeMember[] = [
     bio: `Ghanaian public servant and former Member of Parliament with experience in agricultural transformation, pro-poor policies, agribusiness, rural development, and food security.`,
   },
   {
-    name: 'Dr. Justina Mutale',
-    role: 'Founder & President, Justina Mutale Foundation',
-    image: '/images/justina-mutale.jpg',
-    bio: `Advocate for gender equality and women’s empowerment, keynote speaker and mentor committed to advancing the role and influence of African women in leadership and development.`,
-  },
-  {
     name: 'Amina Touré',
     role: 'Director of Communication, Media & Public Relations, Africa Economic Forum',
     image: '/images/amina-Touré.jpeg',
     bio: `Development practitioner, researcher, and strategic communicator specializing in African political economy and global narratives. She holds a Bachelor of Laws and an MSc in International Development & Humanitarian Emergencies from LSE and is completing an MPhil in African Studies at Cambridge. Her research and professional work covers extractives, Chinese investment, state-business relations in the DRC, policy research, media strategy, and narrative shaping. She is also an independent journalist covering the conflict in eastern Congo and the mining sector in southern Africa.`,
-  },
-  {
-    name: 'Walid Louki',
-    role: 'AEF Regional Director for North Africa',
-    image: '/images/walid-loukil.jpeg',
-    bio: `Regional Director for North Africa, contributing to the Africa Economic Forum’s strategic engagement, regional partnerships, and economic cooperation initiatives.`,
   },
 ];
 
