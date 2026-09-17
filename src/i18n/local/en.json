@@ -1,9 +1,11 @@
 {
   "welcome": "Welcome",
+
   "contact": {
     "title": "Contact us",
     "send": "Send message"
   },
+
   "header": {
     "home": "Home",
     "about": "About",
@@ -13,22 +15,116 @@
     "publications": "Publications",
     "meetings": "Meetings",
     "contact": "Contact",
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "profile": "Profile",
+    "viewProfile": "View Profile",
+    "user": "User"
   },
+
   "meetingsPage": {
     "heroTitle": "Forums & Meetings",
     "heroSubtitle": "Discover our upcoming summits and strategic dialogues",
     "sectionTitle": "Our Forums",
     "sectionSubtitle": "Key platforms driving economic growth across Africa",
     "readMore": "Read More",
-    "showLess": "Show Less"
+    "showLess": "Show Less",
+    "overview": "Overview",
+    "objectives": "Forum Objectives",
+    "keyFocusAreas": "Key Focus Areas",
+    "strategicPillars": "Strategic Pillars",
+    "platform": "The Platform",
+    "whoWeConvene": "Who We Convene",
+    "fromDialogueToAction": "From Dialogue to Action",
+    "joinForum": "Join the Forum"
   },
+
   "cta": {
     "title": "Join the Movement",
     "subtitle": "Be part of the premier economic gathering in Africa",
     "register": "Register Now",
     "contact": "Contact Us"
   },
+
+  "auth": {
+    "createAccount": "Create Account",
+    "signIn": "Sign In",
+
+    "emailAddress": "Email Address",
+    "emailPlaceholder": "Enter your email address",
+
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+
+    "noAccount": "Don't have an account?",
+
+    "firstName": "First Name",
+    "firstNamePlaceholder": "First name",
+
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Last name",
+
+    "organization": "Organization",
+    "organizationPlaceholder": "Your organization",
+
+    "createPasswordPlaceholder": "Create a password",
+
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+
+    "terms": "I agree to the Terms of Service and Privacy Policy",
+
+    "newsletterConsent": "I would like to receive updates about Forum activities and events",
+
+    "alreadyAccount": "Already have an account?",
+
+    "orContinueWith": "Or continue with",
+
+    "google": "Google",
+    "linkedin": "LinkedIn",
+
+    "signInSuccess": "Sign in successful! Welcome back.",
+
+    "requiredFields": "Please fill in all required fields.",
+
+    "passwordMismatch": "Passwords do not match. Please try again.",
+
+    "accountCreated": "Account created successfully! Welcome to Africa Economic Forum.",
+
+    "user": "User",
+    "profile": "Profile",
+    "viewProfile": "View Profile",
+    "signOut": "Sign Out"
+  },
+
+  "home": {
+    "heroEyebrow": "Africa Economic Forum 2026 • 10–11 Nov • Kinshasa",
+    "heroTitle": "Africa Economic Forum 2026",
+    "heroSubtitle": "A premier platform convening leaders, governments, investors, and thinkers to shape Africa’s role in the new global order",
+    "moreAboutForum": "More about the Forum",
+
+    "impactTitle": "How We Drive Impact",
+    "impactSubtitle": "A platform designed to transform strategic dialogue into partnerships, investment and execution.",
+
+    "strategicDialogue": "Strategic Dialogue Platforms",
+    "strategicDialogueDescription": "We convene governments, investors, institutions and business leaders around strategic economic priorities.",
+
+    "partnershipFacilitation": "Partnership Facilitation",
+    "partnershipFacilitationDescription": "We connect governments, capital providers, project owners and strategic partners to facilitate meaningful collaboration.",
+
+    "innovationAcceleration": "Innovation Acceleration",
+    "innovationAccelerationDescription": "We support innovative ideas, projects and investment opportunities that contribute to Africa’s economic transformation.",
+
+    "newsletterTitle": "Subscribe to our Newsletters",
+    "newsletterDescription": "Receive strategic insights, institutional announcements and updates from the Africa Economic Forum.",
+    "newsletterPlaceholder": "Enter your email address",
+    "subscribe": "Subscribe",
+    "subscriptionSuccess": "Thank you for subscribing to the Africa Economic Forum newsletter."
+  },
+
   "footer": {
     "aboutUs": "About Us",
     "ourMission": "Our Mission",
@@ -36,6 +132,7 @@
     "history": "History",
     "leadership": "Leadership",
     "ourImpact": "Our Impact",
+
     "moreFromForum": "More from Forum",
     "centres": "Centres",
     "meetings": "Meetings",
@@ -45,6 +142,7 @@
     "gallery": "Gallery",
     "podcasts": "Podcasts",
     "videos": "Videos",
+
     "engage": "Engage",
     "logout": "Log Out",
     "signIn": "Sign In",
@@ -53,28 +151,123 @@
     "pressSignUp": "Press Sign Up",
     "newsletters": "Newsletters",
     "contactUs": "Contact Us",
+
     "quickLinks": "Quick Links",
     "sustainability": "Sustainability",
     "careers": "Careers",
+
     "languageEditions": "Language Editions",
     "privacy": "Privacy Policy",
+
     "copyright": "© 2026 Africa Economic Forum. All rights reserved."
   },
-  "forums": [
-    {
-      "id": 1,
-      "title": "African Business Summit",
-      "description": "Connecting industry leaders and policymakers.",
-      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
-      "overview": "An annual gathering focused on cross-border trade and investment.",
-      "keyAreas": ["Trade", "Infrastructure"],
-      "objectives": ["Strengthen regional integration"],
+
+  "forums": {
+    "africaPeaceForum": {
+      "title": "Africa Peace Forum",
+      "sectoralLabel": "A Sectoral Forum of the Africa Economic Forum",
+      "description": "Shaping Africa’s Peace, Security and Strategic Cooperation.",
+      "overview": "The Africa Peace Forum convenes leaders, governments, diplomats, security experts, investors and thinkers to address Africa’s peace and security challenges and advance the conditions for sustainable economic transformation.",
+      "keyAreas": [
+        "Peace and Security",
+        "Regional Stability",
+        "Strategic Cooperation",
+        "Conflict Prevention",
+        "Economic Transformation"
+      ],
+      "objectives": [
+        "Strengthen regional peace and security cooperation",
+        "Promote strategic dialogue between governments and institutions",
+        "Connect peace and security priorities with economic development",
+        "Build stronger foundations for sustainable investment"
+      ],
+      "platform": {
+        "title": "The Platform",
+        "description": "A high-level platform connecting political leadership, institutions, business and capital around Africa’s peace, security and economic priorities.",
+        "items": [
+          {
+            "title": "Strategic Dialogue",
+            "description": "High-level exchanges on Africa’s peace, security and geopolitical priorities."
+          },
+          {
+            "title": "Institutional Cooperation",
+            "description": "Building stronger partnerships between governments, institutions and strategic stakeholders."
+          },
+          {
+            "title": "Economic Security",
+            "description": "Connecting stability, security and economic transformation."
+          }
+        ]
+      },
+      "whoWeConvene": [
+        "Heads of State and Government",
+        "Ministers and senior public officials",
+        "Diplomats and international institutions",
+        "Security and strategic experts",
+        "Investors and business leaders",
+        "Thinkers and policy leaders"
+      ],
+      "fromDialogueToAction": "Connecting political leadership, institutions, business and capital to build stronger foundations for peace, stability and prosperity across Africa.",
+      "joinForum": "Join the Africa Peace Forum"
+    },
+
+    "africaAgricultureFoodForum": {
+      "title": "Africa Agriculture & Food Forum (AAFF)",
+      "description": "Transforming African agriculture from subsistence farming to a modern, productive, and sustainable system.",
+      "overview": "The Agriculture and Food Security Forum addresses the transformation of Africa’s agricultural systems, food value chains and investment opportunities required to build resilient and productive food economies.",
+      "keyAreas": [
+        "Agriculture",
+        "Food Security",
+        "Agri-Tech",
+        "Food Processing",
+        "Regional Value Chains",
+        "Investment"
+      ],
+      "objectives": [
+        "Accelerate agricultural transformation across Africa",
+        "Strengthen food security and resilient food systems",
+        "Mobilize investment into agricultural value chains",
+        "Promote technology and innovation in agriculture",
+        "Expand intra-African agricultural trade"
+      ],
+      "strategicPillars": "Strategic Pillars",
       "pillars": [
         {
-          "title": "Pillar 1: Innovation",
-          "items": ["Digital transformation", "Startup funding"]
+          "title": "Productivity & Innovation",
+          "items": [
+            "Agri-Tech and digital agriculture",
+            "Modern farming systems",
+            "Research and innovation"
+          ]
+        },
+        {
+          "title": "Value Chains & Processing",
+          "items": [
+            "Food processing",
+            "Storage and logistics",
+            "Regional value chains"
+          ]
+        },
+        {
+          "title": "Investment & Finance",
+          "items": [
+            "Agricultural finance",
+            "Private investment",
+            "Blended finance mechanisms"
+          ]
         }
-      ]
+      ],
+      "whoWeConvene": [
+        "Governments and policymakers",
+        "Agricultural investors",
+        "Farmers and producers",
+        "Food companies",
+        "Financial institutions",
+        "Technology companies",
+        "Development institutions"
+      ],
+      "fromDialogueToAction": "Connecting agricultural leaders, investors, technology providers and governments to transform Africa’s food systems and unlock scalable investment opportunities.",
+      "joinForum": "Join the Africa Agriculture & Food Forum"
     }
-  ]
+  }
 }
