@@ -1,47 +1,107 @@
-// src/data/spotlightData.ts
+// src/data/intervenantsData.ts
 
-export interface SpotlightArticle {
-  id: number;
+export interface Intervenant {
+  id: string;
   key: string;
-  date: string;
-  image: string;
-  contentKey?: string;
+  nom: string;
+  photoUrl: string;
+  statut: 'Confirmé' | 'Invité' | 'À l’étude' | 'À confirmer';
 }
 
-export const spotlightArticles: SpotlightArticle[] = [
+export const listeIntervenants: Intervenant[] = [
   {
-    id: 1,
-    key: 'afdbWomenForum',
-    date: '2026-01-31',
-    image: '/images/africa-women.jpg',
+    id: '1',
+    key: 'abrahamDwumaOdoom',
+    nom: 'Hon. Abraham Dwuma Odoom',
+    photoUrl: '/images/Hon. Abraham Dwuma Odoom.jpg',
+    statut: 'Confirmé',
   },
 
   {
-    id: 2,
-    key: 'africanTable',
-    date: '2026-01-30',
-    image: '/images/african-table.jpg',
-    contentKey: 'africanTableContent',
+    id: '2',
+    key: 'hildaSukaMafudze',
+    nom: 'H.E Hilda Suka Mafudze',
+    photoUrl: '/images/H.E Hilda Suka Mafudze.jpg',
+    statut: 'Confirmé',
   },
 
   {
-    id: 3,
-    key: 'dealRooms',
-    date: '2026-01-29',
-    image: '/images/access-to-alignment.png',
+    id: '3',
+    key: 'dominiqueMigisha',
+    nom: 'H.E Dominique Migisha',
+    photoUrl: '/images/H.E Dominique Migisha.jpg',
+    statut: 'Confirmé',
   },
 
   {
-    id: 4,
-    key: 'multiSectorContinuity',
-    date: '2026-01-28',
-    image: '/images/multi-sector-continuity.png',
+    id: '4',
+    key: 'rashedMohamedKarkain',
+    nom: 'Dr. Rashed Mohamed Karkain',
+    photoUrl: '/images/Dr.Rashed Mohamed Karkain.jpg',
+    statut: 'Confirmé',
   },
 
   {
-    id: 5,
-    key: 'africaWomenForum2026',
-    date: '2026-01-27',
-    image: '/images/africa-women-forum.jpg',
+    id: '5',
+    key: 'abdullahBelhaifAlNuaimi',
+    nom: 'H.E Abdullah Belhaif Al Nuaimi',
+    photoUrl: '/images/H.E Abdullah Belhaif Al Nuaimi.jpg',
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '6',
+    key: 'abdullahiKassim',
+    nom: 'Engr Abdullahi KassimEngr',
+    photoUrl: '/images/Engr Abdullahi KassimEngr.jpg',
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '7',
+    key: 'anaHelenaChaconEcheverria',
+    nom: 'H.E Ana-Helena Chacón Echeverría',
+    photoUrl: '/images/H.E Ana-Helena Chacón Echeverría.jpg',
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '8',
+    key: 'rosaliaArteaga',
+    nom: 'H.E Rosalia Arteaga',
+    photoUrl: '/images/H.E Rosalia Arteaga.jpg',
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '9',
+    key: 'johnAgyekumKufuor',
+    nom: 'H.E John Agyekum Kufuor',
+    photoUrl: '/images/H.E John Agyekum Kufuor.jpg',
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '10',
+    key: 'bakoAmbianda',
+    nom: 'Bako Ambianda',
+    photoUrl: '/image/Bako Ambianda.jpg',
+    statut: 'Invité',
+  },
+
+  {
+    id: '11',
+    key: 'amalElFallahSeghrouchni',
+    nom: 'Amal El Fallah Seghrouchni',
+    photoUrl: '/images/Amal El Fallah Seghrouchni.jpg',
+    statut: 'Invité',
+  },
+
+  {
+    id: '12',
+    key: 'eleonoreCaroit',
+    nom: 'Éléonore Caroit',
+    photoUrl: '/images/Éléonore Caroit.jpg',
+    statut: 'Invité',
   },
 ];
