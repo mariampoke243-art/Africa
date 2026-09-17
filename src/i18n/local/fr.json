@@ -125,4 +125,136 @@
     "videos": "Vidéos",
 
     "engage": "S'engager",
-    "logout": "Dé
+    "logout": "Déconnexion",
+    "signIn": "Connexion",
+    "partner": "Partenaire",
+    "member": "Membre",
+    "pressSignUp": "Espace Presse",
+    "newsletters": "Infolettres",
+    "contactUs": "Contactez-nous",
+    "quickLinks": "Liens rapides",
+    "sustainability": "Durabilité",
+    "careers": "Carrières",
+    "languageEditions": "Éditions linguistiques",
+    "privacy": "Politique de confidentialité",
+
+    "copyright": "© 2026 Africa Economic Forum. Tous droits réservés."
+  },
+
+  "forums": {
+    "africaPeaceForum": {
+      "title": "Forum Africain de la Paix",
+      "sectoralLabel": "Un Forum Sectoriel de l'Africa Economic Forum",
+      "description": "Construire la paix, la sécurité et la coopération stratégique en Afrique.",
+      "overview": "Le Forum Africain de la Paix réunit dirigeants, gouvernements, diplomates, experts de la sécurité, investisseurs et penseurs pour répondre aux défis de paix et de sécurité de l'Afrique et renforcer les conditions d'une transformation économique durable.",
+      "platform": {
+        "title": "La Plateforme",
+        "description": "Une plateforme permanente de dialogue stratégique, de coopération régionale et d'action à l'intersection de la paix, de la sécurité et du développement économique.",
+        "items": [
+          {
+            "title": "Dialogues Paix & Investissement",
+            "description": "Relier les priorités de paix et de sécurité aux investisseurs et partenaires du développement."
+          },
+          {
+            "title": "Dialogues régionaux sur la paix",
+            "description": "Dialogues consacrés aux principales régions d'Afrique et à leurs dynamiques de conflit."
+          },
+          {
+            "title": "Tables rondes diplomatiques",
+            "description": "Dialogue diplomatique de haut niveau à travers le Club diplomatique de l'AEF."
+          },
+          {
+            "title": "Intelligence Paix & Développement",
+            "description": "Rapports et analyses sur l'impact des conflits et de l'instabilité sur l'investissement, le commerce et le développement."
+          },
+          {
+            "title": "Programme des jeunes boursiers pour la paix",
+            "description": "Former la prochaine génération de bâtisseurs de paix et de dirigeants africains."
+          },
+          {
+            "title": "Forum Africain Annuel de la Paix",
+            "description": "Le rassemblement annuel majeur réunissant la communauté mondiale du Forum sous l'égide de l'Africa Economic Forum."
+          }
+        ]
+      },
+      "keyAreas": [
+        "Prévention des conflits et promotion de la paix",
+        "Sécurité et coopération régionale",
+        "Paix et investissement",
+        "Diplomatie et géopolitique",
+        "Jeunesse et femmes dans la consolidation de la paix",
+        "Gouvernance et sécurité humaine"
+      ],
+      "objectives": [],
+      "whoWeConvene": [
+        "Chefs d'État et de gouvernement",
+        "Ministres",
+        "Diplomates",
+        "Institutions régionales",
+        "Dirigeants de la paix et de la sécurité",
+        "Investisseurs",
+        "Dirigeants d'entreprises",
+        "Penseurs",
+        "Jeunes dirigeants et femmes leaders"
+      ],
+      "fromDialogueToAction": "Connecter le leadership politique, les institutions, les entreprises et le capital afin de construire des bases plus solides pour la paix, la stabilité et la prospérité en Afrique.",
+      "ctaText": "Rejoindre le Forum Africain de la Paix",
+      "pillars": []
+    },
+
+    "africaAgricultureFoodForum": {
+      "title": "Forum Africain de l'Agriculture et de l'Alimentation (AAFF)",
+      "description": "Transformer l'agriculture africaine d'une agriculture de subsistance en un système moderne, productif et durable.",
+      "overview": "Le Forum de l'Agriculture et de la Sécurité Alimentaire aborde l'un des défis et des domaines d'opportunité les plus importants pour le développement de l'Afrique.\n\nLe Forum sert de plateforme dédiée à la transformation de l'agriculture africaine en un système moderne, productif et durable capable de garantir la sécurité alimentaire d'une population continentale en croissance tout en créant de la prospérité économique.",
+      "keyAreas": [
+        "Modernisation des pratiques agricoles grâce aux technologies avancées et à l'agriculture de précision",
+        "Développement de chaînes de valeur intégrées reliant les petits exploitants aux marchés et aux réseaux de distribution",
+        "Promotion d'une gestion durable des terres et de la conservation de l'eau",
+        "Facilitation des investissements dans les infrastructures agricoles, la transformation et le stockage",
+        "Promotion de réformes politiques favorisant le développement agricole, le commerce transfrontalier et l'investissement privé"
+      ],
+      "objectives": [
+        "Renforcer la sécurité alimentaire en Afrique",
+        "Accroître la productivité agricole",
+        "Soutenir les petits exploitants agricoles",
+        "Développer des chaînes de valeur agricoles modernes",
+        "Attirer les investissements vers l'agro-industrie",
+        "Promouvoir une agriculture résiliente au changement climatique"
+      ],
+      "pillars": [
+        {
+          "title": "Agriculture moderne",
+          "items": [
+            "Agriculture de précision et technologies avancées",
+            "Techniques agricoles résilientes au climat",
+            "Modernisation des pratiques agricoles"
+          ]
+        },
+        {
+          "title": "Chaînes de valeur agricoles",
+          "items": [
+            "Connecter les agriculteurs aux marchés",
+            "Transformation et distribution alimentaires",
+            "Réduction des pertes post-récolte"
+          ]
+        },
+        {
+          "title": "Développement durable",
+          "items": [
+            "Gestion durable des terres",
+            "Conservation de l'eau",
+            "Agriculture intelligente face au climat"
+          ]
+        },
+        {
+          "title": "Investissement et politique",
+          "items": [
+            "Investissement dans les infrastructures agricoles",
+            "Développement de l'agro-industrie",
+            "Réformes politiques et commerce transfrontalier"
+          ]
+        }
+      ]
+    }
+  }
+}
