@@ -99,11 +99,49 @@
     "innovationAcceleration": "Aceleración de la innovación",
     "innovationAccelerationDescription": "Apoyar iniciativas, proyectos y soluciones capaces de acelerar la transformación económica del continente.",
 
+    "moreAboutInitiatives": "Más información sobre nuestras iniciativas",
+
+    "spotlightTitle": "Destacados",
+    "spotlightSubtitle": "Anuncios Estratégicos y Hitos Institucionales del AEF",
+    "viewAllArticles": "Ver todos los artículos",
+
     "newsletterTitle": "Suscríbase a nuestros boletines",
     "newsletterDescription": "Reciba las últimas noticias, análisis y anuncios estratégicos del Africa Economic Forum.",
     "newsletterPlaceholder": "Introduzca su dirección de correo electrónico",
     "subscribe": "Suscribirse",
     "subscriptionSuccess": "¡Gracias! Su suscripción a nuestro boletín se ha realizado correctamente."
+  },
+
+  "spotlight": {
+    "afdbWomenForum": {
+      "category": "Foro y Liderazgo",
+      "title": "Africa Women Forum",
+      "description": "Destacando el liderazgo, las inversiones y las oportunidades para las mujeres africanas."
+    },
+
+    "africanTable": {
+      "category": "Liderazgo y Diálogo",
+      "title": "La Mesa Africana",
+      "description": "Un espacio de diálogo estratégico que reúne a los actores que están dando forma al futuro económico de África."
+    },
+
+    "dealRooms": {
+      "category": "Inversión y Negocios",
+      "title": "Deal Rooms",
+      "description": "Espacios dedicados a conectar proyectos, inversores, gobiernos y socios estratégicos."
+    },
+
+    "multiSectorContinuity": {
+      "category": "Estrategia e Inversión",
+      "title": "Continuidad Multisectorial",
+      "description": "Promoviendo un enfoque integrado de las inversiones y oportunidades en los sectores estratégicos de África."
+    },
+
+    "africaWomenForum2026": {
+      "category": "Evento",
+      "title": "Africa Women Forum 2026",
+      "description": "Una plataforma dedicada al liderazgo, la inversión y la participación de las mujeres en la transformación económica de África."
+    }
   },
 
   "footer": {
