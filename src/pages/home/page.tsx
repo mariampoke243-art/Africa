@@ -311,7 +311,7 @@ export default function Home() {
                     title={
                       user.user_metadata?.full_name ||
                       user.email ||
-                      'Profile'
+                      t('auth.profile')
                     }
                   >
 
@@ -319,7 +319,7 @@ export default function Home() {
 
                       <img
                         src={user.user_metadata.avatar_url}
-                        alt="Profile"
+                        alt={t('auth.profile')}
                         className="w-8 h-8 rounded-full object-cover"
                       />
 
@@ -349,7 +349,7 @@ export default function Home() {
                         <div className="font-medium">
 
                           {user.user_metadata?.full_name ||
-                            'User'}
+                            t('auth.user')}
 
                         </div>
 
@@ -368,7 +368,7 @@ export default function Home() {
                         onClick={handleViewProfile}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        View Profile
+                        {t('auth.viewProfile')}
                       </button>
 
 
@@ -377,7 +377,7 @@ export default function Home() {
                         onClick={handleLogout}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        Sign Out
+                        {t('auth.signOut')}
                       </button>
 
                     </div>
@@ -547,7 +547,7 @@ export default function Home() {
 
                         <img
                           src={user.user_metadata.avatar_url}
-                          alt="Profile"
+                          alt={t('auth.profile')}
                           className="w-8 h-8 rounded-full object-cover"
                         />
 
@@ -569,7 +569,7 @@ export default function Home() {
                       <span className="text-gray-700 font-medium">
 
                         {user.user_metadata?.full_name ||
-                          'User'}
+                          t('auth.user')}
 
                       </span>
 
@@ -584,7 +584,7 @@ export default function Home() {
                       }}
                       className="w-full text-left px-3 py-2 text-gray-700 hover:text-teal-600 font-medium"
                     >
-                      View Profile
+                      {t('auth.viewProfile')}
                     </button>
 
 
@@ -596,7 +596,7 @@ export default function Home() {
                       }}
                       className="w-full text-left px-3 py-2 text-gray-700 hover:text-teal-600 font-medium"
                     >
-                      Sign Out
+                      {t('auth.signOut')}
                     </button>
 
                   </div>
@@ -647,15 +647,12 @@ export default function Home() {
                 <div className="space-y-6">
 
                   <p className="text-blue-200 text-lg font-medium">
-                    Africa Economic Forum 2026 • 10–11 Nov •
-                    Kinshasa
+                    {t('home.heroEyebrow')}
                   </p>
 
 
                   <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                    A premier platform convening leaders,
-                    governments, investors, and thinkers to
-                    shape Africa’s role in the new global order
+                    {t('home.heroSubtitle')}
                   </h1>
 
 
@@ -664,7 +661,7 @@ export default function Home() {
                     className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
                   >
                     <span>
-                      More about the Forum
+                      {t('home.moreAboutForum')}
                     </span>
 
                     <i className="ri-arrow-right-line" />
@@ -712,7 +709,7 @@ export default function Home() {
             <div className="text-center mb-16">
 
               <h2 className="text-4xl font-bold text-gray-900 mb-8">
-                How we drive impact
+                {t('home.impactTitle')}
               </h2>
 
 
@@ -751,15 +748,12 @@ export default function Home() {
               <div className="space-y-8">
 
                 <h2 className="text-4xl font-bold text-gray-900">
-                  How We Drive Impact
+                  {t('home.impactTitle')}
                 </h2>
 
 
                 <p className="text-lg text-gray-600 leading-relaxed">
-                  Through strategic initiatives, partnerships,
-                  and platforms, we create tangible pathways
-                  for Africa's economic transformation and
-                  global leadership.
+                  {t('home.impactSubtitle')}
                 </p>
 
 
@@ -774,13 +768,11 @@ export default function Home() {
                     <div>
 
                       <h3 className="font-semibold text-gray-900 mb-2">
-                        Strategic Dialogue Platforms
+                        {t('home.strategicDialogue')}
                       </h3>
 
                       <p className="text-gray-600">
-                        Creating spaces for meaningful
-                        conversations between African leaders
-                        and global partners.
+                        {t('home.strategicDialogueDescription')}
                       </p>
 
                     </div>
@@ -797,13 +789,11 @@ export default function Home() {
                     <div>
 
                       <h3 className="font-semibold text-gray-900 mb-2">
-                        Partnership Facilitation
+                        {t('home.partnershipFacilitation')}
                       </h3>
 
                       <p className="text-gray-600">
-                        Connecting African opportunities with
-                        global capital, technology, and
-                        expertise.
+                        {t('home.partnershipFacilitationDescription')}
                       </p>
 
                     </div>
@@ -820,13 +810,11 @@ export default function Home() {
                     <div>
 
                       <h3 className="font-semibold text-gray-900 mb-2">
-                        Innovation Acceleration
+                        {t('home.innovationAcceleration')}
                       </h3>
 
                       <p className="text-gray-600">
-                        Supporting breakthrough solutions
-                        that address Africa's most pressing
-                        challenges.
+                        {t('home.innovationAccelerationDescription')}
                       </p>
 
                     </div>
@@ -840,7 +828,7 @@ export default function Home() {
                   to="/initiatives"
                   className="bg-blue-900 text-white px-8 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer inline-block"
                 >
-                  More about our Initiatives
+                  {t('home.moreAboutInitiatives')}
                 </Link>
 
               </div>
@@ -1004,12 +992,11 @@ export default function Home() {
               <div>
 
                 <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                  Spotlight
+                  {t('home.spotlightTitle')}
                 </h2>
 
                 <p className="text-gray-600 text-lg">
-                  AEF Strategic Announcements &amp;
-                  Institutional Milestones
+                  {t('home.spotlightSubtitle')}
                 </p>
 
               </div>
@@ -1020,7 +1007,7 @@ export default function Home() {
                 className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
               >
                 <span>
-                  View All Articles
+                  {t('home.viewAllArticles')}
                 </span>
 
                 <i className="ri-arrow-right-line" />
@@ -1043,7 +1030,7 @@ export default function Home() {
 
                     <img
                       src={spotlightArticles[0].image}
-                      alt={spotlightArticles[0].title}
+                      alt={t(`spotlight.${spotlightArticles[0].key}.title`)}
                       className="w-full h-64 object-cover object-top"
                     />
 
@@ -1053,7 +1040,7 @@ export default function Home() {
                       <div className="flex items-center space-x-4 mb-4">
 
                         <span className="text-blue-600 font-medium text-sm">
-                          {spotlightArticles[0].category}
+                          {t(`spotlight.${spotlightArticles[0].key}.category`)}
                         </span>
 
                         <span className="text-gray-400 text-sm">
@@ -1064,12 +1051,12 @@ export default function Home() {
 
 
                       <h3 className="text-xl font-bold text-gray-900 leading-tight mb-3">
-                        {spotlightArticles[0].title}
+                        {t(`spotlight.${spotlightArticles[0].key}.title`)}
                       </h3>
 
 
                       <p className="text-gray-600 leading-relaxed">
-                        {spotlightArticles[0].description}
+                        {t(`spotlight.${spotlightArticles[0].key}.description`)}
                       </p>
 
                     </div>
@@ -1099,7 +1086,7 @@ export default function Home() {
 
                           <img
                             src={article.image}
-                            alt={article.title}
+                            alt={t(`spotlight.${article.key}.title`)}
                             className="w-full h-full object-cover object-top"
                           />
 
@@ -1109,7 +1096,7 @@ export default function Home() {
                         <div className="p-4 flex-1">
 
                           <span className="text-blue-600 font-medium text-sm">
-                            {article.category}
+                            {t(`spotlight.${article.key}.category`)}
                           </span>
 
 
@@ -1119,7 +1106,7 @@ export default function Home() {
 
 
                           <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
-                            {article.title}
+                            {t(`spotlight.${article.key}.title`)}
                           </h4>
 
                         </div>
@@ -1150,21 +1137,19 @@ export default function Home() {
             <div className="max-w-3xl mx-auto text-center space-y-6">
 
               <h2 className="text-3xl font-bold">
-                Subscribe to our Newsletters
+                {t('home.newsletterTitle')}
               </h2>
 
 
               <p className="text-blue-200 text-lg">
-                Stay updated with the latest insights, reports,
-                and announcements from the Africa Economic
-                Forum.
+                {t('home.newsletterDescription')}
               </p>
 
 
               {subscribed ? (
 
                 <div className="bg-teal-700/50 border border-teal-500 text-teal-100 px-6 py-4 rounded-md">
-                  Thank you for subscribing to our newsletters!
+                  {t('home.subscriptionSuccess')}
                 </div>
 
               ) : (
@@ -1182,7 +1167,7 @@ export default function Home() {
                         e.target.value
                       )
                     }
-                    placeholder="Enter your email address"
+                    placeholder={t('home.newsletterPlaceholder')}
                     className="px-4 py-3 rounded-md text-gray-900 w-full sm:w-80 focus:outline-none"
                     required
                   />
@@ -1192,7 +1177,7 @@ export default function Home() {
                     type="submit"
                     className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-6 py-3 rounded-md transition-colors cursor-pointer whitespace-nowrap"
                   >
-                    Subscribe
+                    {t('home.subscribe')}
                   </button>
 
                 </form>
@@ -1682,4 +1667,4 @@ export default function Home() {
 
   );
 
-                  }
+              }
