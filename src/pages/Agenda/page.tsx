@@ -4,7 +4,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../supabase/client';
 import { listeIntervenants } from '../../data/intervenantsData';
 import { LanguageSelector } from '../../components/LanguageSelector';
-import { useTranslation } from 'react-i18next';
 
 type Session = {
   time: string;
@@ -905,7 +904,6 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -1633,6 +1631,7 @@ export default function AgendaPage() {
               )}
             </nav>
           </div>
+        )}
       </header>
 
       {/* The Agenda content below remains driven by the existing AEF copy.
@@ -4473,4 +4472,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-            }
+                }
