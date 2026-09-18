@@ -453,6 +453,453 @@ const conversionConfigs: Record<NonNullable<ConversionType>, ConversionConfigIte
    PAGE
    =================================================== */
 
+function AEFMatchProfile({ onClose }: { onClose: () => void }) {
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [role, setRole] = useState('');
+  const [data, setData] = useState<Record<string, any>>({
+    capital: [],
+    projectsSectors: [],
+    capabilities: [],
+    markets: [],
+    lookingFor: [],
+    priorityObjective: '',
+    investmentSectors: [],
+    geographiesOfInterest: [],
+    typicalInvestmentTicket: '',
+    investmentStructure: [],
+    investmentStage: [],
+    preferredCounterparties: [],
+    projectName: '',
+    projectCountry: '',
+    projectSector: '',
+    projectStage: '',
+    totalProjectValue: '',
+    capitalRequired: '',
+    capitalStructureSought: [],
+    currentFundingPartners: '',
+    investorPartnerSought: '',
+    expectedTimeline: '',
+    govPrioritySectors: [],
+    govInvestmentPriorities: '',
+    govProjectsRequiringCapital: '',
+    govEstimatedCapitalRequirements: '',
+    govPartnersSought: [],
+    strategicCapabilities: [],
+    strategicAfricanMarkets: [],
+    strategicSectors: [],
+    strategicPartnerships: [],
+    whoToMeet: [],
+    specificConnections: '',
+    availability10: [],
+    availability11: [],
+    meetingFormat: [],
+    dealPriority: '',
+    specificCounterparty: '',
+    successfulMeeting: '',
+    institutionCompany: '',
+    countryHeadquarters: '',
+    website: '',
+    yourName: '',
+    titlePosition: '',
+    email: '',
+    phoneWhatsApp: '',
+    consentAccuracy: false,
+    consentUse: false,
+    consentNoGuarantee: false,
+    consentContact: false,
+  });
+
+  const updateField = (field: string, value: any) => {
+    setData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const toggleValue = (field: string, value: string) => {
+    setData((prev) => {
+      const current = Array.isArray(prev[field]) ? prev[field] : [];
+      return {
+        ...prev,
+        [field]: current.includes(value)
+          ? current.filter((item: string) => item !== value)
+          : [...current, value],
+      };
+    });
+  };
+
+  const optionGroup = (field: string, options: string[]) => (
+    <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      {options.map((option) => (
+        <label
+          key={option}
+          className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 hover:border-blue-900"
+        >
+          <input
+            type="checkbox"
+            checked={(data[field] || []).includes(option)}
+            onChange={() => toggleValue(field, option)}
+            className="rounded border-gray-300 text-blue-900 focus:ring-blue-900"
+          />
+          <span className="text-sm text-gray-800">{option}</span>
+        </label>
+      ))}
+    </div>
+  );
+
+  const radioGroup = (field: string, options: string[], name: string) => (
+    <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      {options.map((option) => (
+        <label
+          key={option}
+          className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 hover:border-blue-900"
+        >
+          <input
+            type="radio"
+            name={name}
+            value={option}
+            checked={data[field] === option}
+            onChange={(e) => updateField(field, e.target.value)}
+            className="border-gray-300 text-blue-900 focus:ring-blue-900"
+          />
+          <span className="text-sm text-gray-800">{option}</span>
+        </label>
+      ))}
+    </div>
+  );
+
+  const textField = (field: string, label: string, required = false, placeholder = '') => (
+    <div>
+      <label className="mb-2 block text-sm font-semibold text-gray-900">
+        {label}{required ? '*' : ''}
+      </label>
+      <input
+        required={required}
+        type="text"
+        value={data[field] || ''}
+        onChange={(e) => updateField(field, e.target.value)}
+        placeholder={placeholder}
+        className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900"
+      />
+    </div>
+  );
+
+  const textareaField = (field: string, label: string, required = false, rows = 4) => (
+    <div>
+      <label className="mb-2 block text-sm font-semibold text-gray-900">
+        {label}{required ? '*' : ''}
+      </label>
+      <textarea
+        required={required}
+        rows={rows}
+        value={data[field] || ''}
+        onChange={(e) => updateField(field, e.target.value)}
+        className="w-full resize-y rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900"
+      />
+    </div>
+  );
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.from('aef_match_profiles').insert([{
+        role,
+        capital: data.capital,
+        projects_sectors: data.projectsSectors,
+        capabilities: data.capabilities,
+        markets: data.markets,
+        looking_for: data.lookingFor,
+        priority_objective: data.priorityObjective,
+        investment_sectors: data.investmentSectors,
+        geographies_of_interest: data.geographiesOfInterest,
+        typical_investment_ticket: data.typicalInvestmentTicket,
+        investment_structure: data.investmentStructure,
+        investment_stage: data.investmentStage,
+        preferred_counterparties: data.preferredCounterparties,
+        project_name: data.projectName,
+        project_country: data.projectCountry,
+        project_sector: data.projectSector,
+        project_stage: data.projectStage,
+        total_project_value: data.totalProjectValue,
+        capital_required: data.capitalRequired,
+        capital_structure_sought: data.capitalStructureSought,
+        current_funding_partners: data.currentFundingPartners,
+        investor_partner_sought: data.investorPartnerSought,
+        expected_timeline: data.expectedTimeline,
+        gov_priority_sectors: data.govPrioritySectors,
+        gov_investment_priorities: data.govInvestmentPriorities,
+        gov_projects_requiring_capital: data.govProjectsRequiringCapital,
+        gov_estimated_capital_requirements: data.govEstimatedCapitalRequirements,
+        gov_partners_sought: data.govPartnersSought,
+        strategic_capabilities: data.strategicCapabilities,
+        strategic_african_markets: data.strategicAfricanMarkets,
+        strategic_sectors: data.strategicSectors,
+        strategic_partnerships: data.strategicPartnerships,
+        who_to_meet: data.whoToMeet,
+        specific_connections: data.specificConnections,
+        availability_10: data.availability10,
+        availability_11: data.availability11,
+        meeting_format: data.meetingFormat,
+        deal_priority: data.dealPriority,
+        specific_counterparty: data.specificCounterparty,
+        successful_meeting: data.successfulMeeting,
+        institution_company: data.institutionCompany,
+        country_headquarters: data.countryHeadquarters,
+        website: data.website,
+        your_name: data.yourName,
+        title_position: data.titlePosition,
+        email: data.email,
+        phone_whatsapp: data.phoneWhatsApp,
+        consent_accuracy: data.consentAccuracy,
+        consent_use: data.consentUse,
+        consent_no_guarantee: data.consentNoGuarantee,
+        consent_contact: data.consentContact,
+      }]);
+
+      if (error) {
+        throw new Error(`Database error: ${error.message}`);
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      console.error(err);
+      alert(err?.message || 'Unable to submit your AEF Match Profile. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-[130] flex items-center justify-center bg-black/70 p-4 overflow-y-auto">
+      <div className="relative max-h-[94vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-white shadow-2xl">
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close AEF Match Profile"
+          className="absolute right-5 top-5 z-10 text-3xl font-light text-gray-400 hover:text-gray-800"
+        >
+          ×
+        </button>
+
+        {submitted ? (
+          <div className="px-6 py-16 text-center sm:px-10">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-900 text-2xl font-bold text-white">
+              ✓
+            </div>
+            <h2 className="mt-6 text-3xl font-bold text-gray-900">AEF MATCH PROFILE RECEIVED</h2>
+            <p className="mx-auto mt-4 max-w-2xl leading-7 text-gray-600">
+              Thank you. Your AEF Match Profile has been submitted for qualification and matchmaking review.
+            </p>
+            <button
+              type="button"
+              onClick={onClose}
+              className="mt-8 rounded-lg bg-blue-900 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-800"
+            >
+              CLOSE
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-8 p-6 sm:p-10">
+            <div className="border-b border-gray-200 pb-6 pr-10">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-900">AEF MATCH PROFILE</p>
+              <h2 className="mt-2 text-3xl font-bold text-gray-900">BUILD YOUR AEF MATCH PROFILE</h2>
+            </div>
+
+            <section className="rounded-xl border border-gray-200 bg-gray-50 p-5 sm:p-6">
+              <h3 className="mb-5 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 01 — YOUR ROLE</h3>
+              <p className="mb-4 text-sm font-semibold text-gray-900">What brings you to AEF?*</p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {[
+                  'Government / Public Institution', 'Investor / Capital Provider', 'Project Owner',
+                  'CEO / Corporate Executive', 'Strategic Partner', 'DFI / Development Institution',
+                  'Family Office', 'Financial Institution', 'Technology Company', 'Entrepreneur', 'Other'
+                ].map((option) => (
+                  <label key={option} className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white p-3">
+                    <input
+                      required
+                      type="radio"
+                      name="aefMatchRole"
+                      value={option}
+                      checked={role === option}
+                      onChange={(e) => setRole(e.target.value)}
+                      className="border-gray-300 text-blue-900 focus:ring-blue-900"
+                    />
+                    <span className="text-sm text-gray-800">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </section>
+
+            <section className="rounded-xl border border-gray-200 bg-white p-5 sm:p-6">
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 02 — WHAT YOU BRING</h3>
+              <div className="space-y-7">
+                <div>
+                  <p className="mb-3 text-sm font-semibold text-gray-900">CAPITAL</p>
+                  {optionGroup('capital', ['Equity', 'Debt', 'Project Finance', 'Venture Capital', 'Private Equity', 'Blended Finance'])}
+                </div>
+                <div>
+                  <p className="mb-3 text-sm font-semibold text-gray-900">PROJECTS / SECTORS</p>
+                  {optionGroup('projectsSectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}
+                </div>
+                <div>
+                  <p className="mb-3 text-sm font-semibold text-gray-900">CAPABILITIES</p>
+                  {optionGroup('capabilities', ['Technology', 'EPC', 'Market Access', 'Distribution', 'Industrial Capacity', 'Advisory', 'Financial Services', 'Infrastructure Development', 'Other'])}
+                </div>
+                <div>
+                  <p className="mb-3 text-sm font-semibold text-gray-900">MARKETS</p>
+                  {optionGroup('markets', ['Africa', 'Europe', 'Gulf', 'Asia', 'Americas', 'Other'])}
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-xl border border-gray-200 bg-gray-50 p-5 sm:p-6">
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 03 — WHAT YOU ARE LOOKING FOR</h3>
+              <p className="mb-3 text-sm font-semibold text-gray-900">What would you like to find at AEF?</p>
+              {optionGroup('lookingFor', ['Investment opportunities', 'African projects', 'Government partnerships', 'Co-investors', 'Strategic partners', 'Joint ventures', 'Market entry opportunities', 'Technology partnerships', 'Acquisition opportunities', 'Trade opportunities', 'Financing opportunities', 'Distribution partners', 'Other'])}
+              <div className="mt-6">{textareaField('priorityObjective', 'Describe your priority objective in one sentence.', true, 3)}</div>
+            </section>
+
+            <section className="rounded-xl border border-gray-200 bg-white p-5 sm:p-6">
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 04 — YOUR INVESTMENT / BUSINESS PARAMETERS</h3>
+
+              {role === 'Investor / Capital Provider' && (
+                <div className="space-y-6">
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Investment Sectors</p>{optionGroup('investmentSectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Geographies of Interest</p>{optionGroup('geographiesOfInterest', ['Africa', 'Europe', 'Gulf', 'Asia', 'Americas', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Typical Investment Ticket</p>{radioGroup('typicalInvestmentTicket', ['Under €5M', '€5–25M', '€25–100M', '€100–500M', '€500M–€1B', '€1B+', 'Other'], 'typicalInvestmentTicket')}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Investment Structure</p>{optionGroup('investmentStructure', ['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Growth Capital', 'Venture Capital', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Investment Stage</p>{optionGroup('investmentStage', ['Development', 'Construction', 'Growth', 'Expansion', 'Acquisition', 'Refinancing'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Preferred Counterparties</p>{optionGroup('preferredCounterparties', ['Governments', 'Project Owners', 'CEOs / Corporates', 'Strategic Partners', 'DFIs', 'Banks', 'Family Offices', 'Other'])}</div>
+                </div>
+              )}
+
+              {role === 'Project Owner' && (
+                <div className="grid gap-5 sm:grid-cols-2">
+                  {textField('projectName', 'Project Name', true)}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-900">Country*</label>
+                    <select required value={data.projectCountry} onChange={(e) => updateField('projectCountry', e.target.value)} className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm outline-none focus:border-blue-900">
+                      <option value="">Select country</option>
+                      {['Democratic Republic of Congo', 'Nigeria', 'Kenya', 'South Africa', 'Egypt', 'Ghana', 'Tanzania', 'Zambia', 'Morocco', 'Côte d’Ivoire', 'Senegal', 'Angola', 'Rwanda', 'Uganda', 'Ethiopia', 'Cameroon', 'Other'].map((country) => <option key={country} value={country}>{country}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-900">Sector*</label>
+                    <select required value={data.projectSector} onChange={(e) => updateField('projectSector', e.target.value)} className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm outline-none focus:border-blue-900">
+                      <option value="">Select sector</option>
+                      {['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'].map((sector) => <option key={sector} value={sector}>{sector}</option>)}
+                    </select>
+                  </div>
+                  <div className="sm:col-span-2"><p className="mb-3 text-sm font-semibold text-gray-900">Project Stage*</p>{radioGroup('projectStage', ['Concept', 'Feasibility', 'Pre-FEED / FEED', 'Permitting', 'Construction-ready', 'Operational', 'Expansion'], 'projectStage')}</div>
+                  {textField('totalProjectValue', 'Total Project Value', true)}
+                  {textField('capitalRequired', 'Capital Required', true)}
+                  <div className="sm:col-span-2"><p className="mb-3 text-sm font-semibold text-gray-900">Capital Structure Sought</p>{optionGroup('capitalStructureSought', ['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Strategic Investor', 'Blended Finance', 'Other'])}</div>
+                  {textField('currentFundingPartners', 'Current Funding / Partners')}
+                  {textField('investorPartnerSought', 'Type of Investor / Partner Sought')}
+                  {textField('expectedTimeline', 'Expected Investment / Financing Timeline')}
+                </div>
+              )}
+
+              {role === 'Government / Public Institution' && (
+                <div className="space-y-6">
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Priority Sectors</p>{optionGroup('govPrioritySectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}</div>
+                  {textField('govInvestmentPriorities', 'Investment Priorities')}
+                  {textField('govProjectsRequiringCapital', 'Projects Requiring Capital')}
+                  {textField('govEstimatedCapitalRequirements', 'Estimated Capital Requirements')}
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Type of Partners Sought</p>{optionGroup('govPartnersSought', ['Investors', 'Strategic Companies', 'DFIs', 'Technology Partners', 'Infrastructure Developers', 'Industrial Partners', 'Trade Partners', 'Other'])}</div>
+                </div>
+              )}
+
+              {role === 'Strategic Partner' && (
+                <div className="space-y-6">
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Strategic Capabilities You Bring</p>{optionGroup('strategicCapabilities', ['Technology', 'Engineering / EPC', 'Market Access', 'Industrial Capacity', 'Logistics', 'Financial Services', 'Advisory', 'Manufacturing', 'Distribution', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">African Markets of Interest</p>{optionGroup('strategicAfricanMarkets', ['Central Africa', 'West Africa', 'East Africa', 'North Africa', 'Southern Africa', 'Africa-wide', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Sectors of Interest</p>{optionGroup('strategicSectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Type of Partnerships Sought</p>{optionGroup('strategicPartnerships', ['Joint Ventures', 'Technology Partnerships', 'Market Entry', 'Industrial Partnerships', 'Investment', 'PPP', 'Distribution', 'Other'])}</div>
+                </div>
+              )}
+
+              {!['Investor / Capital Provider', 'Project Owner', 'Government / Public Institution', 'Strategic Partner'].includes(role) && (
+                <p className="text-sm leading-6 text-gray-600">Select your role in Step 01 to display the relevant investment / business parameters.</p>
+              )}
+            </section>
+
+            <section className="rounded-xl border border-gray-200 bg-gray-50 p-5 sm:p-6">
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 05 — WHO DO YOU WANT TO MEET?</h3>
+              <p className="mb-3 text-sm font-semibold text-gray-900">Who would you like to meet at AEF?</p>
+              {optionGroup('whoToMeet', ['Heads of State / Government Leaders', 'Ministers', 'Sovereign Wealth Funds', 'Institutional Investors', 'Family Offices', 'Private Equity', 'Venture Capital', 'DFIs', 'Banks', 'Project Developers', 'CEOs', 'Technology Companies', 'Strategic Corporates', 'Other Governments', 'Other'])}
+              <div className="mt-6">{textField('specificConnections', 'Specific institutions or individuals you would like to connect with')}</div>
+            </section>
+
+            <section className="rounded-xl border border-gray-200 bg-white p-5 sm:p-6">
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 06 — YOUR AVAILABILITY</h3>
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div><p className="mb-3 text-sm font-semibold text-gray-900">10 November</p>{optionGroup('availability10', ['Morning', 'Lunch', 'Afternoon', 'Evening'])}</div>
+                <div><p className="mb-3 text-sm font-semibold text-gray-900">11 November</p>{optionGroup('availability11', ['Morning', 'Lunch', 'Afternoon', 'Evening'])}</div>
+              </div>
+              <div className="mt-6"><p className="mb-3 text-sm font-semibold text-gray-900">Preferred meeting format</p>{optionGroup('meetingFormat', ['1:1 Meeting', 'Small Roundtable', 'Deal Room', 'VIP Luncheon', 'Leaders Lounge', 'Country Investment Roundtable'])}</div>
+            </section>
+
+            <section className="rounded-xl border border-gray-200 bg-gray-50 p-5 sm:p-6 space-y-6">
+              <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 07 — YOUR PRIORITY</h3>
+              {textareaField('dealPriority', 'What would you like to advance through AEF?', true, 5)}
+              {textField('specificCounterparty', 'Is there a specific counterparty you would like AEF to help connect you with?')}
+              {textareaField('successfulMeeting', 'What would constitute a successful meeting for you?', true, 5)}
+            </section>
+
+            <section className="rounded-xl border border-gray-200 bg-white p-5 sm:p-6">
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 08 — CONTACT & CONSENT</h3>
+              <div className="grid gap-5 sm:grid-cols-2">
+                {textField('institutionCompany', 'Institution / Company Name', true)}
+                {textField('countryHeadquarters', 'Country / Headquarters', true)}
+                {textField('website', 'Website')}
+                {textField('yourName', 'Your Name', true)}
+                {textField('titlePosition', 'Title / Position', true)}
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-900">Email*</label>
+                  <input required type="email" value={data.email || ''} onChange={(e) => updateField('email', e.target.value)} className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" />
+                </div>
+                {textField('phoneWhatsApp', 'Phone / WhatsApp', true)}
+              </div>
+
+              <div className="mt-8 space-y-3 border-t border-gray-200 pt-6">
+                <p className="text-sm font-semibold text-gray-900">Consent</p>
+                {[
+                  ['consentAccuracy', 'I confirm that the information submitted is accurate and that I am authorised to represent the institution identified above.'],
+                  ['consentUse', 'I understand that the information submitted may be used by AEF for qualification, matchmaking and relevant introductions.'],
+                  ['consentNoGuarantee', 'I understand that submitting this profile does not guarantee a meeting, Deal Room access, investment, financing or transaction.'],
+                  ['consentContact', 'I agree that AEF may contact me regarding relevant opportunities and participation.'],
+                ].map(([field, label]) => (
+                  <label key={field} className="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-200 p-3">
+                    <input
+                      required
+                      type="checkbox"
+                      checked={Boolean(data[field])}
+                      onChange={(e) => updateField(field, e.target.checked)}
+                      className="mt-1 rounded border-gray-300 text-blue-900 focus:ring-blue-900"
+                    />
+                    <span className="text-sm leading-6 text-gray-700">{label}</span>
+                  </label>
+                ))}
+              </div>
+            </section>
+
+            <div className="flex justify-end border-t border-gray-200 pt-6">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="rounded-lg bg-blue-900 px-7 py-3.5 text-sm font-bold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSubmitting ? 'SUBMITTING...' : 'CREATE MY AEF MATCH PROFILE'}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -467,6 +914,9 @@ export default function AgendaPage() {
     useState(false);
 
   const [showProgrammeModal, setShowProgrammeModal] =
+    useState(false);
+
+  const [showMatchProfileModal, setShowMatchProfileModal] =
     useState(false);
 
   const [showRegistrationModal, setShowRegistrationModal] =
@@ -1834,12 +2284,13 @@ export default function AgendaPage() {
               Sector × Geography × Capital × Project × Partnership
             </p>
 
-            <Link
-              to="/meetings"
+            <button
+              type="button"
+              onClick={() => setShowMatchProfileModal(true)}
               className="mt-6 inline-flex rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
             >
               BUILD YOUR AEF MATCH PROFILE
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -2790,6 +3241,14 @@ export default function AgendaPage() {
           </div>
         </div>
       </footer>
+
+      {/* ===================================================
+          AEF MATCH PROFILE MODAL
+          =================================================== */}
+
+      {showMatchProfileModal && (
+        <AEFMatchProfile onClose={() => setShowMatchProfileModal(false)} />
+      )}
 
       {/* ===================================================
           DEAL ROOM MODAL (AEF DEAL ROOM — ACCESS & MANDATE FORM)
@@ -3921,4 +4380,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-            }
+      }
