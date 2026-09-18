@@ -417,7 +417,7 @@ export const forums: Forum[] = [
   {
     id: 8,
     key: 'africaHealthForum',
-    image: '/images/africahealth.jpg',
+    image: '/images/africawealth.jpg',
 
     title: 'Africa Health Forum',
 
