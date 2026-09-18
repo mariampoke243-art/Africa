@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../supabase/client';
 import { listeIntervenants } from '../../data/intervenantsData';
+import { LanguageSelector } from '../../components/LanguageSelector';
 
 type Session = {
   time: string;
@@ -1490,6 +1491,8 @@ export default function AgendaPage() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
+            <LanguageSelector />
+
             <div className="flex flex-wrap gap-4">
               <button
                 onClick={() =>
@@ -1534,13 +1537,17 @@ export default function AgendaPage() {
             )}
           </div>
 
-          <button
-            className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-50 hover:text-teal-600 md:hidden"
-            onClick={() => navigate('/agenda')}
-            aria-label="Menu"
-          >
-            <span className="text-xl">☰</span>
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSelector />
+
+            <button
+              className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-50 hover:text-teal-600"
+              onClick={() => navigate('/agenda')}
+              aria-label="Menu"
+            >
+              <span className="text-xl">☰</span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -4380,4 +4387,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-      }
+}
