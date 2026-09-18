@@ -1633,7 +1633,8 @@ export default function AgendaPage() {
               )}
             </nav>
           </div>
-        </header>
+        </div>
+      </header>
 
       {/* The Agenda content below remains driven by the existing AEF copy.
           The shared LanguageSelector changes the active i18n language globally. */}
@@ -4473,4 +4474,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-                      }
+  }
