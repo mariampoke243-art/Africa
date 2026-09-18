@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../supabase/client';
 import { listeIntervenants } from '../../data/intervenantsData';
 import { LanguageSelector } from '../../components/LanguageSelector';
+import { useTranslation } from 'react-i18next';
 
 type Session = {
   time: string;
@@ -4472,4 +4473,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-                        }
+                      }
