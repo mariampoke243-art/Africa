@@ -904,6 +904,9 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const [showSignInModal, setShowSignInModal] =
     useState(false);
@@ -1538,19 +1541,101 @@ export default function AgendaPage() {
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
-            <LanguageSelector />
-
             <button
+              type="button"
               className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-50 hover:text-teal-600"
-              onClick={() => navigate('/agenda')}
+              onClick={() => setShowMobileMenu((previous) => !previous)}
               aria-label="Menu"
+              aria-expanded={showMobileMenu}
             >
-              <span className="text-xl">☰</span>
+              <span className="text-xl">{showMobileMenu ? '✕' : '☰'}</span>
             </button>
           </div>
         </div>
-      </header>
 
+        {showMobileMenu && (
+          <div className="border-t border-gray-100 bg-white md:hidden">
+            <nav className="flex flex-col px-4 py-3">
+              {[
+                ['ABOUT AEF', '#about-aef'],
+                ['WHY KINSHASA', '#why-kinshasa'],
+                ['PROGRAMME', '#programme'],
+                ['SPEAKERS', '#speakers'],
+                ['DEAL ECOSYSTEM', '#deal-ecosystem'],
+                ['PARTNERS', '#partners'],
+              ].map(([label, href]) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setShowMobileMenu(false)}
+                  className="border-b border-gray-100 px-3 py-3 text-sm font-semibold text-gray-700 transition-colors hover:text-teal-600"
+                >
+                  {label}
+                </a>
+              ))}
+
+              <button
+                type="button"
+                onClick={() => {
+                  setShowRegistrationModal(true);
+                  setShowMobileMenu(false);
+                }}
+                className="mt-4 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white"
+              >
+                GET YOUR DELEGATE PASS
+              </button>
+
+              <Link
+                to="/contact"
+                onClick={() => setShowMobileMenu(false)}
+                className="mt-3 rounded-lg bg-blue-900 px-5 py-3 text-center text-sm font-semibold text-white"
+              >
+                BECOME AN AEF PARTNER
+              </Link>
+
+              <a
+                href={agendaPdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setShowMobileMenu(false)}
+                className="mt-3 rounded-lg border border-gray-200 bg-white px-5 py-3 text-center text-sm font-semibold text-blue-900"
+              >
+                Download Agenda
+              </a>
+
+              <div className="mt-4 border-t border-gray-100 px-3 py-4">
+                <LanguageSelector />
+              </div>
+
+              {user ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    signOut();
+                    setShowMobileMenu(false);
+                  }}
+                  className="mt-3 rounded-lg border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700"
+                >
+                  Sign out
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowSignInModal(true);
+                    setShowMobileMenu(false);
+                  }}
+                  className="mt-3 rounded-lg border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700"
+                >
+                  Sign in
+                </button>
+              )}
+            </nav>
+          </div>
+        </header>
+
+      {/* The Agenda content below remains driven by the existing AEF copy.
+          The shared LanguageSelector changes the active i18n language globally. */}
       {/* ===================================================
           01 — HERO
           =================================================== */}
@@ -4387,4 +4472,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-}
+                        }
