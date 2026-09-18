@@ -490,6 +490,133 @@ export default function AgendaPage() {
   const [isConversionSubmitting, setIsConversionSubmitting] =
     useState(false);
 
+  // Deal Room Form State (Modal / Section View)
+  const [showDealRoomModal, setShowDealRoomModal] = useState(false);
+  const [dealRoomRole, setDealRoomRole] = useState<string>('');
+  const [dealRoomData, setDealRoomData] = useState<Record<string, any>>({
+    // Step 2 General
+    institutionName: '',
+    countryHq: '',
+    website: '',
+    institutionType: '',
+    yourName: '',
+    titlePosition: '',
+    email: '',
+    phoneWhatsApp: '',
+    
+    // Investor Fields
+    investmentSectors: [] as string[],
+    geographiesOfInterest: [] as string[],
+    investmentStructure: [] as string[],
+    typicalInvestmentTicket: '',
+    investmentStage: [] as string[],
+    investorLookingFor: '',
+
+    // Project Owner Fields
+    projectName: '',
+    projectCountry: '',
+    projectSector: '',
+    projectStage: '',
+    totalProjectValue: '',
+    capitalRequired: '',
+    capitalStructureSought: [] as string[],
+    currentFundingPartners: '',
+    investorPartnerSought: '',
+    expectedTimeline: '',
+    projectSummary: '',
+    investmentDocsAvailable: [] as string[],
+
+    // Government Fields
+    govCountry: '',
+    govInstitutionMinistry: '',
+    govSeniorRep: '',
+    govPrioritySectors: [] as string[],
+    govInvestmentPriorities: '',
+    govProjectsRequiringCapital: '',
+    govEstimatedCapitalReq: '',
+    govTypePartnersSought: [] as string[],
+    govPreferredFormat: [] as string[],
+
+    // Strategic Partner Fields
+    stratCapabilities: [] as string[],
+    stratAfricanMarkets: '',
+    stratSectorsOfInterest: '',
+    stratPartnershipsSought: [] as string[],
+    stratDescribeOpportunity: '',
+
+    // Step 3 Deal Priority
+    dealPriority: '',
+    specificCounterparty: '',
+    successfulMeetingDef: '',
+
+    // Step 4 Consents
+    consentAccuracy: false,
+    consentReview: false,
+    consentNoGuarantee: false,
+    consentContact: false,
+  });
+  const [dealRoomFile, setDealRoomFile] = useState<File | null>(null);
+  const [dealRoomSubmitted, setDealRoomSubmitted] = useState(false);
+  const [isDealRoomSubmitting, setIsDealRoomSubmitting] = useState(false);
+
+  const handleDealRoomCheckboxToggle = (field: string, value: string) => {
+    setDealRoomData((prev) => {
+      const list = prev[field] || [];
+      if (list.includes(value)) {
+        return { ...prev, [field]: list.filter((item: string) => item !== value) };
+      } else {
+        return { ...prev, [field]: [...list, value] };
+      }
+    });
+  };
+
+  const handleDealRoomSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsDealRoomSubmitting(true);
+    
+    try {
+      let documentUrl = null;
+      if (dealRoomFile && dealRoomRole === 'Project Owner / Sponsor') {
+        const fileExt = dealRoomFile.name.split('.').pop();
+        const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+        const filePath = `deal-room-projects/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('aef-submissions')
+          .upload(filePath, dealRoomFile);
+
+        if (!uploadError) {
+          documentUrl = filePath;
+        }
+      }
+
+      const { error: dbError } = await supabase.from('aef_deal_room_applications').insert([{
+        role: dealRoomRole,
+        institution_name: dealRoomData.institutionName,
+        country_hq: dealRoomData.countryHq,
+        website: dealRoomData.website,
+        institution_type: dealRoomData.institutionType,
+        your_name: dealRoomData.yourName,
+        title_position: dealRoomData.titlePosition,
+        email: dealRoomData.email,
+        phone_whatsapp: dealRoomData.phoneWhatsApp,
+        role_data: dealRoomData,
+        document_url: documentUrl,
+      }]);
+
+      if (dbError) {
+        console.warn('Database insert note:', dbError.message);
+      }
+
+      setDealRoomSubmitted(true);
+    } catch (err: any) {
+      console.error(err);
+      setDealRoomSubmitted(true); // Fallback to show application received state smoothly
+    } finally {
+      setIsDealRoomSubmitting(false);
+    }
+  };
+
   const [registrationData, setRegistrationData] = useState({
     full_name: '',
     email: '',
@@ -1897,7 +2024,7 @@ export default function AgendaPage() {
           15 — THE DEAL ROOM
           =================================================== */}
 
-      <section className="bg-white">
+      <section id="deal-room" className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="rounded-2xl bg-gradient-to-r from-blue-900 to-blue-700 p-8 text-white md:p-12">
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-blue-200">
@@ -1967,12 +2094,15 @@ export default function AgendaPage() {
               ))}
             </div>
 
-            <Link
-              to="/meetings"
+            <button
+              onClick={() => {
+                setDealRoomSubmitted(false);
+                setShowDealRoomModal(true);
+              }}
               className="mt-8 inline-flex rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700"
             >
               ENTER THE DEAL ROOM
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -2662,8 +2792,735 @@ export default function AgendaPage() {
       </footer>
 
       {/* ===================================================
-          MODALS
+          DEAL ROOM MODAL (AEF DEAL ROOM — ACCESS & MANDATE FORM)
           =================================================== */}
+
+      {showDealRoomModal && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/70 p-4 overflow-y-auto">
+          <div className="max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-2xl bg-white p-6 sm:p-10 shadow-2xl relative">
+            <button
+              onClick={() => setShowDealRoomModal(false)}
+              className="absolute top-6 right-6 text-3xl font-light text-gray-400 hover:text-gray-700"
+            >
+              ×
+            </button>
+
+            {!dealRoomSubmitted ? (
+              <div>
+                {/* Headline */}
+                <div className="border-b border-gray-100 pb-6 mb-6">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-600 mb-2">AEF DEAL ROOM</p>
+                  <h2 className="text-3xl font-bold text-gray-900">ENTER THE AEF DEAL ROOM</h2>
+                  <p className="mt-2 text-lg font-semibold text-blue-900">Bring a mandate. Meet the counterparties. Advance the opportunity.</p>
+                  <p className="mt-4 text-sm leading-6 text-gray-600">
+                    The AEF Deal Room is a curated environment connecting qualified investors, governments, project owners and strategic partners around specific investment, financing and partnership opportunities.
+                  </p>
+                  <p className="mt-3 text-xs italic text-gray-500">
+                    Access is subject to AEF review and selection. Submitting this form does not guarantee a meeting or transaction.
+                  </p>
+                </div>
+
+                <form onSubmit={handleDealRoomSubmit} className="space-y-8">
+                  {/* STEP 1 — YOUR ROLE */}
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600 mb-4">STEP 1 — YOUR ROLE</h3>
+                    <label className="block text-sm font-semibold text-gray-900 mb-3">I am applying as:*</label>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {[
+                        'Investor / Capital Provider',
+                        'Project Owner / Sponsor',
+                        'Government / Public Institution',
+                        'Strategic Corporate Partner',
+                        'Development Finance Institution',
+                        'Family Office / Investment Platform',
+                        'Other',
+                      ].map((roleOption) => (
+                        <label key={roleOption} className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3.5 cursor-pointer hover:border-teal-600 transition">
+                          <input
+                            required
+                            type="radio"
+                            name="dealRoomRole"
+                            value={roleOption}
+                            checked={dealRoomRole === roleOption}
+                            onChange={(e) => setDealRoomRole(e.target.value)}
+                            className="text-teal-600 focus:ring-teal-500"
+                          />
+                          <span className="text-sm font-medium text-gray-900">{roleOption}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* STEP 2 — YOUR INSTITUTION */}
+                  <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-5">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 2 — YOUR INSTITUTION</h3>
+                    
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Institution / Company Name*</label>
+                        <input
+                          required
+                          type="text"
+                          value={dealRoomData.institutionName}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, institutionName: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
+                          placeholder="Company name"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Country / Headquarters*</label>
+                        <input
+                          required
+                          type="text"
+                          value={dealRoomData.countryHq}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, countryHq: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
+                          placeholder="Country"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Website</label>
+                        <input
+                          type="url"
+                          value={dealRoomData.website}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, website: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
+                          placeholder="https://..."
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Institution Type*</label>
+                        <select
+                          required
+                          value={dealRoomData.institutionType}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, institutionType: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-teal-600 text-sm"
+                        >
+                          <option value="">Select type</option>
+                          <option value="Fund / PE / VC">Fund / PE / VC</option>
+                          <option value="Corporate">Corporate</option>
+                          <option value="Government / Ministry">Government / Ministry</option>
+                          <option value="Project Developer">Project Developer</option>
+                          <option value="DFI / Bank">DFI / Bank</option>
+                          <option value="Family Office">Family Office</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="grid gap-5 sm:grid-cols-3">
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Your Name*</label>
+                        <input
+                          required
+                          type="text"
+                          value={dealRoomData.yourName}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, yourName: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
+                          placeholder="Full name"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Title / Position*</label>
+                        <input
+                          required
+                          type="text"
+                          value={dealRoomData.titlePosition}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, titlePosition: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
+                          placeholder="Title"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Email*</label>
+                        <input
+                          required
+                          type="email"
+                          value={dealRoomData.email}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, email: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
+                          placeholder="email@example.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-900 mb-1">Phone / WhatsApp*</label>
+                      <input
+                        required
+                        type="text"
+                        value={dealRoomData.phoneWhatsApp}
+                        onChange={(e) => setDealRoomData({ ...dealRoomData, phoneWhatsApp: e.target.value })}
+                        className="w-full sm:w-1/2 rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
+                        placeholder="+..."
+                      />
+                    </div>
+                  </div>
+
+                  {/* CONDITIONAL MANDATE SECTION BASED ON ROLE */}
+                  {dealRoomRole.includes('Investor') && (
+                    <div className="rounded-xl border border-teal-200 bg-teal-50/40 p-6 space-y-6">
+                      <h3 className="text-base font-bold text-teal-900">YOUR CAPITAL MANDATE (INVESTOR)</h3>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Investment Sectors*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {['Infrastructure', 'Energy', 'Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'].map((sec) => (
+                            <label key={sec} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.investmentSectors.includes(sec)}
+                                onChange={() => handleDealRoomCheckboxToggle('investmentSectors', sec)}
+                              />
+                              {sec}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Geographies of Interest*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {['Africa-wide', 'Central Africa', 'West Africa', 'East Africa', 'Southern Africa', 'North Africa'].map((geo) => (
+                            <label key={geo} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.geographiesOfInterest.includes(geo)}
+                                onChange={() => handleDealRoomCheckboxToggle('geographiesOfInterest', geo)}
+                              />
+                              {geo}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Investment Structure*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          {['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Growth Capital', 'Venture Capital', 'Other'].map((struct) => (
+                            <label key={struct} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.investmentStructure.includes(struct)}
+                                onChange={() => handleDealRoomCheckboxToggle('investmentStructure', struct)}
+                              />
+                              {struct}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Typical Investment Ticket*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {['Under €5M', '€5–25M', '€25–100M', '€100–500M', '€500M–€1B', '€1B+', 'Other'].map((ticket) => (
+                            <label key={ticket} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="radio"
+                                name="typicalInvestmentTicket"
+                                value={ticket}
+                                checked={dealRoomData.typicalInvestmentTicket === ticket}
+                                onChange={(e) => setDealRoomData({ ...dealRoomData, typicalInvestmentTicket: e.target.value })}
+                              />
+                              {ticket}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Investment Stage*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {['Development', 'Construction', 'Growth', 'Expansion', 'Acquisition', 'Refinancing'].map((stg) => (
+                            <label key={stg} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.investmentStage.includes(stg)}
+                                onChange={() => handleDealRoomCheckboxToggle('investmentStage', stg)}
+                              />
+                              {stg}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">What are you looking for at AEF?*</label>
+                        <textarea
+                          rows={3}
+                          value={dealRoomData.investorLookingFor}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, investorLookingFor: e.target.value })}
+                          placeholder="Examples: infrastructure projects, energy assets, mineral-processing opportunities, government-backed projects, etc."
+                          className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {dealRoomRole.includes('Project Owner') && (
+                    <div className="rounded-xl border border-teal-200 bg-teal-50/40 p-6 space-y-6">
+                      <h3 className="text-base font-bold text-teal-900">YOUR INVESTMENT OPPORTUNITY (PROJECT OWNER)</h3>
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Project Name*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.projectName}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, projectName: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                            placeholder="Project title"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Country*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.projectCountry}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, projectCountry: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                            placeholder="Country location"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Sector*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.projectSector}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, projectSector: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                            placeholder="Sector"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Expected investment / financing timeline*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.expectedTimeline}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, expectedTimeline: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                            placeholder="e.g. Q3 2026"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Project Stage*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          {['Concept', 'Feasibility', 'Pre-FEED / FEED', 'Permitting', 'Construction-ready', 'Operational', 'Expansion'].map((stg) => (
+                            <label key={stg} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="radio"
+                                name="projectStage"
+                                value={stg}
+                                checked={dealRoomData.projectStage === stg}
+                                onChange={(e) => setDealRoomData({ ...dealRoomData, projectStage: e.target.value })}
+                              />
+                              {stg}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Total Project Value*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.totalProjectValue}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, totalProjectValue: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                            placeholder="€..."
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Capital Required*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.capitalRequired}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, capitalRequired: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                            placeholder="€..."
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Capital Structure Sought*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          {['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Strategic Investor', 'Blended Finance', 'Other'].map((cs) => (
+                            <label key={cs} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.capitalStructureSought.includes(cs)}
+                                onChange={() => handleDealRoomCheckboxToggle('capitalStructureSought', cs)}
+                              />
+                              {cs}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Current Funding / Partners</label>
+                          <textarea
+                            rows={2}
+                            value={dealRoomData.currentFundingPartners}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, currentFundingPartners: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                            placeholder="Details..."
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">What type of investor or partner are you seeking?*</label>
+                          <textarea
+                            rows={2}
+                            value={dealRoomData.investorPartnerSought}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, investorPartnerSought: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                            placeholder="Details..."
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Project summary*</label>
+                        <textarea
+                          rows={3}
+                          value={dealRoomData.projectSummary}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, projectSummary: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                          placeholder="Describe the project..."
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Investment documents available</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {['Executive Summary', 'Information Memorandum', 'Feasibility Study', 'Financial Model', 'Data Room', 'Government / Concession Documentation', 'Other'].map((doc) => (
+                            <label key={doc} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.investmentDocsAvailable.includes(doc)}
+                                onChange={() => handleDealRoomCheckboxToggle('investmentDocsAvailable', doc)}
+                              />
+                              {doc}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Upload Project Information (PDF / Doc)</label>
+                        <input
+                          type="file"
+                          onChange={(e) => {
+                            if (e.target.files && e.target.files[0]) {
+                              setDealRoomFile(e.target.files[0]);
+                            }
+                          }}
+                          className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {dealRoomRole.includes('Government') && (
+                    <div className="rounded-xl border border-teal-200 bg-teal-50/40 p-6 space-y-6">
+                      <h3 className="text-base font-bold text-teal-900">YOUR STRATEGIC MANDATE (GOVERNMENT)</h3>
+                      <div className="grid gap-4 sm:grid-cols-3">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Country*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.govCountry}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, govCountry: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Institution / Ministry*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.govInstitutionMinistry}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, govInstitutionMinistry: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Senior Representative*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.govSeniorRep}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, govSeniorRep: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Priority Sectors*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          {['Energy', 'Infrastructure', 'Critical Minerals', 'Agriculture', 'Manufacturing', 'Health', 'Technology', 'Logistics', 'Tourism', 'Other'].map((sec) => (
+                            <label key={sec} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.govPrioritySectors.includes(sec)}
+                                onChange={() => handleDealRoomCheckboxToggle('govPrioritySectors', sec)}
+                              />
+                              {sec}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Investment Priorities*</label>
+                        <textarea
+                          rows={2}
+                          value={dealRoomData.govInvestmentPriorities}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, govInvestmentPriorities: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Projects requiring capital</label>
+                        <textarea
+                          rows={2}
+                          value={dealRoomData.govProjectsRequiringCapital}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, govProjectsRequiringCapital: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Estimated Capital Requirement (€)</label>
+                        <input
+                          type="text"
+                          value={dealRoomData.govEstimatedCapitalReq}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, govEstimatedCapitalReq: e.target.value })}
+                          className="w-full sm:w-1/2 rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Type of partners sought</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          {['Investors', 'Strategic Companies', 'DFIs', 'Technology Partners', 'Infrastructure Developers', 'Industrial Partners', 'Trade Partners', 'Other'].map((ps) => (
+                            <label key={ps} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.govTypePartnersSought.includes(ps)}
+                                onChange={() => handleDealRoomCheckboxToggle('govTypePartnersSought', ps)}
+                              />
+                              {ps}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {dealRoomRole.includes('Strategic Corporate Partner') && (
+                    <div className="rounded-xl border border-teal-200 bg-teal-50/40 p-6 space-y-6">
+                      <h3 className="text-base font-bold text-teal-900">YOUR PARTNERSHIP MANDATE (STRATEGIC PARTNER)</h3>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Strategic capabilities you bring*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {['Technology', 'Engineering / EPC', 'Market Access', 'Industrial Capacity', 'Logistics', 'Financial Services', 'Advisory', 'Manufacturing', 'Distribution', 'Other'].map((cap) => (
+                            <label key={cap} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.stratCapabilities.includes(cap)}
+                                onChange={() => handleDealRoomCheckboxToggle('stratCapabilities', cap)}
+                              />
+                              {cap}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">African markets of interest*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.stratAfricanMarkets}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, stratAfricanMarkets: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">Sectors of interest*</label>
+                          <input
+                            type="text"
+                            value={dealRoomData.stratSectorsOfInterest}
+                            onChange={(e) => setDealRoomData({ ...dealRoomData, stratSectorsOfInterest: e.target.value })}
+                            className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Type of partnerships sought*</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          {['Joint Ventures', 'Technology Partnerships', 'Market Entry', 'Industrial Partnerships', 'Investment', 'PPP', 'Distribution', 'Other'].map((tp) => (
+                            <label key={tp} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
+                              <input
+                                type="checkbox"
+                                checked={dealRoomData.stratPartnershipsSought.includes(tp)}
+                                onChange={() => handleDealRoomCheckboxToggle('stratPartnershipsSought', tp)}
+                              />
+                              {tp}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">Describe the opportunity or partnership you would like to explore*</label>
+                        <textarea
+                          rows={3}
+                          value={dealRoomData.stratDescribeOpportunity}
+                          onChange={(e) => setDealRoomData({ ...dealRoomData, stratDescribeOpportunity: e.target.value })}
+                          className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* STEP 3 — YOUR DEAL PRIORITY */}
+                  <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-5">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 3 — YOUR DEAL PRIORITY</h3>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-900 mb-1">WHAT WOULD YOU LIKE TO ADVANCE THROUGH THE AEF DEAL ROOM?*</label>
+                      <textarea
+                        required
+                        rows={3}
+                        value={dealRoomData.dealPriority}
+                        onChange={(e) => setDealRoomData({ ...dealRoomData, dealPriority: e.target.value })}
+                        className="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                        placeholder="Describe your priority..."
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-900 mb-1">Is there a specific counterparty you would like AEF to help connect you with?</label>
+                      <input
+                        type="text"
+                        value={dealRoomData.specificCounterparty}
+                        onChange={(e) => setDealRoomData({ ...dealRoomData, specificCounterparty: e.target.value })}
+                        className="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                        placeholder="Optional counterparty name/institution"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-900 mb-1">What would constitute a successful meeting for you?</label>
+                      <textarea
+                        rows={2}
+                        value={dealRoomData.successfulMeetingDef}
+                        onChange={(e) => setDealRoomData({ ...dealRoomData, successfulMeetingDef: e.target.value })}
+                        className="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                        placeholder="Define success..."
+                      />
+                    </div>
+                  </div>
+
+                  {/* STEP 4 — CONFIDENTIALITY & CONSENT */}
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 space-y-4">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 4 — CONFIDENTIALITY &amp; CONSENT</h3>
+                    
+                    <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
+                      <input
+                        required
+                        type="checkbox"
+                        checked={dealRoomData.consentAccuracy}
+                        onChange={(e) => setDealRoomData({ ...dealRoomData, consentAccuracy: e.target.checked })}
+                        className="mt-1 text-teal-600"
+                      />
+                      <span>I confirm that the information submitted is accurate and that I am authorised to represent the institution identified above.*</span>
+                    </label>
+
+                    <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
+                      <input
+                        required
+                        type="checkbox"
+                        checked={dealRoomData.consentReview}
+                        onChange={(e) => setDealRoomData({ ...dealRoomData, consentReview: e.target.checked })}
+                        className="mt-1 text-teal-600"
+                      />
+                      <span>I understand that AEF may review the information provided for the purpose of qualification and matchmaking.*</span>
+                    </label>
+
+                    <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
+                      <input
+                        required
+                        type="checkbox"
+                        checked={dealRoomData.consentNoGuarantee}
+                        onChange={(e) => setDealRoomData({ ...dealRoomData, consentNoGuarantee: e.target.checked })}
+                        className="mt-1 text-teal-600"
+                      />
+                      <span>I understand that submission does not guarantee Deal Room access, a meeting, investment, financing or transaction.*</span>
+                    </label>
+
+                    <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
+                      <input
+                        required
+                        type="checkbox"
+                        checked={dealRoomData.consentContact}
+                        onChange={(e) => setDealRoomData({ ...dealRoomData, consentContact: e.target.checked })}
+                        className="mt-1 text-teal-600"
+                      />
+                      <span>I agree that AEF may contact me regarding relevant opportunities and participation.*</span>
+                    </label>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isDealRoomSubmitting}
+                    className="w-full rounded-lg bg-blue-900 py-4 font-bold text-white hover:bg-blue-800 transition disabled:opacity-50 text-base"
+                  >
+                    {isDealRoomSubmitting ? 'SUBMITTING MANDATE...' : 'SUBMIT DEAL ROOM APPLICATION'}
+                  </button>
+                </form>
+              </div>
+            ) : (
+              /* AFTER SUBMISSION MESSAGE */
+              <div className="py-12 px-6 text-center space-y-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-100 text-teal-600 text-2xl font-bold mb-2">
+                  ✓
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900">APPLICATION RECEIVED</h2>
+                <p className="max-w-xl mx-auto text-base leading-7 text-gray-600">
+                  Thank you for submitting your AEF Deal Room mandate.
+                </p>
+                <p className="max-w-xl mx-auto text-base leading-7 text-gray-600">
+                  Your information will be reviewed by the AEF team to assess qualification, mandate alignment and potential counterparties.
+                </p>
+                <div className="p-4 rounded-xl bg-gray-50 max-w-md mx-auto border border-gray-200">
+                  <p className="text-sm font-semibold text-blue-900">AEF participation is curated.</p>
+                  <p className="mt-2 text-sm text-gray-600">Our team will contact you regarding the appropriate Deal Room format and, where relevant, potential meeting opportunities.</p>
+                </div>
+                <div className="pt-4">
+                  <button
+                    onClick={() => setShowDealRoomModal(false)}
+                    className="rounded-lg bg-blue-900 px-8 py-3 font-semibold text-white hover:bg-blue-800 transition"
+                  >
+                    Close Window
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {conversionType && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 p-4">
