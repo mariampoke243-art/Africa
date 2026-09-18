@@ -353,7 +353,7 @@ export const forums: Forum[] = [
   {
     id: 7,
     key: 'africaWealthForum',
-    image: '/images/africatechforum.jpg',
+    image: '/images/africawelth.jpg',
 
     title: 'Africa Wealth Forum (AWF)',
 
