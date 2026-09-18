@@ -69,21 +69,28 @@ export const aefInitiatives = [
   {
     id: 'aiif',
     key: 'aiif',
+    title: 'Africa Investment & Innovation Fund (AIIF)',
     image: '/images/AIIF.jpg',
   },
+
   {
     id: 'next-africa-accelerator',
     key: 'nextAfricaAccelerator',
+    title: 'Next Africa Accelerator',
     image: '/images/Next-Africa-Accelerator.jpg',
   },
+
   {
     id: 'economic-intelligence-hub',
     key: 'economicIntelligenceHub',
+    title: 'African Economic Intelligence Hub',
     image: '/images/African-Economic-Intelligence-Hub.jpg',
   },
+
   {
     id: 'aef-labs',
     key: 'aefLabs',
+    title: 'AEF Labs',
     image: '/images/AEF-LABS.jpg',
   },
 ];
@@ -99,16 +106,19 @@ export const aefArticles = [
     key: 'zlecafRdc',
     link: '/initiatives',
   },
+
   {
     id: '2',
     key: 'aiifInfrastructure',
     link: '/initiatives',
   },
+
   {
     id: '3',
     key: 'kinshasa2026',
     link: '/meetings',
   },
+
   {
     id: '4',
     key: 'energyCriticalMinerals',
