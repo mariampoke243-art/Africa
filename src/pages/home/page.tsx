@@ -941,29 +941,31 @@ export default function Home() {
 
                   <img
                     src={forum.image}
-                    alt={forum.title}
+                    alt={t(`forums.${forum.key}.title`)}
                     className="w-full h-48 object-cover object-top"
                   />
 
 
                   <div className="p-6">
 
-                    {forum.sectoralLabel && (
+                    {t(`forums.${forum.key}.sectoralLabel`, {
+                      defaultValue: '',
+                    }) && (
 
                       <p className="text-sm text-teal-600 font-medium mb-2">
-                        {forum.sectoralLabel}
+                        {t(`forums.${forum.key}.sectoralLabel`)}
                       </p>
 
                     )}
 
 
                     <h3 className="font-semibold text-gray-900 text-lg leading-tight">
-                      {forum.title}
+                      {t(`forums.${forum.key}.title`)}
                     </h3>
 
 
                     <p className="text-gray-600 text-sm mt-3 line-clamp-3">
-                      {forum.description}
+                      {t(`forums.${forum.key}.description`)}
                     </p>
 
                   </div>
@@ -1667,4 +1669,4 @@ export default function Home() {
 
   );
 
-              }
+}
