@@ -49,51 +49,32 @@
   "auth": {
     "createAccount": "Create Account",
     "signIn": "Sign In",
-
     "emailAddress": "Email Address",
     "emailPlaceholder": "Enter your email address",
-
     "password": "Password",
     "passwordPlaceholder": "Enter your password",
-
     "rememberMe": "Remember me",
     "forgotPassword": "Forgot password?",
-
     "noAccount": "Don't have an account?",
-
     "firstName": "First Name",
     "firstNamePlaceholder": "First name",
-
     "lastName": "Last Name",
     "lastNamePlaceholder": "Last name",
-
     "organization": "Organization",
     "organizationPlaceholder": "Your organization",
-
     "createPasswordPlaceholder": "Create a password",
-
     "confirmPassword": "Confirm Password",
     "confirmPasswordPlaceholder": "Confirm your password",
-
     "terms": "I agree to the Terms of Service and Privacy Policy",
-
     "newsletterConsent": "I would like to receive updates about Forum activities and events",
-
     "alreadyAccount": "Already have an account?",
-
     "orContinueWith": "Or continue with",
-
     "google": "Google",
     "linkedin": "LinkedIn",
-
     "signInSuccess": "Sign in successful! Welcome back.",
-
     "requiredFields": "Please fill in all required fields.",
-
     "passwordMismatch": "Passwords do not match. Please try again.",
-
     "accountCreated": "Account created successfully! Welcome to Africa Economic Forum.",
-
     "user": "User",
     "profile": "Profile",
     "viewProfile": "View Profile",
@@ -109,24 +90,34 @@
     "spotlightTitle": "Spotlight",
     "spotlightSubtitle": "AEF Strategic Announcements & Institutional Milestones",
     "viewAllArticles": "View All Articles",
-
     "impactTitle": "How We Drive Impact",
     "impactSubtitle": "A platform designed to transform strategic dialogue into partnerships, investment and execution.",
-
     "strategicDialogue": "Strategic Dialogue Platforms",
     "strategicDialogueDescription": "We convene governments, investors, institutions and business leaders around strategic economic priorities.",
-
     "partnershipFacilitation": "Partnership Facilitation",
     "partnershipFacilitationDescription": "We connect governments, capital providers, project owners and strategic partners to facilitate meaningful collaboration.",
-
     "innovationAcceleration": "Innovation Acceleration",
     "innovationAccelerationDescription": "We support innovative ideas, projects and investment opportunities that contribute to Africa’s economic transformation.",
-
     "newsletterTitle": "Subscribe to our Newsletters",
     "newsletterDescription": "Receive strategic insights, institutional announcements and updates from the Africa Economic Forum.",
     "newsletterPlaceholder": "Enter your email address",
     "subscribe": "Subscribe",
     "subscriptionSuccess": "Thank you for subscribing to the Africa Economic Forum newsletter."
+  },
+
+  "initiatives": {
+    "aiif": {
+      "title": "Africa Investment & Innovation Fund"
+    },
+    "nextAfricaAccelerator": {
+      "title": "Next Africa Accelerator"
+    },
+    "economicIntelligenceHub": {
+      "title": "African Economic Intelligence Hub"
+    },
+    "aefLabs": {
+      "title": "AEF Labs"
+    }
   },
 
   "spotlight": {
@@ -135,25 +126,21 @@
       "title": "Africa Women Forum",
       "description": "Highlighting African women's leadership, investment and opportunities."
     },
-
     "africanTable": {
       "category": "Leadership & Dialogue",
       "title": "The African Table",
       "description": "A strategic dialogue space bringing together the actors shaping Africa's economic future."
     },
-
     "dealRooms": {
       "category": "Investment & Business",
       "title": "Deal Rooms",
       "description": "Dedicated spaces connecting projects, investors, governments and strategic partners."
     },
-
     "multiSectorContinuity": {
       "category": "Strategy & Investment",
       "title": "Multi-Sector Continuity",
       "description": "Promoting an integrated approach to investment and opportunities across Africa's strategic sectors."
     },
-
     "africaWomenForum2026": {
       "category": "Event",
       "title": "Africa Women Forum 2026",
@@ -168,7 +155,6 @@
     "history": "History",
     "leadership": "Leadership",
     "ourImpact": "Our Impact",
-
     "moreFromForum": "More from Forum",
     "centres": "Centres",
     "meetings": "Meetings",
@@ -178,7 +164,6 @@
     "gallery": "Gallery",
     "podcasts": "Podcasts",
     "videos": "Videos",
-
     "engage": "Engage",
     "logout": "Log Out",
     "signIn": "Sign In",
@@ -187,14 +172,11 @@
     "pressSignUp": "Press Sign Up",
     "newsletters": "Newsletters",
     "contactUs": "Contact Us",
-
     "quickLinks": "Quick Links",
     "sustainability": "Sustainability",
     "careers": "Careers",
-
     "languageEditions": "Language Editions",
     "privacy": "Privacy Policy",
-
     "copyright": "© 2026 Africa Economic Forum. All rights reserved."
   },
 
