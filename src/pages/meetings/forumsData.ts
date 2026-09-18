@@ -1,3 +1,5 @@
+// src/pages/Meetings/forumsData.ts
+
 export interface ForumPillar {
   title: string;
   items: string[];
@@ -417,7 +419,7 @@ export const forums: Forum[] = [
   {
     id: 8,
     key: 'africaHealthForum',
-    image: '/images/africawealth.jpg',
+    image: '/images/africahealth.jpg',
 
     title: 'Africa Health Forum',
 
