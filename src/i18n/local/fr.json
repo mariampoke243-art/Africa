@@ -1,6 +1,11 @@
 {
   "welcome": "Bienvenue",
 
+  "contact": {
+    "title": "Contactez-nous",
+    "send": "Envoyer le message"
+  },
+
   "header": {
     "home": "Accueil",
     "about": "À propos",
@@ -8,133 +13,138 @@
     "stakeholders": "Parties prenantes",
     "agenda": "Agenda",
     "publications": "Publications",
-    "meetings": "Réunions",
+    "meetings": "Forums et rencontres",
     "contact": "Contact",
-    "signIn": "Connexion",
-    "signOut": "Déconnexion",
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
     "profile": "Profil",
     "viewProfile": "Voir le profil",
     "user": "Utilisateur"
   },
 
-  "contact": {
-    "title": "Contactez-nous",
-    "send": "Envoyer le message"
-  },
-
   "meetingsPage": {
-    "heroTitle": "Forums & Réunions",
-    "heroSubtitle": "Découvrez nos sommets et dialogues stratégiques à venir",
+    "heroTitle": "Forums et Rencontres",
+    "heroSubtitle": "Découvrez nos prochains sommets et dialogues stratégiques",
     "sectionTitle": "Nos Forums",
-    "sectionSubtitle": "Des plateformes clés stimulant la croissance économique en Afrique",
+    "sectionSubtitle": "Des plateformes clés pour stimuler la croissance économique en Afrique",
     "readMore": "Lire plus",
-    "showLess": "Réduire",
+    "showLess": "Afficher moins",
     "overview": "Présentation",
     "objectives": "Objectifs du Forum",
-    "keyFocusAreas": "Domaines d'intervention",
+    "keyFocusAreas": "Domaines d’intervention prioritaires",
     "strategicPillars": "Piliers stratégiques",
-    "platform": "La Plateforme",
+    "platform": "La plateforme",
     "whoWeConvene": "Qui nous réunissons",
-    "fromDialogueToAction": "Du dialogue à l'action",
+    "fromDialogueToAction": "Du dialogue à l’action",
     "joinForum": "Rejoindre le Forum"
   },
 
   "cta": {
     "title": "Rejoignez le mouvement",
-    "subtitle": "Participez au premier rassemblement économique en Afrique",
-    "register": "S'inscrire maintenant",
-    "contact": "Contactez-nous"
+    "subtitle": "Participez au principal rassemblement économique en Afrique",
+    "register": "S’inscrire maintenant",
+    "contact": "Nous contacter"
   },
 
   "auth": {
     "createAccount": "Créer un compte",
-    "signIn": "Connexion",
+    "signIn": "Se connecter",
     "emailAddress": "Adresse e-mail",
     "emailPlaceholder": "Entrez votre adresse e-mail",
     "password": "Mot de passe",
     "passwordPlaceholder": "Entrez votre mot de passe",
     "rememberMe": "Se souvenir de moi",
     "forgotPassword": "Mot de passe oublié ?",
-    "noAccount": "Vous n'avez pas de compte ?",
+    "noAccount": "Vous n’avez pas de compte ?",
     "firstName": "Prénom",
     "firstNamePlaceholder": "Prénom",
     "lastName": "Nom",
     "lastNamePlaceholder": "Nom",
     "organization": "Organisation",
     "organizationPlaceholder": "Votre organisation",
-    "createPasswordPlaceholder": "Créez un mot de passe",
+    "createPasswordPlaceholder": "Créer un mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
-    "terms": "J'accepte les Conditions d'utilisation et la Politique de confidentialité",
+    "terms": "J’accepte les conditions d’utilisation et la politique de confidentialité",
     "newsletterConsent": "Je souhaite recevoir les actualités concernant les activités et événements du Forum",
     "alreadyAccount": "Vous avez déjà un compte ?",
     "orContinueWith": "Ou continuer avec",
     "google": "Google",
     "linkedin": "LinkedIn",
-    "signInSuccess": "Connexion réussie ! Bienvenue.",
+    "signInSuccess": "Connexion réussie ! Bon retour parmi nous.",
     "requiredFields": "Veuillez remplir tous les champs obligatoires.",
     "passwordMismatch": "Les mots de passe ne correspondent pas. Veuillez réessayer.",
-    "accountCreated": "Compte créé avec succès ! Bienvenue à l'Africa Economic Forum.",
+    "accountCreated": "Compte créé avec succès ! Bienvenue à l’Africa Economic Forum.",
     "user": "Utilisateur",
     "profile": "Profil",
     "viewProfile": "Voir le profil",
-    "signOut": "Déconnexion"
+    "signOut": "Se déconnecter"
   },
 
   "home": {
     "heroEyebrow": "Africa Economic Forum 2026 • 10–11 Nov • Kinshasa",
     "heroTitle": "Africa Economic Forum 2026",
-    "heroSubtitle": "Une plateforme de premier plan réunissant gouvernements, investisseurs, dirigeants et penseurs pour façonner le rôle de l'Afrique dans le nouvel ordre mondial",
+    "heroSubtitle": "Une plateforme de premier plan réunissant dirigeants, gouvernements, investisseurs et penseurs pour façonner le rôle de l’Afrique dans le nouvel ordre mondial",
     "moreAboutForum": "En savoir plus sur le Forum",
     "moreAboutInitiatives": "En savoir plus sur nos initiatives",
     "spotlightTitle": "À la une",
-    "spotlightSubtitle": "Annonces stratégiques et étapes institutionnelles de l'AEF",
+    "spotlightSubtitle": "Annonces stratégiques et étapes institutionnelles de l’AEF",
     "viewAllArticles": "Voir tous les articles",
-
-    "impactTitle": "Comment nous créons de l'impact",
-    "impactSubtitle": "Une plateforme conçue pour transformer le dialogue stratégique en opportunités concrètes et en partenariats durables",
-
+    "impactTitle": "Comment nous créons de l’impact",
+    "impactSubtitle": "Une plateforme conçue pour transformer le dialogue stratégique en partenariats, investissements et actions concrètes.",
     "strategicDialogue": "Plateformes de dialogue stratégique",
-    "strategicDialogueDescription": "Réunir les décideurs autour des enjeux économiques et géopolitiques majeurs de l'Afrique.",
-
+    "strategicDialogueDescription": "Nous réunissons gouvernements, investisseurs, institutions et dirigeants d’entreprise autour des priorités économiques stratégiques.",
     "partnershipFacilitation": "Facilitation des partenariats",
-    "partnershipFacilitationDescription": "Créer des connexions structurées entre gouvernements, investisseurs, entreprises et partenaires stratégiques.",
-
-    "innovationAcceleration": "Accélération de l'innovation",
-    "innovationAccelerationDescription": "Soutenir les initiatives, projets et solutions capables d'accélérer la transformation économique du continent.",
-
+    "partnershipFacilitationDescription": "Nous mettons en relation gouvernements, fournisseurs de capitaux, porteurs de projets et partenaires stratégiques afin de faciliter une collaboration significative.",
+    "innovationAcceleration": "Accélération de l’innovation",
+    "innovationAccelerationDescription": "Nous soutenons les idées, projets et opportunités d’investissement innovants qui contribuent à la transformation économique de l’Afrique.",
     "newsletterTitle": "Abonnez-vous à nos newsletters",
-    "newsletterDescription": "Recevez les dernières actualités, analyses et annonces stratégiques de l'Africa Economic Forum.",
+    "newsletterDescription": "Recevez des analyses stratégiques, des annonces institutionnelles et les actualités de l’Africa Economic Forum.",
     "newsletterPlaceholder": "Entrez votre adresse e-mail",
-    "subscribe": "S'abonner",
-    "subscriptionSuccess": "Merci ! Votre inscription à notre newsletter a bien été prise en compte."
+    "subscribe": "S’abonner",
+    "subscriptionSuccess": "Merci de vous être abonné à la newsletter de l’Africa Economic Forum."
+  },
+
+  "initiatives": {
+    "aiif": {
+      "title": "Fonds Africain d’Investissement et d’Innovation"
+    },
+    "nextAfricaAccelerator": {
+      "title": "Accélérateur Next Africa"
+    },
+    "economicIntelligenceHub": {
+      "title": "Hub Africain de l’Intelligence Économique"
+    },
+    "aefLabs": {
+      "title": "Laboratoires AEF"
+    }
   },
 
   "spotlight": {
     "afdbWomenForum": {
-      "category": "Forum & Leadership",
+      "category": "Forum et Leadership",
       "title": "Africa Women Forum",
-      "description": "Mettre en lumière le leadership, l'investissement et les opportunités pour les femmes africaines."
+      "description": "Mettre en lumière le leadership, les investissements et les opportunités pour les femmes africaines."
     },
     "africanTable": {
-      "category": "Leadership & Dialogue",
-      "title": "La table africaine",
-      "description": "Un espace de dialogue stratégique réunissant les acteurs qui façonnent l'avenir économique de l'Afrique."
+      "category": "Leadership et Dialogue",
+      "title": "The African Table",
+      "description": "Un espace de dialogue stratégique réunissant les acteurs qui façonnent l’avenir économique de l’Afrique."
     },
     "dealRooms": {
-      "category": "Investissement & Affaires",
+      "category": "Investissement et Affaires",
       "title": "Deal Rooms",
-      "description": "Des espaces dédiés pour connecter les projets, les investisseurs, les gouvernements et les partenaires stratégiques."
+      "description": "Des espaces dédiés mettant en relation projets, investisseurs, gouvernements et partenaires stratégiques."
     },
     "multiSectorContinuity": {
-      "category": "Stratégie & Investissement",
+      "category": "Stratégie et Investissement",
       "title": "Continuité multisectorielle",
-      "description": "Favoriser une approche intégrée des investissements et des opportunités dans les secteurs stratégiques africains."
+      "description": "Promouvoir une approche intégrée de l’investissement et des opportunités dans les secteurs stratégiques de l’Afrique."
     },
     "africaWomenForum2026": {
       "category": "Événement",
       "title": "Africa Women Forum 2026",
-      "description": "Une plateforme consacrée au leadership, à l'investissement et à la participation des femmes dans la transformation économique de l'Afrique."
+      "description": "Une plateforme axée sur le leadership, l’investissement et la participation des femmes à la transformation économique de l’Afrique."
     }
   },
 
@@ -143,150 +153,139 @@
     "ourMission": "Notre mission",
     "ourFramework": "Notre cadre",
     "history": "Histoire",
-    "leadership": "Direction",
+    "leadership": "Leadership",
     "ourImpact": "Notre impact",
-
     "moreFromForum": "Plus du Forum",
     "centres": "Centres",
-    "meetings": "Réunions",
+    "meetings": "Forums et rencontres",
     "stakeholders": "Parties prenantes",
-    "forumStories": "Histoires",
+    "forumStories": "Histoires du Forum",
     "pressReleases": "Communiqués de presse",
     "gallery": "Galerie",
     "podcasts": "Podcasts",
     "videos": "Vidéos",
-
-    "engage": "S'engager",
-    "logout": "Déconnexion",
-    "signIn": "Connexion",
+    "engage": "Participer",
+    "logout": "Se déconnecter",
+    "signIn": "Se connecter",
     "partner": "Partenaire",
     "member": "Membre",
-    "pressSignUp": "Espace Presse",
-    "newsletters": "Infolettres",
-    "contactUs": "Contactez-nous",
+    "pressSignUp": "Inscription presse",
+    "newsletters": "Newsletters",
+    "contactUs": "Nous contacter",
     "quickLinks": "Liens rapides",
     "sustainability": "Durabilité",
     "careers": "Carrières",
     "languageEditions": "Éditions linguistiques",
     "privacy": "Politique de confidentialité",
-
     "copyright": "© 2026 Africa Economic Forum. Tous droits réservés."
   },
 
   "forums": {
     "africaPeaceForum": {
-      "title": "Forum Africain de la Paix",
-      "sectoralLabel": "Un Forum Sectoriel de l'Africa Economic Forum",
-      "description": "Construire la paix, la sécurité et la coopération stratégique en Afrique.",
-      "overview": "Le Forum Africain de la Paix réunit dirigeants, gouvernements, diplomates, experts de la sécurité, investisseurs et penseurs pour répondre aux défis de paix et de sécurité de l'Afrique et renforcer les conditions d'une transformation économique durable.",
+      "title": "Africa Peace Forum",
+      "sectoralLabel": "Un forum sectoriel de l’Africa Economic Forum",
+      "description": "Façonner la paix, la sécurité et la coopération stratégique en Afrique.",
+      "overview": "L’Africa Peace Forum réunit dirigeants, gouvernements, diplomates, experts de la sécurité, investisseurs et penseurs afin d’aborder les défis liés à la paix et à la sécurité en Afrique et de créer les conditions d’une transformation économique durable.",
+      "keyAreas": [
+        "Paix et sécurité",
+        "Stabilité régionale",
+        "Coopération stratégique",
+        "Prévention des conflits",
+        "Transformation économique"
+      ],
+      "objectives": [
+        "Renforcer la coopération régionale en matière de paix et de sécurité",
+        "Promouvoir le dialogue stratégique entre gouvernements et institutions",
+        "Relier les priorités de paix et de sécurité au développement économique",
+        "Créer des bases plus solides pour l’investissement durable"
+      ],
       "platform": {
-        "title": "La Plateforme",
-        "description": "Une plateforme permanente de dialogue stratégique, de coopération régionale et d'action à l'intersection de la paix, de la sécurité et du développement économique.",
+        "title": "La plateforme",
+        "description": "Une plateforme de haut niveau reliant leadership politique, institutions, entreprises et capitaux autour des priorités africaines en matière de paix, de sécurité et d’économie.",
         "items": [
           {
-            "title": "Dialogues Paix & Investissement",
-            "description": "Relier les priorités de paix et de sécurité aux investisseurs et partenaires du développement."
+            "title": "Dialogue stratégique",
+            "description": "Échanges de haut niveau sur les priorités africaines en matière de paix, de sécurité et de géopolitique."
           },
           {
-            "title": "Dialogues régionaux sur la paix",
-            "description": "Dialogues consacrés aux principales régions d'Afrique et à leurs dynamiques de conflit."
+            "title": "Coopération institutionnelle",
+            "description": "Construire des partenariats plus solides entre gouvernements, institutions et parties prenantes stratégiques."
           },
           {
-            "title": "Tables rondes diplomatiques",
-            "description": "Dialogue diplomatique de haut niveau à travers le Club diplomatique de l'AEF."
-          },
-          {
-            "title": "Intelligence Paix & Développement",
-            "description": "Rapports et analyses sur l'impact des conflits et de l'instabilité sur l'investissement, le commerce et le développement."
-          },
-          {
-            "title": "Programme des jeunes boursiers pour la paix",
-            "description": "Former la prochaine génération de bâtisseurs de paix et de dirigeants africains."
-          },
-          {
-            "title": "Forum Africain Annuel de la Paix",
-            "description": "Le rassemblement annuel majeur réunissant la communauté mondiale du Forum sous l'égide de l'Africa Economic Forum."
+            "title": "Sécurité économique",
+            "description": "Relier stabilité, sécurité et transformation économique."
           }
         ]
       },
-      "keyAreas": [
-        "Prévention des conflits et promotion de la paix",
-        "Sécurité et coopération régionale",
-        "Paix et investissement",
-        "Diplomatie et géopolitique",
-        "Jeunesse et femmes dans la consolidation de la paix",
-        "Gouvernance et sécurité humaine"
-      ],
-      "objectives": [],
       "whoWeConvene": [
-        "Chefs d'État et de gouvernement",
-        "Ministres",
-        "Diplomates",
-        "Institutions régionales",
-        "Dirigeants de la paix et de la sécurité",
-        "Investisseurs",
-        "Dirigeants d'entreprises",
-        "Penseurs",
-        "Jeunes dirigeants et femmes leaders"
+        "Chefs d’État et de gouvernement",
+        "Ministres et hauts responsables publics",
+        "Diplomates et institutions internationales",
+        "Experts de la sécurité et de la stratégie",
+        "Investisseurs et dirigeants d’entreprise",
+        "Penseurs et responsables politiques"
       ],
-      "fromDialogueToAction": "Connecter le leadership politique, les institutions, les entreprises et le capital afin de construire des bases plus solides pour la paix, la stabilité et la prospérité en Afrique.",
-      "ctaText": "Rejoindre le Forum Africain de la Paix",
-      "pillars": []
+      "fromDialogueToAction": "Relier leadership politique, institutions, entreprises et capitaux afin de créer des bases plus solides pour la paix, la stabilité et la prospérité en Afrique.",
+      "joinForum": "Rejoindre l’Africa Peace Forum"
     },
 
     "africaAgricultureFoodForum": {
-      "title": "Forum Africain de l'Agriculture et de l'Alimentation (AAFF)",
-      "description": "Transformer l'agriculture africaine d'une agriculture de subsistance en un système moderne, productif et durable.",
-      "overview": "Le Forum de l'Agriculture et de la Sécurité Alimentaire aborde l'un des défis et des domaines d'opportunité les plus importants pour le développement de l'Afrique.\n\nLe Forum sert de plateforme dédiée à la transformation de l'agriculture africaine en un système moderne, productif et durable capable de garantir la sécurité alimentaire d'une population continentale en croissance tout en créant de la prospérité économique.",
+      "title": "Africa Agriculture & Food Forum (AAFF)",
+      "description": "Transformer l’agriculture africaine d’une agriculture de subsistance en un système moderne, productif et durable.",
+      "overview": "Le Forum sur l’agriculture et la sécurité alimentaire aborde la transformation des systèmes agricoles africains, des chaînes de valeur alimentaires et des opportunités d’investissement nécessaires à la construction d’économies alimentaires résilientes et productives.",
       "keyAreas": [
-        "Modernisation des pratiques agricoles grâce aux technologies avancées et à l'agriculture de précision",
-        "Développement de chaînes de valeur intégrées reliant les petits exploitants aux marchés et aux réseaux de distribution",
-        "Promotion d'une gestion durable des terres et de la conservation de l'eau",
-        "Facilitation des investissements dans les infrastructures agricoles, la transformation et le stockage",
-        "Promotion de réformes politiques favorisant le développement agricole, le commerce transfrontalier et l'investissement privé"
+        "Agriculture",
+        "Sécurité alimentaire",
+        "Agri-Tech",
+        "Transformation alimentaire",
+        "Chaînes de valeur régionales",
+        "Investissement"
       ],
       "objectives": [
-        "Renforcer la sécurité alimentaire en Afrique",
-        "Accroître la productivité agricole",
-        "Soutenir les petits exploitants agricoles",
-        "Développer des chaînes de valeur agricoles modernes",
-        "Attirer les investissements vers l'agro-industrie",
-        "Promouvoir une agriculture résiliente au changement climatique"
+        "Accélérer la transformation agricole en Afrique",
+        "Renforcer la sécurité alimentaire et la résilience des systèmes alimentaires",
+        "Mobiliser les investissements dans les chaînes de valeur agricoles",
+        "Promouvoir la technologie et l’innovation dans l’agriculture",
+        "Développer le commerce agricole intra-africain"
       ],
+      "strategicPillars": "Piliers stratégiques",
       "pillars": [
         {
-          "title": "Agriculture moderne",
+          "title": "Productivité et innovation",
           "items": [
-            "Agriculture de précision et technologies avancées",
-            "Techniques agricoles résilientes au climat",
-            "Modernisation des pratiques agricoles"
+            "Agri-Tech et agriculture numérique",
+            "Systèmes agricoles modernes",
+            "Recherche et innovation"
           ]
         },
         {
-          "title": "Chaînes de valeur agricoles",
+          "title": "Chaînes de valeur et transformation",
           "items": [
-            "Connecter les agriculteurs aux marchés",
-            "Transformation et distribution alimentaires",
-            "Réduction des pertes post-récolte"
+            "Transformation alimentaire",
+            "Stockage et logistique",
+            "Chaînes de valeur régionales"
           ]
         },
         {
-          "title": "Développement durable",
+          "title": "Investissement et financement",
           "items": [
-            "Gestion durable des terres",
-            "Conservation de l'eau",
-            "Agriculture intelligente face au climat"
-          ]
-        },
-        {
-          "title": "Investissement et politique",
-          "items": [
-            "Investissement dans les infrastructures agricoles",
-            "Développement de l'agro-industrie",
-            "Réformes politiques et commerce transfrontalier"
+            "Financement agricole",
+            "Investissement privé",
+            "Mécanismes de financement mixte"
           ]
         }
-      ]
+      ],
+      "whoWeConvene": [
+        "Gouvernements et décideurs politiques",
+        "Investisseurs agricoles",
+        "Agriculteurs et producteurs",
+        "Entreprises agroalimentaires",
+        "Institutions financières",
+        "Entreprises technologiques",
+        "Institutions de développement"
+      ],
+      "fromDialogueToAction": "Relier dirigeants agricoles, investisseurs, fournisseurs de technologies et gouvernements afin de transformer les systèmes alimentaires africains et de débloquer des opportunités d’investissement évolutives.",
+      "joinForum": "Rejoindre l’Africa Agriculture & Food Forum"
     }
   }
 }
