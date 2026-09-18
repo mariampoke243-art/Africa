@@ -453,6 +453,462 @@ const conversionConfigs: Record<NonNullable<ConversionType>, ConversionConfigIte
    PAGE
    =================================================== */
 
+
+function AEFMatchProfile() {
+  const [role, setRole] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState<Record<string, any>>({});
+
+  const updateField = (field: string, value: any) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const toggleValue = (field: string, value: string) => {
+    setFormData((prev) => {
+      const current = Array.isArray(prev[field]) ? prev[field] : [];
+      return {
+        ...prev,
+        [field]: current.includes(value)
+          ? current.filter((item: string) => item !== value)
+          : [...current, value],
+      };
+    });
+  };
+
+  const checkboxGroup = (
+    title: string,
+    field: string,
+    options: string[],
+    columns = 'sm:grid-cols-2 lg:grid-cols-3'
+  ) => (
+    <div>
+      <h4 className="mb-3 text-sm font-bold uppercase tracking-[0.08em] text-blue-900">
+        {title}
+      </h4>
+      <div className={`grid gap-2 ${columns}`}>
+        {options.map((option) => (
+          <label
+            key={option}
+            className="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-200 bg-white p-3 text-sm text-gray-700 hover:border-teal-300"
+          >
+            <input
+              type="checkbox"
+              checked={(formData[field] || []).includes(option)}
+              onChange={() => toggleValue(field, option)}
+              className="mt-0.5 text-teal-600"
+            />
+            <span>{option}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+  );
+
+  const textInput = (
+    label: string,
+    field: string,
+    type = 'text',
+    placeholder = ''
+  ) => (
+    <div>
+      <label className="mb-2 block text-sm font-semibold text-gray-900">
+        {label}
+      </label>
+      <input
+        type={type}
+        value={formData[field] || ''}
+        onChange={(e) => updateField(field, e.target.value)}
+        placeholder={placeholder}
+        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+      />
+    </div>
+  );
+
+  const amountInput = (label: string, field: string) =>
+    textInput(label, field, 'text', 'Amount');
+
+  const selectInput = (
+    label: string,
+    field: string,
+    options: string[],
+    placeholder = 'Select an option'
+  ) => (
+    <div>
+      <label className="mb-2 block text-sm font-semibold text-gray-900">
+        {label}
+      </label>
+      <select
+        value={formData[field] || ''}
+        onChange={(e) => updateField(field, e.target.value)}
+        className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+      >
+        <option value="">{placeholder}</option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+
+  const multiSelect = (label: string, field: string, options: string[]) => (
+    <div>
+      <label className="mb-2 block text-sm font-semibold text-gray-900">
+        {label}
+      </label>
+      <select
+        multiple
+        value={formData[field] || []}
+        onChange={(e) =>
+          updateField(
+            field,
+            Array.from(e.target.selectedOptions, (option) => option.value)
+          )
+        }
+        className="min-h-[150px] w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      <p className="mt-1 text-xs text-gray-500">Hold Ctrl/Cmd to select multiple options.</p>
+    </div>
+  );
+
+  const radioGroup = (field: string, options: string[]) => (
+    <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      {options.map((option) => (
+        <label
+          key={option}
+          className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 text-sm text-gray-700 hover:border-teal-300"
+        >
+          <input
+            type="radio"
+            name={field}
+            value={option}
+            checked={formData[field] === option}
+            onChange={(e) => updateField(field, e.target.value)}
+            className="text-teal-600"
+          />
+          <span>{option}</span>
+        </label>
+      ))}
+    </div>
+  );
+
+  const roleOptions = [
+    'Government / Public Institution',
+    'Investor / Capital Provider',
+    'Project Owner',
+    'CEO / Corporate Executive',
+    'Strategic Partner',
+    'DFI / Development Institution',
+    'Family Office',
+    'Financial Institution',
+    'Technology Company',
+    'Entrepreneur',
+    'Other',
+  ];
+
+  const sectorOptions = [
+    'Infrastructure',
+    'Energy',
+    'Mining / Critical Minerals',
+    'Agriculture & Agri-Tech',
+    'Health',
+    'Technology & Digital',
+    'Manufacturing',
+    'Logistics',
+    'Tourism',
+    'Water',
+    'Other',
+  ];
+
+  const geographyOptions = ['Africa', 'Europe', 'Gulf', 'Asia', 'Americas', 'Other'];
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal-100 text-2xl font-bold text-teal-700">
+              ✓
+            </div>
+            <h2 className="mt-6 text-3xl font-bold text-gray-900">
+              AEF MATCH PROFILE READY
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl leading-7 text-gray-600">
+              Your profile has been completed and is ready for AEF qualification and matchmaking.
+            </p>
+            <button
+              type="button"
+              onClick={() => setSubmitted(false)}
+              className="mt-7 rounded-lg bg-blue-900 px-6 py-3 font-semibold text-white hover:bg-blue-800"
+            >
+              EDIT MY MATCH PROFILE
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="bg-gray-50">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-10 max-w-4xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-600">
+            DEAL MATCHMAKING
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
+            AEF MATCH PROFILE
+          </h2>
+          <p className="mt-4 text-lg leading-8 text-gray-600">
+            Build your AEF match profile so the Forum can identify relevant participants, opportunities and strategic connections.
+          </p>
+          <p className="mt-3 font-bold text-blue-900">
+            Sector × Geography × Capital × Project × Partnership
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* STEP 01 */}
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 01 — YOUR ROLE</p>
+            <h3 className="mt-2 text-2xl font-bold text-gray-900">What brings you to AEF?</h3>
+            <div className="mt-6">{radioGroup('role', roleOptions)}</div>
+          </div>
+
+          {/* STEP 02 */}
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 02 — WHAT YOU BRING</p>
+            <h3 className="mt-2 text-2xl font-bold text-gray-900">What do you bring to the table?</h3>
+            <div className="mt-7 space-y-8">
+              {checkboxGroup('CAPITAL', 'capital', [
+                'Equity', 'Debt', 'Project Finance', 'Venture Capital', 'Private Equity', 'Blended Finance',
+              ])}
+              {checkboxGroup('PROJECTS / SECTORS', 'projectsSectors', sectorOptions)}
+              {checkboxGroup('CAPABILITIES', 'capabilities', [
+                'Technology', 'EPC', 'Market Access', 'Distribution', 'Industrial Capacity', 'Advisory', 'Financial Services', 'Infrastructure Development', 'Other',
+              ])}
+              {checkboxGroup('MARKETS', 'markets', geographyOptions)}
+            </div>
+          </div>
+
+          {/* STEP 03 */}
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 03 — WHAT YOU ARE LOOKING FOR</p>
+            <h3 className="mt-2 text-2xl font-bold text-gray-900">What would you like to find at AEF?</h3>
+            <div className="mt-6">
+              {checkboxGroup('AEF OPPORTUNITIES', 'lookingFor', [
+                'Investment opportunities', 'African projects', 'Government partnerships', 'Co-investors', 'Strategic partners', 'Joint ventures', 'Market entry opportunities', 'Technology partnerships', 'Acquisition opportunities', 'Trade opportunities', 'Financing opportunities', 'Distribution partners', 'Other',
+              ])}
+            </div>
+            <div className="mt-7">
+              <label className="mb-2 block text-sm font-semibold text-gray-900">Describe your priority objective in one sentence.</label>
+              <textarea
+                rows={3}
+                value={formData.priorityObjective || ''}
+                onChange={(e) => updateField('priorityObjective', e.target.value)}
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+              />
+            </div>
+          </div>
+
+          {/* STEP 04 */}
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 04 — YOUR INVESTMENT / BUSINESS PARAMETERS</p>
+            <h3 className="mt-2 text-2xl font-bold text-gray-900">Fields adapt according to the participant's role.</h3>
+
+            {role === 'Investor / Capital Provider' && (
+              <div className="mt-7 space-y-8">
+                <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+                  <h4 className="text-xl font-bold text-gray-900">For Investors</h4>
+                  <div className="mt-6 space-y-7">
+                    {multiSelect('Investment Sectors', 'investmentSectors', sectorOptions)}
+                    {multiSelect('Geographies of Interest', 'geographiesOfInterest', geographyOptions)}
+                    {radioGroup('typicalInvestmentTicket', ['Under €5M', '€5–25M', '€25–100M', '€100–500M', '€500M–€1B', '€1B+', 'Other'])}
+                    {checkboxGroup('Investment Structure', 'investmentStructure', ['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Growth Capital', 'Venture Capital', 'Other'])}
+                    {checkboxGroup('Investment Stage', 'investmentStage', ['Development', 'Construction', 'Growth', 'Expansion', 'Acquisition', 'Refinancing'])}
+                    {multiSelect('Preferred Counterparties', 'preferredCounterparties', ['Governments', 'Project Developers', 'CEOs', 'Institutional Investors', 'Family Offices', 'DFIs', 'Banks', 'Strategic Corporates', 'Technology Companies', 'Other'])}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {role === 'Project Owner' && (
+              <div className="mt-7 rounded-xl border border-gray-200 bg-gray-50 p-6">
+                <h4 className="text-xl font-bold text-gray-900">For Project Owners</h4>
+                <div className="mt-6 grid gap-6 md:grid-cols-2">
+                  {textInput('Project Name', 'projectName')}
+                  {selectInput('Country', 'projectCountry', ['Democratic Republic of Congo', 'Other African Country', 'Europe', 'Gulf', 'Asia', 'Americas', 'Other'])}
+                  {selectInput('Sector', 'projectSector', sectorOptions)}
+                  {selectInput('Project Stage', 'projectStage', ['Concept', 'Feasibility', 'Pre-FEED / FEED', 'Permitting', 'Construction-ready', 'Operational', 'Expansion'])}
+                  {amountInput('Total Project Value', 'totalProjectValue')}
+                  {amountInput('Capital Required', 'capitalRequired')}
+                </div>
+                <div className="mt-7 space-y-7">
+                  {checkboxGroup('Capital Structure Sought', 'capitalStructureSought', ['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Strategic Investor', 'Blended Finance', 'Other'])}
+                  {textInput('Current Funding / Partners', 'currentFundingPartners')}
+                  {textInput('Type of Investor / Partner Sought', 'investorPartnerSought')}
+                  {textInput('Expected Investment / Financing Timeline', 'expectedTimeline')}
+                </div>
+              </div>
+            )}
+
+            {role === 'Government / Public Institution' && (
+              <div className="mt-7 rounded-xl border border-gray-200 bg-gray-50 p-6">
+                <h4 className="text-xl font-bold text-gray-900">For Governments</h4>
+                <div className="mt-6 space-y-7">
+                  {multiSelect('Priority Sectors', 'govPrioritySectors', sectorOptions)}
+                  {textInput('Investment Priorities', 'govInvestmentPriorities')}
+                  {textInput('Projects Requiring Capital', 'govProjectsRequiringCapital')}
+                  {amountInput('Estimated Capital Requirements', 'govEstimatedCapitalRequirements')}
+                  {checkboxGroup('Type of Partners Sought', 'govPartnersSought', ['Investors', 'Strategic Companies', 'DFIs', 'Technology Partners', 'Infrastructure Developers', 'Industrial Partners', 'Trade Partners', 'Other'])}
+                </div>
+              </div>
+            )}
+
+            {role === 'Strategic Partner' && (
+              <div className="mt-7 rounded-xl border border-gray-200 bg-gray-50 p-6">
+                <h4 className="text-xl font-bold text-gray-900">For Strategic Partners</h4>
+                <div className="mt-6 space-y-7">
+                  {checkboxGroup('Strategic Capabilities You Bring', 'strategicCapabilities', ['Technology', 'Engineering / EPC', 'Market Access', 'Industrial Capacity', 'Logistics', 'Financial Services', 'Advisory', 'Manufacturing', 'Distribution', 'Other'])}
+                  {multiSelect('African Markets of Interest', 'strategicAfricanMarkets', geographyOptions)}
+                  {multiSelect('Sectors of Interest', 'strategicSectors', sectorOptions)}
+                  {checkboxGroup('Type of Partnerships Sought', 'strategicPartnerships', ['Joint Ventures', 'Technology Partnerships', 'Market Entry', 'Industrial Partnerships', 'Investment', 'PPP', 'Distribution', 'Other'])}
+                </div>
+              </div>
+            )}
+
+            {!role && (
+              <p className="mt-6 rounded-lg bg-gray-50 p-4 text-sm text-gray-500">
+                Select your role in Step 01 to display the relevant investment / business parameters.
+              </p>
+            )}
+          </div>
+
+          {/* STEP 05 */}
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 05 — WHO DO YOU WANT TO MEET?</p>
+            <h3 className="mt-2 text-2xl font-bold text-gray-900">Who would you like to meet at AEF?</h3>
+            <div className="mt-6">
+              {checkboxGroup('PREFERRED COUNTERPARTIES', 'whoToMeet', [
+                'Heads of State / Government Leaders', 'Ministers', 'Sovereign Wealth Funds', 'Institutional Investors', 'Family Offices', 'Private Equity', 'Venture Capital', 'DFIs', 'Banks', 'Project Developers', 'CEOs', 'Technology Companies', 'Strategic Corporates', 'Other Governments', 'Other',
+              ])}
+            </div>
+            <div className="mt-7">
+              {textInput('Specific institutions or individuals you would like to connect with', 'specificConnections')}
+            </div>
+          </div>
+
+          {/* STEP 06 */}
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 06 — YOUR AVAILABILITY</p>
+            <h3 className="mt-2 text-2xl font-bold text-gray-900">When are you available for curated meetings?</h3>
+            <div className="mt-6 grid gap-6 md:grid-cols-2">
+              <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
+                <h4 className="font-bold text-gray-900">10 November</h4>
+                <div className="mt-4">{checkboxGroup('Availability', 'availability10', ['Morning', 'Lunch', 'Afternoon', 'Evening'], 'grid-cols-2')}</div>
+              </div>
+              <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
+                <h4 className="font-bold text-gray-900">11 November</h4>
+                <div className="mt-4">{checkboxGroup('Availability', 'availability11', ['Morning', 'Lunch', 'Afternoon', 'Evening'], 'grid-cols-2')}</div>
+              </div>
+            </div>
+            <div className="mt-7">
+              <h4 className="mb-3 text-sm font-bold uppercase tracking-[0.08em] text-blue-900">Preferred meeting format</h4>
+              {checkboxGroup('Meeting Format', 'meetingFormat', ['1:1 Meeting', 'Small Roundtable', 'Deal Room', 'VIP Luncheon', 'Leaders Lounge', 'Country Investment Roundtable'])}
+            </div>
+          </div>
+
+          {/* STEP 07 */}
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 07 — YOUR PRIORITY</p>
+            <h3 className="mt-2 text-2xl font-bold text-gray-900">What would you like to advance through AEF?</h3>
+            <div className="mt-6 space-y-6">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-900">What would you like to advance through AEF?</label>
+                <textarea
+                  rows={5}
+                  value={formData.dealPriority || ''}
+                  onChange={(e) => updateField('dealPriority', e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                />
+              </div>
+              {textInput('Is there a specific counterparty you would like AEF to help connect you with?', 'specificCounterparty')}
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-900">What would constitute a successful meeting for you?</label>
+                <textarea
+                  rows={5}
+                  value={formData.successfulMeeting || ''}
+                  onChange={(e) => updateField('successfulMeeting', e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* STEP 08 */}
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 08 — CONTACT &amp; CONSENT</p>
+            <h3 className="mt-2 text-2xl font-bold text-gray-900">Contact &amp; Consent</h3>
+            <div className="mt-6 grid gap-6 md:grid-cols-2">
+              {textInput('Institution / Company Name', 'institutionCompany')}
+              {textInput('Country / Headquarters', 'countryHeadquarters')}
+              {textInput('Website', 'website', 'url')}
+              {textInput('Your Name', 'yourName')}
+              {textInput('Title / Position', 'titlePosition')}
+              {textInput('Email', 'email', 'email')}
+              {textInput('Phone / WhatsApp', 'phoneWhatsApp', 'tel')}
+            </div>
+
+            <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 p-6">
+              <h4 className="text-lg font-bold text-gray-900">Consent</h4>
+              <div className="mt-5 space-y-4">
+                {[
+                  ['consentAccuracy', 'I confirm that the information submitted is accurate and that I am authorised to represent the institution identified above.'],
+                  ['consentUse', 'I understand that the information submitted may be used by AEF for qualification, matchmaking and relevant introductions.'],
+                  ['consentNoGuarantee', 'I understand that submitting this profile does not guarantee a meeting, Deal Room access, investment, financing or transaction.'],
+                  ['consentContact', 'I agree that AEF may contact me regarding relevant opportunities and participation.'],
+                ].map(([field, label]) => (
+                  <label key={field} className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-gray-700">
+                    <input
+                      required
+                      type="checkbox"
+                      checked={Boolean(formData[field])}
+                      onChange={(e) => updateField(field, e.target.checked)}
+                      className="mt-1 text-teal-600"
+                    />
+                    <span>{label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6 md:p-8">
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-blue-900 px-6 py-4 text-base font-bold text-white transition hover:bg-blue-800"
+            >
+              CREATE MY AEF MATCH PROFILE
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
+}
+
 export default function AgendaPage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -1819,30 +2275,7 @@ export default function AgendaPage() {
           DEAL MATCH PROFILE
           =================================================== */}
 
-      <section className="bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border border-gray-200 bg-white p-7">
-            <h3 className="text-2xl font-bold text-gray-900">
-              DEAL MATCHMAKING
-            </h3>
-
-            <p className="mt-3 leading-7 text-gray-600">
-              AI-powered matchmaking connecting participants according to:
-            </p>
-
-            <p className="mt-4 font-bold text-blue-900">
-              Sector × Geography × Capital × Project × Partnership
-            </p>
-
-            <Link
-              to="/meetings"
-              className="mt-6 inline-flex rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
-            >
-              BUILD YOUR AEF MATCH PROFILE
-            </Link>
-          </div>
-        </div>
-      </section>
+      <AEFMatchProfile />
 
       {/* ===================================================
           VIP INVESTMENT SHOWCASE
@@ -3921,4 +4354,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-            }
+    }
