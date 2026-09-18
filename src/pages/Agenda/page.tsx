@@ -417,6 +417,8 @@ const conversionConfigs = {
       'Representative',
       'Contact Details',
     ],
+    hasFile: true,
+    fileLabel: 'Supporting Document / Investor Profile (PDF/Doc)',
   },
 
   project: {
@@ -435,6 +437,8 @@ const conversionConfigs = {
       'Contact Person',
       'Contact Details',
     ],
+    hasFile: true,
+    fileLabel: 'Project Investment Document (PDF/Doc)',
   },
 };
 
@@ -473,6 +477,12 @@ export default function AgendaPage() {
   const [conversionData, setConversionData] =
     useState<Record<string, string>>({});
 
+  const [conversionFile, setConversionFile] =
+    useState<File | null>(null);
+
+  const [isConversionSubmitting, setIsConversionSubmitting] =
+    useState(false);
+
   const [registrationData, setRegistrationData] = useState({
     full_name: '',
     email: '',
@@ -504,18 +514,124 @@ export default function AgendaPage() {
     setConversionType(type);
     setConversionMessage('');
     setConversionData({});
+    setConversionFile(null);
   };
 
-  const handleConversionSubmit = (
+  const handleConversionSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
+    setIsConversionSubmitting(true);
+    setConversionMessage('');
 
-    setConversionMessage(
-      'Thank you for your interest in Africa Economic Forum 2026. AEF participation is curated. Our team will review your mandate, priorities and requirements and contact you regarding the appropriate engagement format.'
-    );
+    try {
+      let documentUrl = null;
 
-    setConversionData({});
+      // Gestion de l'upload du fichier si présent et applicable (project ou investor)
+      if (conversionFile && (conversionType === 'project' || conversionType === 'investor')) {
+        const folder = conversionType === 'project' ? 'projects' : 'investors';
+        const fileExt = conversionFile.name.split('.').pop();
+        const fileName = `${Date.now()}_${Math.random().toString(36.substring(2, 9))}.${fileExt}`;
+        const filePath = `${folder}/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('aef-submissions')
+          .upload(filePath, conversionFile);
+
+        if (uploadError) {
+          throw new Error(`Error uploading file: ${uploadError.message}`);
+        }
+
+        documentUrl = filePath;
+      }
+
+      // Insertion dans la table Supabase correspondante selon conversionType
+      let tableName = '';
+      let insertPayload: Record<string, any> = {};
+
+      if (conversionType === 'project') {
+        tableName = 'aef_project_submissions';
+        insertPayload = {
+          project_name: conversionData['Project Name'],
+          country: conversionData['Country'],
+          sector: conversionData['Sector'],
+          project_sponsor: conversionData['Project Sponsor'],
+          stage_of_development: conversionData['Stage of Development'],
+          capital_required: conversionData['Capital Required'],
+          debt_equity_ppp_jv_requirement: conversionData['Debt / Equity / PPP / JV Requirement'],
+          existing_partners: conversionData['Existing Partners'],
+          investment_documents_available: conversionData['Investment Documents Available'],
+          expected_timeline: conversionData['Expected Timeline'],
+          contact_person: conversionData['Contact Person'],
+          contact_details: conversionData['Contact Details'],
+          project_document_url: documentUrl,
+        };
+      } else if (conversionType === 'investor') {
+        tableName = 'aef_investor_applications';
+        insertPayload = {
+          institution: conversionData['Institution'],
+          investment_mandate: conversionData['Investment Mandate'],
+          geography: conversionData['Geography'],
+          sector: conversionData['Sector'],
+          ticket_size: conversionData['Ticket Size'],
+          investment_structure: conversionData['Investment Structure'],
+          capital_available: conversionData['Capital Available'],
+          preferred_stage: conversionData['Preferred Stage'],
+          partnership_interests: conversionData['Partnership Interests'],
+          representative: conversionData['Representative'],
+          contact_details: conversionData['Contact Details'],
+          supporting_document_url: documentUrl,
+        };
+      } else if (conversionType === 'country') {
+        tableName = 'aef_country_roundtables';
+        insertPayload = {
+          country: conversionData['Country'],
+          institution: conversionData['Institution'],
+          senior_representative: conversionData['Senior Representative'],
+          priority_sectors: conversionData['Priority Sectors'],
+          investment_priorities: conversionData['Investment Priorities'],
+          projects_requiring_capital: conversionData['Projects Requiring Capital'],
+          type_of_partners_sought: conversionData['Type of Partners Sought'],
+          estimated_capital_requirements: conversionData['Estimated Capital Requirements'],
+          preferred_format_of_participation: conversionData['Preferred Format of Participation'],
+          contact_details: conversionData['Contact Details'],
+        };
+      } else if (conversionType === 'bloc') {
+        tableName = 'aef_institutional_participation';
+        insertPayload = {
+          country_bloc: conversionData['Country / Bloc'],
+          institution: conversionData['Institution'],
+          senior_representative: conversionData['Senior Representative'],
+          strategic_objectives: conversionData['Strategic Objectives'],
+          priority_sectors: conversionData['Priority Sectors'],
+          investment_trade_interests: conversionData['Investment / Trade Interests'],
+          african_markets_of_interest: conversionData['African Markets of Interest'],
+          preferred_engagement_format: conversionData['Preferred Engagement Format'],
+          delegation_size: conversionData['Delegation Size'],
+          contact_details: conversionData['Contact Details'],
+        };
+      }
+
+      if (tableName) {
+        const { error: dbError } = await supabase.from(tableName).insert([insertPayload]);
+        if (dbError) {
+          throw new Error(`Database error: ${dbError.message}`);
+        }
+      }
+
+      setConversionMessage(
+        'Thank you for your submission. Your information and documents have been successfully recorded. Our team will review your mandate and contact you regarding the appropriate engagement format.'
+      );
+      setConversionData({});
+      setConversionFile(null);
+    } catch (err: any) {
+      console.error(err);
+      setConversionMessage(
+        err.message || 'An unexpected error occurred during submission. Please try again.'
+      );
+    } finally {
+      setIsConversionSubmitting(false);
+    }
   };
 
   const handleRegister = async (
@@ -731,7 +847,7 @@ export default function AgendaPage() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* ===================================================
-          HEADER (Votre code de boutons intégré ici)
+          HEADER
           =================================================== */}
 
       <header className="sticky top-0 z-50 bg-white shadow-sm">
@@ -791,7 +907,6 @@ export default function AgendaPage() {
             </a>
           </nav>
 
-          {/* VOTRE BLOC INTÉGRÉ (mt-8 retiré pour l'alignement de la navbar) */}
           <div className="hidden items-center gap-3 md:flex">
             <div className="flex flex-wrap gap-4">
               <button
@@ -2594,11 +2709,34 @@ export default function AgendaPage() {
                   )
                 )}
 
+                {/* Champ de fichier pour Project et Investor uniquement */}
+                {conversionConfigs[conversionType].hasFile && (
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-900">
+                      {conversionConfigs[conversionType].fileLabel}
+                    </label>
+                    <input
+                      required
+                      type="file"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          setConversionFile(e.target.files[0]);
+                        }
+                      }}
+                      className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm bg-gray-50"
+                    />
+                    <p className="mt-1 text-xs text-gray-500">
+                      Files are securely uploaded to aef-submissions/{conversionType === 'project' ? 'projects' : 'investors'}/
+                    </p>
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full rounded-lg bg-blue-900 px-5 py-3 font-semibold text-white hover:bg-blue-800"
+                  disabled={isConversionSubmitting}
+                  className="w-full rounded-lg bg-blue-900 px-5 py-3 font-semibold text-white hover:bg-blue-800 disabled:opacity-50"
                 >
-                  SUBMIT
+                  {isConversionSubmitting ? 'Submitting & Uploading...' : 'SUBMIT'}
                 </button>
               </form>
             )}
