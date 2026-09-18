@@ -47,6 +47,13 @@ export default function Home() {
   const [subscribed, setSubscribed] =
     useState(false);
 
+  /*
+   * Forum sélectionné pour la fenêtre modale.
+   * null = aucune fenêtre ouverte.
+   */
+  const [selectedForum, setSelectedForum] =
+    useState<(typeof forums)[number] | null>(null);
+
 
   /* =========================================================
      AUTH
@@ -166,6 +173,17 @@ export default function Home() {
   const changeLanguage = (language: string) => {
 
     i18n.changeLanguage(language);
+
+  };
+
+
+  /* =========================================================
+     CLOSE FORUM MODAL
+     ========================================================= */
+
+  const closeForumModal = () => {
+
+    setSelectedForum(null);
 
   };
 
@@ -933,10 +951,11 @@ export default function Home() {
 
               {forums.map((forum) => (
 
-                <Link
+                <button
                   key={forum.id}
-                  to="/meetings"
-                  className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow block"
+                  type="button"
+                  onClick={() => setSelectedForum(forum)}
+                  className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-teal-600"
                 >
 
                   <img
@@ -948,15 +967,6 @@ export default function Home() {
 
                   <div className="p-6">
 
-                    {forum.sectoralLabel && (
-
-                      <p className="text-sm text-teal-600 font-medium mb-2">
-                        {forum.sectoralLabel}
-                      </p>
-
-                    )}
-
-
                     <h3 className="font-semibold text-gray-900 text-lg leading-tight">
                       {forum.title}
                     </h3>
@@ -966,9 +976,20 @@ export default function Home() {
                       {forum.description}
                     </p>
 
+
+                    <div className="mt-4 flex items-center text-teal-600 font-medium text-sm">
+
+                      <span>
+                        View details
+                      </span>
+
+                      <i className="ri-arrow-right-line ml-2" />
+
+                    </div>
+
                   </div>
 
-                </Link>
+                </button>
 
               ))}
 
@@ -1006,6 +1027,7 @@ export default function Home() {
                 to="/spotlight"
                 className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium flex items-center space-x-2 whitespace-nowrap cursor-pointer"
               >
+
                 <span>
                   {t('home.viewAllArticles')}
                 </span>
@@ -1030,7 +1052,9 @@ export default function Home() {
 
                     <img
                       src={spotlightArticles[0].image}
-                      alt={t(`spotlight.${spotlightArticles[0].key}.title`)}
+                      alt={t(
+                        `spotlight.${spotlightArticles[0].key}.title`
+                      )}
                       className="w-full h-64 object-cover object-top"
                     />
 
@@ -1040,7 +1064,9 @@ export default function Home() {
                       <div className="flex items-center space-x-4 mb-4">
 
                         <span className="text-blue-600 font-medium text-sm">
-                          {t(`spotlight.${spotlightArticles[0].key}.category`)}
+                          {t(
+                            `spotlight.${spotlightArticles[0].key}.category`
+                          )}
                         </span>
 
                         <span className="text-gray-400 text-sm">
@@ -1051,12 +1077,16 @@ export default function Home() {
 
 
                       <h3 className="text-xl font-bold text-gray-900 leading-tight mb-3">
-                        {t(`spotlight.${spotlightArticles[0].key}.title`)}
+                        {t(
+                          `spotlight.${spotlightArticles[0].key}.title`
+                        )}
                       </h3>
 
 
                       <p className="text-gray-600 leading-relaxed">
-                        {t(`spotlight.${spotlightArticles[0].key}.description`)}
+                        {t(
+                          `spotlight.${spotlightArticles[0].key}.description`
+                        )}
                       </p>
 
                     </div>
@@ -1086,7 +1116,9 @@ export default function Home() {
 
                           <img
                             src={article.image}
-                            alt={t(`spotlight.${article.key}.title`)}
+                            alt={t(
+                              `spotlight.${article.key}.title`
+                            )}
                             className="w-full h-full object-cover object-top"
                           />
 
@@ -1096,7 +1128,9 @@ export default function Home() {
                         <div className="p-4 flex-1">
 
                           <span className="text-blue-600 font-medium text-sm">
-                            {t(`spotlight.${article.key}.category`)}
+                            {t(
+                              `spotlight.${article.key}.category`
+                            )}
                           </span>
 
 
@@ -1106,7 +1140,9 @@ export default function Home() {
 
 
                           <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
-                            {t(`spotlight.${article.key}.title`)}
+                            {t(
+                              `spotlight.${article.key}.title`
+                            )}
                           </h4>
 
                         </div>
@@ -1167,7 +1203,9 @@ export default function Home() {
                         e.target.value
                       )
                     }
-                    placeholder={t('home.newsletterPlaceholder')}
+                    placeholder={t(
+                      'home.newsletterPlaceholder'
+                    )}
                     className="px-4 py-3 rounded-md text-gray-900 w-full sm:w-80 focus:outline-none"
                     required
                   />
@@ -1513,9 +1551,11 @@ export default function Home() {
                     EN
                   </button>
 
+
                   <span className="text-gray-500">
                     •
                   </span>
+
 
                   <button
                     type="button"
@@ -1525,9 +1565,11 @@ export default function Home() {
                     FR
                   </button>
 
+
                   <span className="text-gray-500">
                     •
                   </span>
+
 
                   <button
                     type="button"
@@ -1537,9 +1579,11 @@ export default function Home() {
                     PT
                   </button>
 
+
                   <span className="text-gray-500">
                     •
                   </span>
+
 
                   <button
                     type="button"
@@ -1549,9 +1593,11 @@ export default function Home() {
                     ES
                   </button>
 
+
                   <span className="text-gray-500">
                     •
                   </span>
+
 
                   <button
                     type="button"
@@ -1663,8 +1709,276 @@ export default function Home() {
 
       </footer>
 
+
+      {/* =====================================================
+          FORUM MODAL
+          ===================================================== */}
+
+      {selectedForum && (
+
+        <div
+          className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={closeForumModal}
+          role="presentation"
+        >
+
+          <div
+            className="relative bg-white w-full max-w-5xl max-h-[90vh] rounded-xl shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="forum-modal-title"
+          >
+
+            {/* =================================================
+                CLOSE BUTTON
+                ================================================= */}
+
+            <button
+              type="button"
+              onClick={closeForumModal}
+              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md flex items-center justify-center text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
+              aria-label="Close"
+            >
+
+              <i className="ri-close-line text-2xl" />
+
+            </button>
+
+
+            {/* =================================================
+                MODAL CONTENT
+                ================================================= */}
+
+            <div className="overflow-y-auto max-h-[90vh]">
+
+              {/* =================================================
+                  IMAGE
+                  ================================================= */}
+
+              <div className="relative">
+
+                <img
+                  src={selectedForum.image}
+                  alt={selectedForum.title}
+                  className="w-full h-64 md:h-80 object-cover"
+                />
+
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+
+                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+
+                  <h2
+                    id="forum-modal-title"
+                    className="text-2xl md:text-4xl font-bold text-white pr-10"
+                  >
+                    {selectedForum.title}
+                  </h2>
+
+                </div>
+
+              </div>
+
+
+              {/* =================================================
+                  BODY
+                  ================================================= */}
+
+              <div className="p-6 md:p-8 space-y-8">
+
+                {/* =================================================
+                    DESCRIPTION
+                    ================================================= */}
+
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  {selectedForum.description}
+                </p>
+
+
+                {/* =================================================
+                    OVERVIEW
+                    ================================================= */}
+
+                <div>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    Overview
+                  </h3>
+
+
+                  <p className="text-gray-600 leading-relaxed">
+                    {selectedForum.overview}
+                  </p>
+
+                </div>
+
+
+                {/* =================================================
+                    OBJECTIVES
+                    ================================================= */}
+
+                <div>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    Objectives
+                  </h3>
+
+
+                  <ul className="space-y-3">
+
+                    {selectedForum.objectives.map(
+                      (objective, index) => (
+
+                        <li
+                          key={index}
+                          className="flex items-start gap-3"
+                        >
+
+                          <i className="ri-check-line text-teal-600 text-xl mt-0.5 flex-shrink-0" />
+
+
+                          <span className="text-gray-600">
+                            {objective}
+                          </span>
+
+                        </li>
+
+                      )
+                    )}
+
+                  </ul>
+
+                </div>
+
+
+                {/* =================================================
+                    KEY AREAS
+                    ================================================= */}
+
+                <div>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    Key Areas
+                  </h3>
+
+
+                  <ul className="grid md:grid-cols-2 gap-3">
+
+                    {selectedForum.keyAreas.map(
+                      (area, index) => (
+
+                        <li
+                          key={index}
+                          className="flex items-start gap-3 bg-gray-50 rounded-lg p-4"
+                        >
+
+                          <i className="ri-arrow-right-circle-line text-teal-600 text-xl flex-shrink-0" />
+
+
+                          <span className="text-gray-700">
+                            {area}
+                          </span>
+
+                        </li>
+
+                      )
+                    )}
+
+                  </ul>
+
+                </div>
+
+
+                {/* =================================================
+                    PILLARS
+                    ================================================= */}
+
+                <div>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                    Pillars
+                  </h3>
+
+
+                  <div className="grid md:grid-cols-2 gap-6">
+
+                    {selectedForum.pillars.map(
+                      (pillar, index) => (
+
+                        <div
+                          key={index}
+                          className="border border-gray-200 rounded-lg p-5"
+                        >
+
+                          <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                            {pillar.title}
+                          </h4>
+
+
+                          <ul className="space-y-2">
+
+                            {pillar.items.map(
+                              (item, itemIndex) => (
+
+                                <li
+                                  key={itemIndex}
+                                  className="flex items-start gap-2 text-gray-600"
+                                >
+
+                                  <i className="ri-checkbox-blank-circle-fill text-teal-500 text-xs mt-2 flex-shrink-0" />
+
+
+                                  <span>
+                                    {item}
+                                  </span>
+
+                                </li>
+
+                              )
+                            )}
+
+                          </ul>
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+                </div>
+
+
+                {/* =================================================
+                    CLOSE
+                    ================================================= */}
+
+                <div className="flex justify-end pt-4 border-t border-gray-200">
+
+                  <button
+                    type="button"
+                    onClick={closeForumModal}
+                    className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 transition-colors cursor-pointer"
+                  >
+                    Close
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
+
     </div>
 
   );
 
-              }
+}
