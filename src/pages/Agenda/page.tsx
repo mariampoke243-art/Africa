@@ -1633,7 +1633,6 @@ export default function AgendaPage() {
               )}
             </nav>
           </div>
-        </div>
       </header>
 
       {/* The Agenda content below remains driven by the existing AEF copy.
@@ -4474,4 +4473,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-  }
+            }
