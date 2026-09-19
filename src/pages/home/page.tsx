@@ -24,16 +24,8 @@ import { LanguageSelector } from '../../components/LanguageSelector';
 
 export default function Home() {
 
-  /* =========================================================
-     TRANSLATIONS
-     ========================================================= */
-
   const { t, i18n } = useTranslation();
 
-
-  /* =========================================================
-     STATES
-     ========================================================= */
 
   const [showMobileMenu, setShowMobileMenu] =
     useState(false);
@@ -47,17 +39,9 @@ export default function Home() {
   const [subscribed, setSubscribed] =
     useState(false);
 
-  /*
-   * Forum sélectionné pour la fenêtre modale.
-   * null = aucune fenêtre ouverte.
-   */
   const [selectedForum, setSelectedForum] =
     useState<(typeof forums)[number] | null>(null);
 
-
-  /* =========================================================
-     AUTH
-     ========================================================= */
 
   const {
     user,
@@ -72,10 +56,6 @@ export default function Home() {
     useRef<HTMLVideoElement | null>(null);
 
 
-  /* =========================================================
-     VIDEO
-     ========================================================= */
-
   useEffect(() => {
 
     if (videoRef.current) {
@@ -88,10 +68,6 @@ export default function Home() {
 
   }, []);
 
-
-  /* =========================================================
-     AUTH FUNCTIONS
-     ========================================================= */
 
   const handleSignIn = () => {
 
@@ -118,20 +94,12 @@ export default function Home() {
   };
 
 
-  /* =========================================================
-     MOBILE MENU
-     ========================================================= */
-
   const toggleMobileMenu = () => {
 
     setShowMobileMenu(!showMobileMenu);
 
   };
 
-
-  /* =========================================================
-     NEWSLETTER
-     ========================================================= */
 
   const handleNewsletterSubmit = (
     e: FormEvent
@@ -150,10 +118,6 @@ export default function Home() {
   };
 
 
-  /* =========================================================
-     USER INITIALS
-     ========================================================= */
-
   const getInitials = (name: string) => {
 
     return name
@@ -166,20 +130,12 @@ export default function Home() {
   };
 
 
-  /* =========================================================
-     CHANGE LANGUAGE
-     ========================================================= */
-
   const changeLanguage = (language: string) => {
 
     i18n.changeLanguage(language);
 
   };
 
-
-  /* =========================================================
-     CLOSE FORUM MODAL
-     ========================================================= */
 
   const closeForumModal = () => {
 
@@ -188,12 +144,10 @@ export default function Home() {
   };
 
 
-  /* =========================================================
-     FORUM PILLARS
-     =========================================================
-     Certains forums n'ont pas de "pillars".
-     On utilise donc un tableau vide lorsqu'ils n'existent pas.
-     ========================================================= */
+  /*
+   * Certains forums peuvent ne pas avoir de pillars.
+   * On utilise donc un tableau vide lorsqu'ils n'existent pas.
+   */
 
   const selectedForumPillars =
     selectedForum && 'pillars' in selectedForum
@@ -204,10 +158,6 @@ export default function Home() {
   return (
 
     <div className="min-h-screen bg-white">
-
-      {/* =====================================================
-          HOME POPUPS
-          ===================================================== */}
 
       <HomePopups />
 
@@ -221,10 +171,6 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="flex justify-between items-center h-16">
-
-            {/* =================================================
-                LOGO
-                ================================================= */}
 
             <div className="flex items-center">
 
@@ -244,9 +190,7 @@ export default function Home() {
             </div>
 
 
-            {/* =================================================
-                DESKTOP NAVIGATION
-                ================================================= */}
+            {/* DESKTOP NAVIGATION */}
 
             <nav className="hidden md:flex space-x-8">
 
@@ -257,14 +201,12 @@ export default function Home() {
                 {t('header.home')}
               </Link>
 
-
               <Link
                 to="/about"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 {t('header.about')}
               </Link>
-
 
               <Link
                 to="/initiatives"
@@ -273,14 +215,12 @@ export default function Home() {
                 {t('header.initiatives')}
               </Link>
 
-
               <Link
                 to="/stakeholders"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 {t('header.stakeholders')}
               </Link>
-
 
               <Link
                 to="/agenda"
@@ -289,7 +229,6 @@ export default function Home() {
                 {t('header.agenda')}
               </Link>
 
-
               <Link
                 to="/publications"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
@@ -297,14 +236,12 @@ export default function Home() {
                 {t('header.publications')}
               </Link>
 
-
               <Link
                 to="/meetings"
                 className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 {t('header.meetings')}
               </Link>
-
 
               <Link
                 to="/contact"
@@ -316,16 +253,11 @@ export default function Home() {
             </nav>
 
 
-            {/* =================================================
-                DESKTOP ACTIONS
-                ================================================= */}
+            {/* DESKTOP ACTIONS */}
 
             <div className="hidden md:flex items-center space-x-4">
 
               <LanguageSelector />
-
-
-              {/* AUTH */}
 
               {isAuthenticated && user ? (
 
@@ -384,7 +316,6 @@ export default function Home() {
 
                         </div>
 
-
                         <div className="text-gray-500">
 
                           {user.email}
@@ -431,9 +362,7 @@ export default function Home() {
             </div>
 
 
-            {/* =================================================
-                MOBILE BUTTON
-                ================================================= */}
+            {/* MOBILE BUTTON */}
 
             <button
               type="button"
@@ -457,9 +386,7 @@ export default function Home() {
         </div>
 
 
-        {/* ===================================================
-            MOBILE MENU
-            =================================================== */}
+        {/* MOBILE MENU */}
 
         {showMobileMenu && (
 
@@ -555,16 +482,12 @@ export default function Home() {
               </Link>
 
 
-              {/* LANGUAGE MOBILE */}
-
               <div className="px-3 py-4 border-t border-gray-100">
 
                 <LanguageSelector />
 
               </div>
 
-
-              {/* MOBILE AUTH */}
 
               <div className="pt-2 pb-2">
 
@@ -595,7 +518,6 @@ export default function Home() {
                         </div>
 
                       )}
-
 
                       <span className="text-gray-700 font-medium">
 
@@ -657,15 +579,9 @@ export default function Home() {
       </header>
 
 
-      {/* =====================================================
-          MAIN
-          ===================================================== */}
-
       <main>
 
-        {/* ===================================================
-            HERO
-            =================================================== */}
+        {/* HERO */}
 
         <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20 lg:py-32">
 
@@ -681,8 +597,6 @@ export default function Home() {
                     {t('home.heroEyebrow')}
                   </p>
 
-
-                  {/* CORRECTION : utilisation du vrai titre */}
 
                   <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
                     {t('home.heroTitle')}
@@ -736,9 +650,7 @@ export default function Home() {
         </section>
 
 
-        {/* ===================================================
-            HOW WE DRIVE IMPACT
-            =================================================== */}
+        {/* HOW WE DRIVE IMPACT */}
 
         <section className="py-20 bg-gray-50">
 
@@ -893,7 +805,9 @@ export default function Home() {
                         <div className="p-4">
 
                           <h4 className="font-semibold text-gray-900">
-                            {item.title}
+                            {t(`initiatives.${item.key}.title`, {
+                              defaultValue: item.title,
+                            })}
                           </h4>
 
                         </div>
@@ -925,7 +839,9 @@ export default function Home() {
                         <div className="p-4">
 
                           <h4 className="font-semibold text-gray-900">
-                            {item.title}
+                            {t(`initiatives.${item.key}.title`, {
+                              defaultValue: item.title,
+                            })}
                           </h4>
 
                         </div>
@@ -946,9 +862,7 @@ export default function Home() {
         </section>
 
 
-        {/* ===================================================
-            MEETINGS
-            =================================================== */}
+        {/* MEETINGS */}
 
         <section className="py-16 bg-white">
 
@@ -980,7 +894,9 @@ export default function Home() {
 
                   <img
                     src={forum.image}
-                    alt={forum.title}
+                    alt={t(`forums.${forum.key}.title`, {
+                      defaultValue: forum.title,
+                    })}
                     className="w-full h-48 object-cover object-top"
                   />
 
@@ -988,12 +904,16 @@ export default function Home() {
                   <div className="p-6">
 
                     <h3 className="font-semibold text-gray-900 text-lg leading-tight">
-                      {forum.title}
+                      {t(`forums.${forum.key}.title`, {
+                        defaultValue: forum.title,
+                      })}
                     </h3>
 
 
                     <p className="text-gray-600 text-sm mt-3 line-clamp-3">
-                      {forum.description}
+                      {t(`forums.${forum.key}.description`, {
+                        defaultValue: forum.description,
+                      })}
                     </p>
 
 
@@ -1020,9 +940,7 @@ export default function Home() {
         </section>
 
 
-        {/* ===================================================
-            SPOTLIGHT
-            =================================================== */}
+        {/* SPOTLIGHT */}
 
         <section className="py-20 bg-gray-50">
 
@@ -1073,7 +991,10 @@ export default function Home() {
                     <img
                       src={spotlightArticles[0].image}
                       alt={t(
-                        `spotlight.${spotlightArticles[0].key}.title`
+                        `spotlight.${spotlightArticles[0].key}.title`,
+                        {
+                          defaultValue: spotlightArticles[0].key,
+                        }
                       )}
                       className="w-full h-64 object-cover object-top"
                     />
@@ -1085,7 +1006,10 @@ export default function Home() {
 
                         <span className="text-blue-600 font-medium text-sm">
                           {t(
-                            `spotlight.${spotlightArticles[0].key}.category`
+                            `spotlight.${spotlightArticles[0].key}.category`,
+                            {
+                              defaultValue: 'Spotlight',
+                            }
                           )}
                         </span>
 
@@ -1098,14 +1022,20 @@ export default function Home() {
 
                       <h3 className="text-xl font-bold text-gray-900 leading-tight mb-3">
                         {t(
-                          `spotlight.${spotlightArticles[0].key}.title`
+                          `spotlight.${spotlightArticles[0].key}.title`,
+                          {
+                            defaultValue: spotlightArticles[0].key,
+                          }
                         )}
                       </h3>
 
 
                       <p className="text-gray-600 leading-relaxed">
                         {t(
-                          `spotlight.${spotlightArticles[0].key}.description`
+                          `spotlight.${spotlightArticles[0].key}.description`,
+                          {
+                            defaultValue: '',
+                          }
                         )}
                       </p>
 
@@ -1137,7 +1067,10 @@ export default function Home() {
                           <img
                             src={article.image}
                             alt={t(
-                              `spotlight.${article.key}.title`
+                              `spotlight.${article.key}.title`,
+                              {
+                                defaultValue: article.key,
+                              }
                             )}
                             className="w-full h-full object-cover object-top"
                           />
@@ -1149,7 +1082,10 @@ export default function Home() {
 
                           <span className="text-blue-600 font-medium text-sm">
                             {t(
-                              `spotlight.${article.key}.category`
+                              `spotlight.${article.key}.category`,
+                              {
+                                defaultValue: 'Spotlight',
+                              }
                             )}
                           </span>
 
@@ -1161,7 +1097,10 @@ export default function Home() {
 
                           <h4 className="font-semibold text-gray-900 text-sm leading-tight line-clamp-3">
                             {t(
-                              `spotlight.${article.key}.title`
+                              `spotlight.${article.key}.title`,
+                              {
+                                defaultValue: article.key,
+                              }
                             )}
                           </h4>
 
@@ -1182,9 +1121,7 @@ export default function Home() {
         </section>
 
 
-        {/* ===================================================
-            NEWSLETTER
-            =================================================== */}
+        {/* NEWSLETTER */}
 
         <section className="py-16 bg-blue-900 text-white">
 
@@ -1251,9 +1188,7 @@ export default function Home() {
       </main>
 
 
-      {/* =====================================================
-          FOOTER
-          ===================================================== */}
+      {/* FOOTER */}
 
       <footer className="bg-gray-900 text-white py-16">
 
@@ -1261,17 +1196,11 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
 
-
-            {/* =================================================
-                ABOUT
-                ================================================= */}
-
             <div>
 
               <h3 className="font-semibold text-lg mb-6">
                 {t('footer.aboutUs')}
               </h3>
-
 
               <ul className="space-y-3">
 
@@ -1284,7 +1213,6 @@ export default function Home() {
                   </Link>
                 </li>
 
-
                 <li>
                   <Link
                     to="/framework"
@@ -1293,7 +1221,6 @@ export default function Home() {
                     {t('footer.ourFramework')}
                   </Link>
                 </li>
-
 
                 <li>
                   <Link
@@ -1304,7 +1231,6 @@ export default function Home() {
                   </Link>
                 </li>
 
-
                 <li>
                   <Link
                     to="/about"
@@ -1313,7 +1239,6 @@ export default function Home() {
                     {t('footer.leadership')}
                   </Link>
                 </li>
-
 
                 <li>
                   <Link
@@ -1329,16 +1254,11 @@ export default function Home() {
             </div>
 
 
-            {/* =================================================
-                MORE FROM FORUM
-                ================================================= */}
-
             <div>
 
               <h3 className="font-semibold text-lg mb-6">
                 {t('footer.moreFromForum')}
               </h3>
-
 
               <ul className="space-y-3">
 
@@ -1351,7 +1271,6 @@ export default function Home() {
                   </Link>
                 </li>
 
-
                 <li>
                   <Link
                     to="/meetings"
@@ -1360,7 +1279,6 @@ export default function Home() {
                     {t('footer.meetings')}
                   </Link>
                 </li>
-
 
                 <li>
                   <Link
@@ -1371,7 +1289,6 @@ export default function Home() {
                   </Link>
                 </li>
 
-
                 <li>
                   <Link
                     to="/agenda"
@@ -1380,7 +1297,6 @@ export default function Home() {
                     {t('footer.forumStories')}
                   </Link>
                 </li>
-
 
                 <li>
                   <Link
@@ -1391,7 +1307,6 @@ export default function Home() {
                   </Link>
                 </li>
 
-
                 <li>
                   <Link
                     to="/gallery"
@@ -1401,7 +1316,6 @@ export default function Home() {
                   </Link>
                 </li>
 
-
                 <li>
                   <Link
                     to="/publications"
@@ -1410,7 +1324,6 @@ export default function Home() {
                     {t('footer.podcasts')}
                   </Link>
                 </li>
-
 
                 <li>
                   <Link
@@ -1426,16 +1339,11 @@ export default function Home() {
             </div>
 
 
-            {/* =================================================
-                ENGAGE
-                ================================================= */}
-
             <div>
 
               <h3 className="font-semibold text-lg mb-6">
                 {t('footer.engage')}
               </h3>
-
 
               <ul className="space-y-3">
 
@@ -1464,7 +1372,6 @@ export default function Home() {
 
                 </li>
 
-
                 <li>
                   <Link
                     to="/partners"
@@ -1473,7 +1380,6 @@ export default function Home() {
                     {t('footer.partner')}
                   </Link>
                 </li>
-
 
                 <li>
                   <Link
@@ -1484,7 +1390,6 @@ export default function Home() {
                   </Link>
                 </li>
 
-
                 <li>
                   <Link
                     to="/contact"
@@ -1494,7 +1399,6 @@ export default function Home() {
                   </Link>
                 </li>
 
-
                 <li>
                   <Link
                     to="/contact"
@@ -1503,7 +1407,6 @@ export default function Home() {
                     {t('footer.newsletters')}
                   </Link>
                 </li>
-
 
                 <li>
                   <Link
@@ -1519,16 +1422,11 @@ export default function Home() {
             </div>
 
 
-            {/* =================================================
-                QUICK LINKS
-                ================================================= */}
-
             <div>
 
               <h3 className="font-semibold text-lg mb-6">
                 {t('footer.quickLinks')}
               </h3>
-
 
               <ul className="space-y-3 mb-8">
 
@@ -1540,7 +1438,6 @@ export default function Home() {
                     {t('footer.sustainability')}
                   </Link>
                 </li>
-
 
                 <li>
                   <Link
@@ -1560,7 +1457,6 @@ export default function Home() {
                   {t('footer.languageEditions')}
                 </h4>
 
-
                 <div className="flex flex-wrap gap-x-2 gap-y-2">
 
                   <button
@@ -1571,11 +1467,9 @@ export default function Home() {
                     EN
                   </button>
 
-
                   <span className="text-gray-500">
                     •
                   </span>
-
 
                   <button
                     type="button"
@@ -1585,11 +1479,9 @@ export default function Home() {
                     FR
                   </button>
 
-
                   <span className="text-gray-500">
                     •
                   </span>
-
 
                   <button
                     type="button"
@@ -1599,11 +1491,9 @@ export default function Home() {
                     PT
                   </button>
 
-
                   <span className="text-gray-500">
                     •
                   </span>
-
 
                   <button
                     type="button"
@@ -1613,11 +1503,9 @@ export default function Home() {
                     ES
                   </button>
 
-
                   <span className="text-gray-500">
                     •
                   </span>
-
 
                   <button
                     type="button"
@@ -1636,16 +1524,9 @@ export default function Home() {
           </div>
 
 
-          {/* =================================================
-              FOOTER BOTTOM
-              ================================================= */}
-
           <div className="border-t border-gray-700 pt-8">
 
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-
-
-              {/* SOCIAL */}
 
               <div className="flex space-x-4">
 
@@ -1659,7 +1540,6 @@ export default function Home() {
                   <i className="ri-facebook-fill text-xl" />
                 </a>
 
-
                 <a
                   href="https://www.linkedin.com/company/the-africa-economic-forum/"
                   target="_blank"
@@ -1670,7 +1550,6 @@ export default function Home() {
                   <i className="ri-linkedin-fill text-xl" />
                 </a>
 
-
                 <a
                   href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ=="
                   target="_blank"
@@ -1680,7 +1559,6 @@ export default function Home() {
                 >
                   <i className="ri-instagram-fill text-xl" />
                 </a>
-
 
                 <a
                   href="#"
@@ -1693,8 +1571,6 @@ export default function Home() {
               </div>
 
 
-              {/* COPYRIGHT */}
-
               <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
 
                 <Link
@@ -1704,11 +1580,9 @@ export default function Home() {
                   {t('footer.privacy')}
                 </Link>
 
-
                 <p>
                   {t('footer.copyright')}
                 </p>
-
 
                 <a
                   href="https://codesignglobal.com"
@@ -1730,9 +1604,7 @@ export default function Home() {
       </footer>
 
 
-      {/* =====================================================
-          FORUM MODAL
-          ===================================================== */}
+      {/* FORUM MODAL */}
 
       {selectedForum && (
 
@@ -1750,15 +1622,11 @@ export default function Home() {
             aria-labelledby="forum-modal-title"
           >
 
-            {/* =================================================
-                CLOSE BUTTON
-                ================================================= */}
-
             <button
               type="button"
               onClick={closeForumModal}
               className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md flex items-center justify-center text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
-              aria-label={t('meetingsPage.readMore')}
+              aria-label={t('meetingsPage.showLess')}
             >
 
               <i className="ri-close-line text-2xl" />
@@ -1766,27 +1634,22 @@ export default function Home() {
             </button>
 
 
-            {/* =================================================
-                MODAL CONTENT
-                ================================================= */}
-
             <div className="overflow-y-auto max-h-[90vh]">
-
-              {/* =================================================
-                  IMAGE
-                  ================================================= */}
 
               <div className="relative">
 
                 <img
                   src={selectedForum.image}
-                  alt={selectedForum.title}
+                  alt={t(
+                    `forums.${selectedForum.key}.title`,
+                    {
+                      defaultValue: selectedForum.title,
+                    }
+                  )}
                   className="w-full h-64 md:h-80 object-cover"
                 />
 
-
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
 
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
 
@@ -1794,7 +1657,9 @@ export default function Home() {
                     id="forum-modal-title"
                     className="text-2xl md:text-4xl font-bold text-white pr-10"
                   >
-                    {selectedForum.title}
+                    {t(`forums.${selectedForum.key}.title`, {
+                      defaultValue: selectedForum.title,
+                    })}
                   </h2>
 
                 </div>
@@ -1802,24 +1667,14 @@ export default function Home() {
               </div>
 
 
-              {/* =================================================
-                  BODY
-                  ================================================= */}
-
               <div className="p-6 md:p-8 space-y-8">
 
-                {/* =================================================
-                    DESCRIPTION
-                    ================================================= */}
-
                 <p className="text-lg text-gray-600 leading-relaxed">
-                  {selectedForum.description}
+                  {t(`forums.${selectedForum.key}.description`, {
+                    defaultValue: selectedForum.description,
+                  })}
                 </p>
 
-
-                {/* =================================================
-                    OVERVIEW
-                    ================================================= */}
 
                 <div>
 
@@ -1827,24 +1682,20 @@ export default function Home() {
                     {t('meetingsPage.overview')}
                   </h3>
 
-
                   <p className="text-gray-600 leading-relaxed">
-                    {selectedForum.overview}
+                    {t(`forums.${selectedForum.key}.overview`, {
+                      defaultValue: selectedForum.overview,
+                    })}
                   </p>
 
                 </div>
 
-
-                {/* =================================================
-                    OBJECTIVES
-                    ================================================= */}
 
                 <div>
 
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">
                     {t('meetingsPage.objectives')}
                   </h3>
-
 
                   <ul className="space-y-3">
 
@@ -1857,7 +1708,6 @@ export default function Home() {
                         >
 
                           <i className="ri-check-line text-teal-600 text-xl mt-0.5 flex-shrink-0" />
-
 
                           <span className="text-gray-600">
                             {objective}
@@ -1873,16 +1723,11 @@ export default function Home() {
                 </div>
 
 
-                {/* =================================================
-                    KEY AREAS
-                    ================================================= */}
-
                 <div>
 
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">
                     {t('meetingsPage.keyFocusAreas')}
                   </h3>
-
 
                   <ul className="grid md:grid-cols-2 gap-3">
 
@@ -1895,7 +1740,6 @@ export default function Home() {
                         >
 
                           <i className="ri-arrow-right-circle-line text-teal-600 text-xl flex-shrink-0" />
-
 
                           <span className="text-gray-700">
                             {area}
@@ -1911,10 +1755,6 @@ export default function Home() {
                 </div>
 
 
-                {/* =================================================
-                    PILLARS
-                    ================================================= */}
-
                 {selectedForumPillars.length > 0 && (
 
                   <div>
@@ -1922,7 +1762,6 @@ export default function Home() {
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">
                       {t('meetingsPage.strategicPillars')}
                     </h3>
-
 
                     <div className="grid md:grid-cols-2 gap-6">
 
@@ -1938,7 +1777,6 @@ export default function Home() {
                               {pillar.title}
                             </h4>
 
-
                             <ul className="space-y-2">
 
                               {pillar.items.map(
@@ -1950,7 +1788,6 @@ export default function Home() {
                                   >
 
                                     <i className="ri-checkbox-blank-circle-fill text-teal-500 text-xs mt-2 flex-shrink-0" />
-
 
                                     <span>
                                       {item}
@@ -1974,10 +1811,6 @@ export default function Home() {
 
                 )}
 
-
-                {/* =================================================
-                    CLOSE
-                    ================================================= */}
 
                 <div className="flex justify-end pt-4 border-t border-gray-200">
 
