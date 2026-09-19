@@ -180,6 +180,86 @@
     "copyright": "© 2026 Africa Economic Forum. Tous droits réservés."
   },
 
+  "about": {
+    "heroTitle": "À propos de l’Africa Economic Forum",
+    "heroSubtitle": "Une plateforme panafricaine et mondiale dédiée au dialogue économique, à la coopération stratégique et au développement souverain. Plus qu’un événement, l’AEF est un mouvement qui repositionne l’Afrique comme partenaire stratégique et co-architecte de l’avenir du monde.",
+
+    "whatWeAreTitle": "Qui sommes-nous",
+    "whatWeAreText1": "L’Africa Economic Forum (AEF) est une plateforme panafricaine et mondiale dédiée au dialogue économique, à la coopération stratégique et au développement souverain. Plus qu’un événement, l’AEF est un mouvement qui réunit dirigeants africains, gouvernements, investisseurs, entrepreneurs, intellectuels et partenaires internationaux afin de co-créer de nouveaux modèles de croissance, de leadership et d’engagement mondial.",
+    "whatWeAreText2": "Fondé en réponse à des décennies de modèles de développement déséquilibrés, l’AEF repositionne l’Afrique non pas comme un continent dans le besoin, mais comme un partenaire stratégique, un fournisseur de solutions et un co-architecte de l’avenir du monde.",
+
+    "missionTitle": "Notre mission",
+    "missionSubtitle": "Catalyser la transformation économique et la souveraineté de l’Afrique grâce à la coopération stratégique et à un leadership visionnaire.",
+
+    "winWinTitle": "Coopération gagnant-gagnant",
+    "winWinText": "Concevoir des cadres de coopération gagnant-gagnant entre l’Afrique et ses partenaires mondiaux, fondés sur le respect mutuel et une prospérité partagée.",
+
+    "visionaryLeadershipTitle": "Leadership visionnaire",
+    "visionaryLeadershipText": "Promouvoir un leadership éthique, inclusif et visionnaire à travers le continent, capable de renforcer les institutions et de créer des changements durables.",
+
+    "strategicConnectionsTitle": "Connexions stratégiques",
+    "strategicConnectionsText": "Relier les opportunités africaines aux capitaux, aux technologies et aux talents afin de libérer tout le potentiel du continent.",
+
+    "narrativeElevationTitle": "Valorisation du récit africain",
+    "narrativeElevationText": "Renforcer le récit et la valeur de l’Afrique dans l’ordre mondial en remettant en question les stéréotypes et en amplifiant les voix africaines.",
+
+    "communityEmpowermentTitle": "Autonomisation des communautés",
+    "communityEmpowermentText": "Construire des écosystèmes qui donnent aux jeunes, aux femmes et aux communautés locales les moyens de façonner et de diriger l’avenir.",
+
+    "visionTitle": "Notre vision",
+    "visionText": "Positionner l’Afrique comme une puissance économique souveraine, un centre d’innovation et un co-leader mondial, façonnant l’avenir à travers des alliances stratégiques, une coopération digne et un leadership guidé par une mission.",
+
+    "coreValuesTitle": "Nos valeurs fondamentales",
+    "coreValuesSubtitle": "Ces principes guident tout ce que nous faisons et façonnent notre approche pour créer une transformation durable à travers l’Afrique.",
+
+    "sovereigntyTitle": "Souveraineté et autodétermination",
+    "sovereigntyText": "Nous croyons que l’Afrique doit définir sa propre trajectoire, se développer selon ses propres conditions et construire une autonomie stratégique dans les domaines de l’économie, des médias, de la culture, des sciences et de la gouvernance.",
+
+    "equityTitle": "Équité et coopération gagnant-gagnant",
+    "equityText": "Nous défendons des partenariats équitables fondés sur le bénéfice mutuel, le respect et une prospérité partagée, plutôt que sur la charité ou la dépendance.",
+
+    "transformationalLeadershipTitle": "Leadership transformationnel",
+    "transformationalLeadershipText": "Nous promouvons un leadership éthique, au service des autres et guidé par une mission, qui renforce les institutions, améliore le bien-être des populations et crée des changements durables.",
+
+    "narrativeJusticeTitle": "Justice narrative",
+    "narrativeJusticeText": "Nous remettons en question les stéréotypes et amplifions les voix, les réussites et les contributions africaines qui transforment le monde.",
+
+    "innovationTitle": "Innovation et excellence",
+    "innovationText": "Nous développons les talents, les idées et les technologies locales qui proposent des solutions audacieuses aux défis de l’Afrique et du monde.",
+
+    "inclusionTitle": "Inclusion et autonomisation intergénérationnelle",
+    "inclusionText": "Nous créons des espaces permettant aux jeunes, aux femmes et aux communautés de participer à la construction et à la direction de l’avenir.",
+
+    "impactTitle": "Notre impact",
+    "impactSubtitle": "Construire des ponts entre l’Afrique et le monde grâce à des partenariats stratégiques et à des initiatives transformationnelles.",
+
+    "countriesEngaged": "Pays africains engagés",
+    "globalLeadersConnected": "Dirigeants mondiaux connectés",
+    "investmentOpportunities": "Opportunités d’investissement facilitées",
+    "strategicPartnerships": "Partenariats stratégiques établis",
+
+    "organizingCommitteeTitle": "Comité d’organisation",
+    "organizingCommitteeSubtitle": "Découvrez les dirigeants qui contribuent à la transformation économique de l’Afrique grâce à leur vision stratégique, leur leadership exécutif et leur expertise scientifique.",
+
+    "founderTitle": "Fondateur",
+    "founderSubtitle": "Un leadership visionnaire au service de la transformation économique de l’Afrique et des partenariats stratégiques mondiaux.",
+    "founderRole": "Fondateur visionnaire et hôte",
+    "founderBio": "Leader visionnaire et architecte de l’Africa Economic Forum, engagé à repositionner l’Afrique comme partenaire stratégique mondial et à promouvoir une transformation économique durable à travers le continent grâce à des partenariats innovants et à des initiatives de développement souverain.",
+
+    "advisoryBoardTitle": "Conseil consultatif stratégique de l’AEF",
+    "advisoryBoardSubtitle": "Des dirigeants de renom apportant leur orientation stratégique et leur vision à l’Africa Economic Forum.",
+
+    "executiveBoardTitle": "Conseil exécutif de l’AEF",
+    "executiveBoardSubtitle": "Des dirigeants exécutifs qui soutiennent l’orientation stratégique du Forum, l’engagement régional et la mise en œuvre.",
+
+    "scientificCommitteeTitle": "Comité scientifique",
+    "scientificCommitteeSubtitle": "Une expertise économique et scientifique au service d’un dialogue fondé sur les données et du développement stratégique.",
+
+    "joinMovementTitle": "Rejoignez le mouvement",
+    "joinMovementText": "Participez à la transformation de l’Afrique. Connectez-vous à des dirigeants visionnaires, contribuez à des partenariats stratégiques et participez à façonner l’avenir économique souverain du continent.",
+    "becomeMember": "Devenir membre"
+  },
+
   "forums": {
     "africaPeaceForum": {
       "title": "Africa Peace Forum",
