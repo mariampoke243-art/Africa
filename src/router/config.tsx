@@ -18,27 +18,34 @@ import AdminPage from '../pages/admin/page';
 import SpotlightPage from '../pages/spotlight/page';
 import IntervenantsPage from '../pages/intervenants/IntervenantsPage';
 
+import { Layout } from '../components/Layout';
+
 const routes = [
-  { path: '/', element: <HomePage /> },
-  { path: '/about', element: <AboutPage /> },
-  { path: '/history', element: <HistoryPage /> },
-  { path: '/initiatives', element: <InitiativesPage /> },
-  { path: '/meetings', element: <MeetingsPage /> },
-  { path: '/agenda', element: <AgendaPage /> },
-  { path: '/stakeholders', element: <StakeholdersPage /> },
-  { path: '/partners', element: <PartnersPage /> },
-  { path: '/publications', element: <PublicationsPage /> },
-  { path: '/gallery', element: <GalleryPage /> },
-  { path: '/careers', element: <CareersPage /> },
-  { path: '/contact', element: <ContactPage /> },
-  { path: '/join', element: <JoinPage /> },
-  { path: '/profile', element: <ProfilePage /> },
-  { path: '/signin', element: <SignInPage /> },
-  { path: '/privacy', element: <PrivacyPage /> },
-  { path: '/admin', element: <AdminPage /> },
-  { path: '/spotlight', element: <SpotlightPage /> },
-  { path: '/spotlight/:id', element: <SpotlightPage /> },
-  { path: '/intervenants', element: <IntervenantsPage /> },
+  {
+    element: <Layout />,
+    children: [
+      { path: '/', element: <HomePage /> },
+      { path: '/about', element: <AboutPage /> },
+      { path: '/history', element: <HistoryPage /> },
+      { path: '/initiatives', element: <InitiativesPage /> },
+      { path: '/meetings', element: <MeetingsPage /> },
+      { path: '/agenda', element: <AgendaPage /> },
+      { path: '/stakeholders', element: <StakeholdersPage /> },
+      { path: '/partners', element: <PartnersPage /> },
+      { path: '/publications', element: <PublicationsPage /> },
+      { path: '/gallery', element: <GalleryPage /> },
+      { path: '/careers', element: <CareersPage /> },
+      { path: '/contact', element: <ContactPage /> },
+      { path: '/join', element: <JoinPage /> },
+      { path: '/profile', element: <ProfilePage /> },
+      { path: '/signin', element: <SignInPage /> },
+      { path: '/privacy', element: <PrivacyPage /> },
+      { path: '/admin', element: <AdminPage /> },
+      { path: '/spotlight', element: <SpotlightPage /> },
+      { path: '/spotlight/:id', element: <SpotlightPage /> },
+      { path: '/intervenants', element: <IntervenantsPage /> },
+    ],
+  },
 ];
 
 export default routes;
