@@ -188,6 +188,19 @@ export default function Home() {
   };
 
 
+  /* =========================================================
+     FORUM PILLARS
+     =========================================================
+     Certains forums n'ont pas de "pillars".
+     On utilise donc un tableau vide lorsqu'ils n'existent pas.
+     ========================================================= */
+
+  const selectedForumPillars =
+    selectedForum && 'pillars' in selectedForum
+      ? selectedForum.pillars
+      : [];
+
+
   return (
 
     <div className="min-h-screen bg-white">
@@ -669,9 +682,16 @@ export default function Home() {
                   </p>
 
 
+                  {/* CORRECTION : utilisation du vrai titre */}
+
                   <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                    {t('home.heroSubtitle')}
+                    {t('home.heroTitle')}
                   </h1>
+
+
+                  <p className="text-blue-100 text-lg leading-relaxed">
+                    {t('home.heroSubtitle')}
+                  </p>
 
 
                   <Link
@@ -980,7 +1000,7 @@ export default function Home() {
                     <div className="mt-4 flex items-center text-teal-600 font-medium text-sm">
 
                       <span>
-                        View details
+                        {t('meetingsPage.readMore')}
                       </span>
 
                       <i className="ri-arrow-right-line ml-2" />
@@ -1738,7 +1758,7 @@ export default function Home() {
               type="button"
               onClick={closeForumModal}
               className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-md flex items-center justify-center text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
-              aria-label="Close"
+              aria-label={t('meetingsPage.readMore')}
             >
 
               <i className="ri-close-line text-2xl" />
@@ -1804,7 +1824,7 @@ export default function Home() {
                 <div>
 
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    Overview
+                    {t('meetingsPage.overview')}
                   </h3>
 
 
@@ -1822,7 +1842,7 @@ export default function Home() {
                 <div>
 
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    Objectives
+                    {t('meetingsPage.objectives')}
                   </h3>
 
 
@@ -1860,7 +1880,7 @@ export default function Home() {
                 <div>
 
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    Key Areas
+                    {t('meetingsPage.keyFocusAreas')}
                   </h3>
 
 
@@ -1895,60 +1915,64 @@ export default function Home() {
                     PILLARS
                     ================================================= */}
 
-                <div>
+                {selectedForumPillars.length > 0 && (
 
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                    Pillars
-                  </h3>
+                  <div>
 
-
-                  <div className="grid md:grid-cols-2 gap-6">
-
-                    {selectedForum.pillars.map(
-                      (pillar, index) => (
-
-                        <div
-                          key={index}
-                          className="border border-gray-200 rounded-lg p-5"
-                        >
-
-                          <h4 className="text-lg font-semibold text-gray-900 mb-4">
-                            {pillar.title}
-                          </h4>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                      {t('meetingsPage.strategicPillars')}
+                    </h3>
 
 
-                          <ul className="space-y-2">
+                    <div className="grid md:grid-cols-2 gap-6">
 
-                            {pillar.items.map(
-                              (item, itemIndex) => (
+                      {selectedForumPillars.map(
+                        (pillar, index) => (
 
-                                <li
-                                  key={itemIndex}
-                                  className="flex items-start gap-2 text-gray-600"
-                                >
+                          <div
+                            key={index}
+                            className="border border-gray-200 rounded-lg p-5"
+                          >
 
-                                  <i className="ri-checkbox-blank-circle-fill text-teal-500 text-xs mt-2 flex-shrink-0" />
+                            <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                              {pillar.title}
+                            </h4>
 
 
-                                  <span>
-                                    {item}
-                                  </span>
+                            <ul className="space-y-2">
 
-                                </li>
+                              {pillar.items.map(
+                                (item, itemIndex) => (
 
-                              )
-                            )}
+                                  <li
+                                    key={itemIndex}
+                                    className="flex items-start gap-2 text-gray-600"
+                                  >
 
-                          </ul>
+                                    <i className="ri-checkbox-blank-circle-fill text-teal-500 text-xs mt-2 flex-shrink-0" />
 
-                        </div>
 
-                      )
-                    )}
+                                    <span>
+                                      {item}
+                                    </span>
+
+                                  </li>
+
+                                )
+                              )}
+
+                            </ul>
+
+                          </div>
+
+                        )
+                      )}
+
+                    </div>
 
                   </div>
 
-                </div>
+                )}
 
 
                 {/* =================================================
@@ -1962,7 +1986,7 @@ export default function Home() {
                     onClick={closeForumModal}
                     className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 transition-colors cursor-pointer"
                   >
-                    Close
+                    {t('meetingsPage.showLess')}
                   </button>
 
                 </div>
