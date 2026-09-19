@@ -180,6 +180,87 @@
     "copyright": "© 2026 Africa Economic Forum. 版权所有。"
   },
 
+  "about": {
+    "heroTitle": "关于 Africa Economic Forum",
+    "heroSubtitle": "一个致力于经济对话、战略合作和主权发展的泛非及全球平台。AEF 不仅是一项活动，更是一项重新定位非洲、使其成为世界未来战略伙伴和共同塑造者的运动。",
+
+    "whatWeAreTitle": "我们是谁",
+    "whatWeAreText1": "Africa Economic Forum（AEF）是一个致力于经济对话、战略合作和主权发展的泛非及全球平台。AEF 不仅是一项活动，更是一项汇聚非洲领导人、政府、投资者、企业家、知识分子和国际合作伙伴，共同创造新的增长模式、领导力模式和全球参与模式的运动。",
+    "whatWeAreText2": "AEF 的成立是对数十年来发展模式失衡的回应。我们重新定位非洲，不再将其视为一个需要帮助的大陆，而是将其定位为战略伙伴、解决方案提供者以及世界未来的共同塑造者。",
+
+    "missionTitle": "我们的使命",
+    "missionSubtitle": "通过战略合作和具有远见的领导力，推动非洲经济转型与主权发展。",
+
+    "winWinTitle": "互利共赢的合作",
+    "winWinText": "在相互尊重和共同繁荣的基础上，建立非洲与全球合作伙伴之间互利共赢的合作框架。",
+
+    "visionaryLeadershipTitle": "远见卓识的领导力",
+    "visionaryLeadershipText": "推动整个非洲大陆发展道德、包容和具有远见的领导力，建设强大的机构并创造持久的改变。",
+
+    "strategicConnectionsTitle": "战略连接",
+    "strategicConnectionsText": "连接非洲的发展机遇与资本、技术和人才，释放非洲大陆的全部潜力。",
+
+    "narrativeElevationTitle": "提升非洲叙事",
+    "narrativeElevationText": "通过挑战刻板印象、扩大非洲声音，提升非洲在全球秩序中的叙事地位和价值。",
+
+    "communityEmpowermentTitle": "社区赋能",
+    "communityEmpowermentText": "建设能够赋能青年、女性和当地社区，让他们参与塑造并领导未来的生态体系。",
+
+    "visionTitle": "我们的愿景",
+    "visionText": "将非洲建设成为拥有主权的经济力量、创新中心和全球共同领导者，通过战略联盟、有尊严的合作以及以使命为导向的领导力，共同塑造未来。",
+
+    "coreValuesTitle": "我们的核心价值观",
+    "coreValuesSubtitle": "这些原则指导着我们所做的一切，并塑造我们在非洲推动变革性发展的方式。",
+
+    "sovereigntyTitle": "主权与自决",
+    "sovereigntyText": "我们相信非洲必须自主定义发展道路，以自己的条件实现发展，并在经济、媒体、文化、科学和治理领域建立战略自主权。",
+
+    "equityTitle": "公平与互利共赢",
+    "equityText": "我们倡导建立以共同利益、相互尊重和共同繁荣为基础的公平伙伴关系，而不是慈善或依赖。",
+
+    "transformationalLeadershipTitle": "变革型领导力",
+    "transformationalLeadershipText": "我们推动道德、服务型和使命导向的领导力，建设机构、提升人民福祉并创造持久的改变。",
+
+    "narrativeJusticeTitle": "叙事正义",
+    "narrativeJusticeText": "我们挑战关于非洲的刻板印象，扩大非洲人民的声音、成就以及对世界产生深远影响的贡献。",
+
+    "innovationTitle": "创新与卓越",
+    "innovationText": "我们培养本地人才、理念和技术，为非洲及世界面临的挑战提供大胆的解决方案。",
+
+    "inclusionTitle": "包容与代际赋能",
+    "inclusionText": "我们为青年、女性和社区创造参与空间，让他们共同塑造并领导未来。",
+
+    "impactTitle": "我们的影响",
+    "impactSubtitle": "通过战略伙伴关系和变革性倡议，在非洲与世界之间搭建桥梁。",
+
+    "countriesEngaged": "参与的非洲国家",
+    "globalLeadersConnected": "连接的全球领导者",
+    "investmentOpportunities": "促成的投资机会",
+    "strategicPartnerships": "建立的战略伙伴关系",
+
+    "organizingCommitteeTitle": "组织委员会",
+    "organizingCommitteeSubtitle": "认识这些通过战略愿景、执行领导力和科学专业知识推动非洲经济转型的杰出领导者。",
+
+    "founderTitle": "创始人",
+    "founderSubtitle": "以远见卓识的领导力推动非洲经济转型和全球战略伙伴关系。",
+
+    "founderRole": "远见创始人与论坛主持人",
+    "founderBio": "非洲经济论坛的远见领导者和架构师，致力于将非洲重新定位为全球战略伙伴，并通过创新伙伴关系和主权发展倡议推动整个非洲大陆的可持续经济转型。",
+
+    "advisoryBoardTitle": "AEF 战略咨询委员会",
+    "advisoryBoardSubtitle": "由杰出领导者组成，为 Africa Economic Forum 提供战略指导和发展愿景。",
+
+    "executiveBoardTitle": "AEF 执行委员会",
+    "executiveBoardSubtitle": "负责支持论坛的战略方向、区域合作和项目实施的执行领导团队。",
+
+    "scientificCommitteeTitle": "科学委员会",
+    "scientificCommitteeSubtitle": "由经济和科学领域的专家提供专业支持，推动基于证据的对话和战略发展。",
+
+    "joinMovementTitle": "加入这项运动",
+    "joinMovementText": "成为非洲转型的一员。与具有远见的领导者建立联系，参与战略伙伴关系，共同塑造非洲主权经济的未来。",
+    "becomeMember": "成为会员"
+  },
+
   "forums": {
     "africaPeaceForum": {
       "title": "Africa Peace Forum",
