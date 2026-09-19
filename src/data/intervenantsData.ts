@@ -22,7 +22,7 @@ export const listeIntervenants: Intervenant[] = [
     id: '2',
     key: 'hildaSukaMafudze',
     nom: 'H.E Hilda Suka Mafudze',
-    photoUrl: '/images/H.E Hilda Suka Mafudze.jpg',
+    photoUrl: '/images/OfficeH.E Hilda Suka Mafudze.jpg',
     statut: 'Confirmé',
   },
 
@@ -62,7 +62,7 @@ export const listeIntervenants: Intervenant[] = [
     id: '7',
     key: 'anaHelenaChaconEcheverria',
     nom: 'H.E Ana-Helena Chacón Echeverría',
-    photoUrl: '/images/H.E Ana-Helena Chacón Echeverría.jpg',
+    photoUrl: '/images/ana-helena-chacon.jpg',
     statut: 'Confirmé',
   },
 
@@ -87,14 +87,6 @@ export const listeIntervenants: Intervenant[] = [
     key: 'bakoAmbianda',
     nom: 'Bako Ambianda',
     photoUrl: '/images/Bako Ambianda.jpg',
-    statut: 'Invité',
-  },
-
-  {
-    id: '11',
-    key: 'amalElFallahSeghrouchni',
-    nom: 'Amal El Fallah Seghrouchni',
-    photoUrl: '/images/Amal El Fallah Seghrouchni.jpg',
     statut: 'Invité',
   },
 
@@ -154,7 +146,7 @@ export const listeIntervenants: Intervenant[] = [
     id: '17',
     key: 'mikeHorton',
     nom: 'Dr. Mike Horton',
-    photoUrl: '/images/Mike Horton.jpg',
+    photoUrl: '/images/Dr. Mike Horton.jpg',
     description:
       'Former Federal Chief AI Officer, U.S, Director of the Center for Applied AI Maturity, Northeastern University',
     statut: 'Confirmé',
