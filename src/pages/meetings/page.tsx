@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { Forum, forums } from './forumsData';
+import { forums, type Forum } from './forumsData';
 
 export default function Meetings() {
   const { user, signOut } = useAuth();
@@ -14,14 +14,8 @@ export default function Meetings() {
   const [showCreateAccount, setShowCreateAccount] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-
   const [forumsData, setForumsData] = useState<Forum[]>([]);
 
-  /*
-   * IMPORTANT :
-   * Les forums sont maintenant chargés depuis forumsData.ts
-   * et non plus depuis les traductions i18n.
-   */
   useEffect(() => {
     setForumsData(forums);
   }, []);
@@ -64,10 +58,10 @@ export default function Meetings() {
     const password = formData.get('password') as string;
 
     if (email && password) {
-      alert('Sign in successful! Welcome back.');
+      alert(t('auth.signInSuccess'));
       setShowSignInModal(false);
     } else {
-      alert('Please fill in all required fields.');
+      alert(t('auth.requiredFields'));
     }
   };
 
@@ -85,18 +79,16 @@ export default function Meetings() {
     const lastName = formData.get('last_name') as string;
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match. Please try again.');
+      alert(t('auth.passwordMismatch'));
       return;
     }
 
     if (email && password && firstName && lastName) {
-      alert(
-        'Account created successfully! Welcome to Africa Economic Forum.'
-      );
+      alert(t('auth.accountCreated'));
       setShowSignInModal(false);
       setShowCreateAccount(false);
     } else {
-      alert('Please fill in all required fields.');
+      alert(t('auth.requiredFields'));
     }
   };
 
@@ -112,30 +104,83 @@ export default function Meetings() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  /*
+   * Utilise la traduction si elle existe.
+   * Sinon, conserve le texte de forumsData.ts.
+   */
+  const translateForumField = (
+    forum: Forum,
+    field: string,
+    fallback: string
+  ) => {
+    const translationKey = `forums.${forum.key}.${field}`;
+
+    if (i18n.exists(translationKey)) {
+      return t(translationKey);
+    }
+
+    return fallback;
+  };
+
+  const translateForumArray = (
+    forum: Forum,
+    field: string,
+    values: string[]
+  ) => {
+    return values.map((value, index) => {
+      const translationKey = `forums.${forum.key}.${field}.${index}`;
+
+      if (i18n.exists(translationKey)) {
+        return t(translationKey);
+      }
+
+      return value;
+    });
+  };
+
   const renderExpandedContent = (forum: Forum) => {
+    const translatedOverview = translateForumField(
+      forum,
+      'overview',
+      forum.overview
+    );
+
+    const translatedObjectives = translateForumArray(
+      forum,
+      'objectives',
+      forum.objectives
+    );
+
+    const translatedKeyAreas = translateForumArray(
+      forum,
+      'keyAreas',
+      forum.keyAreas
+    );
+
     return (
       <div className="mt-6 space-y-6">
+
         {/* Overview */}
         <div>
           <h4 className="text-lg font-semibold text-gray-900 mb-3">
-            Overview
+            {t('meetingsPage.overview')}
           </h4>
 
           <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-            {forum.overview}
+            {translatedOverview}
           </p>
         </div>
 
         {/* Objectives */}
-        {Array.isArray(forum.objectives) &&
-          forum.objectives.length > 0 && (
+        {Array.isArray(translatedObjectives) &&
+          translatedObjectives.length > 0 && (
             <div>
               <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                Forum Objectives
+                {t('meetingsPage.objectives')}
               </h4>
 
               <ul className="space-y-2">
-                {forum.objectives.map(
+                {translatedObjectives.map(
                   (objective: string, index: number) => (
                     <li
                       key={index}
@@ -156,15 +201,15 @@ export default function Meetings() {
           )}
 
         {/* Key Focus Areas */}
-        {Array.isArray(forum.keyAreas) &&
-          forum.keyAreas.length > 0 && (
+        {Array.isArray(translatedKeyAreas) &&
+          translatedKeyAreas.length > 0 && (
             <div>
               <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                Key Focus Areas
+                {t('meetingsPage.keyFocusAreas')}
               </h4>
 
               <ul className="space-y-2">
-                {forum.keyAreas.map(
+                {translatedKeyAreas.map(
                   (area: string, index: number) => (
                     <li
                       key={index}
@@ -189,7 +234,7 @@ export default function Meetings() {
           forum.pillars.length > 0 && (
             <div>
               <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                Strategic Pillars
+                {t('meetingsPage.strategicPillars')}
               </h4>
 
               <div className="space-y-4">
@@ -199,7 +244,14 @@ export default function Meetings() {
                     className="bg-gray-50 p-4 rounded-lg"
                   >
                     <h5 className="font-semibold text-gray-900 mb-2">
-                      {index + 1}. {pillar.title}
+                      {index + 1}.{" "}
+                      {i18n.exists(
+                        `forums.${forum.key}.pillars.${index}.title`
+                      )
+                        ? t(
+                            `forums.${forum.key}.pillars.${index}.title`
+                          )
+                        : pillar.title}
                     </h5>
 
                     <ul className="space-y-1">
@@ -208,20 +260,30 @@ export default function Meetings() {
                           (
                             item: string,
                             itemIndex: number
-                          ) => (
-                            <li
-                              key={itemIndex}
-                              className="flex items-start"
-                            >
-                              <span className="text-teal-600 mr-2 text-sm">
-                                •
-                              </span>
+                          ) => {
+                            const itemKey =
+                              `forums.${forum.key}.pillars.${index}.items.${itemIndex}`;
 
-                              <span className="text-gray-700 text-sm">
-                                {item}
-                              </span>
-                            </li>
-                          )
+                            const translatedItem =
+                              i18n.exists(itemKey)
+                                ? t(itemKey)
+                                : item;
+
+                            return (
+                              <li
+                                key={itemIndex}
+                                className="flex items-start"
+                              >
+                                <span className="text-teal-600 mr-2 text-sm">
+                                  •
+                                </span>
+
+                                <span className="text-gray-700 text-sm">
+                                  {translatedItem}
+                                </span>
+                              </li>
+                            );
+                          }
                         )}
                     </ul>
                   </div>
@@ -241,6 +303,7 @@ export default function Meetings() {
       ========================================================= */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <div className="flex justify-between items-center h-16">
 
             {/* Logo */}
@@ -357,32 +420,35 @@ export default function Meetings() {
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
 
                       <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
+
                         <div className="font-medium">
                           {user.user_metadata?.full_name ||
-                            'User'}
+                            t('auth.user')}
                         </div>
 
                         <div className="text-gray-500">
                           {user.email}
                         </div>
+
                       </div>
 
                       <button
                         onClick={handleViewProfile}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        View Profile
+                        {t('auth.viewProfile')}
                       </button>
 
                       <button
                         onClick={handleSignOut}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        Sign Out
+                        {t('auth.signOut')}
                       </button>
 
                     </div>
                   )}
+
                 </div>
               ) : (
                 <button
@@ -399,6 +465,7 @@ export default function Meetings() {
             <button
               className="md:hidden p-2 cursor-pointer"
               onClick={toggleMobileMenu}
+              aria-label="Menu"
             >
               <i
                 className={`ri-${
@@ -501,7 +568,7 @@ export default function Meetings() {
 
                       <span className="text-gray-700 font-medium">
                         {user.user_metadata?.full_name ||
-                          'User'}
+                          t('auth.user')}
                       </span>
 
                     </div>
@@ -513,7 +580,7 @@ export default function Meetings() {
                       }}
                       className="block w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium text-center"
                     >
-                      View Profile
+                      {t('auth.viewProfile')}
                     </button>
 
                     <button
@@ -523,7 +590,7 @@ export default function Meetings() {
                       }}
                       className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 font-medium whitespace-nowrap cursor-pointer"
                     >
-                      Sign Out
+                      {t('auth.signOut')}
                     </button>
 
                   </div>
@@ -589,58 +656,74 @@ export default function Meetings() {
 
           <div className="grid lg:grid-cols-2 gap-8">
 
-            {forumsData.map((forum) => (
-              <div
-                key={forum.id}
-                className="bg-white rounded-lg shadow-lg overflow-hidden"
-              >
+            {forumsData.map((forum) => {
 
-                {/* Forum Image */}
-                <img
-                  src={forum.image}
-                  alt={forum.title}
-                  className="w-full h-64 object-cover object-top"
-                />
+              const translatedTitle = translateForumField(
+                forum,
+                'title',
+                forum.title
+              );
 
-                <div className="p-6">
+              const translatedDescription =
+                translateForumField(
+                  forum,
+                  'description',
+                  forum.description
+                );
 
-                  {/* Forum Title */}
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    {forum.title}
-                  </h3>
+              return (
+                <div
+                  key={forum.id}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden"
+                >
 
-                  {/* Forum Description */}
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {forum.description}
-                  </p>
+                  {/* Forum Image */}
+                  <img
+                    src={forum.image}
+                    alt={translatedTitle}
+                    className="w-full h-64 object-cover object-top"
+                  />
 
-                  {/* Expanded Content */}
-                  {expandedCard === forum.id &&
-                    renderExpandedContent(forum)}
+                  <div className="p-6">
 
-                  {/* Read More Button */}
-                  <button
-                    onClick={() => toggleCard(forum.id)}
-                    className="mt-4 bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer flex items-center space-x-2"
-                  >
-                    <span>
-                      {expandedCard === forum.id
-                        ? t('meetingsPage.showLess')
-                        : t('meetingsPage.readMore')}
-                    </span>
+                    {/* Forum Title */}
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                      {translatedTitle}
+                    </h3>
 
-                    <i
-                      className={`ri-arrow-${
-                        expandedCard === forum.id
-                          ? 'up'
-                          : 'down'
-                      }-s-line`}
-                    ></i>
-                  </button>
+                    {/* Forum Description */}
+                    <p className="text-gray-600 mb-6 leading-relaxed">
+                      {translatedDescription}
+                    </p>
 
+                    {/* Expanded Content */}
+                    {expandedCard === forum.id &&
+                      renderExpandedContent(forum)}
+
+                    {/* Read More Button */}
+                    <button
+                      onClick={() => toggleCard(forum.id)}
+                      className="mt-4 bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer flex items-center space-x-2"
+                    >
+                      <span>
+                        {expandedCard === forum.id
+                          ? t('meetingsPage.showLess')
+                          : t('meetingsPage.readMore')}
+                      </span>
+
+                      <i
+                        className={`ri-arrow-${
+                          expandedCard === forum.id
+                            ? 'up'
+                            : 'down'
+                        }-s-line`}
+                      ></i>
+                    </button>
+
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
           </div>
 
@@ -697,8 +780,8 @@ export default function Meetings() {
 
                 <h3 className="text-2xl font-bold text-gray-900">
                   {showCreateAccount
-                    ? 'Create Account'
-                    : 'Sign In'}
+                    ? t('auth.createAccount')
+                    : t('auth.signIn')}
                 </h3>
 
                 <button
@@ -706,6 +789,7 @@ export default function Meetings() {
                     setShowSignInModal(false)
                   }
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                  aria-label="Close"
                 >
                   <i className="ri-close-line text-2xl"></i>
                 </button>
@@ -722,7 +806,7 @@ export default function Meetings() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
+                        {t('auth.emailAddress')} *
                       </label>
 
                       <input
@@ -730,13 +814,15 @@ export default function Meetings() {
                         name="email"
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Enter your email address"
+                        placeholder={t(
+                          'auth.emailPlaceholder'
+                        )}
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Password *
+                        {t('auth.password')} *
                       </label>
 
                       <input
@@ -744,7 +830,9 @@ export default function Meetings() {
                         name="password"
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Enter your password"
+                        placeholder={t(
+                          'auth.passwordPlaceholder'
+                        )}
                       />
                     </div>
 
@@ -759,7 +847,7 @@ export default function Meetings() {
                         />
 
                         <span className="text-sm text-gray-600">
-                          Remember me
+                          {t('auth.rememberMe')}
                         </span>
 
                       </label>
@@ -768,7 +856,7 @@ export default function Meetings() {
                         type="button"
                         className="text-sm text-blue-600 hover:text-blue-800 cursor-pointer"
                       >
-                        Forgot password?
+                        {t('auth.forgotPassword')}
                       </button>
 
                     </div>
@@ -777,7 +865,7 @@ export default function Meetings() {
                       type="submit"
                       className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
                     >
-                      Sign In
+                      {t('auth.signIn')}
                     </button>
 
                   </form>
@@ -785,13 +873,13 @@ export default function Meetings() {
                   <div className="mt-6 text-center">
 
                     <p className="text-sm text-gray-600">
-                      Don't have an account?
+                      {t('auth.noAccount')}
 
                       <button
                         onClick={switchToCreateAccount}
                         className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
                       >
-                        Create Account
+                        {t('auth.createAccount')}
                       </button>
                     </p>
 
@@ -809,7 +897,7 @@ export default function Meetings() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          First Name *
+                          {t('auth.firstName')} *
                         </label>
 
                         <input
@@ -817,13 +905,15 @@ export default function Meetings() {
                           name="first_name"
                           required
                           className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                          placeholder="First name"
+                          placeholder={t(
+                            'auth.firstNamePlaceholder'
+                          )}
                         />
                       </div>
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Last Name *
+                          {t('auth.lastName')} *
                         </label>
 
                         <input
@@ -831,7 +921,9 @@ export default function Meetings() {
                           name="last_name"
                           required
                           className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                          placeholder="Last name"
+                          placeholder={t(
+                            'auth.lastNamePlaceholder'
+                          )}
                         />
                       </div>
 
@@ -839,7 +931,7 @@ export default function Meetings() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
+                        {t('auth.emailAddress')} *
                       </label>
 
                       <input
@@ -847,26 +939,30 @@ export default function Meetings() {
                         name="email"
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Enter your email address"
+                        placeholder={t(
+                          'auth.emailPlaceholder'
+                        )}
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Organization
+                        {t('auth.organization')}
                       </label>
 
                       <input
                         type="text"
                         name="organization"
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Your organization"
+                        placeholder={t(
+                          'auth.organizationPlaceholder'
+                        )}
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Password *
+                        {t('auth.password')} *
                       </label>
 
                       <input
@@ -874,13 +970,15 @@ export default function Meetings() {
                         name="password"
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Create a password"
+                        placeholder={t(
+                          'auth.createPasswordPlaceholder'
+                        )}
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Confirm Password *
+                        {t('auth.confirmPassword')} *
                       </label>
 
                       <input
@@ -888,7 +986,9 @@ export default function Meetings() {
                         name="confirm_password"
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Confirm your password"
+                        placeholder={t(
+                          'auth.confirmPasswordPlaceholder'
+                        )}
                       />
                     </div>
 
@@ -902,7 +1002,7 @@ export default function Meetings() {
                       />
 
                       <span className="text-sm text-gray-600">
-                        I agree to the Terms of Service and Privacy Policy
+                        {t('auth.terms')}
                       </span>
 
                     </div>
@@ -916,7 +1016,7 @@ export default function Meetings() {
                       />
 
                       <span className="text-sm text-gray-600">
-                        I would like to receive updates about Forum activities and events
+                        {t('auth.newsletterConsent')}
                       </span>
 
                     </div>
@@ -925,7 +1025,7 @@ export default function Meetings() {
                       type="submit"
                       className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
                     >
-                      Create Account
+                      {t('auth.createAccount')}
                     </button>
 
                   </form>
@@ -933,13 +1033,13 @@ export default function Meetings() {
                   <div className="mt-6 text-center">
 
                     <p className="text-sm text-gray-600">
-                      Already have an account?
+                      {t('auth.alreadyAccount')}
 
                       <button
                         onClick={switchToSignIn}
                         className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
                       >
-                        Sign In
+                        {t('auth.signIn')}
                       </button>
                     </p>
 
@@ -959,7 +1059,7 @@ export default function Meetings() {
 
                     <div className="relative flex justify-center text-sm">
                       <span className="px-2 bg-white text-gray-500">
-                        Or continue with
+                        {t('auth.orContinueWith')}
                       </span>
                     </div>
 
@@ -972,7 +1072,7 @@ export default function Meetings() {
                       <i className="ri-google-fill text-red-500 text-lg"></i>
 
                       <span className="ml-2">
-                        Google
+                        {t('auth.google')}
                       </span>
 
                     </button>
@@ -982,7 +1082,7 @@ export default function Meetings() {
                       <i className="ri-linkedin-fill text-blue-600 text-lg"></i>
 
                       <span className="ml-2">
-                        LinkedIn
+                        {t('auth.linkedin')}
                       </span>
 
                     </button>
@@ -1061,7 +1161,6 @@ export default function Meetings() {
                 </li>
 
               </ul>
-
             </div>
 
             {/* More From Forum */}
@@ -1146,7 +1245,6 @@ export default function Meetings() {
                 </li>
 
               </ul>
-
             </div>
 
             {/* Engage */}
@@ -1222,7 +1320,6 @@ export default function Meetings() {
                 </li>
 
               </ul>
-
             </div>
 
             {/* Quick Links */}
@@ -1311,6 +1408,19 @@ export default function Meetings() {
                     FR
                   </button>
 
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('zh')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    ZH
+                  </button>
+
                 </div>
 
               </div>
@@ -1322,7 +1432,7 @@ export default function Meetings() {
           {/* Bottom Footer */}
           <div className="border-t border-gray-700 pt-8">
 
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-6">
 
               {/* Social Networks */}
               <div className="flex space-x-4">
@@ -1388,4 +1498,4 @@ export default function Meetings() {
 
     </div>
   );
-      }
+}
