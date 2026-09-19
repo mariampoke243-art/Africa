@@ -158,7 +158,7 @@ export default function ContactPage() {
                         className="w-8 h-8 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                      <div className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center text-white text-sm font-medium">
                         {getInitials(
                           user.user_metadata?.full_name ||
                             user.email?.charAt(0) ||
@@ -355,7 +355,7 @@ export default function ContactPage() {
       </header>
 
       {/* HERO */}
-      <section className="bg-gray-950 px-6 py-20 text-white">
+      <section className="bg-blue-950 px-6 py-20 text-white">
         <div className="mx-auto max-w-6xl">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-teal-400">
             {text('contact.eyebrow', 'Contact')}
@@ -594,7 +594,7 @@ export default function ContactPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal-700 px-6 py-16 text-white">
+      <section className="bg-teal-600 px-6 py-16 text-white">
         <div className="mx-auto max-w-6xl text-center">
 
           <h2 className="text-3xl font-bold md:text-4xl">
@@ -621,129 +621,400 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-gray-950 px-6 py-12 text-gray-300">
-        <div className="mx-auto max-w-6xl">
+      {/* =========================================================
+          FOOTER
+      ========================================================= */}
+      <footer className="bg-gray-900 text-white py-16">
 
-          <div className="grid gap-10 md:grid-cols-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+
+            {/* About */}
             <div>
-              <div className="text-xl font-bold text-white">
-                Africa
-              </div>
 
-              <div className="text-sm text-teal-400">
-                Economic Forum
-              </div>
-
-              <p className="mt-4 max-w-sm text-sm leading-6 text-gray-400">
-                {text(
-                  'footer.description',
-                  'Connecting African leaders, institutions and partners to shape inclusive and sustainable economic growth.'
-                )}
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-white">
-                {text('footer.navigation', 'Navigation')}
+              <h3 className="font-semibold text-lg mb-6">
+                {t('footer.aboutUs')}
               </h3>
 
-              <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+              <ul className="space-y-3">
 
-                <Link
-                  to={`/${i18n.language}`}
-                  className="hover:text-white"
-                >
-                  {t('header.home')}
-                </Link>
+                <li>
+                  <Link
+                    to={`/${i18n.language}/about`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.ourMission')}
+                  </Link>
+                </li>
 
-                <Link
-                  to={`/${i18n.language}/about`}
-                  className="hover:text-white"
-                >
-                  {t('header.about')}
-                </Link>
+                <li>
+                  <Link
+                    to={`/${i18n.language}/framework`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.ourFramework')}
+                  </Link>
+                </li>
 
-                <Link
-                  to={`/${i18n.language}/initiatives`}
-                  className="hover:text-white"
-                >
-                  {t('header.initiatives')}
-                </Link>
+                <li>
+                  <Link
+                    to={`/${i18n.language}/history`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.history')}
+                  </Link>
+                </li>
 
-                <Link
-                  to={`/${i18n.language}/meetings`}
-                  className="hover:text-white"
-                >
-                  {t('header.meetings')}
-                </Link>
+                <li>
+                  <Link
+                    to={`/${i18n.language}/about`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.leadership')}
+                  </Link>
+                </li>
 
-                <Link
-                  to={`/${i18n.language}/agenda`}
-                  className="hover:text-white"
-                >
-                  {t('header.agenda')}
-                </Link>
+                <li>
+                  <Link
+                    to={`/${i18n.language}/about`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.ourImpact')}
+                  </Link>
+                </li>
 
-                <Link
-                  to={`/${i18n.language}/stakeholders`}
-                  className="hover:text-white"
-                >
-                  {t('header.stakeholders')}
-                </Link>
-
-                <Link
-                  to={`/${i18n.language}/publications`}
-                  className="hover:text-white"
-                >
-                  {t('header.publications')}
-                </Link>
-
-                <Link
-                  to={`/${i18n.language}/contact`}
-                  className="hover:text-white"
-                >
-                  {t('header.contact')}
-                </Link>
-
-              </div>
+              </ul>
             </div>
 
+            {/* More From Forum */}
             <div>
-              <h3 className="font-semibold text-white">
-                {text('footer.language', 'Language')}
+
+              <h3 className="font-semibold text-lg mb-6">
+                {t('footer.moreFromForum')}
               </h3>
 
-              <div className="mt-4 flex gap-2">
+              <ul className="space-y-3">
 
-                <button
-                  type="button"
-                  onClick={() => changeLanguage('fr')}
-                  className="rounded-md border border-gray-700 px-3 py-2 text-sm hover:border-teal-500 hover:text-white"
-                >
-                  Français
-                </button>
+                <li>
+                  <Link
+                    to={`/${i18n.language}/initiatives`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.centres')}
+                  </Link>
+                </li>
 
-                <button
-                  type="button"
-                  onClick={() => changeLanguage('en')}
-                  className="rounded-md border border-gray-700 px-3 py-2 text-sm hover:border-teal-500 hover:text-white"
-                >
-                  English
-                </button>
+                <li>
+                  <Link
+                    to={`/${i18n.language}/meetings`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.meetings')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/stakeholders`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.stakeholders')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/agenda`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.forumStories')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/publications`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.pressReleases')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/gallery`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.gallery')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/publications`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.podcasts')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/publications`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.videos')}
+                  </Link>
+                </li>
+
+              </ul>
+            </div>
+
+            {/* Engage */}
+            <div>
+
+              <h3 className="font-semibold text-lg mb-6">
+                {t('footer.engage')}
+              </h3>
+
+              <ul className="space-y-3">
+
+                <li>
+                  {user ? (
+                    <button
+                      onClick={handleSignOut}
+                      className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                    >
+                      {t('footer.logout')}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleSignIn}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer"
+                    >
+                      {t('footer.signIn')}
+                    </button>
+                  )}
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/partners`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.partner')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/join`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.member')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/contact`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.pressSignUp')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/contact`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.newsletters')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/contact`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.contactUs')}
+                  </Link>
+                </li>
+
+              </ul>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+
+              <h3 className="font-semibold text-lg mb-6">
+                {t('footer.quickLinks')}
+              </h3>
+
+              <ul className="space-y-3 mb-8">
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/about`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.sustainability')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/careers`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.careers')}
+                  </Link>
+                </li>
+
+              </ul>
+
+              {/* Languages */}
+              <div>
+
+                <h4 className="font-semibold mb-4">
+                  {t('footer.languageEditions')}
+                </h4>
+
+                <div className="flex space-x-2">
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('pt')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    PT
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('en')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    EN
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('es')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    ES
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('fr')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    FR
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('zh')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    ZH
+                  </button>
+
+                </div>
 
               </div>
+
             </div>
 
           </div>
 
-          <div className="mt-10 border-t border-gray-800 pt-6 text-sm text-gray-500">
-            © {new Date().getFullYear()} Africa Economic Forum.{' '}
-            {text(
-              'footer.rights',
-              'All rights reserved.'
-            )}
+          {/* Bottom Footer */}
+          <div className="border-t border-gray-700 pt-8">
+
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-6">
+
+              {/* Social Networks */}
+              <div className="flex space-x-4">
+
+                <a
+                  href="https://www.facebook.com/share/17Jr8NpqZJ/"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
+                  <i className="ri-facebook-fill text-xl"></i>
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/company/the-africa-economic-forum/"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
+                  <i className="ri-linkedin-fill text-xl"></i>
+                </a>
+
+                <a
+                  href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ=="
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
+                  <i className="ri-instagram-fill text-xl"></i>
+                </a>
+
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
+                  <i className="ri-youtube-fill text-xl"></i>
+                </a>
+
+              </div>
+
+              {/* Copyright */}
+              <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
+
+                <Link
+                  to={`/${i18n.language}/privacy`}
+                  className="hover:text-white cursor-pointer"
+                >
+                  {t('footer.privacy')}
+                </Link>
+
+                <p>
+                  {t('footer.copyright')}
+                </p>
+
+                <a
+                  href="https://codesignglobal.com"
+                  className="hover:text-white cursor-pointer"
+                >
+                  Code Design Global
+                </a>
+
+              </div>
+
+            </div>
           </div>
 
         </div>
@@ -751,4 +1022,4 @@ export default function ContactPage() {
 
     </div>
   );
-}
+              }
