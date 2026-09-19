@@ -639,5 +639,47 @@
       "fromDialogueToAction": "Relier dirigeants agricoles, investisseurs, fournisseurs de technologies et gouvernements afin de transformer les systèmes alimentaires africains et de débloquer des opportunités d’investissement évolutives.",
       "joinForum": "Rejoindre l’Africa Agriculture & Food Forum"
     }
+  },
+
+  "intervenantsPage": {
+    "forum": "Africa Economic Forum 2026",
+    "title": "Intervenants",
+    "subtitle": "Les personnes qui façonnent le dialogue.",
+    "intro": "L’AEF réunit les décideurs et les voix qui façonnent les relations entre l’Afrique et les capitaux, les technologies, l’énergie, le commerce et les investissements stratégiques mondiaux.",
+    "categories": "Catégories : chefs d’État, dirigeants gouvernementaux, investisseurs, PDG, stratèges économiques, dirigeants financiers et experts sectoriels.",
+    "confirmedTitle": "Intervenants confirmés",
+    "confirmedSubtitle": "Découvrez les dirigeants et experts qui participeront aux dialogues stratégiques de 2026.",
+    "confirmed": "Confirmé",
+    "invitedTitle": "Dirigeants invités",
+    "invitedSubtitle": "Des personnalités de premier plan invitées à participer aux débats et discussions de l’Africa Economic Forum.",
+    "invited": "Invité",
+    "descriptions": {
+      "abrahamDwumaOdoom": "Homme politique ghanéen et ancien député de Twifo Atti-Morkwa. Il a travaillé sur les politiques agricoles, le développement du cacao et les initiatives de production de riz.",
+      "hildaSukaMafudze": "Diplomate zimbabwéenne et représentante principale de l’Union africaine, avec une vaste expérience en diplomatie, coopération régionale, commerce, investissement et développement.",
+      "dominiqueMigisha": "Spécialiste du développement numérique et Coordinateur de l’Agence de développement numérique de la République démocratique du Congo, axé sur la transformation numérique et la modernisation du secteur public.",
+      "rashedMohamedKarkain": "Innovateur, chercheur et auteur émirati spécialisé dans le développement durable, l’économie circulaire, le leadership environnemental et la durabilité.",
+      "abdullahBelhaifAlNuaimi": "Ingénieur, homme d’État et spécialiste émirati du développement durable, avec plus de quatre décennies d’expérience dans les infrastructures, les politiques environnementales et l’action climatique.",
+      "abdullahiKassim": "Directeur exécutif chargé de la production à la Niger Delta Power Holding Company, avec plus de 20 ans d’expérience dans la production d’électricité, les infrastructures énergétiques et le leadership en ingénierie.",
+      "anaHelenaChaconEcheverria": "Diplomate et dirigeante publique costaricienne, ancienne vice-présidente du Costa Rica et défenseure des droits humains, de l’inclusion sociale et de la coopération internationale.",
+      "rosaliaArteaga": "Ancienne présidente et vice-présidente de l’Équateur, éducatrice, avocate et écrivaine, engagée en faveur de l’éducation, de la culture et du développement durable.",
+      "johnAgyekumKufuor": "Ancien président du Ghana, avocat et homme d’État, avec une longue expérience du service public et de l’engagement en faveur du développement africain.",
+      "bakoAmbianda": "Entrepreneur, investisseur, auteur et défenseur des énergies durables, plusieurs fois récompensé, axé sur l’investissement africain, les énergies renouvelables, la technologie et le développement économique.",
+      "amalElFallahSeghrouchni": "Experte marocaine en intelligence artificielle, professeure et chercheuse spécialisée dans l’intelligence artificielle distribuée, les systèmes multi-agents et la transformation numérique.",
+      "eleonoreCaroit": "Avocate et personnalité publique franco-dominicaine, avec une expérience en droit international, partenariats internationaux, Francophonie et relations avec les Français de l’étranger.",
+      "zarinahTraciSilas": "Co-fondatrice d’Africa Resources Capital Holdings et ancienne cadre du Senior Executive Service du gouvernement fédéral américain.",
+      "jacquelineJaqCampbell": "Cadre dirigeante dans la gestion de patrimoine, entrepreneure et stratège en investissement États-Unis–Afrique.",
+      "vladimirNorov": "Ancien ministre des Affaires étrangères d’Ouzbékistan et ancien secrétaire général de l’Organisation de coopération de Shanghai.",
+      "akwasiOpongFosu": "Président du Ghana Investment Promotion Centre, ancien ministre d’État et ancien membre du Parlement.",
+      "mikeHorton": "Ancien Chief AI Officer fédéral des États-Unis, directeur du Center for Applied AI Maturity de la Northeastern University.",
+      "afolakeOyinloye": "Journaliste à AfricaNews.",
+      "eliezerMoodiSandberg": "Ancien ministre israélien des Sciences et de la Technologie.",
+      "muhammadAzfarAhsan": "Ancien ministre de l’Investissement du Pakistan.",
+      "dagmawitMogesBekele": "Directrice du Secrétariat du Fonds pour la paix de l’Union africaine.",
+      "kevinChikaUrama": "Économiste en chef et vice-président chargé de la gouvernance économique et de la gestion des connaissances au Groupe de la Banque africaine de développement.",
+      "mosesVilakati": "Commissaire à l’Agriculture, au Développement rural, à l’Économie bleue et à l’Environnement durable de la Commission de l’Union africaine (CUA).",
+      "agostinhoKapaia": "Président du groupe OPAIA.",
+      "rebecaGrynspan": "Économiste, ancienne vice-présidente du Costa Rica et secrétaire générale de la CNUCED, avec une vaste expérience dans le développement international, le commerce et la coopération multilatérale.",
+      "lindaKarimCreevey": "Représentante du Liberia pour le commerce et l’investissement en Asie et en Australie."
+    }
   }
-}
+        }
