@@ -148,6 +148,117 @@
     }
   },
 
+  "about": {
+    "heroTitle": "Acerca del Africa Economic Forum",
+    "heroSubtitle": "Una plataforma para el diálogo estratégico, la cooperación económica y la acción transformadora en África.",
+
+    "whatWeAreTitle": "Quiénes Somos",
+    "whatWeAreText1": "El Africa Economic Forum es una plataforma de referencia que reúne a líderes africanos y mundiales para contribuir al futuro económico del continente.",
+    "whatWeAreText2": "Reunimos a gobiernos, inversores, instituciones, líderes empresariales y pensadores para transformar el diálogo estratégico en alianzas, inversiones y acciones concretas.",
+
+    "missionTitle": "Nuestra Misión",
+    "missionSubtitle": "Acelerar la transformación económica de África mediante conexiones estratégicas, liderazgo visionario y acción práctica.",
+
+    "winWinTitle": "Alianzas Beneficiosas para Todos",
+    "winWinText": "Creamos oportunidades para alianzas mutuamente beneficiosas entre las partes interesadas africanas e internacionales.",
+
+    "visionaryLeadershipTitle": "Liderazgo Visionario",
+    "visionaryLeadershipText": "Reunimos a líderes capaces de desarrollar ideas ambiciosas y convertirlas en resultados económicos significativos.",
+
+    "strategicConnectionsTitle": "Conexiones Estratégicas",
+    "strategicConnectionsText": "Conectamos a gobiernos, inversores, instituciones y empresas en torno a prioridades económicas estratégicas.",
+
+    "narrativeElevationTitle": "Elevación de la Narrativa",
+    "narrativeElevationText": "Contribuimos a una comprensión global más sólida de las oportunidades, capacidades y potencial económico de África.",
+
+    "communityEmpowermentTitle": "Empoderamiento de las Comunidades",
+    "communityEmpowermentText": "Promovemos la participación inclusiva y creamos oportunidades para que las comunidades y los nuevos líderes contribuyan a la transformación de África.",
+
+    "visionTitle": "Nuestra Visión",
+    "visionText": "Una África próspera, conectada y globalmente influyente, impulsada por el liderazgo africano, la innovación y la cooperación estratégica.",
+
+    "coreValuesTitle": "Nuestros Valores Fundamentales",
+    "coreValuesSubtitle": "Los principios que guían nuestro trabajo y nuestras alianzas.",
+
+    "sovereigntyTitle": "Soberanía",
+    "sovereigntyText": "Respetar la capacidad de África para definir y promover sus propias prioridades económicas.",
+
+    "equityTitle": "Equidad",
+    "equityText": "Promover oportunidades justas, participación inclusiva y prosperidad compartida.",
+
+    "transformationalLeadershipTitle": "Liderazgo Transformador",
+    "transformationalLeadershipText": "Apoyar un liderazgo capaz de impulsar una transformación económica significativa y duradera.",
+
+    "narrativeJusticeTitle": "Justicia Narrativa",
+    "narrativeJusticeText": "Promover narrativas precisas, equilibradas y orientadas hacia el futuro sobre África.",
+
+    "innovationTitle": "Innovación",
+    "innovationText": "Fomentar nuevas ideas, tecnologías y enfoques para responder a los desafíos económicos de África.",
+
+    "inclusionTitle": "Inclusión",
+    "inclusionText": "Garantizar que diversas voces, perspectivas y comunidades tengan un lugar en el futuro económico de África.",
+
+    "impactTitle": "Nuestro Impacto",
+    "impactSubtitle": "Crear conexiones y oportunidades que contribuyan a la transformación económica de África.",
+
+    "countriesEngaged": "54 Países Involucrados",
+    "globalLeadersConnected": "Líderes Mundiales Conectados",
+    "investmentOpportunities": "Oportunidades de Inversión",
+    "strategicPartnerships": "Alianzas Estratégicas",
+
+    "organizingCommitteeTitle": "Comité Organizador",
+    "organizingCommitteeSubtitle": "El equipo que coordina el Africa Economic Forum.",
+
+    "founderTitle": "Fundador",
+    "founderSubtitle": "El liderazgo detrás del Africa Economic Forum.",
+    "founderRole": "Fundador y Presidente",
+    "founderBio": "Lidera el Africa Economic Forum con la visión de fortalecer la cooperación estratégica, la inversión y la transformación económica en África.",
+
+    "advisoryBoardTitle": "Consejo Asesor",
+    "advisoryBoardSubtitle": "Líderes experimentados que proporcionan orientación estratégica al Foro.",
+
+    "executiveBoardTitle": "Consejo Ejecutivo",
+    "executiveBoardSubtitle": "El equipo de liderazgo responsable de la estrategia y ejecución del Foro.",
+
+    "scientificCommitteeTitle": "Comité Científico",
+    "scientificCommitteeSubtitle": "Expertos que aportan conocimientos, investigación y perspectivas estratégicas.",
+
+    "joinMovementTitle": "Únase al Movimiento",
+    "joinMovementText": "Forme parte de una comunidad creciente que trabaja para construir el futuro económico de África.",
+    "becomeMember": "Convertirse en Miembro",
+
+    "members": {
+      "akwasiOpongFosu": {
+        "role": "Presidente del Consejo Asesor",
+        "bio": "Proporciona orientación estratégica y liderazgo para apoyar la misión y la visión a largo plazo del Foro."
+      },
+      "zarinahTraciSilas": {
+        "role": "Miembro del Consejo Ejecutivo",
+        "bio": "Apoya el desarrollo estratégico del Foro y sus alianzas institucionales."
+      },
+      "jacquelineJaqCampbell": {
+        "role": "Miembro del Consejo Ejecutivo",
+        "bio": "Contribuye a las iniciativas estratégicas y a la relación del Foro con las principales partes interesadas."
+      },
+      "femiSalami": {
+        "role": "Miembro del Consejo Ejecutivo",
+        "bio": "Apoya el diálogo económico, las alianzas y las iniciativas estratégicas en África."
+      },
+      "abrahamDwumaOdoom": {
+        "role": "Miembro del Consejo Ejecutivo",
+        "bio": "Aporta liderazgo y perspectivas estratégicas a los programas y alianzas del Foro."
+      },
+      "aminaToure": {
+        "role": "Miembro del Consejo Ejecutivo",
+        "bio": "Apoya el desarrollo económico inclusivo, el liderazgo y la cooperación estratégica."
+      },
+      "nathanLewis": {
+        "role": "Miembro del Comité Científico",
+        "bio": "Contribuye con investigación, conocimientos especializados y perspectivas analíticas al trabajo estratégico del Foro."
+      }
+    }
+  },
+
   "footer": {
     "aboutUs": "Sobre nosotros",
     "ourMission": "Nuestra misión",
