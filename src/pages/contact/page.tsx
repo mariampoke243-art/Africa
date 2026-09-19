@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../supabase/client';
+import { useTranslation } from 'react-i18next';
 
 export default function Contact() {
   const { user, signOut } = useAuth();
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
 
   // =========================
@@ -40,7 +42,7 @@ export default function Contact() {
 
   const handleViewProfile = () => {
     setIsProfileDropdownOpen(false);
-    navigate('/profile');
+    navigate(`/${i18n.language}/profile`);
   };
 
   const getInitials = () => {
@@ -448,192 +450,174 @@ export default function Contact() {
           HEADER
       ====================================== */}
 
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+      <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="h-20 flex items-center justify-between">
+          <div className="flex justify-between items-center h-16">
 
             {/* LOGO */}
-            <Link
-              to="/"
-              className="flex items-center gap-3"
-              onClick={closeMobileMenu}
-            >
-              <div className="w-11 h-11 bg-blue-900 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">
-                  AEF
-                </span>
-              </div>
-
-              <div className="hidden sm:block">
-                <div className="font-bold text-blue-900 text-lg leading-tight">
-                  Africa Economic Forum
-                </div>
-                <div className="text-xs text-gray-500">
-                  Connecting Africa's Future
-                </div>
-              </div>
-            </Link>
+            <div className="flex items-center">
+              <Link
+                to={`/${i18n.language}`}
+                className="flex items-center"
+                onClick={closeMobileMenu}
+              >
+                <img
+                  src="https://static.readdy.ai/image/433d1257c1dbc1f8bb2f3f1c418f6689/0727857f21d196505f8ef18cfc1cd897.png"
+                  alt="Africa Economic Forum"
+                  className="h-10 w-auto"
+                />
+              </Link>
+            </div>
 
             {/* DESKTOP NAVIGATION */}
-            <nav className="hidden lg:flex items-center gap-7">
+            <nav className="hidden md:flex space-x-8">
 
               <Link
-                to="/"
-                className="text-gray-700 hover:text-blue-900 transition"
+                to={`/${i18n.language}`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Home
               </Link>
 
               <Link
-                to="/about"
-                className="text-gray-700 hover:text-blue-900 transition"
+                to={`/${i18n.language}/about`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 About
               </Link>
 
               <Link
-                to="/initiatives"
-                className="text-gray-700 hover:text-blue-900 transition"
+                to={`/${i18n.language}/initiatives`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Initiatives
               </Link>
 
               <Link
-                to="/meetings"
-                className="text-gray-700 hover:text-blue-900 transition"
+                to={`/${i18n.language}/stakeholders`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
-                Meetings
+                Stakeholders
               </Link>
 
               <Link
-                to="/agenda"
-                className="text-gray-700 hover:text-blue-900 transition"
+                to={`/${i18n.language}/agenda`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Agenda
               </Link>
 
               <Link
-                to="/intervenants"
-                className="text-gray-700 hover:text-blue-900 transition"
-              >
-                Intervenants
-              </Link>
-
-              <Link
-                to="/partners"
-                className="text-gray-700 hover:text-blue-900 transition"
-              >
-                Partners
-              </Link>
-
-              <Link
-                to="/publications"
-                className="text-gray-700 hover:text-blue-900 transition"
+                to={`/${i18n.language}/publications`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Publications
               </Link>
 
               <Link
-                to="/contact"
-                className="text-blue-900 font-semibold"
+                to={`/${i18n.language}/meetings`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
+                Meetings
+              </Link>
+
+              <Link
+                to={`/${i18n.language}/contact`}
+                className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600"
               >
                 Contact
               </Link>
+
             </nav>
 
-            {/* RIGHT SIDE */}
-            <div className="hidden lg:flex items-center gap-4">
+            {/* DESKTOP USER */}
+            <div className="hidden md:flex items-center space-x-4">
 
-              {!user ? (
-                <>
-                  <button
-                    type="button"
-                    onClick={handleSignIn}
-                    className="text-blue-900 font-medium hover:text-blue-700 transition"
-                  >
-                    Sign In
-                  </button>
-
-                  <Link
-                    to="/join"
-                    className="bg-blue-900 text-white px-5 py-2.5 rounded-md hover:bg-blue-800 transition font-medium"
-                  >
-                    Become a Member
-                  </Link>
-                </>
-              ) : (
+              {user ? (
                 <div className="relative">
 
                   <button
-                    type="button"
                     onClick={() =>
                       setIsProfileDropdownOpen(
-                        (prev) => !prev
+                        !isProfileDropdownOpen
                       )
                     }
-                    className="flex items-center gap-3"
+                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                    title={
+                      user.user_metadata?.full_name ||
+                      user.email
+                    }
                   >
-                    <div className="w-10 h-10 rounded-full bg-blue-900 text-white flex items-center justify-center font-semibold">
-                      {getInitials()}
-                    </div>
-
-                    <div className="text-left">
-                      <div className="text-sm font-semibold text-gray-900">
-                        {user.user_metadata
-                          ?.full_name ||
-                          user.email}
+                    {user.user_metadata?.avatar_url ? (
+                      <img
+                        src={user.user_metadata.avatar_url}
+                        alt="Profile"
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                        {getInitials()}
                       </div>
-
-                      <div className="text-xs text-gray-500">
-                        My Account
-                      </div>
-                    </div>
-
-                    <i className="ri-arrow-down-s-line text-lg text-gray-500" />
+                    )}
                   </button>
 
                   {isProfileDropdownOpen && (
-                    <div className="absolute right-0 mt-3 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-2">
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+
+                      <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
+
+                        <div className="font-medium">
+                          {user.user_metadata?.full_name ||
+                            'User'}
+                        </div>
+
+                        <div className="text-gray-500">
+                          {user.email}
+                        </div>
+
+                      </div>
 
                       <button
-                        type="button"
                         onClick={handleViewProfile}
-                        className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3"
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        <i className="ri-user-line text-blue-900" />
-                        <span>My Profile</span>
+                        My Profile
                       </button>
 
                       <button
-                        type="button"
                         onClick={handleSignOut}
-                        className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 text-red-600"
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        <i className="ri-logout-box-r-line" />
-                        <span>Sign Out</span>
+                        Sign Out
                       </button>
 
                     </div>
                   )}
+
                 </div>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </button>
               )}
+
             </div>
 
             {/* MOBILE BUTTON */}
             <button
-              type="button"
+              className="md:hidden p-2 cursor-pointer"
               onClick={toggleMobileMenu}
-              className="lg:hidden w-10 h-10 flex items-center justify-center text-gray-700"
-              aria-label="Open menu"
+              aria-label="Menu"
             >
               <i
-                className={
-                  isMobileMenuOpen
-                    ? 'ri-close-line text-2xl'
-                    : 'ri-menu-line text-2xl'
-                }
-              />
+                className={`ri-${
+                  isMobileMenuOpen ? 'close' : 'menu'
+                }-line text-2xl`}
+              ></i>
             </button>
 
           </div>
@@ -641,140 +625,138 @@ export default function Contact() {
 
         {/* MOBILE MENU */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white">
+          <div className="md:hidden bg-white border-t border-gray-200">
 
-            <nav className="px-5 py-5 space-y-1">
+            <div className="px-2 pt-2 pb-3 space-y-1">
 
               <Link
-                to="/"
+                to={`/${i18n.language}`}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
                 onClick={closeMobileMenu}
-                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
               >
                 Home
               </Link>
 
               <Link
-                to="/about"
+                to={`/${i18n.language}/about`}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
                 onClick={closeMobileMenu}
-                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
               >
                 About
               </Link>
 
               <Link
-                to="/initiatives"
+                to={`/${i18n.language}/initiatives`}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
                 onClick={closeMobileMenu}
-                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
               >
                 Initiatives
               </Link>
 
               <Link
-                to="/meetings"
+                to={`/${i18n.language}/stakeholders`}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
                 onClick={closeMobileMenu}
-                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
               >
-                Meetings
+                Stakeholders
               </Link>
 
               <Link
-                to="/agenda"
+                to={`/${i18n.language}/agenda`}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
                 onClick={closeMobileMenu}
-                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
               >
                 Agenda
               </Link>
 
               <Link
-                to="/intervenants"
+                to={`/${i18n.language}/publications`}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
                 onClick={closeMobileMenu}
-                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
-              >
-                Intervenants
-              </Link>
-
-              <Link
-                to="/partners"
-                onClick={closeMobileMenu}
-                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
-              >
-                Partners
-              </Link>
-
-              <Link
-                to="/publications"
-                onClick={closeMobileMenu}
-                className="block px-3 py-3 rounded-lg hover:bg-gray-50"
               >
                 Publications
               </Link>
 
               <Link
-                to="/contact"
+                to={`/${i18n.language}/meetings`}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
                 onClick={closeMobileMenu}
-                className="block px-3 py-3 rounded-lg bg-blue-50 text-blue-900 font-semibold"
+              >
+                Meetings
+              </Link>
+
+              <Link
+                to={`/${i18n.language}/contact`}
+                className="block px-3 py-2 text-base font-medium text-teal-600 bg-teal-50 rounded-md"
+                onClick={closeMobileMenu}
               >
                 Contact
               </Link>
 
-              <div className="pt-4 border-t border-gray-200 mt-3">
+              <div className="px-3 py-2">
 
-                {!user ? (
-                  <div className="space-y-3">
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        closeMobileMenu();
-                        handleSignIn();
-                      }}
-                      className="w-full px-4 py-3 border border-blue-900 text-blue-900 rounded-md font-medium"
-                    >
-                      Sign In
-                    </button>
-
-                    <Link
-                      to="/join"
-                      onClick={closeMobileMenu}
-                      className="block w-full bg-blue-900 text-white text-center px-4 py-3 rounded-md font-medium"
-                    >
-                      Become a Member
-                    </Link>
-
-                  </div>
-                ) : (
+                {user ? (
                   <div className="space-y-2">
 
+                    <div className="flex items-center space-x-2 px-3 py-2">
+
+                      {user.user_metadata?.avatar_url ? (
+                        <img
+                          src={user.user_metadata.avatar_url}
+                          alt="Profile"
+                          className="w-6 h-6 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+                          <span className="text-blue-600 text-xs font-medium">
+                            {getInitials()}
+                          </span>
+                        </div>
+                      )}
+
+                      <span className="text-gray-700 font-medium">
+                        {user.user_metadata?.full_name ||
+                          'User'}
+                      </span>
+
+                    </div>
+
                     <button
-                      type="button"
                       onClick={() => {
-                        closeMobileMenu();
                         handleViewProfile();
+                        setIsMobileMenuOpen(false);
                       }}
-                      className="w-full text-left px-4 py-3 rounded-md hover:bg-gray-50"
+                      className="block w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium text-center"
                     >
-                      <i className="ri-user-line mr-2" />
                       My Profile
                     </button>
 
                     <button
-                      type="button"
                       onClick={() => {
-                        closeMobileMenu();
                         handleSignOut();
+                        setIsMobileMenuOpen(false);
                       }}
-                      className="w-full text-left px-4 py-3 rounded-md text-red-600 hover:bg-red-50"
+                      className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 font-medium whitespace-nowrap cursor-pointer"
                     >
-                      <i className="ri-logout-box-r-line mr-2" />
                       Sign Out
                     </button>
 
                   </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      handleSignIn();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer block text-center"
+                  >
+                    Sign In
+                  </button>
                 )}
 
               </div>
 
-            </nav>
+            </div>
           </div>
         )}
       </header>
@@ -859,7 +841,7 @@ export default function Contact() {
                         Email
                       </h3>
                       <p className="text-gray-600 mt-1">
-                          info@africaef.com
+                        info@africaef.com
                       </p>
                     </div>
 
@@ -1287,6 +1269,7 @@ export default function Contact() {
             </p>
 
             <div className="flex gap-5">
+
               <Link
                 to="/privacy"
                 className="hover:text-white transition"
@@ -1300,352 +1283,7 @@ export default function Contact() {
               >
                 Terms
               </Link>
-            </div>
-
-          </div>
-
-        </div>
-
-      </footer>
-
-      {/* =====================================
-          SIGN IN MODAL
-      ====================================== */}
-
-      {showSignInModal && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() =>
-              setShowSignInModal(false)
-            }
-          />
-
-          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
-
-            <button
-              type="button"
-              onClick={() =>
-                setShowSignInModal(false)
-              }
-              className="absolute right-4 top-4 z-10 w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition"
-              aria-label="Close"
-            >
-              <i className="ri-close-line text-xl" />
-            </button>
-
-            <div className="bg-blue-950 text-white px-7 py-7">
-
-              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
-                <i className="ri-user-line text-2xl" />
-              </div>
-
-              <h2 className="text-2xl font-bold">
-                Welcome Back
-              </h2>
-
-              <p className="text-blue-200 mt-1">
-                Sign in to your Africa Economic Forum account.
-              </p>
 
             </div>
 
-            <form
-              onSubmit={handleSignInSubmit}
-              className="p-7 space-y-5"
-            >
-
-              <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address
-                </label>
-
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  autoComplete="email"
-                  placeholder="you@example.com"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-                />
-
-              </div>
-
-              <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Password
-                </label>
-
-                <input
-                  type="password"
-                  name="password"
-                  required
-                  autoComplete="current-password"
-                  placeholder="Your password"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-                />
-
-              </div>
-
-              <div className="text-right">
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    alert(
-                      'Please use the password reset page to recover your password.'
-                    )
-                  }
-                  className="text-sm text-blue-900 hover:underline"
-                >
-                  Forgot password?
-                </button>
-
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-blue-900 text-white py-3.5 rounded-lg hover:bg-blue-800 transition font-semibold"
-              >
-                Sign In
-              </button>
-
-              <div className="relative py-2">
-
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200" />
-                </div>
-
-                <div className="relative flex justify-center">
-                  <span className="bg-white px-3 text-sm text-gray-500">
-                    New to AEF?
-                  </span>
-                </div>
-
-              </div>
-
-              <button
-                type="button"
-                onClick={handleOpenCreateAccount}
-                className="w-full border border-blue-900 text-blue-900 py-3.5 rounded-lg hover:bg-blue-50 transition font-semibold"
-              >
-                Create an Account
-              </button>
-
-            </form>
-
-          </div>
-
-        </div>
-      )}
-
-      {/* =====================================
-          CREATE ACCOUNT MODAL
-      ====================================== */}
-
-      {showCreateAccount && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() =>
-              setShowCreateAccount(false)
-            }
-          />
-
-          <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[95vh] overflow-y-auto">
-
-            <button
-              type="button"
-              onClick={() =>
-                setShowCreateAccount(false)
-              }
-              className="absolute right-4 top-4 z-10 w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition"
-              aria-label="Close"
-            >
-              <i className="ri-close-line text-xl" />
-            </button>
-
-            <div className="bg-blue-950 text-white px-7 py-7">
-
-              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
-                <i className="ri-user-add-line text-2xl" />
-              </div>
-
-              <h2 className="text-2xl font-bold">
-                Create Your Account
-              </h2>
-
-              <p className="text-blue-200 mt-1">
-                Join the Africa Economic Forum community.
-              </p>
-
-            </div>
-
-            <form
-              onSubmit={handleCreateAccountSubmit}
-              className="p-7 space-y-5"
-            >
-
-              <div className="grid sm:grid-cols-2 gap-5">
-
-                <div>
-
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name *
-                  </label>
-
-                  <input
-                    type="text"
-                    name="first_name"
-                    required
-                    autoComplete="given-name"
-                    placeholder="First name"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-                  />
-
-                </div>
-
-                <div>
-
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name *
-                  </label>
-
-                  <input
-                    type="text"
-                    name="last_name"
-                    required
-                    autoComplete="family-name"
-                    placeholder="Last name"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-                  />
-
-                </div>
-
-              </div>
-
-              <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Organization
-                </label>
-
-                <input
-                  type="text"
-                  name="organization"
-                  autoComplete="organization"
-                  placeholder="Your organization"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-                />
-
-              </div>
-
-              <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address *
-                </label>
-
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  autoComplete="email"
-                  placeholder="you@example.com"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-                />
-
-              </div>
-
-              <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Password *
-                </label>
-
-                <input
-                  type="password"
-                  name="password"
-                  required
-                  minLength={6}
-                  autoComplete="new-password"
-                  placeholder="At least 6 characters"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-                />
-
-              </div>
-
-              <div>
-
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Confirm Password *
-                </label>
-
-                <input
-                  type="password"
-                  name="confirm_password"
-                  required
-                  minLength={6}
-                  autoComplete="new-password"
-                  placeholder="Confirm your password"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900"
-                />
-
-              </div>
-
-              <label className="flex items-start gap-3 cursor-pointer">
-
-                <input
-                  type="checkbox"
-                  name="newsletter_consent"
-                  className="mt-1 w-4 h-4"
-                />
-
-                <span className="text-sm text-gray-600">
-                  I would like to receive Africa Economic
-                  Forum news, events and newsletters.
-                </span>
-
-              </label>
-
-              <button
-                type="submit"
-                className="w-full bg-blue-900 text-white py-3.5 rounded-lg hover:bg-blue-800 transition font-semibold"
-              >
-                Create Account
-              </button>
-
-              <p className="text-xs text-gray-500 text-center leading-relaxed">
-                By creating an account, you agree to the
-                Africa Economic Forum terms and policies.
-              </p>
-
-              <div className="text-center">
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowCreateAccount(false);
-                    setShowSignInModal(true);
-                  }}
-                  className="text-sm text-blue-900 font-medium hover:underline"
-                >
-                  Already have an account? Sign In
-                </button>
-
-              </div>
-
-            </form>
-
-          </div>
-
-        </div>
-      )}
-
-    </div>
-  );
-}
+          </div
