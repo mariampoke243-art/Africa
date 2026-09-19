@@ -148,6 +148,117 @@
     }
   },
 
+  "about": {
+    "heroTitle": "About the Africa Economic Forum",
+    "heroSubtitle": "A platform for strategic dialogue, economic cooperation and transformative action across Africa.",
+
+    "whatWeAreTitle": "What We Are",
+    "whatWeAreText1": "The Africa Economic Forum is a premier platform bringing together African and global leaders to shape the continent's economic future.",
+    "whatWeAreText2": "We convene governments, investors, institutions, business leaders and thinkers to transform strategic dialogue into partnerships, investment and action.",
+
+    "missionTitle": "Our Mission",
+    "missionSubtitle": "To accelerate Africa's economic transformation through strategic connections, visionary leadership and practical action.",
+
+    "winWinTitle": "Win-Win Partnerships",
+    "winWinText": "We create opportunities for mutually beneficial partnerships between African and international stakeholders.",
+
+    "visionaryLeadershipTitle": "Visionary Leadership",
+    "visionaryLeadershipText": "We bring together leaders who can shape bold ideas and translate them into meaningful economic outcomes.",
+
+    "strategicConnectionsTitle": "Strategic Connections",
+    "strategicConnectionsText": "We connect governments, investors, institutions and businesses around strategic economic priorities.",
+
+    "narrativeElevationTitle": "Narrative Elevation",
+    "narrativeElevationText": "We contribute to a stronger global understanding of Africa's opportunities, capabilities and economic potential.",
+
+    "communityEmpowermentTitle": "Community Empowerment",
+    "communityEmpowermentText": "We support inclusive participation and create opportunities for communities and emerging leaders to contribute to Africa's transformation.",
+
+    "visionTitle": "Our Vision",
+    "visionText": "A prosperous, connected and globally influential Africa driven by African leadership, innovation and strategic cooperation.",
+
+    "coreValuesTitle": "Our Core Values",
+    "coreValuesSubtitle": "The principles guiding our work and our partnerships.",
+
+    "sovereigntyTitle": "Sovereignty",
+    "sovereigntyText": "Respecting Africa's ability to define and advance its own economic priorities.",
+
+    "equityTitle": "Equity",
+    "equityText": "Promoting fair opportunities, inclusive participation and shared prosperity.",
+
+    "transformationalLeadershipTitle": "Transformational Leadership",
+    "transformationalLeadershipText": "Supporting leadership capable of driving meaningful and lasting economic transformation.",
+
+    "narrativeJusticeTitle": "Narrative Justice",
+    "narrativeJusticeText": "Promoting accurate, balanced and forward-looking narratives about Africa.",
+
+    "innovationTitle": "Innovation",
+    "innovationText": "Encouraging new ideas, technologies and approaches to Africa's economic challenges.",
+
+    "inclusionTitle": "Inclusion",
+    "inclusionText": "Ensuring that diverse voices, perspectives and communities have a place in Africa's economic future.",
+
+    "impactTitle": "Our Impact",
+    "impactSubtitle": "Building connections and opportunities that contribute to Africa's economic transformation.",
+
+    "countriesEngaged": "54 Countries Engaged",
+    "globalLeadersConnected": "Global Leaders Connected",
+    "investmentOpportunities": "Investment Opportunities",
+    "strategicPartnerships": "Strategic Partnerships",
+
+    "organizingCommitteeTitle": "Organizing Committee",
+    "organizingCommitteeSubtitle": "The team coordinating the Africa Economic Forum.",
+
+    "founderTitle": "Founder",
+    "founderSubtitle": "The leadership behind the Africa Economic Forum.",
+    "founderRole": "Founder & Chair",
+    "founderBio": "Leading the Africa Economic Forum with a vision to strengthen strategic cooperation, investment and economic transformation across Africa.",
+
+    "advisoryBoardTitle": "Advisory Board",
+    "advisoryBoardSubtitle": "Experienced leaders providing strategic guidance to the Forum.",
+
+    "executiveBoardTitle": "Executive Board",
+    "executiveBoardSubtitle": "The leadership team driving the Forum's strategy and execution.",
+
+    "scientificCommitteeTitle": "Scientific Committee",
+    "scientificCommitteeSubtitle": "Experts contributing knowledge, research and strategic perspectives.",
+
+    "joinMovementTitle": "Join the Movement",
+    "joinMovementText": "Become part of a growing community working to shape Africa's economic future.",
+    "becomeMember": "Become a Member",
+
+    "members": {
+      "akwasiOpongFosu": {
+        "role": "Chairman, Advisory Board",
+        "bio": "Providing strategic guidance and leadership to support the Forum's mission and long-term vision."
+      },
+      "zarinahTraciSilas": {
+        "role": "Executive Board Member",
+        "bio": "Supporting the Forum's strategic development and institutional partnerships."
+      },
+      "jacquelineJaqCampbell": {
+        "role": "Executive Board Member",
+        "bio": "Contributing to strategic initiatives and the Forum's engagement with key stakeholders."
+      },
+      "femiSalami": {
+        "role": "Executive Board Member",
+        "bio": "Supporting economic dialogue, partnerships and strategic initiatives across Africa."
+      },
+      "abrahamDwumaOdoom": {
+        "role": "Executive Board Member",
+        "bio": "Contributing leadership and strategic perspectives to the Forum's programmes and partnerships."
+      },
+      "aminaToure": {
+        "role": "Executive Board Member",
+        "bio": "Supporting inclusive economic development, leadership and strategic cooperation."
+      },
+      "nathanLewis": {
+        "role": "Scientific Committee Member",
+        "bio": "Contributing research, expertise and analytical perspectives to the Forum's strategic work."
+      }
+    }
+  },
+
   "footer": {
     "aboutUs": "About Us",
     "ourMission": "Our Mission",
