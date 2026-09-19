@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
 
 type CommitteeMember = {
@@ -90,6 +91,8 @@ function MemberCard({ member }: { member: CommitteeMember }) {
 }
 
 export default function AboutPage() {
+  const { t } = useTranslation();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
@@ -144,36 +147,60 @@ export default function AboutPage() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Home
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.home')}
               </Link>
 
-              <Link to="/about" className="text-blue-600 font-medium">
-                About
+              <Link
+                to="/about"
+                className="text-blue-600 font-medium"
+              >
+                {t('header.about')}
               </Link>
 
-              <Link to="/initiatives" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Initiative
+              <Link
+                to="/initiatives"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.initiatives')}
               </Link>
 
-              <Link to="/stakeholders" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Stakeholders
+              <Link
+                to="/stakeholders"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.stakeholders')}
               </Link>
 
-              <Link to="/agenda" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Agenda
+              <Link
+                to="/agenda"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.agenda')}
               </Link>
 
-              <Link to="/publications" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Publications
+              <Link
+                to="/publications"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.publications')}
               </Link>
 
-              <Link to="/meetings" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Meetings
+              <Link
+                to="/meetings"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.meetings')}
               </Link>
 
-              <Link to="/contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Contact
+              <Link
+                to="/contact"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.contact')}
               </Link>
             </nav>
 
@@ -187,12 +214,16 @@ export default function AboutPage() {
                       setIsProfileDropdownOpen(!isProfileDropdownOpen)
                     }
                     className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    title={user.user_metadata?.full_name || user.email || 'Profile'}
+                    title={
+                      user.user_metadata?.full_name ||
+                      user.email ||
+                      t('header.profile')
+                    }
                   >
                     {user.user_metadata?.avatar_url ? (
                       <img
                         src={user.user_metadata.avatar_url}
-                        alt="Profile"
+                        alt={t('header.profile')}
                         className="w-8 h-8 rounded-full object-cover"
                       />
                     ) : (
@@ -211,7 +242,8 @@ export default function AboutPage() {
 
                       <div className="px-4 py-3 text-sm text-gray-700 border-b border-gray-100">
                         <div className="font-medium truncate">
-                          {user.user_metadata?.full_name || 'User'}
+                          {user.user_metadata?.full_name ||
+                            t('header.user')}
                         </div>
 
                         <div className="text-gray-500 truncate">
@@ -223,14 +255,14 @@ export default function AboutPage() {
                         onClick={handleViewProfile}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        View Profile
+                        {t('header.viewProfile')}
                       </button>
 
                       <button
                         onClick={handleLogout}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        Sign Out
+                        {t('header.signOut')}
                       </button>
                     </div>
                   )}
@@ -240,7 +272,7 @@ export default function AboutPage() {
                   to="/signin"
                   className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
                 >
-                  Sign In
+                  {t('header.signIn')}
                 </Link>
               )}
             </div>
@@ -266,36 +298,60 @@ export default function AboutPage() {
             <div className="md:hidden border-t border-gray-100 py-4">
               <div className="flex flex-col space-y-4">
 
-                <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium">
-                  Home
+                <Link
+                  to="/"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.home')}
                 </Link>
 
-                <Link to="/about" className="text-blue-600 font-medium">
-                  About
+                <Link
+                  to="/about"
+                  className="text-blue-600 font-medium"
+                >
+                  {t('header.about')}
                 </Link>
 
-                <Link to="/initiatives" className="text-gray-700 hover:text-blue-600 font-medium">
-                  Initiative
+                <Link
+                  to="/initiatives"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.initiatives')}
                 </Link>
 
-                <Link to="/stakeholders" className="text-gray-700 hover:text-blue-600 font-medium">
-                  Stakeholders
+                <Link
+                  to="/stakeholders"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.stakeholders')}
                 </Link>
 
-                <Link to="/agenda" className="text-gray-700 hover:text-blue-600 font-medium">
-                  Agenda
+                <Link
+                  to="/agenda"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.agenda')}
                 </Link>
 
-                <Link to="/publications" className="text-gray-700 hover:text-blue-600 font-medium">
-                  Publications
+                <Link
+                  to="/publications"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.publications')}
                 </Link>
 
-                <Link to="/meetings" className="text-gray-700 hover:text-blue-600 font-medium">
-                  Meetings
+                <Link
+                  to="/meetings"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.meetings')}
                 </Link>
 
-                <Link to="/contact" className="text-gray-700 hover:text-blue-600 font-medium">
-                  Contact
+                <Link
+                  to="/contact"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.contact')}
                 </Link>
 
                 {user ? (
@@ -305,7 +361,7 @@ export default function AboutPage() {
                       {user.user_metadata?.avatar_url ? (
                         <img
                           src={user.user_metadata.avatar_url}
-                          alt="Profile"
+                          alt={t('header.profile')}
                           className="w-8 h-8 rounded-full object-cover"
                         />
                       ) : (
@@ -319,7 +375,8 @@ export default function AboutPage() {
                       )}
 
                       <span className="text-gray-700 font-medium">
-                        {user.user_metadata?.full_name || 'User'}
+                        {user.user_metadata?.full_name ||
+                          t('header.user')}
                       </span>
                     </div>
 
@@ -327,14 +384,14 @@ export default function AboutPage() {
                       onClick={handleViewProfile}
                       className="block w-full text-left text-gray-700 hover:text-blue-600 font-medium mb-2"
                     >
-                      View Profile
+                      {t('header.viewProfile')}
                     </button>
 
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left text-gray-700 hover:text-blue-600 font-medium"
                     >
-                      Sign Out
+                      {t('header.signOut')}
                     </button>
 
                   </div>
@@ -344,7 +401,7 @@ export default function AboutPage() {
                       to="/signin"
                       className="block text-gray-700 hover:text-blue-600 font-medium"
                     >
-                      Sign In
+                      {t('header.signIn')}
                     </Link>
                   </div>
                 )}
@@ -364,16 +421,15 @@ export default function AboutPage() {
           }}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
             <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-              About the Africa Economic Forum
+              {t('about.heroTitle')}
             </h1>
 
             <p className="text-xl text-blue-100 max-w-4xl mx-auto">
-              A pan-African and global platform for economic dialogue,
-              strategic cooperation, and sovereign development. More than an
-              event, the AEF is a movement that repositions Africa as a
-              strategic partner and co-architect of the world's future.
+              {t('about.heroSubtitle')}
             </p>
+
           </div>
         </section>
 
@@ -385,33 +441,26 @@ export default function AboutPage() {
 
               <div className="space-y-8">
                 <div>
+
                   <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                    What We Are
+                    {t('about.whatWeAreTitle')}
                   </h2>
 
                   <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                    The Africa Economic Forum (AEF) is a pan-African and global
-                    platform for economic dialogue, strategic cooperation, and
-                    sovereign development. More than an event, the AEF is a
-                    movement that brings together African leaders, governments,
-                    investors, entrepreneurs, intellectuals, and international
-                    allies to co-create new models of growth, leadership, and
-                    global engagement.
+                    {t('about.whatWeAreText1')}
                   </p>
 
                   <p className="text-lg text-gray-600 leading-relaxed">
-                    Founded as a response to decades of imbalanced development
-                    models, the AEF repositions Africa not as a continent in
-                    need, but as a strategic partner, solution provider, and
-                    co-architect of the world's future.
+                    {t('about.whatWeAreText2')}
                   </p>
+
                 </div>
               </div>
 
               <div className="relative">
                 <img
                   src="https://readdy.ai/api/search-image?query=Modern%20African%20business%20district%20with%20skyscrapers%20and%20economic%20development%2C%20bustling%20financial%20center%20with%20contemporary%20architecture%2C%20symbol%20of%20African%20economic%20sovereignty%20and%20strategic%20partnerships%2C%20dignified%20cooperation&width=600&height=500&seq=what-we-are&orientation=portrait"
-                  alt="Africa Economic Development"
+                  alt={t('about.whatWeAreTitle')}
                   className="w-full h-96 object-cover object-top rounded-lg shadow-lg"
                 />
               </div>
@@ -425,14 +474,15 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center mb-16">
+
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                Our Mission
+                {t('about.missionTitle')}
               </h2>
 
               <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-12">
-                To catalyze economic transformation and sovereignty in Africa
-                through strategic cooperation and visionary leadership.
+                {t('about.missionSubtitle')}
               </p>
+
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -441,32 +491,32 @@ export default function AboutPage() {
                 {
                   icon: 'ri-handshake-line',
                   color: 'blue',
-                  title: 'Win-Win Cooperation',
-                  text: 'Designing win-win cooperation frameworks between Africa and global partners based on mutual respect and shared prosperity.',
+                  title: t('about.winWinTitle'),
+                  text: t('about.winWinText'),
                 },
                 {
                   icon: 'ri-user-star-line',
                   color: 'green',
-                  title: 'Visionary Leadership',
-                  text: 'Promoting ethical, inclusive and visionary leadership across the continent that builds institutions and creates lasting change.',
+                  title: t('about.visionaryLeadershipTitle'),
+                  text: t('about.visionaryLeadershipText'),
                 },
                 {
                   icon: 'ri-links-line',
                   color: 'purple',
-                  title: 'Strategic Connections',
-                  text: "Connecting African opportunities with capital, technology, and talent to unlock the continent's full potential.",
+                  title: t('about.strategicConnectionsTitle'),
+                  text: t('about.strategicConnectionsText'),
                 },
                 {
                   icon: 'ri-megaphone-line',
                   color: 'orange',
-                  title: 'Narrative Elevation',
-                  text: "Elevating Africa's narrative and value in the global order by challenging stereotypes and amplifying African voices.",
+                  title: t('about.narrativeElevationTitle'),
+                  text: t('about.narrativeElevationText'),
                 },
                 {
                   icon: 'ri-community-line',
                   color: 'teal',
-                  title: 'Community Empowerment',
-                  text: 'Building ecosystems that empower youth, women, and local communities to shape and lead the future.',
+                  title: t('about.communityEmpowermentTitle'),
+                  text: t('about.communityEmpowermentText'),
                 },
               ].map((item) => (
                 <div
@@ -500,14 +550,11 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
             <h2 className="text-4xl font-bold mb-8">
-              Our Vision
+              {t('about.visionTitle')}
             </h2>
 
             <p className="text-2xl text-blue-100 max-w-5xl mx-auto leading-relaxed">
-              To position Africa as a sovereign economic power, a center of
-              innovation, and a global co-leader — shaping the future through
-              strategic alliances, dignified cooperation, and purpose-driven
-              leadership.
+              {t('about.visionText')}
             </p>
 
           </div>
@@ -518,41 +565,71 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center mb-16">
+
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Our Core Values
+                {t('about.coreValuesTitle')}
               </h2>
 
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                These principles guide everything we do and shape our approach
-                to creating transformational change across Africa.
+                {t('about.coreValuesSubtitle')}
               </p>
+
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
               {[
-                ['🌍', 'Sovereignty & Self-Determination', 'We believe Africa must define its own path, develop on its own terms, and build strategic autonomy in economy, media, culture, science, and governance.'],
-                ['🤝', 'Equity & Win-Win Cooperation', 'We advocate for fair partnerships based on mutual benefit, respect, and shared prosperity — not charity or dependency.'],
-                ['🔥', 'Transformational Leadership', 'We promote ethical, servant, and purpose-driven leadership that builds institutions, uplifts people, and creates lasting change.'],
-                ['📣', 'Narrative Justice', 'We challenge stereotypes and amplify African voices, successes, and world-changing contributions.'],
-                ['💡', 'Innovation & Excellence', "We nurture local talents, ideas and technologies that offer bold solutions to Africa's and the world's challenges."],
-                ['👥', 'Inclusion & Intergenerational Empowerment', 'We create space for youth, women, and communities to shape and lead the future.'],
-              ].map(([icon, title, text]) => (
+                {
+                  icon: '🌍',
+                  title: t('about.sovereigntyTitle'),
+                  text: t('about.sovereigntyText'),
+                },
+                {
+                  icon: '🤝',
+                  title: t('about.equityTitle'),
+                  text: t('about.equityText'),
+                },
+                {
+                  icon: '🔥',
+                  title: t('about.transformationalLeadershipTitle'),
+                  text: t('about.transformationalLeadershipText'),
+                },
+                {
+                  icon: '📣',
+                  title: t('about.narrativeJusticeTitle'),
+                  text: t('about.narrativeJusticeText'),
+                },
+                {
+                  icon: '💡',
+                  title: t('about.innovationTitle'),
+                  text: t('about.innovationText'),
+                },
+                {
+                  icon: '👥',
+                  title: t('about.inclusionTitle'),
+                  text: t('about.inclusionText'),
+                },
+              ].map((item) => (
                 <div
-                  key={title}
+                  key={item.title}
                   className="bg-gray-50 p-8 rounded-lg"
                 >
                   <div className="flex items-center mb-6">
-                    <div className="text-3xl mr-4">{icon}</div>
+
+                    <div className="text-3xl mr-4">
+                      {item.icon}
+                    </div>
 
                     <h3 className="text-xl font-semibold text-gray-900">
-                      {title}
+                      {item.title}
                     </h3>
+
                   </div>
 
                   <p className="text-gray-600">
-                    {text}
+                    {item.text}
                   </p>
+
                 </div>
               ))}
 
@@ -565,31 +642,35 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center mb-16">
+
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Our Impact
+                {t('about.impactTitle')}
               </h2>
 
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Building bridges between Africa and the world through strategic
-                partnerships and transformational initiatives.
+                {t('about.impactSubtitle')}
               </p>
+
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
               {[
-                ['54', 'African Countries Engaged'],
-                ['1000+', 'Global Leaders Connected'],
-                ['$50B+', 'Investment Opportunities Facilitated'],
-                ['25+', 'Strategic Partnerships Formed'],
+                ['54', t('about.countriesEngaged')],
+                ['1000+', t('about.globalLeadersConnected')],
+                ['$50B+', t('about.investmentOpportunities')],
+                ['25+', t('about.strategicPartnerships')],
               ].map(([number, label]) => (
                 <div key={label} className="text-center">
+
                   <div className="text-4xl font-bold text-blue-900 mb-2">
                     {number}
                   </div>
+
                   <div className="text-gray-600">
                     {label}
                   </div>
+
                 </div>
               ))}
 
@@ -602,32 +683,34 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center mb-16">
+
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Organizing Committee
+                {t('about.organizingCommitteeTitle')}
               </h2>
 
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Meet the distinguished leaders guiding Africa's economic
-                transformation through strategic vision, executive leadership,
-                and scientific expertise.
+                {t('about.organizingCommitteeSubtitle')}
               </p>
+
             </div>
 
             {/* Founder */}
             <div className="mb-20">
 
               <div className="text-center mb-12">
+
                 <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                  🌟 Founder
+                  🌟 {t('about.founderTitle')}
                 </h3>
 
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Visionary leadership driving Africa's economic transformation
-                  and global strategic partnerships.
+                  {t('about.founderSubtitle')}
                 </p>
+
               </div>
 
               <div className="max-w-md mx-auto">
+
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
 
                   <img
@@ -637,23 +720,20 @@ export default function AboutPage() {
                   />
 
                   <div className="p-6">
+
                     <h4 className="text-xl font-bold text-gray-900 mb-2">
                       Dr. Billy Issa
                     </h4>
 
                     <p className="text-sm text-blue-600 mb-3 font-medium">
-                      Visionary Founder &amp; Host
+                      {t('about.founderRole')}
                     </p>
 
                     <p className="text-gray-600 text-sm leading-relaxed">
-                      Visionary leader and architect of the Africa Economic
-                      Forum, dedicated to repositioning Africa as a strategic
-                      global partner and driving sustainable economic
-                      transformation across the continent through innovative
-                      partnerships and sovereign development initiatives.
+                      {t('about.founderBio')}
                     </p>
-                  </div>
 
+                  </div>
                 </div>
               </div>
             </div>
@@ -662,23 +742,26 @@ export default function AboutPage() {
             <div className="mb-20">
 
               <div className="text-center mb-12">
+
                 <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                  AEF Strategic Advisory Board
+                  {t('about.advisoryBoardTitle')}
                 </h3>
 
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Distinguished leaders providing strategic guidance and vision
-                  to the Africa Economic Forum.
+                  {t('about.advisoryBoardSubtitle')}
                 </p>
+
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
                 {advisoryBoard.map((member) => (
                   <MemberCard
                     key={member.name}
                     member={member}
                   />
                 ))}
+
               </div>
             </div>
 
@@ -686,23 +769,26 @@ export default function AboutPage() {
             <div className="mb-20">
 
               <div className="text-center mb-12">
+
                 <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                  AEF Executive Board
+                  {t('about.executiveBoardTitle')}
                 </h3>
 
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Executive leaders supporting the Forum’s strategic direction,
-                  regional engagement, and implementation.
+                  {t('about.executiveBoardSubtitle')}
                 </p>
+
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
                 {executiveBoard.map((member) => (
                   <MemberCard
                     key={member.name}
                     member={member}
                   />
                 ))}
+
               </div>
             </div>
 
@@ -710,23 +796,26 @@ export default function AboutPage() {
             <div>
 
               <div className="text-center mb-12">
+
                 <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                  Scientific Committee
+                  {t('about.scientificCommitteeTitle')}
                 </h3>
 
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Economic and scientific expertise supporting evidence-based
-                  dialogue and strategic development.
+                  {t('about.scientificCommitteeSubtitle')}
                 </p>
+
               </div>
 
               <div className="max-w-md mx-auto">
+
                 {scientificCommittee.map((member) => (
                   <MemberCard
                     key={member.name}
                     member={member}
                   />
                 ))}
+
               </div>
 
             </div>
@@ -739,20 +828,18 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
             <h2 className="text-4xl font-bold mb-6">
-              Join the Movement
+              {t('about.joinMovementTitle')}
             </h2>
 
             <p className="text-xl text-blue-100 mb-8 max-w-4xl mx-auto">
-              Be part of Africa's transformation. Connect with visionary
-              leaders, contribute to strategic partnerships, and help shape
-              the continent's sovereign economic future.
+              {t('about.joinMovementText')}
             </p>
 
             <Link
               to="/join"
               className="inline-block bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
             >
-              Become a Member
+              {t('about.becomeMember')}
             </Link>
 
           </div>
@@ -770,103 +857,148 @@ export default function AboutPage() {
             {/* About */}
             <div>
               <h3 className="font-semibold text-lg mb-6">
-                About us
+                {t('footer.aboutUs')}
               </h3>
 
               <ul className="space-y-3">
+
                 <li>
-                  <Link to="/about" className="text-gray-300 hover:text-white">
-                    Our mission
+                  <Link
+                    to="/about"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.ourMission')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/framework" className="text-gray-300 hover:text-white">
-                    Our Institutional Framework
+                  <Link
+                    to="/framework"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.ourFramework')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/history" className="text-gray-300 hover:text-white">
-                    History
+                  <Link
+                    to="/history"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.history')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/about" className="text-gray-300 hover:text-white">
-                    Leadership and governance
+                  <Link
+                    to="/about"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.leadership')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/about" className="text-gray-300 hover:text-white">
-                    Our Impact
+                  <Link
+                    to="/about"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.ourImpact')}
                   </Link>
                 </li>
+
               </ul>
             </div>
 
             {/* More */}
             <div>
+
               <h3 className="font-semibold text-lg mb-6">
-                More from the Forum
+                {t('footer.moreFromForum')}
               </h3>
 
               <ul className="space-y-3">
+
                 <li>
-                  <Link to="/initiatives" className="text-gray-300 hover:text-white">
-                    Centres
+                  <Link
+                    to="/initiatives"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.centres')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/meetings" className="text-gray-300 hover:text-white">
-                    Meetings
+                  <Link
+                    to="/meetings"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.meetings')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/stakeholders" className="text-gray-300 hover:text-white">
-                    Stakeholders
+                  <Link
+                    to="/stakeholders"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.stakeholders')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/agenda" className="text-gray-300 hover:text-white">
-                    Forum Stories
+                  <Link
+                    to="/agenda"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.forumStories')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/publications" className="text-gray-300 hover:text-white">
-                    Press releases
+                  <Link
+                    to="/publications"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.pressReleases')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/gallery" className="text-gray-300 hover:text-white">
-                    Photo gallery
+                  <Link
+                    to="/gallery"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.gallery')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/publications" className="text-gray-300 hover:text-white">
-                    Podcasts
+                  <Link
+                    to="/publications"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.podcasts')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/publications" className="text-gray-300 hover:text-white">
-                    Videos
+                  <Link
+                    to="/publications"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.videos')}
                   </Link>
                 </li>
+
               </ul>
             </div>
 
             {/* Engage */}
             <div>
+
               <h3 className="font-semibold text-lg mb-6">
-                Engage with us
+                {t('footer.engage')}
               </h3>
 
               <ul className="space-y-3">
@@ -877,45 +1009,60 @@ export default function AboutPage() {
                       onClick={handleLogout}
                       className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
                     >
-                      Logout
+                      {t('footer.logout')}
                     </button>
                   ) : (
                     <Link
                       to="/signin"
                       className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
                     >
-                      Sign in
+                      {t('footer.signIn')}
                     </Link>
                   )}
                 </li>
 
                 <li>
-                  <Link to="/partners" className="text-gray-300 hover:text-white">
-                    Become our partner
+                  <Link
+                    to="/partners"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.partner')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/join" className="text-gray-300 hover:text-white">
-                    Become a member
+                  <Link
+                    to="/join"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.member')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/publications" className="text-gray-300 hover:text-white">
-                    Subscribe to our press releases
+                  <Link
+                    to="/publications"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.pressSignUp')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/publications" className="text-gray-300 hover:text-white">
-                    Subscribe to our newsletters
+                  <Link
+                    to="/publications"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.newsletters')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/contact" className="text-gray-300 hover:text-white">
-                    Contact us
+                  <Link
+                    to="/contact"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.contactUs')}
                   </Link>
                 </li>
 
@@ -924,51 +1071,75 @@ export default function AboutPage() {
 
             {/* Quick Links */}
             <div>
+
               <h3 className="font-semibold text-lg mb-6">
-                Quick links
+                {t('footer.quickLinks')}
               </h3>
 
               <ul className="space-y-3 mb-8">
+
                 <li>
-                  <Link to="/initiatives" className="text-gray-300 hover:text-white">
-                    Sustainability at the Forum
+                  <Link
+                    to="/initiatives"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.sustainability')}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/careers" className="text-gray-300 hover:text-white">
-                    Careers
+                  <Link
+                    to="/careers"
+                    className="text-gray-300 hover:text-white"
+                  >
+                    {t('footer.careers')}
                   </Link>
                 </li>
+
               </ul>
 
               <h4 className="font-semibold mb-4">
-                Language editions
+                {t('footer.languageEditions')}
               </h4>
 
               <div className="flex space-x-2">
-                <Link to="/" className="text-gray-300 hover:text-white">
+
+                <button
+                  type="button"
+                  className="text-gray-300 hover:text-white"
+                >
                   PT
-                </Link>
+                </button>
 
                 <span className="text-gray-500">•</span>
 
-                <Link to="/en" className="text-gray-300 hover:text-white">
+                <button
+                  type="button"
+                  className="text-gray-300 hover:text-white"
+                >
                   EN
-                </Link>
+                </button>
 
                 <span className="text-gray-500">•</span>
 
-                <Link to="/es" className="text-gray-300 hover:text-white">
+                <button
+                  type="button"
+                  className="text-gray-300 hover:text-white"
+                >
                   ES
-                </Link>
+                </button>
 
                 <span className="text-gray-500">•</span>
 
-                <Link to="/fr" className="text-gray-300 hover:text-white">
+                <button
+                  type="button"
+                  className="text-gray-300 hover:text-white"
+                >
                   FR
-                </Link>
+                </button>
+
               </div>
+
             </div>
 
           </div>
@@ -1028,11 +1199,11 @@ export default function AboutPage() {
                   to="/privacy"
                   className="hover:text-white"
                 >
-                  Privacy Policy &amp; Terms of Service
+                  {t('footer.privacy')}
                 </Link>
 
                 <p>
-                  © 2026 Africa Economic Forum
+                  {t('footer.copyright')}
                 </p>
 
                 <a
