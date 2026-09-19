@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '../../supabase/client';
 import { listeIntervenants } from '../../data/intervenantsData';
 import { LanguageSelector } from '../../components/LanguageSelector';
@@ -451,6 +452,19 @@ const conversionConfigs: Record<NonNullable<ConversionType>, ConversionConfigIte
 };
 
 /* ===================================================
+   TRANSLATION HELPER
+   =================================================== */
+
+const agendaSlug = (value: string) =>
+  value
+    .normalize('NFD')
+    .replace(/[\\u0300-\\u036f]/g, '')
+    .toLowerCase()
+    .replace(/&amp;/g, 'and')
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+
+/* ===================================================
    PAGE
    =================================================== */
 
@@ -540,7 +554,7 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
             onChange={() => toggleValue(field, option)}
             className="rounded border-gray-300 text-blue-900 focus:ring-blue-900"
           />
-          <span className="text-sm text-gray-800">{option}</span>
+          <span className="text-sm text-gray-800">{ta(option)}</span>
         </label>
       ))}
     </div>
@@ -561,7 +575,7 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
             onChange={(e) => updateField(field, e.target.value)}
             className="border-gray-300 text-blue-900 focus:ring-blue-900"
           />
-          <span className="text-sm text-gray-800">{option}</span>
+          <span className="text-sm text-gray-800">{ta(option)}</span>
         </label>
       ))}
     </div>
@@ -570,7 +584,7 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
   const textField = (field: string, label: string, required = false, placeholder = '') => (
     <div>
       <label className="mb-2 block text-sm font-semibold text-gray-900">
-        {label}{required ? '*' : ''}
+        {ta(label)}{required ? '*' : ''}
       </label>
       <input
         required={required}
@@ -586,7 +600,7 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
   const textareaField = (field: string, label: string, required = false, rows = 4) => (
     <div>
       <label className="mb-2 block text-sm font-semibold text-gray-900">
-        {label}{required ? '*' : ''}
+        {ta(label)}{required ? '*' : ''}
       </label>
       <textarea
         required={required}
@@ -664,7 +678,7 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
       setSubmitted(true);
     } catch (err: any) {
       console.error(err);
-      alert(err?.message || 'Unable to submit your AEF Match Profile. Please try again.');
+      alert(err?.message || ta('Unable to submit your AEF Match Profile. Please try again.'));
     } finally {
       setIsSubmitting(false);
     }
@@ -676,7 +690,7 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close AEF Match Profile"
+          aria-label={ta('Close AEF Match Profile')}
           className="absolute right-5 top-5 z-10 text-3xl font-light text-gray-400 hover:text-gray-800"
         >
           ×
@@ -687,28 +701,28 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-900 text-2xl font-bold text-white">
               ✓
             </div>
-            <h2 className="mt-6 text-3xl font-bold text-gray-900">AEF MATCH PROFILE RECEIVED</h2>
+            <h2 className="mt-6 text-3xl font-bold text-gray-900">{ta('AEF MATCH PROFILE RECEIVED')}</h2>
             <p className="mx-auto mt-4 max-w-2xl leading-7 text-gray-600">
-              Thank you. Your AEF Match Profile has been submitted for qualification and matchmaking review.
+              {ta('Thank you. Your AEF Match Profile has been submitted for qualification and matchmaking review.')}
             </p>
             <button
               type="button"
               onClick={onClose}
               className="mt-8 rounded-lg bg-blue-900 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-800"
             >
-              CLOSE
+              {ta('CLOSE')}
             </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-8 p-6 sm:p-10">
             <div className="border-b border-gray-200 pb-6 pr-10">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-900">AEF MATCH PROFILE</p>
-              <h2 className="mt-2 text-3xl font-bold text-gray-900">BUILD YOUR AEF MATCH PROFILE</h2>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-900">{ta('AEF MATCH PROFILE')}</p>
+              <h2 className="mt-2 text-3xl font-bold text-gray-900">{ta('BUILD YOUR AEF MATCH PROFILE')}</h2>
             </div>
 
             <section className="rounded-xl border border-gray-200 bg-gray-50 p-5 sm:p-6">
-              <h3 className="mb-5 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 01 — YOUR ROLE</h3>
-              <p className="mb-4 text-sm font-semibold text-gray-900">What brings you to AEF?*</p>
+              <h3 className="mb-5 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">{ta('STEP 01 — YOUR ROLE')}</h3>
+              <p className="mb-4 text-sm font-semibold text-gray-900">{ta('What brings you to AEF?*')}</p>
               <div className="grid gap-2 sm:grid-cols-2">
                 {[
                   'Government / Public Institution', 'Investor / Capital Provider', 'Project Owner',
@@ -725,52 +739,52 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
                       onChange={(e) => setRole(e.target.value)}
                       className="border-gray-300 text-blue-900 focus:ring-blue-900"
                     />
-                    <span className="text-sm text-gray-800">{option}</span>
+                    <span className="text-sm text-gray-800">{ta(option)}</span>
                   </label>
                 ))}
               </div>
             </section>
 
             <section className="rounded-xl border border-gray-200 bg-white p-5 sm:p-6">
-              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 02 — WHAT YOU BRING</h3>
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">{ta('STEP 02 — WHAT YOU BRING')}</h3>
               <div className="space-y-7">
                 <div>
-                  <p className="mb-3 text-sm font-semibold text-gray-900">CAPITAL</p>
+                  <p className="mb-3 text-sm font-semibold text-gray-900">{ta('CAPITAL')}</p>
                   {optionGroup('capital', ['Equity', 'Debt', 'Project Finance', 'Venture Capital', 'Private Equity', 'Blended Finance'])}
                 </div>
                 <div>
-                  <p className="mb-3 text-sm font-semibold text-gray-900">PROJECTS / SECTORS</p>
+                  <p className="mb-3 text-sm font-semibold text-gray-900">{ta('PROJECTS / SECTORS')}</p>
                   {optionGroup('projectsSectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}
                 </div>
                 <div>
-                  <p className="mb-3 text-sm font-semibold text-gray-900">CAPABILITIES</p>
+                  <p className="mb-3 text-sm font-semibold text-gray-900">{ta('CAPABILITIES')}</p>
                   {optionGroup('capabilities', ['Technology', 'EPC', 'Market Access', 'Distribution', 'Industrial Capacity', 'Advisory', 'Financial Services', 'Infrastructure Development', 'Other'])}
                 </div>
                 <div>
-                  <p className="mb-3 text-sm font-semibold text-gray-900">MARKETS</p>
+                  <p className="mb-3 text-sm font-semibold text-gray-900">{ta('MARKETS')}</p>
                   {optionGroup('markets', ['Africa', 'Europe', 'Gulf', 'Asia', 'Americas', 'Other'])}
                 </div>
               </div>
             </section>
 
             <section className="rounded-xl border border-gray-200 bg-gray-50 p-5 sm:p-6">
-              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 03 — WHAT YOU ARE LOOKING FOR</h3>
-              <p className="mb-3 text-sm font-semibold text-gray-900">What would you like to find at AEF?</p>
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">{ta('STEP 03 — WHAT YOU ARE LOOKING FOR')}</h3>
+              <p className="mb-3 text-sm font-semibold text-gray-900">{ta('What would you like to find at AEF?')}</p>
               {optionGroup('lookingFor', ['Investment opportunities', 'African projects', 'Government partnerships', 'Co-investors', 'Strategic partners', 'Joint ventures', 'Market entry opportunities', 'Technology partnerships', 'Acquisition opportunities', 'Trade opportunities', 'Financing opportunities', 'Distribution partners', 'Other'])}
               <div className="mt-6">{textareaField('priorityObjective', 'Describe your priority objective in one sentence.', true, 3)}</div>
             </section>
 
             <section className="rounded-xl border border-gray-200 bg-white p-5 sm:p-6">
-              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 04 — YOUR INVESTMENT / BUSINESS PARAMETERS</h3>
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">{ta('STEP 04 — YOUR INVESTMENT / BUSINESS PARAMETERS')}</h3>
 
               {role === 'Investor / Capital Provider' && (
                 <div className="space-y-6">
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Investment Sectors</p>{optionGroup('investmentSectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}</div>
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Geographies of Interest</p>{optionGroup('geographiesOfInterest', ['Africa', 'Europe', 'Gulf', 'Asia', 'Americas', 'Other'])}</div>
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Typical Investment Ticket</p>{radioGroup('typicalInvestmentTicket', ['Under €5M', '€5–25M', '€25–100M', '€100–500M', '€500M–€1B', '€1B+', 'Other'], 'typicalInvestmentTicket')}</div>
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Investment Structure</p>{optionGroup('investmentStructure', ['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Growth Capital', 'Venture Capital', 'Other'])}</div>
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Investment Stage</p>{optionGroup('investmentStage', ['Development', 'Construction', 'Growth', 'Expansion', 'Acquisition', 'Refinancing'])}</div>
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Preferred Counterparties</p>{optionGroup('preferredCounterparties', ['Governments', 'Project Owners', 'CEOs / Corporates', 'Strategic Partners', 'DFIs', 'Banks', 'Family Offices', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Investment Sectors')}</p>{optionGroup('investmentSectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Geographies of Interest')}</p>{optionGroup('geographiesOfInterest', ['Africa', 'Europe', 'Gulf', 'Asia', 'Americas', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Typical Investment Ticket')}</p>{radioGroup('typicalInvestmentTicket', ['Under €5M', '€5–25M', '€25–100M', '€100–500M', '€500M–€1B', '€1B+', 'Other'], 'typicalInvestmentTicket')}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Investment Structure')}</p>{optionGroup('investmentStructure', ['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Growth Capital', 'Venture Capital', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Investment Stage')}</p>{optionGroup('investmentStage', ['Development', 'Construction', 'Growth', 'Expansion', 'Acquisition', 'Refinancing'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Preferred Counterparties')}</p>{optionGroup('preferredCounterparties', ['Governments', 'Project Owners', 'CEOs / Corporates', 'Strategic Partners', 'DFIs', 'Banks', 'Family Offices', 'Other'])}</div>
                 </div>
               )}
 
@@ -778,23 +792,23 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
                 <div className="grid gap-5 sm:grid-cols-2">
                   {textField('projectName', 'Project Name', true)}
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-900">Country*</label>
+                    <label className="mb-2 block text-sm font-semibold text-gray-900">{ta('Country*')}</label>
                     <select required value={data.projectCountry} onChange={(e) => updateField('projectCountry', e.target.value)} className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm outline-none focus:border-blue-900">
-                      <option value="">Select country</option>
+                      <option value="">{ta('Select country')}</option>
                       {['Democratic Republic of Congo', 'Nigeria', 'Kenya', 'South Africa', 'Egypt', 'Ghana', 'Tanzania', 'Zambia', 'Morocco', 'Côte d’Ivoire', 'Senegal', 'Angola', 'Rwanda', 'Uganda', 'Ethiopia', 'Cameroon', 'Other'].map((country) => <option key={country} value={country}>{country}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-900">Sector*</label>
+                    <label className="mb-2 block text-sm font-semibold text-gray-900">{ta('Sector*')}</label>
                     <select required value={data.projectSector} onChange={(e) => updateField('projectSector', e.target.value)} className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm outline-none focus:border-blue-900">
-                      <option value="">Select sector</option>
+                      <option value="">{ta('Select sector')}</option>
                       {['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'].map((sector) => <option key={sector} value={sector}>{sector}</option>)}
                     </select>
                   </div>
-                  <div className="sm:col-span-2"><p className="mb-3 text-sm font-semibold text-gray-900">Project Stage*</p>{radioGroup('projectStage', ['Concept', 'Feasibility', 'Pre-FEED / FEED', 'Permitting', 'Construction-ready', 'Operational', 'Expansion'], 'projectStage')}</div>
+                  <div className="sm:col-span-2"><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Project Stage*')}</p>{radioGroup('projectStage', ['Concept', 'Feasibility', 'Pre-FEED / FEED', 'Permitting', 'Construction-ready', 'Operational', 'Expansion'], 'projectStage')}</div>
                   {textField('totalProjectValue', 'Total Project Value', true)}
                   {textField('capitalRequired', 'Capital Required', true)}
-                  <div className="sm:col-span-2"><p className="mb-3 text-sm font-semibold text-gray-900">Capital Structure Sought</p>{optionGroup('capitalStructureSought', ['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Strategic Investor', 'Blended Finance', 'Other'])}</div>
+                  <div className="sm:col-span-2"><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Capital Structure Sought')}</p>{optionGroup('capitalStructureSought', ['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Strategic Investor', 'Blended Finance', 'Other'])}</div>
                   {textField('currentFundingPartners', 'Current Funding / Partners')}
                   {textField('investorPartnerSought', 'Type of Investor / Partner Sought')}
                   {textField('expectedTimeline', 'Expected Investment / Financing Timeline')}
@@ -803,53 +817,53 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
 
               {role === 'Government / Public Institution' && (
                 <div className="space-y-6">
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Priority Sectors</p>{optionGroup('govPrioritySectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Priority Sectors')}</p>{optionGroup('govPrioritySectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}</div>
                   {textField('govInvestmentPriorities', 'Investment Priorities')}
                   {textField('govProjectsRequiringCapital', 'Projects Requiring Capital')}
                   {textField('govEstimatedCapitalRequirements', 'Estimated Capital Requirements')}
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Type of Partners Sought</p>{optionGroup('govPartnersSought', ['Investors', 'Strategic Companies', 'DFIs', 'Technology Partners', 'Infrastructure Developers', 'Industrial Partners', 'Trade Partners', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Type of Partners Sought')}</p>{optionGroup('govPartnersSought', ['Investors', 'Strategic Companies', 'DFIs', 'Technology Partners', 'Infrastructure Developers', 'Industrial Partners', 'Trade Partners', 'Other'])}</div>
                 </div>
               )}
 
               {role === 'Strategic Partner' && (
                 <div className="space-y-6">
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Strategic Capabilities You Bring</p>{optionGroup('strategicCapabilities', ['Technology', 'Engineering / EPC', 'Market Access', 'Industrial Capacity', 'Logistics', 'Financial Services', 'Advisory', 'Manufacturing', 'Distribution', 'Other'])}</div>
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">African Markets of Interest</p>{optionGroup('strategicAfricanMarkets', ['Central Africa', 'West Africa', 'East Africa', 'North Africa', 'Southern Africa', 'Africa-wide', 'Other'])}</div>
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Sectors of Interest</p>{optionGroup('strategicSectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}</div>
-                  <div><p className="mb-3 text-sm font-semibold text-gray-900">Type of Partnerships Sought</p>{optionGroup('strategicPartnerships', ['Joint Ventures', 'Technology Partnerships', 'Market Entry', 'Industrial Partnerships', 'Investment', 'PPP', 'Distribution', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Strategic Capabilities You Bring')}</p>{optionGroup('strategicCapabilities', ['Technology', 'Engineering / EPC', 'Market Access', 'Industrial Capacity', 'Logistics', 'Financial Services', 'Advisory', 'Manufacturing', 'Distribution', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('African Markets of Interest')}</p>{optionGroup('strategicAfricanMarkets', ['Central Africa', 'West Africa', 'East Africa', 'North Africa', 'Southern Africa', 'Africa-wide', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Sectors of Interest')}</p>{optionGroup('strategicSectors', ['Infrastructure', 'Energy', 'Mining / Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'])}</div>
+                  <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Type of Partnerships Sought')}</p>{optionGroup('strategicPartnerships', ['Joint Ventures', 'Technology Partnerships', 'Market Entry', 'Industrial Partnerships', 'Investment', 'PPP', 'Distribution', 'Other'])}</div>
                 </div>
               )}
 
               {!['Investor / Capital Provider', 'Project Owner', 'Government / Public Institution', 'Strategic Partner'].includes(role) && (
-                <p className="text-sm leading-6 text-gray-600">Select your role in Step 01 to display the relevant investment / business parameters.</p>
+                <p className="text-sm leading-6 text-gray-600">{ta('Select your role in Step 01 to display the relevant investment / business parameters.')}</p>
               )}
             </section>
 
             <section className="rounded-xl border border-gray-200 bg-gray-50 p-5 sm:p-6">
-              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 05 — WHO DO YOU WANT TO MEET?</h3>
-              <p className="mb-3 text-sm font-semibold text-gray-900">Who would you like to meet at AEF?</p>
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">{ta('STEP 05 — WHO DO YOU WANT TO MEET?')}</h3>
+              <p className="mb-3 text-sm font-semibold text-gray-900">{ta('Who would you like to meet at AEF?')}</p>
               {optionGroup('whoToMeet', ['Heads of State / Government Leaders', 'Ministers', 'Sovereign Wealth Funds', 'Institutional Investors', 'Family Offices', 'Private Equity', 'Venture Capital', 'DFIs', 'Banks', 'Project Developers', 'CEOs', 'Technology Companies', 'Strategic Corporates', 'Other Governments', 'Other'])}
               <div className="mt-6">{textField('specificConnections', 'Specific institutions or individuals you would like to connect with')}</div>
             </section>
 
             <section className="rounded-xl border border-gray-200 bg-white p-5 sm:p-6">
-              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 06 — YOUR AVAILABILITY</h3>
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">{ta('STEP 06 — YOUR AVAILABILITY')}</h3>
               <div className="grid gap-6 sm:grid-cols-2">
-                <div><p className="mb-3 text-sm font-semibold text-gray-900">10 November</p>{optionGroup('availability10', ['Morning', 'Lunch', 'Afternoon', 'Evening'])}</div>
-                <div><p className="mb-3 text-sm font-semibold text-gray-900">11 November</p>{optionGroup('availability11', ['Morning', 'Lunch', 'Afternoon', 'Evening'])}</div>
+                <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('10 November')}</p>{optionGroup('availability10', ['Morning', 'Lunch', 'Afternoon', 'Evening'])}</div>
+                <div><p className="mb-3 text-sm font-semibold text-gray-900">{ta('11 November')}</p>{optionGroup('availability11', ['Morning', 'Lunch', 'Afternoon', 'Evening'])}</div>
               </div>
-              <div className="mt-6"><p className="mb-3 text-sm font-semibold text-gray-900">Preferred meeting format</p>{optionGroup('meetingFormat', ['1:1 Meeting', 'Small Roundtable', 'Deal Room', 'VIP Luncheon', 'Leaders Lounge', 'Country Investment Roundtable'])}</div>
+              <div className="mt-6"><p className="mb-3 text-sm font-semibold text-gray-900">{ta('Preferred meeting format')}</p>{optionGroup('meetingFormat', ['1:1 Meeting', 'Small Roundtable', 'Deal Room', 'VIP Luncheon', 'Leaders Lounge', 'Country Investment Roundtable'])}</div>
             </section>
 
             <section className="rounded-xl border border-gray-200 bg-gray-50 p-5 sm:p-6 space-y-6">
-              <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 07 — YOUR PRIORITY</h3>
+              <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-blue-900">{ta('STEP 07 — YOUR PRIORITY')}</h3>
               {textareaField('dealPriority', 'What would you like to advance through AEF?', true, 5)}
               {textField('specificCounterparty', 'Is there a specific counterparty you would like AEF to help connect you with?')}
               {textareaField('successfulMeeting', 'What would constitute a successful meeting for you?', true, 5)}
             </section>
 
             <section className="rounded-xl border border-gray-200 bg-white p-5 sm:p-6">
-              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">STEP 08 — CONTACT & CONSENT</h3>
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.12em] text-blue-900">{ta('STEP 08 — CONTACT & CONSENT')}</h3>
               <div className="grid gap-5 sm:grid-cols-2">
                 {textField('institutionCompany', 'Institution / Company Name', true)}
                 {textField('countryHeadquarters', 'Country / Headquarters', true)}
@@ -857,14 +871,14 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
                 {textField('yourName', 'Your Name', true)}
                 {textField('titlePosition', 'Title / Position', true)}
                 <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-900">Email*</label>
+                  <label className="mb-2 block text-sm font-semibold text-gray-900">{ta('Email*')}</label>
                   <input required type="email" value={data.email || ''} onChange={(e) => updateField('email', e.target.value)} className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" />
                 </div>
                 {textField('phoneWhatsApp', 'Phone / WhatsApp', true)}
               </div>
 
               <div className="mt-8 space-y-3 border-t border-gray-200 pt-6">
-                <p className="text-sm font-semibold text-gray-900">Consent</p>
+                <p className="text-sm font-semibold text-gray-900">{ta('Consent')}</p>
                 {[
                   ['consentAccuracy', 'I confirm that the information submitted is accurate and that I am authorised to represent the institution identified above.'],
                   ['consentUse', 'I understand that the information submitted may be used by AEF for qualification, matchmaking and relevant introductions.'],
@@ -879,7 +893,7 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
                       onChange={(e) => updateField(field, e.target.checked)}
                       className="mt-1 rounded border-gray-300 text-blue-900 focus:ring-blue-900"
                     />
-                    <span className="text-sm leading-6 text-gray-700">{label}</span>
+                    <span className="text-sm leading-6 text-gray-700">{ta(label)}</span>
                   </label>
                 ))}
               </div>
@@ -891,7 +905,7 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
                 disabled={isSubmitting}
                 className="rounded-lg bg-blue-900 px-7 py-3.5 text-sm font-bold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {isSubmitting ? 'SUBMITTING...' : 'CREATE MY AEF MATCH PROFILE'}
+                {isSubmitting ? ta('SUBMITTING...') : ta('CREATE MY AEF MATCH PROFILE')}
               </button>
             </div>
           </form>
@@ -902,6 +916,8 @@ function AEFMatchProfile({ onClose }: { onClose: () => void }) {
 }
 
 export default function AgendaPage() {
+  const { t } = useTranslation();
+  const ta = (value: string) => t(`agenda.texts.${agendaSlug(value)}`, { defaultValue: value });
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
@@ -1205,14 +1221,14 @@ export default function AgendaPage() {
       }
 
       setConversionMessage(
-        'Thank you for your submission. Your information and documents have been successfully recorded. Our team will review your mandate and contact you regarding the appropriate engagement format.'
+        ta('Thank you for your submission. Your information and documents have been successfully recorded. Our team will review your mandate and contact you regarding the appropriate engagement format.')
       );
       setConversionData({});
       setConversionFile(null);
     } catch (err: any) {
       console.error(err);
       setConversionMessage(
-        err.message || 'An unexpected error occurred during submission. Please try again.'
+        err.message || ta('An unexpected error occurred during submission. Please try again.')
       );
     } finally {
       setIsConversionSubmitting(false);
@@ -1243,11 +1259,11 @@ export default function AgendaPage() {
       if (error) {
         if (error.code === '23505') {
           setRegistrationMessage(
-            'This email is already registered for this event.'
+            ta('This email is already registered for this event.')
           );
         } else {
           setRegistrationMessage(
-            'Unable to complete your registration. Please try again.'
+            ta('Unable to complete your registration. Please try again.')
           );
         }
 
@@ -1255,7 +1271,7 @@ export default function AgendaPage() {
       }
 
       setRegistrationMessage(
-        'Registration submitted successfully. We look forward to welcoming you to AEF 2026.'
+        ta('Registration submitted successfully. We look forward to welcoming you to AEF 2026.')
       );
 
       setRegistrationData({
@@ -1266,7 +1282,7 @@ export default function AgendaPage() {
       });
     } catch {
       setRegistrationMessage(
-        'An unexpected error occurred. Please try again.'
+        ta('An unexpected error occurred. Please try again.')
       );
     } finally {
       setIsSubmitting(false);
@@ -1277,19 +1293,19 @@ export default function AgendaPage() {
     <div className="space-y-6">
       <div className="border-b border-gray-200 pb-5">
         <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-          {day.title}
+          {ta(day.title)}
         </p>
 
         {day.subtitle && (
           <h3 className="mt-2 text-2xl font-bold text-gray-900 md:text-3xl">
-            {day.subtitle}
+            {ta(day.subtitle)}
           </h3>
         )}
       </div>
 
       {day.sessions.map((session) => {
         const sessionKey =
-          `${day.title}-${session.time}-${session.title}`;
+          `${ta(day.title)}-${session.time}-${ta(session.title)}`;
 
         const isExpanded =
           expandedSessions.has(sessionKey);
@@ -1306,11 +1322,11 @@ export default function AgendaPage() {
 
               <div>
                 <h4 className="text-xl font-bold leading-tight text-gray-900">
-                  {session.title}
+                  {ta(session.title)}
                 </h4>
 
                 <p className="mt-2 text-sm font-semibold leading-6 text-gray-700">
-                  {session.description}
+                  {ta(session.description)}
                 </p>
               </div>
 
@@ -1321,8 +1337,8 @@ export default function AgendaPage() {
                 className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-teal-600 px-4 py-2 text-sm font-semibold text-teal-700 transition-colors hover:bg-teal-50"
               >
                 {isExpanded
-                  ? 'HIDE DETAILS'
-                  : 'VIEW DETAILS'}
+                  ? ta('HIDE DETAILS')
+                  : ta('VIEW DETAILS')}
 
                 <span
                   className={`text-base transition-transform duration-300 ${
@@ -1340,11 +1356,11 @@ export default function AgendaPage() {
                   {session.format && (
                     <div className="mb-5 rounded-xl border border-gray-200 bg-white p-5">
                       <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
-                        Format
+                        {ta('Format')}
                       </p>
 
                       <p className="mt-2 text-sm leading-7 text-gray-600">
-                        {session.format}
+                        {ta(session.format)}
                       </p>
                     </div>
                   )}
@@ -1352,11 +1368,11 @@ export default function AgendaPage() {
                   {session.purpose && (
                     <div className="mb-5 rounded-xl border border-gray-200 bg-white p-5">
                       <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
-                        Purpose
+                        {ta('Purpose')}
                       </p>
 
                       <p className="mt-2 text-sm leading-7 text-gray-600">
-                        {session.purpose}
+                        {ta(session.purpose)}
                       </p>
                     </div>
                   )}
@@ -1365,14 +1381,14 @@ export default function AgendaPage() {
                     session.questions.length > 0 && (
                       <div className="mb-5 rounded-xl border border-gray-200 bg-white p-5">
                         <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
-                          Strategic Questions
+                          {ta('Strategic Questions')}
                         </p>
 
                         <ul className="mt-4 space-y-3">
                           {session.questions.map(
                             (question) => (
                               <li
-                                key={question}
+                                key={ta(question)}
                                 className="flex gap-3 text-sm leading-6 text-gray-600"
                               >
                                 <span className="font-bold text-teal-600">
@@ -1380,7 +1396,7 @@ export default function AgendaPage() {
                                 </span>
 
                                 <span>
-                                  {question}
+                                  {ta(question)}
                                 </span>
                               </li>
                             )
@@ -1393,7 +1409,7 @@ export default function AgendaPage() {
                     session.focus.length > 0 && (
                       <div className="mb-5 rounded-xl border border-gray-200 bg-white p-5">
                         <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
-                          Focus
+                          {ta('Focus')}
                         </p>
 
                         <div className="mt-4 flex flex-wrap gap-2">
@@ -1402,7 +1418,7 @@ export default function AgendaPage() {
                               key={item}
                               className="rounded-lg bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700"
                             >
-                              {item}
+                              {ta(item)}
                             </span>
                           ))}
                         </div>
@@ -1412,11 +1428,11 @@ export default function AgendaPage() {
                   {session.dealTrack && (
                     <div className="rounded-xl border border-teal-100 bg-teal-50 p-5">
                       <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-600">
-                        Deal Track
+                        {ta('Deal Track')}
                       </p>
 
                       <p className="mt-2 text-sm font-semibold leading-7 text-teal-800">
-                        {session.dealTrack}
+                        {ta(session.dealTrack)}
                       </p>
                     </div>
                   )}
@@ -1443,7 +1459,7 @@ export default function AgendaPage() {
           >
             <img
               src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/55c329d4d58fb687f70c222c549f7ec1.png"
-              alt="Africa Economic Forum"
+              alt={ta('Africa Economic Forum')}
               className="h-12 w-auto"
             />
           </Link>
@@ -1453,42 +1469,42 @@ export default function AgendaPage() {
               href="#about-aef"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              ABOUT AEF
+              {ta('ABOUT AEF')}
             </a>
 
             <a
               href="#why-kinshasa"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              WHY KINSHASA
+              {ta('WHY KINSHASA')}
             </a>
 
             <a
               href="#programme"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              PROGRAMME
+              {ta('PROGRAMME')}
             </a>
 
             <a
               href="#speakers"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              SPEAKERS
+              {ta('SPEAKERS')}
             </a>
 
             <a
               href="#deal-ecosystem"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              DEAL ECOSYSTEM
+              {ta('DEAL ECOSYSTEM')}
             </a>
 
             <a
               href="#partners"
               className="text-sm text-gray-700 transition-colors hover:text-teal-600"
             >
-              PARTNERS
+              {ta('PARTNERS')}
             </a>
           </nav>
 
@@ -1502,14 +1518,14 @@ export default function AgendaPage() {
                 }
                 className="rounded-lg bg-blue-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-800"
               >
-                GET YOUR DELEGATE PASS
+                {ta('GET YOUR DELEGATE PASS')}
               </button>
 
               <Link
                 to="/contact"
                 className="rounded-lg bg-blue-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-800"
               >
-                BECOME AN AEF PARTNER
+                {ta('BECOME AN AEF PARTNER')}
               </Link>
 
               <a
@@ -1518,7 +1534,7 @@ export default function AgendaPage() {
                 rel="noopener noreferrer"
                 className="rounded-lg bg-white px-6 py-3 font-semibold text-blue-900 transition-colors hover:bg-gray-100 border border-gray-200"
               >
-                Download Agenda
+                {ta('Download Agenda')}
               </a>
             </div>
 
@@ -1527,14 +1543,14 @@ export default function AgendaPage() {
                 onClick={signOut}
                 className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700"
               >
-                Sign out
+                {ta('Sign out')}
               </button>
             ) : (
               <button
                 onClick={() => setShowSignInModal(true)}
                 className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700"
               >
-                Sign in
+                {ta('Sign in')}
               </button>
             )}
           </div>
@@ -1544,7 +1560,7 @@ export default function AgendaPage() {
               type="button"
               className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-50 hover:text-teal-600"
               onClick={() => setShowMobileMenu((previous) => !previous)}
-              aria-label="Menu"
+              aria-label={ta('Menu')}
               aria-expanded={showMobileMenu}
             >
               <span className="text-xl">{showMobileMenu ? '✕' : '☰'}</span>
@@ -1569,7 +1585,7 @@ export default function AgendaPage() {
                   onClick={() => setShowMobileMenu(false)}
                   className="border-b border-gray-100 px-3 py-3 text-sm font-semibold text-gray-700 transition-colors hover:text-teal-600"
                 >
-                  {label}
+                  {ta(label)}
                 </a>
               ))}
 
@@ -1581,7 +1597,7 @@ export default function AgendaPage() {
                 }}
                 className="mt-4 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white"
               >
-                GET YOUR DELEGATE PASS
+                {ta('GET YOUR DELEGATE PASS')}
               </button>
 
               <Link
@@ -1589,7 +1605,7 @@ export default function AgendaPage() {
                 onClick={() => setShowMobileMenu(false)}
                 className="mt-3 rounded-lg bg-blue-900 px-5 py-3 text-center text-sm font-semibold text-white"
               >
-                BECOME AN AEF PARTNER
+                {ta('BECOME AN AEF PARTNER')}
               </Link>
 
               <a
@@ -1599,7 +1615,7 @@ export default function AgendaPage() {
                 onClick={() => setShowMobileMenu(false)}
                 className="mt-3 rounded-lg border border-gray-200 bg-white px-5 py-3 text-center text-sm font-semibold text-blue-900"
               >
-                Download Agenda
+                {ta('Download Agenda')}
               </a>
 
               <div className="mt-4 border-t border-gray-100 px-3 py-4">
@@ -1615,7 +1631,7 @@ export default function AgendaPage() {
                   }}
                   className="mt-3 rounded-lg border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700"
                 >
-                  Sign out
+                  {ta('Sign out')}
                 </button>
               ) : (
                 <button
@@ -1626,7 +1642,7 @@ export default function AgendaPage() {
                   }}
                   className="mt-3 rounded-lg border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700"
                 >
-                  Sign in
+                  {ta('Sign in')}
                 </button>
               )}
             </nav>
@@ -1652,19 +1668,19 @@ export default function AgendaPage() {
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-32">
           <div className="max-w-4xl">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">
-              10–11 November 2026
+              {ta('10–11 November 2026')}
             </p>
 
             <h1 className="text-4xl font-bold leading-tight text-white md:text-6xl">
-              AFRICA’S NEXT INVESTMENT CORRIDORS ARE BEING BUILT IN KINSHASA.
+              {ta('AFRICA’S NEXT INVESTMENT CORRIDORS ARE BEING BUILT IN KINSHASA.')}
             </h1>
 
             <p className="mt-6 text-xl leading-8 text-blue-100">
-              AFRICA AND GLOBAL REALIGNMENT:
+              {ta('AFRICA AND GLOBAL REALIGNMENT:')}
             </p>
 
             <p className="mt-2 text-xl font-semibold leading-8 text-white">
-              INVESTMENTS, ALLIANCES &amp; STRATEGIC OPPORTUNITIES
+              {ta('INVESTMENTS, ALLIANCES &amp; STRATEGIC OPPORTUNITIES')}
             </p>
 
             <p className="mt-5 text-sm leading-6 text-blue-200">
@@ -1686,14 +1702,14 @@ export default function AgendaPage() {
                 }
                 className="rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-teal-700"
               >
-                GET YOUR DELEGATE PASS
+                {ta('GET YOUR DELEGATE PASS')}
               </button>
 
               <Link
                 to="/contact"
                 className="rounded-lg border border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
               >
-                BECOME AN AEF PARTNER
+                {ta('BECOME AN AEF PARTNER')}
               </Link>
 
               <a
@@ -1702,12 +1718,12 @@ export default function AgendaPage() {
                 rel="noopener noreferrer"
                 className="rounded-lg border border-white/70 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
               >
-                Download Agenda
+                {ta('Download Agenda')}
               </a>
             </div>
 
             <p className="mt-5 text-sm font-medium text-blue-100">
-              For Governments | Investors | Project Owners | Strategic Partners
+              {ta('For Governments | Investors | Project Owners | Strategic Partners')}
             </p>
           </div>
         </div>
@@ -1723,16 +1739,16 @@ export default function AgendaPage() {
       >
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-600">
-            02 — THE PREMISE
+            {ta('02 — THE PREMISE')}
           </p>
 
           <h2 className="mt-4 max-w-5xl text-3xl font-bold leading-tight text-gray-900 md:text-5xl">
-            THE WORLD IS REALIGNING. AFRICA IS NEGOTIATING ITS PLACE.
+            {ta('THE WORLD IS REALIGNING. AFRICA IS NEGOTIATING ITS PLACE.')}
           </h2>
 
           <div className="mt-8 max-w-5xl space-y-6 text-lg leading-8 text-gray-600">
             <p>
-              The architecture of global economic cooperation is changing.
+              {ta('The architecture of global economic cooperation is changing.')}
             </p>
 
             <p>
@@ -1768,7 +1784,7 @@ export default function AgendaPage() {
                 className="rounded-xl border border-gray-200 bg-gray-50 p-5"
               >
                 <p className="font-bold text-blue-900">
-                  {item}
+                  {ta(item)}
                 </p>
               </div>
             ))}
@@ -1784,7 +1800,7 @@ export default function AgendaPage() {
             ].map((item, index) => (
               <React.Fragment key={item}>
                 <span className="text-blue-900">
-                  {item}
+                  {ta(item)}
                 </span>
 
                 {index < 4 && (
@@ -1805,11 +1821,11 @@ export default function AgendaPage() {
       <section className="bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-600">
-            03 — WHAT IS AEF?
+            {ta('03 — WHAT IS AEF?')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            A PLATFORM FOR CAPITAL, PARTNERSHIPS AND STRATEGIC DEAL-MAKING.
+            {ta('A PLATFORM FOR CAPITAL, PARTNERSHIPS AND STRATEGIC DEAL-MAKING.')}
           </h2>
 
           <p className="mt-6 max-w-5xl text-lg leading-8 text-gray-600">
@@ -1844,15 +1860,15 @@ export default function AgendaPage() {
               },
             ].map((item) => (
               <div
-                key={item.title}
+                key={ta(item.title)}
                 className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm"
               >
                 <h3 className="text-lg font-bold text-blue-900">
-                  {item.title}
+                  {ta(item.title)}
                 </h3>
 
                 <p className="mt-3 leading-7 text-gray-600">
-                  {item.text}
+                  {ta(item.text)}
                 </p>
               </div>
             ))}
@@ -1870,15 +1886,15 @@ export default function AgendaPage() {
       >
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-600">
-            04 — THE AEF DEAL ARCHITECTURE
+            {ta('04 — THE AEF DEAL ARCHITECTURE')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            THIS IS NOT A CONFERENCE.
+            {ta('THIS IS NOT A CONFERENCE.')}
           </h2>
 
           <h3 className="mt-2 text-2xl font-bold text-blue-900 md:text-4xl">
-            IT IS A DEAL-MAKING ARCHITECTURE.
+            {ta('IT IS A DEAL-MAKING ARCHITECTURE.')}
           </h3>
 
           <div className="mt-10 space-y-4">
@@ -1939,7 +1955,7 @@ export default function AgendaPage() {
           </div>
 
           <p className="mt-10 text-xl font-semibold text-blue-900">
-            «From access to alignment. From alignment to transactions.»
+            {ta('«From access to alignment. From alignment to transactions.»')}
           </p>
         </div>
       </section>
@@ -1951,25 +1967,25 @@ export default function AgendaPage() {
       <section className="bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-600">
-            05 — FOUR WAYS TO ENTER AEF
+            {ta('05 — FOUR WAYS TO ENTER AEF')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            DON’T JUST ATTEND AEF.
+            {ta('DON’T JUST ATTEND AEF.')}
           </h2>
 
           <h3 className="mt-2 text-2xl font-bold text-blue-900 md:text-4xl">
-            COME WITH A MANDATE.
+            {ta('COME WITH A MANDATE.')}
           </h3>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
               <p className="text-sm font-bold text-teal-600">
-                01 — AFRICAN GOVERNMENTS
+                {ta('01 — AFRICAN GOVERNMENTS')}
               </p>
 
               <h3 className="mt-3 text-2xl font-bold text-gray-900">
-                BRING YOUR COUNTRY’S PRIORITIES TO THE TABLE.
+                {ta('BRING YOUR COUNTRY’S PRIORITIES TO THE TABLE.')}
               </h3>
 
               <p className="mt-4 leading-7 text-gray-600">
@@ -1979,7 +1995,7 @@ export default function AgendaPage() {
               </p>
 
               <p className="mt-5 font-semibold text-gray-900">
-                Participation opportunities:
+                {ta('Participation opportunities:')}
               </p>
 
               <ul className="mt-3 space-y-2 text-sm text-gray-600">
@@ -1991,7 +2007,7 @@ export default function AgendaPage() {
                   'Strategic Sessions',
                   'Project Showcase',
                 ].map((item) => (
-                  <li key={item}>• {item}</li>
+                  <li key={item}>• {ta(item)}</li>
                 ))}
               </ul>
 
@@ -1999,24 +2015,24 @@ export default function AgendaPage() {
                 onClick={() => openConversion('country')}
                 className="mt-7 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
               >
-                SUBMIT YOUR COUNTRY FOR A ROUNDTABLE
+                {ta('SUBMIT YOUR COUNTRY FOR A ROUNDTABLE')}
               </button>
 
               <button
                 onClick={() => openConversion('country')}
                 className="mt-3 block text-sm font-semibold text-teal-600 hover:text-teal-700"
               >
-                Request Country Participation
+                {ta('Request Country Participation')}
               </button>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
               <p className="text-sm font-bold text-teal-600">
-                02 — FOREIGN COUNTRIES &amp; REGIONAL BLOCS
+                {ta('02 — FOREIGN COUNTRIES &amp; REGIONAL BLOCS')}
               </p>
 
               <h3 className="mt-3 text-2xl font-bold text-gray-900">
-                BRING YOUR MARKET. BUILD YOUR AFRICA STRATEGY.
+                {ta('BRING YOUR MARKET. BUILD YOUR AFRICA STRATEGY.')}
               </h3>
 
               <p className="mt-4 leading-7 text-gray-600">
@@ -2026,7 +2042,7 @@ export default function AgendaPage() {
               </p>
 
               <p className="mt-5 font-semibold text-gray-900">
-                Engagement opportunities:
+                {ta('Engagement opportunities:')}
               </p>
 
               <ul className="mt-3 space-y-2 text-sm text-gray-600">
@@ -2039,7 +2055,7 @@ export default function AgendaPage() {
                   'Investment & Trade Discussions',
                   'Deal Rooms',
                 ].map((item) => (
-                  <li key={item}>• {item}</li>
+                  <li key={item}>• {ta(item)}</li>
                 ))}
               </ul>
 
@@ -2052,17 +2068,17 @@ export default function AgendaPage() {
                 onClick={() => openConversion('bloc')}
                 className="mt-7 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
               >
-                EXPLORE COUNTRY &amp; BLOC PARTICIPATION
+                {ta('EXPLORE COUNTRY &amp; BLOC PARTICIPATION')}
               </button>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
               <p className="text-sm font-bold text-teal-600">
-                03 — INVESTORS
+                {ta('03 — INVESTORS')}
               </p>
 
               <h3 className="mt-3 text-2xl font-bold text-gray-900">
-                BRING CAPITAL. FIND THE RIGHT PROJECTS.
+                {ta('BRING CAPITAL. FIND THE RIGHT PROJECTS.')}
               </h3>
 
               <p className="mt-4 leading-7 text-gray-600">
@@ -2072,7 +2088,7 @@ export default function AgendaPage() {
               </p>
 
               <p className="mt-5 font-semibold text-gray-900">
-                Target:
+                {ta('Target:')}
               </p>
 
               <div className="mt-3 flex flex-wrap gap-2">
@@ -2093,7 +2109,7 @@ export default function AgendaPage() {
                     key={item}
                     className="rounded-lg bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700"
                   >
-                    {item}
+                    {ta(item)}
                   </span>
                 ))}
               </div>
@@ -2107,17 +2123,17 @@ export default function AgendaPage() {
                 onClick={() => openConversion('investor')}
                 className="mt-7 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
               >
-                JOIN THE AEF INVESTOR NETWORK
+                {ta('JOIN THE AEF INVESTOR NETWORK')}
               </button>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
               <p className="text-sm font-bold text-teal-600">
-                04 — PROJECT OWNERS
+                {ta('04 — PROJECT OWNERS')}
               </p>
 
               <h3 className="mt-3 text-2xl font-bold text-gray-900">
-                BRING THE PROJECT. MEET THE CAPITAL.
+                {ta('BRING THE PROJECT. MEET THE CAPITAL.')}
               </h3>
 
               <p className="mt-4 leading-7 text-gray-600">
@@ -2127,7 +2143,7 @@ export default function AgendaPage() {
               </p>
 
               <p className="mt-5 font-semibold text-gray-900">
-                Priority sectors:
+                {ta('Priority sectors:')}
               </p>
 
               <div className="mt-3 flex flex-wrap gap-2">
@@ -2148,7 +2164,7 @@ export default function AgendaPage() {
                     key={item}
                     className="rounded-lg bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700"
                   >
-                    {item}
+                    {ta(item)}
                   </span>
                 ))}
               </div>
@@ -2162,11 +2178,11 @@ export default function AgendaPage() {
                 onClick={() => openConversion('project')}
                 className="mt-7 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
               >
-                SUBMIT A PROJECT
+                {ta('SUBMIT A PROJECT')}
               </button>
 
               <p className="mt-4 text-sm text-gray-500">
-                «Project submissions are subject to AEF review and selection.»
+                {ta('«Project submissions are subject to AEF review and selection.»')}
               </p>
             </div>
           </div>
@@ -2183,11 +2199,11 @@ export default function AgendaPage() {
       >
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            06 — SPEAKERS
+            {ta('06 — SPEAKERS')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            THE PEOPLE SHAPING THE CONVERSATION.
+            {ta('THE PEOPLE SHAPING THE CONVERSATION.')}
           </h2>
 
           <p className="mt-5 max-w-4xl leading-7 text-gray-600">
@@ -2253,13 +2269,13 @@ export default function AgendaPage() {
             to="/intervenants"
             className="mt-8 inline-flex rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
           >
-            VIEW ALL SPEAKERS
+            {ta('VIEW ALL SPEAKERS')}
           </Link>
 
           {intervenantsInvites.length > 0 && (
             <div className="mt-16">
               <h3 className="text-2xl font-bold text-gray-900">
-                INVITED LEADERS ONLY
+                {ta('INVITED LEADERS ONLY')}
               </h3>
 
               <p className="mt-3 text-sm text-gray-500">
@@ -2304,31 +2320,31 @@ export default function AgendaPage() {
       >
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            07 — PROGRAMME INTRODUCTION
+            {ta('07 — PROGRAMME INTRODUCTION')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            TWO DAYS. ONE ECONOMIC MISSION.
+            {ta('TWO DAYS. ONE ECONOMIC MISSION.')}
           </h2>
 
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             <div className="rounded-2xl bg-white p-8 shadow-sm">
               <p className="text-sm font-bold text-teal-600">
-                DAY ONE
+                {ta('DAY ONE')}
               </p>
 
               <h3 className="mt-2 text-2xl font-bold text-gray-900">
-                THE GEOPOLITICS OF CAPITAL
+                {ta('THE GEOPOLITICS OF CAPITAL')}
               </h3>
             </div>
 
             <div className="rounded-2xl bg-white p-8 shadow-sm">
               <p className="text-sm font-bold text-teal-600">
-                DAY TWO
+                {ta('DAY TWO')}
               </p>
 
               <h3 className="mt-2 text-2xl font-bold text-gray-900">
-                SECTOR DEEP DIVES &amp; TRADE
+                {ta('SECTOR DEEP DIVES &amp; TRADE')}
               </h3>
             </div>
           </div>
@@ -2342,7 +2358,7 @@ export default function AgendaPage() {
             onClick={() => setShowProgrammeModal(true)}
             className="mt-7 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
           >
-            View Full Programme
+            {ta('View Full Programme')}
           </button>
         </div>
       </section>
@@ -2365,15 +2381,15 @@ export default function AgendaPage() {
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-gray-200 bg-white p-7">
             <h3 className="text-2xl font-bold text-gray-900">
-              DEAL MATCHMAKING
+              {ta('DEAL MATCHMAKING')}
             </h3>
 
             <p className="mt-3 leading-7 text-gray-600">
-              AI-powered matchmaking connecting participants according to:
+              {ta('AI-powered matchmaking connecting participants according to:')}
             </p>
 
             <p className="mt-4 font-bold text-blue-900">
-              Sector × Geography × Capital × Project × Partnership
+              {ta('Sector × Geography × Capital × Project × Partnership')}
             </p>
 
             <button
@@ -2381,7 +2397,7 @@ export default function AgendaPage() {
               onClick={() => setShowMatchProfileModal(true)}
               className="mt-6 inline-flex rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
             >
-              BUILD YOUR AEF MATCH PROFILE
+              {ta('BUILD YOUR AEF MATCH PROFILE')}
             </button>
           </div>
         </div>
@@ -2395,11 +2411,11 @@ export default function AgendaPage() {
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-gray-200 bg-gray-50 p-7">
             <h3 className="text-2xl font-bold text-gray-900">
-              INVESTMENT SHOWCASE
+              {ta('INVESTMENT SHOWCASE')}
             </h3>
 
             <p className="mt-3 leading-7 text-gray-600">
-              Selected projects presented to qualified investors.
+              {ta('Selected projects presented to qualified investors.')}
             </p>
           </div>
         </div>
@@ -2422,21 +2438,21 @@ export default function AgendaPage() {
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            10 — SECTOR DEAL TRACKS
+            {ta('10 — SECTOR DEAL TRACKS')}
           </p>
 
           <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {sectorDealTracks.map((sector) => (
               <div
-                key={sector.title}
+                key={ta(sector.title)}
                 className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm"
               >
                 <h3 className="text-xl font-bold text-blue-900">
-                  {sector.title}
+                  {ta(sector.title)}
                 </h3>
 
                 <p className="mt-2 font-semibold text-gray-900">
-                  {sector.subtitle}
+                  {ta(sector.subtitle)}
                 </p>
 
                 <div className="mt-5 space-y-2">
@@ -2445,18 +2461,18 @@ export default function AgendaPage() {
                       key={item}
                       className="text-sm text-gray-600"
                     >
-                      • {item}
+                      • {ta(item)}
                     </p>
                   ))}
                 </div>
 
                 <div className="mt-6 rounded-lg bg-teal-50 p-4">
                   <p className="text-sm font-bold text-teal-700">
-                    DEAL TRACK
+                    {ta('DEAL TRACK')}
                   </p>
 
                   <p className="mt-1 text-sm text-gray-600">
-                    {sector.deal}
+                    {ta(sector.deal)}
                   </p>
                 </div>
               </div>
@@ -2472,11 +2488,11 @@ export default function AgendaPage() {
       <section className="bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            13 — THE FUTURE ECONOMY
+            {ta('13 — THE FUTURE ECONOMY')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            FIVE INVESTMENT FRONTIERS
+            {ta('FIVE INVESTMENT FRONTIERS')}
           </h2>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -2492,18 +2508,18 @@ export default function AgendaPage() {
                 className="rounded-xl border border-gray-200 bg-white p-5"
               >
                 <p className="font-bold text-blue-900">
-                  {item}
+                  {ta(item)}
                 </p>
               </div>
             ))}
           </div>
 
           <p className="mt-8 max-w-4xl leading-7 text-gray-600">
-            «What does this mean for African capital, industry and investment?»
+            {ta('«What does this mean for African capital, industry and investment?»')}
           </p>
 
           <p className="mt-3 text-sm text-gray-500">
-            Content investment-focused, not entertainment-focused.
+            {ta('Content investment-focused, not entertainment-focused.')}
           </p>
         </div>
       </section>
@@ -2515,11 +2531,11 @@ export default function AgendaPage() {
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            14 — CLOSING DEAL RALLY
+            {ta('14 — CLOSING DEAL RALLY')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            WHAT MOVED FROM CONVERSATION TO COMMITMENT?
+            {ta('WHAT MOVED FROM CONVERSATION TO COMMITMENT?')}
           </h2>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -2536,7 +2552,7 @@ export default function AgendaPage() {
                 className="rounded-xl border border-gray-200 bg-gray-50 p-5"
               >
                 <p className="font-bold text-blue-900">
-                  {item}
+                  {ta(item)}
                 </p>
               </div>
             ))}
@@ -2544,16 +2560,16 @@ export default function AgendaPage() {
 
           <div className="mt-8 rounded-2xl bg-gradient-to-r from-blue-900 to-blue-700 p-8 text-white">
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-blue-200">
-              AFRICA INVESTMENT SCOREBOARD
+              {ta('AFRICA INVESTMENT SCOREBOARD')}
             </p>
 
             <p className="mt-3 leading-7 text-blue-100">
-              Display only verified AEF outcomes.
+              {ta('Display only verified AEF outcomes.')}
             </p>
           </div>
 
           <p className="mt-8 text-lg font-semibold text-gray-900">
-            AEF SCALE-UP / UNICORN AWARD
+            {ta('AEF SCALE-UP / UNICORN AWARD')}
           </p>
 
           <p className="mt-2 text-gray-600">
@@ -2571,11 +2587,11 @@ export default function AgendaPage() {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="rounded-2xl bg-gradient-to-r from-blue-900 to-blue-700 p-8 text-white md:p-12">
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-blue-200">
-              15 — THE DEAL ROOM
+              {ta('15 — THE DEAL ROOM')}
             </p>
 
             <h2 className="mt-3 text-3xl font-bold">
-              WHERE CAPITAL MEETS THE PROJECT.
+              {ta('WHERE CAPITAL MEETS THE PROJECT.')}
             </h2>
 
             <p className="mt-6 max-w-4xl leading-8 text-blue-100">
@@ -2603,7 +2619,7 @@ export default function AgendaPage() {
                     </span>
 
                     <span className="font-semibold">
-                      {item}
+                      {ta(item)}
                     </span>
                   </div>
 
@@ -2644,7 +2660,7 @@ export default function AgendaPage() {
               }}
               className="mt-8 inline-flex rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700"
             >
-              ENTER THE DEAL ROOM
+              {ta('ENTER THE DEAL ROOM')}
             </button>
           </div>
         </div>
@@ -2657,11 +2673,11 @@ export default function AgendaPage() {
       <section className="bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            16 — COUNTRY-SPECIFIC INVESTMENT ROUNDTABLES
+            {ta('16 — COUNTRY-SPECIFIC INVESTMENT ROUNDTABLES')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            YOUR COUNTRY. YOUR PRIORITIES. YOUR INVESTOR TABLE.
+            {ta('YOUR COUNTRY. YOUR PRIORITIES. YOUR INVESTOR TABLE.')}
           </h2>
 
           <p className="mt-6 max-w-4xl leading-8 text-gray-600">
@@ -2681,11 +2697,11 @@ export default function AgendaPage() {
             onClick={() => openConversion('country')}
             className="mt-7 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
           >
-            REQUEST A COUNTRY ROUNDTABLE
+            {ta('REQUEST A COUNTRY ROUNDTABLE')}
           </button>
 
           <p className="mt-4 text-sm text-gray-500">
-            By invitation / application / subject to AEF selection.
+            {ta('By invitation / application / subject to AEF selection.')}
           </p>
         </div>
       </section>
@@ -2697,7 +2713,7 @@ export default function AgendaPage() {
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            17 — VIP LUNCHEON
+            {ta('17 — VIP LUNCHEON')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
@@ -2720,7 +2736,7 @@ export default function AgendaPage() {
             onClick={() => openConversion('bloc')}
             className="mt-7 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
           >
-            REQUEST VIP PARTICIPATION
+            {ta('REQUEST VIP PARTICIPATION')}
           </button>
         </div>
       </section>
@@ -2732,11 +2748,11 @@ export default function AgendaPage() {
       <section className="bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            18 — COFFEE WITH PRESIDENTS
+            {ta('18 — COFFEE WITH PRESIDENTS')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            ACCESS. DIALOGUE. DECISION-MAKING.
+            {ta('ACCESS. DIALOGUE. DECISION-MAKING.')}
           </h2>
 
           <p className="mt-6 max-w-4xl leading-8 text-gray-600">
@@ -2749,7 +2765,7 @@ export default function AgendaPage() {
             onClick={() => openConversion('bloc')}
             className="mt-7 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
           >
-            REQUEST CONSIDERATION
+            {ta('REQUEST CONSIDERATION')}
           </button>
 
           <p className="mt-4 text-sm text-gray-500">
@@ -2769,11 +2785,11 @@ export default function AgendaPage() {
       >
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            19 — WHY KINSHASA
+            {ta('19 — WHY KINSHASA')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            WHY KINSHASA. WHY NOW.
+            {ta('WHY KINSHASA. WHY NOW.')}
           </h2>
 
           <p className="mt-6 max-w-4xl leading-8 text-gray-600">
@@ -2798,7 +2814,7 @@ export default function AgendaPage() {
                 className="rounded-xl border border-gray-200 bg-gray-50 p-5"
               >
                 <p className="font-bold text-blue-900">
-                  {item}
+                  {ta(item)}
                 </p>
               </div>
             ))}
@@ -2818,7 +2834,7 @@ export default function AgendaPage() {
       <section className="bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            20 — WHO WILL BE AT THE TABLE?
+            {ta('20 — WHO WILL BE AT THE TABLE?')}
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -2842,7 +2858,7 @@ export default function AgendaPage() {
                 className="rounded-xl border border-gray-200 bg-white p-5"
               >
                 <p className="font-bold text-blue-900">
-                  {item}
+                  {ta(item)}
                 </p>
               </div>
             ))}
@@ -2857,25 +2873,25 @@ export default function AgendaPage() {
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            21 — ACCESS VS POSITION
+            {ta('21 — ACCESS VS POSITION')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            A PASS GIVES YOU ACCESS.
+            {ta('A PASS GIVES YOU ACCESS.')}
           </h2>
 
           <h3 className="mt-2 text-2xl font-bold text-blue-900 md:text-4xl">
-            A PARTNERSHIP GIVES YOUR INSTITUTION A POSITION.
+            {ta('A PARTNERSHIP GIVES YOUR INSTITUTION A POSITION.')}
           </h3>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             <div className="rounded-2xl border border-gray-200 bg-gray-50 p-8">
               <h3 className="text-2xl font-bold text-gray-900">
-                DELEGATE / INVESTOR PASS
+                {ta('DELEGATE / INVESTOR PASS')}
               </h3>
 
               <p className="mt-3 font-semibold text-blue-900">
-                PARTICIPATE IN THE ECOSYSTEM.
+                {ta('PARTICIPATE IN THE ECOSYSTEM.')}
               </p>
 
               <p className="mt-5 leading-7 text-gray-600">
@@ -2884,7 +2900,7 @@ export default function AgendaPage() {
               </p>
 
               <p className="mt-5 font-semibold text-gray-900">
-                Access may include:
+                {ta('Access may include:')}
               </p>
 
               <ul className="mt-3 space-y-2 text-sm text-gray-600">
@@ -2895,12 +2911,12 @@ export default function AgendaPage() {
                   'Matchmaking',
                   'Selected Hospitality according to Pass Category',
                 ].map((item) => (
-                  <li key={item}>• {item}</li>
+                  <li key={item}>• {ta(item)}</li>
                 ))}
               </ul>
 
               <p className="mt-6 font-semibold text-blue-900">
-                «Be in the room. Access the conversations. Build relationships.»
+                {ta('«Be in the room. Access the conversations. Build relationships.»')}
               </p>
 
               <button
@@ -2909,17 +2925,17 @@ export default function AgendaPage() {
                 }
                 className="mt-7 rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700"
               >
-                GET YOUR DELEGATE PASS
+                {ta('GET YOUR DELEGATE PASS')}
               </button>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-gray-50 p-8">
               <h3 className="text-2xl font-bold text-gray-900">
-                AEF PARTNERSHIP
+                {ta('AEF PARTNERSHIP')}
               </h3>
 
               <p className="mt-3 font-semibold text-blue-900">
-                POSITION YOUR INSTITUTION WITHIN THE ECOSYSTEM.
+                {ta('POSITION YOUR INSTITUTION WITHIN THE ECOSYSTEM.')}
               </p>
 
               <p className="mt-5 leading-7 text-gray-600">
@@ -2929,7 +2945,7 @@ export default function AgendaPage() {
               </p>
 
               <p className="mt-5 font-semibold text-gray-900">
-                Potential benefits:
+                {ta('Potential benefits:')}
               </p>
 
               <div className="mt-3 grid gap-2 sm:grid-cols-2">
@@ -2951,30 +2967,30 @@ export default function AgendaPage() {
                     key={item}
                     className="rounded-lg bg-white px-3 py-2 text-xs text-gray-600"
                   >
-                    {item}
+                    {ta(item)}
                   </span>
                 ))}
               </div>
 
               <p className="mt-6 font-semibold text-blue-900">
-                «Don’t just be in the room. Help shape what happens in it.»
+                {ta('«Don’t just be in the room. Help shape what happens in it.»')}
               </p>
 
               <Link
                 to="/contact"
                 className="mt-7 inline-flex rounded-lg bg-blue-900 px-6 py-3 font-semibold text-white hover:bg-blue-800"
               >
-                BECOME AN AEF PARTNER
+                {ta('BECOME AN AEF PARTNER')}
               </Link>
             </div>
           </div>
 
           <div className="mt-8 rounded-2xl bg-gray-50 p-6 text-center font-bold text-blue-900">
-            PASS → ACCESS
+            {ta('PASS → ACCESS')}
             <span className="mx-3 text-teal-600">|</span>
-            PARTNERSHIP → POSITION
+            {ta('PARTNERSHIP → POSITION')}
             <span className="mx-3 text-teal-600">|</span>
-            STRATEGIC PARTNERSHIP → POSITION + ACTIVATION + DEAL ENGAGEMENT
+            {ta('STRATEGIC PARTNERSHIP → POSITION + ACTIVATION + DEAL ENGAGEMENT')}
           </div>
         </div>
       </section>
@@ -2989,11 +3005,11 @@ export default function AgendaPage() {
       >
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            22 — AEF PARTNERSHIPS
+            {ta('22 — AEF PARTNERSHIPS')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            BUILD YOUR POSITION INSIDE AEF.
+            {ta('BUILD YOUR POSITION INSIDE AEF.')}
           </h2>
 
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -3063,7 +3079,7 @@ export default function AgendaPage() {
                 key={item}
                 className="rounded-lg bg-white px-4 py-3 text-sm font-bold text-blue-900"
               >
-                {item}
+                {ta(item)}
               </span>
             ))}
           </div>
@@ -3072,7 +3088,7 @@ export default function AgendaPage() {
             to="/contact"
             className="mt-8 inline-flex rounded-lg bg-blue-900 px-6 py-3 font-semibold text-white hover:bg-blue-800"
           >
-            DISCUSS A STRATEGIC PARTNERSHIP
+            {ta('DISCUSS A STRATEGIC PARTNERSHIP')}
           </Link>
         </div>
       </section>
@@ -3084,11 +3100,11 @@ export default function AgendaPage() {
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-teal-600">
-            23 — THE OUTCOME
+            {ta('23 — THE OUTCOME')}
           </p>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-5xl">
-            THE MEASURE OF AEF IS WHAT HAPPENS AFTER THE HANDSHAKE.
+            {ta('THE MEASURE OF AEF IS WHAT HAPPENS AFTER THE HANDSHAKE.')}
           </h2>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -3109,7 +3125,7 @@ export default function AgendaPage() {
                 className="rounded-xl border border-gray-200 bg-gray-50 p-5"
               >
                 <p className="font-bold text-blue-900">
-                  {item}
+                  {ta(item)}
                 </p>
               </div>
             ))}
@@ -3132,7 +3148,7 @@ export default function AgendaPage() {
                 'IMPLEMENTATION',
               ].map((item, index) => (
                 <React.Fragment key={item}>
-                  <span>{item}</span>
+                  <span>{ta(item)}</span>
 
                   {index < 6 && (
                     <span className="text-teal-600">
@@ -3158,7 +3174,7 @@ export default function AgendaPage() {
       <section className="bg-gradient-to-r from-blue-900 to-blue-700">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold text-white md:text-5xl">
-            THE NEXT DEAL WILL NOT WAIT FOR THE OLD WORLD TO RETURN.
+            {ta('THE NEXT DEAL WILL NOT WAIT FOR THE OLD WORLD TO RETURN.')}
           </h2>
 
           <p className="mx-auto mt-6 max-w-4xl text-center text-lg leading-8 text-blue-100">
@@ -3168,7 +3184,7 @@ export default function AgendaPage() {
           </p>
 
           <h3 className="mt-12 text-center text-2xl font-bold text-white">
-            CHOOSE YOUR MANDATE
+            {ta('CHOOSE YOUR MANDATE')}
           </h3>
 
           <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -3177,11 +3193,11 @@ export default function AgendaPage() {
               className="rounded-xl bg-white p-6 text-left transition hover:bg-gray-50"
             >
               <span className="font-bold text-blue-900">
-                I REPRESENT AN AFRICAN COUNTRY
+                {ta('I REPRESENT AN AFRICAN COUNTRY')}
               </span>
 
               <span className="mt-2 block text-sm text-gray-600">
-                Apply for a Country-Specific Investment Roundtable
+                {ta('Apply for a Country-Specific Investment Roundtable')}
               </span>
             </button>
 
@@ -3190,11 +3206,11 @@ export default function AgendaPage() {
               className="rounded-xl bg-white p-6 text-left transition hover:bg-gray-50"
             >
               <span className="font-bold text-blue-900">
-                I REPRESENT A FOREIGN COUNTRY / BLOC
+                {ta('I REPRESENT A FOREIGN COUNTRY / BLOC')}
               </span>
 
               <span className="mt-2 block text-sm text-gray-600">
-                Request VIP / Institutional Participation
+                {ta('Request VIP / Institutional Participation')}
               </span>
             </button>
 
@@ -3203,11 +3219,11 @@ export default function AgendaPage() {
               className="rounded-xl bg-white p-6 text-left transition hover:bg-gray-50"
             >
               <span className="font-bold text-blue-900">
-                I AM AN INVESTOR
+                {ta('I AM AN INVESTOR')}
               </span>
 
               <span className="mt-2 block text-sm text-gray-600">
-                Join the AEF Investor Network
+                {ta('Join the AEF Investor Network')}
               </span>
             </button>
 
@@ -3216,11 +3232,11 @@ export default function AgendaPage() {
               className="rounded-xl bg-white p-6 text-left transition hover:bg-gray-50"
             >
               <span className="font-bold text-blue-900">
-                I HAVE A PROJECT
+                {ta('I HAVE A PROJECT')}
               </span>
 
               <span className="mt-2 block text-sm text-gray-600">
-                Submit an Investment Opportunity
+                {ta('Submit an Investment Opportunity')}
               </span>
             </button>
           </div>
@@ -3230,7 +3246,7 @@ export default function AgendaPage() {
               to="/contact"
               className="inline-flex rounded-lg bg-teal-600 px-7 py-3 font-semibold text-white hover:bg-teal-700"
             >
-              BECOME AN AEF PARTNER
+              {ta('BECOME AN AEF PARTNER')}
             </Link>
           </div>
         </div>
@@ -3251,7 +3267,7 @@ export default function AgendaPage() {
 
           <div className="mt-10">
             <p className="text-2xl font-bold text-blue-900">
-              AFRICA ECONOMIC FORUM
+              {ta('AFRICA ECONOMIC FORUM')}
             </p>
 
             <p className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-gray-600">
@@ -3260,7 +3276,7 @@ export default function AgendaPage() {
             </p>
 
             <p className="mt-4 text-sm text-gray-500">
-              Kinshasa | 10–11 November 2026
+              {ta('Kinshasa | 10–11 November 2026')}
             </p>
           </div>
         </div>
@@ -3275,11 +3291,11 @@ export default function AgendaPage() {
           <div className="flex flex-col justify-between gap-6 md:flex-row">
             <div>
               <p className="font-bold">
-                Africa Economic Forum
+                {ta('Africa Economic Forum')}
               </p>
 
               <p className="mt-2 text-sm text-gray-400">
-                Investments. Alliances. Strategic Opportunities.
+                {ta('Investments. Alliances. Strategic Opportunities.')}
               </p>
             </div>
 
@@ -3288,48 +3304,48 @@ export default function AgendaPage() {
                 href="#about-aef"
                 className="transition-colors hover:text-teal-400"
               >
-                ABOUT AEF
+                {ta('ABOUT AEF')}
               </a>
 
               <a
                 href="#why-kinshasa"
                 className="transition-colors hover:text-teal-400"
               >
-                WHY KINSHASA
+                {ta('WHY KINSHASA')}
               </a>
 
               <a
                 href="#programme"
                 className="transition-colors hover:text-teal-400"
               >
-                PROGRAMME
+                {ta('PROGRAMME')}
               </a>
 
               <Link
                 to="/intervenants"
                 className="transition-colors hover:text-teal-400"
               >
-                SPEAKERS
+                {ta('SPEAKERS')}
               </Link>
 
               <a
                 href="#deal-ecosystem"
                 className="transition-colors hover:text-teal-400"
               >
-                DEAL ECOSYSTEM
+                {ta('DEAL ECOSYSTEM')}
               </a>
 
               <a
                 href="#partners"
                 className="transition-colors hover:text-teal-400"
               >
-                PARTNERS
+                {ta('PARTNERS')}
               </a>
             </div>
           </div>
 
           <div className="mt-8 border-t border-gray-700 pt-6 text-sm text-gray-400">
-            © 2026 Africa Economic Forum. All rights reserved.
+            {ta('© 2026 Africa Economic Forum. All rights reserved.')}
           </div>
         </div>
       </footer>
@@ -3360,22 +3376,22 @@ export default function AgendaPage() {
               <div>
                 {/* Headline */}
                 <div className="border-b border-gray-100 pb-6 mb-6">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-600 mb-2">AEF DEAL ROOM</p>
-                  <h2 className="text-3xl font-bold text-gray-900">ENTER THE AEF DEAL ROOM</h2>
-                  <p className="mt-2 text-lg font-semibold text-blue-900">Bring a mandate. Meet the counterparties. Advance the opportunity.</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-600 mb-2">{ta('AEF DEAL ROOM')}</p>
+                  <h2 className="text-3xl font-bold text-gray-900">{ta('ENTER THE AEF DEAL ROOM')}</h2>
+                  <p className="mt-2 text-lg font-semibold text-blue-900">{ta('Bring a mandate. Meet the counterparties. Advance the opportunity.')}</p>
                   <p className="mt-4 text-sm leading-6 text-gray-600">
-                    The AEF Deal Room is a curated environment connecting qualified investors, governments, project owners and strategic partners around specific investment, financing and partnership opportunities.
+                    {ta('The AEF Deal Room is a curated environment connecting qualified investors, governments, project owners and strategic partners around specific investment, financing and partnership opportunities.')}
                   </p>
                   <p className="mt-3 text-xs italic text-gray-500">
-                    Access is subject to AEF review and selection. Submitting this form does not guarantee a meeting or transaction.
+                    {ta('Access is subject to AEF review and selection. Submitting this form does not guarantee a meeting or transaction.')}
                   </p>
                 </div>
 
                 <form onSubmit={handleDealRoomSubmit} className="space-y-8">
                   {/* STEP 1 — YOUR ROLE */}
                   <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600 mb-4">STEP 1 — YOUR ROLE</h3>
-                    <label className="block text-sm font-semibold text-gray-900 mb-3">I am applying as:*</label>
+                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600 mb-4">{ta('STEP 1 — YOUR ROLE')}</h3>
+                    <label className="block text-sm font-semibold text-gray-900 mb-3">{ta('I am applying as:*')}</label>
                     <div className="grid gap-3 sm:grid-cols-2">
                       {[
                         'Investor / Capital Provider',
@@ -3404,109 +3420,109 @@ export default function AgendaPage() {
 
                   {/* STEP 2 — YOUR INSTITUTION */}
                   <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-5">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 2 — YOUR INSTITUTION</h3>
+                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">{ta('STEP 2 — YOUR INSTITUTION')}</h3>
                     
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Institution / Company Name*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Institution / Company Name*')}</label>
                         <input
                           required
                           type="text"
                           value={dealRoomData.institutionName}
                           onChange={(e) => setDealRoomData({ ...dealRoomData, institutionName: e.target.value })}
                           className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
-                          placeholder="Company name"
+                          placeholder={ta('Company name')}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Country / Headquarters*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Country / Headquarters*')}</label>
                         <input
                           required
                           type="text"
                           value={dealRoomData.countryHq}
                           onChange={(e) => setDealRoomData({ ...dealRoomData, countryHq: e.target.value })}
                           className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
-                          placeholder="Country"
+                          placeholder={ta('Country')}
                         />
                       </div>
                     </div>
 
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Website</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Website')}</label>
                         <input
                           type="url"
                           value={dealRoomData.website}
                           onChange={(e) => setDealRoomData({ ...dealRoomData, website: e.target.value })}
                           className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
-                          placeholder="https://..."
+                          placeholder={ta('https://...')}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Institution Type*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Institution Type*')}</label>
                         <select
                           required
                           value={dealRoomData.institutionType}
                           onChange={(e) => setDealRoomData({ ...dealRoomData, institutionType: e.target.value })}
                           className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-teal-600 text-sm"
                         >
-                          <option value="">Select type</option>
-                          <option value="Fund / PE / VC">Fund / PE / VC</option>
-                          <option value="Corporate">Corporate</option>
-                          <option value="Government / Ministry">Government / Ministry</option>
-                          <option value="Project Developer">Project Developer</option>
-                          <option value="DFI / Bank">DFI / Bank</option>
-                          <option value="Family Office">Family Office</option>
-                          <option value="Other">Other</option>
+                          <option value="">{ta('Select type')}</option>
+                          <option value="Fund / PE / VC">{ta('Fund / PE / VC')}</option>
+                          <option value="Corporate">{ta('Corporate')}</option>
+                          <option value="Government / Ministry">{ta('Government / Ministry')}</option>
+                          <option value="Project Developer">{ta('Project Developer')}</option>
+                          <option value="DFI / Bank">{ta('DFI / Bank')}</option>
+                          <option value="Family Office">{ta('Family Office')}</option>
+                          <option value="Other">{ta('Other')}</option>
                         </select>
                       </div>
                     </div>
 
                     <div className="grid gap-5 sm:grid-cols-3">
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Your Name*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Your Name*')}</label>
                         <input
                           required
                           type="text"
                           value={dealRoomData.yourName}
                           onChange={(e) => setDealRoomData({ ...dealRoomData, yourName: e.target.value })}
                           className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
-                          placeholder="Full name"
+                          placeholder={ta('Full name')}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Title / Position*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Title / Position*')}</label>
                         <input
                           required
                           type="text"
                           value={dealRoomData.titlePosition}
                           onChange={(e) => setDealRoomData({ ...dealRoomData, titlePosition: e.target.value })}
                           className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
-                          placeholder="Title"
+                          placeholder={ta('Title')}
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Email*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Email*')}</label>
                         <input
                           required
                           type="email"
                           value={dealRoomData.email}
                           onChange={(e) => setDealRoomData({ ...dealRoomData, email: e.target.value })}
                           className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
-                          placeholder="email@example.com"
+                          placeholder={ta('email@example.com')}
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-1">Phone / WhatsApp*</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Phone / WhatsApp*')}</label>
                       <input
                         required
                         type="text"
                         value={dealRoomData.phoneWhatsApp}
                         onChange={(e) => setDealRoomData({ ...dealRoomData, phoneWhatsApp: e.target.value })}
                         className="w-full sm:w-1/2 rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 text-sm"
-                        placeholder="+..."
+                        placeholder={ta('+...')}
                       />
                     </div>
                   </div>
@@ -3514,10 +3530,10 @@ export default function AgendaPage() {
                   {/* CONDITIONAL MANDATE SECTION BASED ON ROLE */}
                   {dealRoomRole.includes('Investor') && (
                     <div className="rounded-xl border border-teal-200 bg-teal-50/40 p-6 space-y-6">
-                      <h3 className="text-base font-bold text-teal-900">YOUR CAPITAL MANDATE (INVESTOR)</h3>
+                      <h3 className="text-base font-bold text-teal-900">{ta('YOUR CAPITAL MANDATE (INVESTOR)')}</h3>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Investment Sectors*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Investment Sectors*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                           {['Infrastructure', 'Energy', 'Critical Minerals', 'Agriculture & Agri-Tech', 'Health', 'Technology & Digital', 'Manufacturing', 'Logistics', 'Tourism', 'Water', 'Other'].map((sec) => (
                             <label key={sec} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3533,7 +3549,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Geographies of Interest*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Geographies of Interest*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                           {['Africa-wide', 'Central Africa', 'West Africa', 'East Africa', 'Southern Africa', 'North Africa'].map((geo) => (
                             <label key={geo} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3549,7 +3565,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Investment Structure*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Investment Structure*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Growth Capital', 'Venture Capital', 'Other'].map((struct) => (
                             <label key={struct} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3565,7 +3581,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Typical Investment Ticket*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Typical Investment Ticket*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                           {['Under €5M', '€5–25M', '€25–100M', '€100–500M', '€500M–€1B', '€1B+', 'Other'].map((ticket) => (
                             <label key={ticket} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3583,7 +3599,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Investment Stage*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Investment Stage*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                           {['Development', 'Construction', 'Growth', 'Expansion', 'Acquisition', 'Refinancing'].map((stg) => (
                             <label key={stg} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3599,12 +3615,12 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">What are you looking for at AEF?*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('What are you looking for at AEF?*')}</label>
                         <textarea
                           rows={3}
                           value={dealRoomData.investorLookingFor}
                           onChange={(e) => setDealRoomData({ ...dealRoomData, investorLookingFor: e.target.value })}
-                          placeholder="Examples: infrastructure projects, energy assets, mineral-processing opportunities, government-backed projects, etc."
+                          placeholder={ta('Examples: infrastructure projects, energy assets, mineral-processing opportunities, government-backed projects, etc.')}
                           className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
                         />
                       </div>
@@ -3613,56 +3629,56 @@ export default function AgendaPage() {
 
                   {dealRoomRole.includes('Project Owner') && (
                     <div className="rounded-xl border border-teal-200 bg-teal-50/40 p-6 space-y-6">
-                      <h3 className="text-base font-bold text-teal-900">YOUR INVESTMENT OPPORTUNITY (PROJECT OWNER)</h3>
+                      <h3 className="text-base font-bold text-teal-900">{ta('YOUR INVESTMENT OPPORTUNITY (PROJECT OWNER)')}</h3>
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Project Name*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Project Name*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.projectName}
                             onChange={(e) => setDealRoomData({ ...dealRoomData, projectName: e.target.value })}
                             className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
-                            placeholder="Project title"
+                            placeholder={ta('Project title')}
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Country*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Country*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.projectCountry}
                             onChange={(e) => setDealRoomData({ ...dealRoomData, projectCountry: e.target.value })}
                             className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
-                            placeholder="Country location"
+                            placeholder={ta('Country location')}
                           />
                         </div>
                       </div>
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Sector*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Sector*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.projectSector}
                             onChange={(e) => setDealRoomData({ ...dealRoomData, projectSector: e.target.value })}
                             className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
-                            placeholder="Sector"
+                            placeholder={ta('Sector')}
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Expected investment / financing timeline*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Expected investment / financing timeline*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.expectedTimeline}
                             onChange={(e) => setDealRoomData({ ...dealRoomData, expectedTimeline: e.target.value })}
                             className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
-                            placeholder="e.g. Q3 2026"
+                            placeholder={ta('e.g. Q3 2026')}
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Project Stage*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Project Stage*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {['Concept', 'Feasibility', 'Pre-FEED / FEED', 'Permitting', 'Construction-ready', 'Operational', 'Expansion'].map((stg) => (
                             <label key={stg} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3681,29 +3697,29 @@ export default function AgendaPage() {
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Total Project Value*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Total Project Value*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.totalProjectValue}
                             onChange={(e) => setDealRoomData({ ...dealRoomData, totalProjectValue: e.target.value })}
                             className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
-                            placeholder="€..."
+                            placeholder={ta('€...')}
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Capital Required*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Capital Required*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.capitalRequired}
                             onChange={(e) => setDealRoomData({ ...dealRoomData, capitalRequired: e.target.value })}
                             className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
-                            placeholder="€..."
+                            placeholder={ta('€...')}
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Capital Structure Sought*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Capital Structure Sought*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {['Equity', 'Debt', 'Project Finance', 'PPP', 'Joint Venture', 'Strategic Investor', 'Blended Finance', 'Other'].map((cs) => (
                             <label key={cs} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3720,40 +3736,40 @@ export default function AgendaPage() {
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Current Funding / Partners</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Current Funding / Partners')}</label>
                           <textarea
                             rows={2}
                             value={dealRoomData.currentFundingPartners}
                             onChange={(e) => setDealRoomData({ ...dealRoomData, currentFundingPartners: e.target.value })}
                             className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
-                            placeholder="Details..."
+                            placeholder={ta('Details...')}
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">What type of investor or partner are you seeking?*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('What type of investor or partner are you seeking?*')}</label>
                           <textarea
                             rows={2}
                             value={dealRoomData.investorPartnerSought}
                             onChange={(e) => setDealRoomData({ ...dealRoomData, investorPartnerSought: e.target.value })}
                             className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
-                            placeholder="Details..."
+                            placeholder={ta('Details...')}
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Project summary*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Project summary*')}</label>
                         <textarea
                           rows={3}
                           value={dealRoomData.projectSummary}
                           onChange={(e) => setDealRoomData({ ...dealRoomData, projectSummary: e.target.value })}
                           className="w-full rounded-lg border border-gray-300 p-3 text-sm bg-white"
-                          placeholder="Describe the project..."
+                          placeholder={ta('Describe the project...')}
                         />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Investment documents available</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Investment documents available')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                           {['Executive Summary', 'Information Memorandum', 'Feasibility Study', 'Financial Model', 'Data Room', 'Government / Concession Documentation', 'Other'].map((doc) => (
                             <label key={doc} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3769,7 +3785,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Upload Project Information (PDF / Doc)</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Upload Project Information (PDF / Doc)')}</label>
                         <input
                           type="file"
                           onChange={(e) => {
@@ -3785,10 +3801,10 @@ export default function AgendaPage() {
 
                   {dealRoomRole.includes('Government') && (
                     <div className="rounded-xl border border-teal-200 bg-teal-50/40 p-6 space-y-6">
-                      <h3 className="text-base font-bold text-teal-900">YOUR STRATEGIC MANDATE (GOVERNMENT)</h3>
+                      <h3 className="text-base font-bold text-teal-900">{ta('YOUR STRATEGIC MANDATE (GOVERNMENT)')}</h3>
                       <div className="grid gap-4 sm:grid-cols-3">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Country*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Country*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.govCountry}
@@ -3797,7 +3813,7 @@ export default function AgendaPage() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Institution / Ministry*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Institution / Ministry*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.govInstitutionMinistry}
@@ -3806,7 +3822,7 @@ export default function AgendaPage() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Senior Representative*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Senior Representative*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.govSeniorRep}
@@ -3817,7 +3833,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Priority Sectors*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Priority Sectors*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {['Energy', 'Infrastructure', 'Critical Minerals', 'Agriculture', 'Manufacturing', 'Health', 'Technology', 'Logistics', 'Tourism', 'Other'].map((sec) => (
                             <label key={sec} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3833,7 +3849,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Investment Priorities*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Investment Priorities*')}</label>
                         <textarea
                           rows={2}
                           value={dealRoomData.govInvestmentPriorities}
@@ -3843,7 +3859,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Projects requiring capital</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Projects requiring capital')}</label>
                         <textarea
                           rows={2}
                           value={dealRoomData.govProjectsRequiringCapital}
@@ -3853,7 +3869,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Estimated Capital Requirement (€)</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Estimated Capital Requirement (€)')}</label>
                         <input
                           type="text"
                           value={dealRoomData.govEstimatedCapitalReq}
@@ -3863,7 +3879,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Type of partners sought</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Type of partners sought')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {['Investors', 'Strategic Companies', 'DFIs', 'Technology Partners', 'Infrastructure Developers', 'Industrial Partners', 'Trade Partners', 'Other'].map((ps) => (
                             <label key={ps} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3882,9 +3898,9 @@ export default function AgendaPage() {
 
                   {dealRoomRole.includes('Strategic Corporate Partner') && (
                     <div className="rounded-xl border border-teal-200 bg-teal-50/40 p-6 space-y-6">
-                      <h3 className="text-base font-bold text-teal-900">YOUR PARTNERSHIP MANDATE (STRATEGIC PARTNER)</h3>
+                      <h3 className="text-base font-bold text-teal-900">{ta('YOUR PARTNERSHIP MANDATE (STRATEGIC PARTNER)')}</h3>
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Strategic capabilities you bring*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Strategic capabilities you bring*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                           {['Technology', 'Engineering / EPC', 'Market Access', 'Industrial Capacity', 'Logistics', 'Financial Services', 'Advisory', 'Manufacturing', 'Distribution', 'Other'].map((cap) => (
                             <label key={cap} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3901,7 +3917,7 @@ export default function AgendaPage() {
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">African markets of interest*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('African markets of interest*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.stratAfricanMarkets}
@@ -3910,7 +3926,7 @@ export default function AgendaPage() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-900 mb-1">Sectors of interest*</label>
+                          <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Sectors of interest*')}</label>
                           <input
                             type="text"
                             value={dealRoomData.stratSectorsOfInterest}
@@ -3921,7 +3937,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-2">Type of partnerships sought*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">{ta('Type of partnerships sought*')}</label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {['Joint Ventures', 'Technology Partnerships', 'Market Entry', 'Industrial Partnerships', 'Investment', 'PPP', 'Distribution', 'Other'].map((tp) => (
                             <label key={tp} className="flex items-center gap-2 text-sm text-gray-700 bg-white p-2.5 rounded border border-gray-200">
@@ -3937,7 +3953,7 @@ export default function AgendaPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-1">Describe the opportunity or partnership you would like to explore*</label>
+                        <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Describe the opportunity or partnership you would like to explore*')}</label>
                         <textarea
                           rows={3}
                           value={dealRoomData.stratDescribeOpportunity}
@@ -3950,43 +3966,43 @@ export default function AgendaPage() {
 
                   {/* STEP 3 — YOUR DEAL PRIORITY */}
                   <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-5">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 3 — YOUR DEAL PRIORITY</h3>
+                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">{ta('STEP 3 — YOUR DEAL PRIORITY')}</h3>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-1">WHAT WOULD YOU LIKE TO ADVANCE THROUGH THE AEF DEAL ROOM?*</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('WHAT WOULD YOU LIKE TO ADVANCE THROUGH THE AEF DEAL ROOM?*')}</label>
                       <textarea
                         required
                         rows={3}
                         value={dealRoomData.dealPriority}
                         onChange={(e) => setDealRoomData({ ...dealRoomData, dealPriority: e.target.value })}
                         className="w-full rounded-lg border border-gray-300 p-3 text-sm"
-                        placeholder="Describe your priority..."
+                        placeholder={ta('Describe your priority...')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-1">Is there a specific counterparty you would like AEF to help connect you with?</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('Is there a specific counterparty you would like AEF to help connect you with?')}</label>
                       <input
                         type="text"
                         value={dealRoomData.specificCounterparty}
                         onChange={(e) => setDealRoomData({ ...dealRoomData, specificCounterparty: e.target.value })}
                         className="w-full rounded-lg border border-gray-300 p-3 text-sm"
-                        placeholder="Optional counterparty name/institution"
+                        placeholder={ta('Optional counterparty name/institution')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-1">What would constitute a successful meeting for you?</label>
+                      <label className="block text-sm font-semibold text-gray-900 mb-1">{ta('What would constitute a successful meeting for you?')}</label>
                       <textarea
                         rows={2}
                         value={dealRoomData.successfulMeetingDef}
                         onChange={(e) => setDealRoomData({ ...dealRoomData, successfulMeetingDef: e.target.value })}
                         className="w-full rounded-lg border border-gray-300 p-3 text-sm"
-                        placeholder="Define success..."
+                        placeholder={ta('Define success...')}
                       />
                     </div>
                   </div>
 
                   {/* STEP 4 — CONFIDENTIALITY & CONSENT */}
                   <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 space-y-4">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">STEP 4 — CONFIDENTIALITY &amp; CONSENT</h3>
+                    <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-teal-600">{ta('STEP 4 — CONFIDENTIALITY &amp; CONSENT')}</h3>
                     
                     <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
                       <input
@@ -3996,7 +4012,7 @@ export default function AgendaPage() {
                         onChange={(e) => setDealRoomData({ ...dealRoomData, consentAccuracy: e.target.checked })}
                         className="mt-1 text-teal-600"
                       />
-                      <span>I confirm that the information submitted is accurate and that I am authorised to represent the institution identified above.*</span>
+                      <span>{ta('I confirm that the information submitted is accurate and that I am authorised to represent the institution identified above.*')}</span>
                     </label>
 
                     <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
@@ -4007,7 +4023,7 @@ export default function AgendaPage() {
                         onChange={(e) => setDealRoomData({ ...dealRoomData, consentReview: e.target.checked })}
                         className="mt-1 text-teal-600"
                       />
-                      <span>I understand that AEF may review the information provided for the purpose of qualification and matchmaking.*</span>
+                      <span>{ta('I understand that AEF may review the information provided for the purpose of qualification and matchmaking.*')}</span>
                     </label>
 
                     <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
@@ -4018,7 +4034,7 @@ export default function AgendaPage() {
                         onChange={(e) => setDealRoomData({ ...dealRoomData, consentNoGuarantee: e.target.checked })}
                         className="mt-1 text-teal-600"
                       />
-                      <span>I understand that submission does not guarantee Deal Room access, a meeting, investment, financing or transaction.*</span>
+                      <span>{ta('I understand that submission does not guarantee Deal Room access, a meeting, investment, financing or transaction.*')}</span>
                     </label>
 
                     <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
@@ -4029,7 +4045,7 @@ export default function AgendaPage() {
                         onChange={(e) => setDealRoomData({ ...dealRoomData, consentContact: e.target.checked })}
                         className="mt-1 text-teal-600"
                       />
-                      <span>I agree that AEF may contact me regarding relevant opportunities and participation.*</span>
+                      <span>{ta('I agree that AEF may contact me regarding relevant opportunities and participation.*')}</span>
                     </label>
                   </div>
 
@@ -4038,7 +4054,7 @@ export default function AgendaPage() {
                     disabled={isDealRoomSubmitting}
                     className="w-full rounded-lg bg-blue-900 py-4 font-bold text-white hover:bg-blue-800 transition disabled:opacity-50 text-base"
                   >
-                    {isDealRoomSubmitting ? 'SUBMITTING MANDATE...' : 'SUBMIT DEAL ROOM APPLICATION'}
+                    {isDealRoomSubmitting ? ta('SUBMITTING MANDATE...') : ta('SUBMIT DEAL ROOM APPLICATION')}
                   </button>
                 </form>
               </div>
@@ -4048,23 +4064,23 @@ export default function AgendaPage() {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-100 text-teal-600 text-2xl font-bold mb-2">
                   ✓
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900">APPLICATION RECEIVED</h2>
+                <h2 className="text-3xl font-bold text-gray-900">{ta('APPLICATION RECEIVED')}</h2>
                 <p className="max-w-xl mx-auto text-base leading-7 text-gray-600">
-                  Thank you for submitting your AEF Deal Room mandate.
+                  {ta('Thank you for submitting your AEF Deal Room mandate.')}
                 </p>
                 <p className="max-w-xl mx-auto text-base leading-7 text-gray-600">
-                  Your information will be reviewed by the AEF team to assess qualification, mandate alignment and potential counterparties.
+                  {ta('Your information will be reviewed by the AEF team to assess qualification, mandate alignment and potential counterparties.')}
                 </p>
                 <div className="p-4 rounded-xl bg-gray-50 max-w-md mx-auto border border-gray-200">
-                  <p className="text-sm font-semibold text-blue-900">AEF participation is curated.</p>
-                  <p className="mt-2 text-sm text-gray-600">Our team will contact you regarding the appropriate Deal Room format and, where relevant, potential meeting opportunities.</p>
+                  <p className="text-sm font-semibold text-blue-900">{ta('AEF participation is curated.')}</p>
+                  <p className="mt-2 text-sm text-gray-600">{ta('Our team will contact you regarding the appropriate Deal Room format and, where relevant, potential meeting opportunities.')}</p>
                 </div>
                 <div className="pt-4">
                   <button
                     onClick={() => setShowDealRoomModal(false)}
                     className="rounded-lg bg-blue-900 px-8 py-3 font-semibold text-white hover:bg-blue-800 transition"
                   >
-                    Close Window
+                    {ta('Close Window')}
                   </button>
                 </div>
               </div>
@@ -4078,7 +4094,7 @@ export default function AgendaPage() {
           <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-7">
             <div className="flex items-center justify-between">
               <h2 className="max-w-xl text-2xl font-bold text-gray-900">
-                {conversionConfigs[conversionType].title}
+                {ta(conversionConfigs[conversionType].title)}
               </h2>
 
               <button
@@ -4116,7 +4132,7 @@ export default function AgendaPage() {
                           })
                         }
                         className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
-                        placeholder={field}
+                        placeholder={ta(field)}
                       />
                     </div>
                   )
@@ -4125,7 +4141,7 @@ export default function AgendaPage() {
                 {conversionConfigs[conversionType].hasFile && (
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-gray-900">
-                      {conversionConfigs[conversionType].fileLabel}
+                      {ta(conversionConfigs[conversionType].fileLabel)}
                     </label>
                     <input
                       required
@@ -4148,7 +4164,7 @@ export default function AgendaPage() {
                   disabled={isConversionSubmitting}
                   className="w-full rounded-lg bg-blue-900 px-5 py-3 font-semibold text-white hover:bg-blue-800 disabled:opacity-50"
                 >
-                  {isConversionSubmitting ? 'Submitting & Uploading...' : 'SUBMIT'}
+                  {isConversionSubmitting ? ta('Submitting & Uploading...') : ta('SUBMIT')}
                 </button>
               </form>
             )}
@@ -4158,7 +4174,7 @@ export default function AgendaPage() {
                 onClick={() => setConversionType(null)}
                 className="mt-6 rounded-lg border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:border-teal-600 hover:text-teal-600"
               >
-                Close
+                {ta('Close')}
               </button>
             )}
           </div>
@@ -4170,7 +4186,7 @@ export default function AgendaPage() {
           <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-7">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">
-                Chairman's Message
+                {ta("Chairman's Message")}
               </h2>
 
               <button
@@ -4198,7 +4214,7 @@ export default function AgendaPage() {
               onClick={() => setShowChairmanModal(false)}
               className="mt-8 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
             >
-              Close
+              {ta('Close')}
             </button>
           </div>
         </div>
@@ -4209,7 +4225,7 @@ export default function AgendaPage() {
           <div className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-white p-7">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">
-                Full Programme
+                {ta('Full Programme')}
               </h2>
 
               <button
@@ -4232,7 +4248,7 @@ export default function AgendaPage() {
                 rel="noopener noreferrer"
                 className="rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
               >
-                Download PDF
+                {ta('Download PDF')}
               </a>
 
               <button
@@ -4241,7 +4257,7 @@ export default function AgendaPage() {
                 }
                 className="rounded-lg border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:border-teal-600 hover:text-teal-600"
               >
-                Close
+                {ta('Close')}
               </button>
             </div>
           </div>
@@ -4254,11 +4270,11 @@ export default function AgendaPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900">
-                  Register for AEF 2026
+                  {ta('Register for AEF 2026')}
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-500">
-                  10–11 November 2026 · Kinshasa
+                  {ta('10–11 November 2026 · Kinshasa')}
                 </p>
               </div>
 
@@ -4278,7 +4294,7 @@ export default function AgendaPage() {
             >
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-900">
-                  Full name
+                  {ta('Full name')}
                 </label>
 
                 <input
@@ -4292,13 +4308,13 @@ export default function AgendaPage() {
                     })
                   }
                   className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
-                  placeholder="Your full name"
+                  placeholder={ta('Your full name')}
                 />
               </div>
 
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-900">
-                  Email
+                  {ta('Email')}
                 </label>
 
                 <input
@@ -4312,13 +4328,13 @@ export default function AgendaPage() {
                     })
                   }
                   className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
-                  placeholder="you@example.com"
+                  placeholder={ta('you@example.com')}
                 />
               </div>
 
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-900">
-                  Organization
+                  {ta('Organization')}
                 </label>
 
                 <input
@@ -4332,13 +4348,13 @@ export default function AgendaPage() {
                     })
                   }
                   className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
-                  placeholder="Organization / Company"
+                  placeholder={ta('Organization / Company')}
                 />
               </div>
 
               <div>
                 <label className="mb-2 block text-sm font-semibold text-gray-900">
-                  Category
+                  {ta('Category')}
                 </label>
 
                 <select
@@ -4353,7 +4369,7 @@ export default function AgendaPage() {
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-teal-600"
                 >
                   <option value="">
-                    Select your category
+                    {ta('Select your category')}
                   </option>
 
                   {registrationCategories.map(
@@ -4362,7 +4378,7 @@ export default function AgendaPage() {
                         key={category}
                         value={category}
                       >
-                        {category}
+                        {ta(category)}
                       </option>
                     )
                   )}
@@ -4394,7 +4410,7 @@ export default function AgendaPage() {
           <div className="w-full max-w-md rounded-2xl bg-white p-7">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">
-                Sign in
+                {ta('Sign in')}
               </h2>
 
               <button
@@ -4408,7 +4424,7 @@ export default function AgendaPage() {
             </div>
 
             <p className="mt-5 leading-7 text-gray-600">
-              Please use the account access available on the AEF platform.
+              {ta('Please use the account access available on the AEF platform.')}
             </p>
 
             <div className="mt-7 flex gap-3">
@@ -4419,7 +4435,7 @@ export default function AgendaPage() {
                 }
                 className="rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800"
               >
-                Continue
+                {ta('Continue')}
               </Link>
 
               <button
@@ -4429,7 +4445,7 @@ export default function AgendaPage() {
                 }}
                 className="rounded-lg border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-700 hover:border-teal-600 hover:text-teal-600"
               >
-                Create account
+                {ta('Create account')}
               </button>
             </div>
           </div>
@@ -4441,7 +4457,7 @@ export default function AgendaPage() {
           <div className="w-full max-w-md rounded-2xl bg-white p-7">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">
-                Create account
+                {ta('Create account')}
               </h2>
 
               <button
@@ -4455,7 +4471,7 @@ export default function AgendaPage() {
             </div>
 
             <p className="mt-5 leading-7 text-gray-600">
-              Create your AEF account to access the platform.
+              {ta('Create your AEF account to access the platform.')}
             </p>
 
             <Link
@@ -4465,11 +4481,11 @@ export default function AgendaPage() {
               }
               className="mt-7 block rounded-lg bg-blue-900 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-blue-800"
             >
-              Create account
+              {ta('Create account')}
             </Link>
           </div>
         </div>
       )}
     </div>
   );
-                }
+    }
