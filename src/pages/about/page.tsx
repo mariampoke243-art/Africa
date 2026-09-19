@@ -8,12 +8,14 @@ type CommitteeMember = {
   role: string;
   image: string;
   bio: string;
+  translationKey: string;
 };
 
 const advisoryBoard: CommitteeMember[] = [
   {
     name: 'Hon. Dr. Akwasi Opong-Fosu',
     role: 'Advisory Board Member',
+    translationKey: 'akwasiOpongFosu',
     image: '/images/Hon.Dr.Akwasi.jpg',
     bio: `Hon. Dr. Akwasi Opong-Fosu is a distinguished Ghanaian politician, governance and public policy expert with over four decades of public service. He spent almost two decades in local government leadership, including as Mayor, and later served as President of the African Union of Local Authorities and UN Special Advisor on Local Authorities. A former Member of Parliament, he held key ministerial portfolios, including Minister of State at the Presidency responsible for Development Authorities. He currently chairs the Ghana Investment Promotion Centre and founded the Africa Global Emergence Centre, a research, policy and advocacy think tank working at the intersection of governance and economic growth through increased trade and investment flows to Africa.`,
   },
@@ -23,30 +25,35 @@ const executiveBoard: CommitteeMember[] = [
   {
     name: 'Zarinah Traci Silas',
     role: 'Chair and Executive Board Member of the Africa Economic Forum',
+    translationKey: 'zarinahTraciSilas',
     image: '/images/Zarinah Traci Silas.jpg',
     bio: `Zarinah Traci Silas, J.D. is Peace Chair and Executive Board Member of the Africa Economic Forum, a career federal executive holding a lifetime appointment to the United States Senior Executive Service. Over two decades, she has advised Presidents, Cabinet Secretaries, and world leaders on national security and counterterrorism, building DHS’s $120 million USD terrorism prevention program and founding CBP’s first Forced Labor Division, commanding a $3 billion USD portfolio against global trafficking. As a trained international lawyer, she is Co-Founder of Africa Resources Capital Holdings and CEO of Ballard & Silas LLC, driving international trade and diplomacy worldwide.`,
   },
   {
     name: 'Jacqueline JaQ Campbell',
     role: 'Chair of the AEF Investors Alliance & Co-Chair, Africa Women Forum',
+    translationKey: 'jacquelineJaqCampbell',
     image: '/images/Jaqueline JaQ Campbell.jpg',
     bio: `Jacqueline “JaQ” Campbell is a wealth management executive, entrepreneur, educator, and U.S.–Africa investment strategist with more than three decades of financial-services experience. She is on a global investment and trade mission to bring capital and careers to the continent of Africa, building bridges between investors, institutions, businesses, and emerging talent. As Founder & CEO of Alexander Legacy Private Wealth, Visiting Faculty at GIMPA, and Chair of the Africa Economic Forum Investors Alliance, her work advances investment, workforce development, and economic opportunity. Enstooled in Ghana as Nana Yaa Asabea, JaQ is committed to transforming relationships into sustainable investment, ownership, and generational prosperity across Africa.`,
   },
   {
     name: 'Dr. Femi Salami',
     role: 'Executive Board Member & Chair of the Africa Mining & Minerals Forum',
+    translationKey: 'femiSalami',
     image: '/images/Dr. Femi Salami.jpg',
     bio: `Dr. Femi Salami (Ph.D., P.E., MAusIMM) is a distinguished mining engineer, academic, and professional with expertise in mining innovation, energy sustainability, critical minerals development, and climate-smart mining. He earned a First-Class Bachelor’s degree in Mining Engineering from the Federal University of Technology Akure, Nigeria and a Ph.D. in Mining Engineering from Missouri University of Science and Technology, USA. Dr. Salami has received over 70 awards and recognitions for scholarly excellence in Mining. He is a licensed mining engineer in the United Kingdom and Nigeria and a Professional Engineer (P.E.) in the United States. He is also a member of several leading professional and scientific organizations.`,
   },
   {
     name: 'H.E. Abraham Dwuma Odoom',
     role: 'Former Member of Parliament and Deputy Minister of Agriculture, Ghana',
+    translationKey: 'abrahamDwumaOdoom',
     image: '/images/abraham-dwuma-odoom.jpg',
     bio: `Ghanaian public servant and former Member of Parliament with experience in agricultural transformation, pro-poor policies, agribusiness, rural development, and food security.`,
   },
   {
     name: 'Amina Touré',
     role: 'Director of Communication, Media & Public Relations, Africa Economic Forum',
+    translationKey: 'aminaToure',
     image: '/images/amina-Touré.jpeg',
     bio: `Development practitioner, researcher, and strategic communicator specializing in African political economy and global narratives. She holds a Bachelor of Laws and an MSc in International Development & Humanitarian Emergencies from LSE and is completing an MPhil in African Studies at Cambridge. Her research and professional work covers extractives, Chinese investment, state-business relations in the DRC, policy research, media strategy, and narrative shaping. She is also an independent journalist covering the conflict in eastern Congo and the mining sector in southern Africa.`,
   },
@@ -56,12 +63,19 @@ const scientificCommittee: CommitteeMember[] = [
   {
     name: 'Nathan Lewis',
     role: 'International Economist & Author',
+    translationKey: 'nathanLewis',
     image: '/images/nathan-lewis.jpg',
     bio: `International economist and author specializing in monetary policy, fiscal systems, sound money, sustainable finance, and economic development. He is a Senior Fellow at Discovery Institute.`,
   },
 ];
 
-function MemberCard({ member }: { member: CommitteeMember }) {
+function MemberCard({
+  member,
+  t,
+}: {
+  member: CommitteeMember;
+  t: (key: string, options?: { defaultValue?: string }) => string;
+}) {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
       <img
@@ -79,11 +93,15 @@ function MemberCard({ member }: { member: CommitteeMember }) {
         </h4>
 
         <p className="text-sm text-blue-600 mb-3 font-medium">
-          {member.role}
+          {t(`about.members.${member.translationKey}.role`, {
+            defaultValue: member.role,
+          })}
         </p>
 
         <p className="text-gray-600 text-sm leading-relaxed">
-          {member.bio}
+          {t(`about.members.${member.translationKey}.bio`, {
+            defaultValue: member.bio,
+          })}
         </p>
       </div>
     </div>
@@ -759,6 +777,7 @@ export default function AboutPage() {
                   <MemberCard
                     key={member.name}
                     member={member}
+                    t={t}
                   />
                 ))}
 
@@ -786,6 +805,7 @@ export default function AboutPage() {
                   <MemberCard
                     key={member.name}
                     member={member}
+                    t={t}
                   />
                 ))}
 
@@ -813,6 +833,7 @@ export default function AboutPage() {
                   <MemberCard
                     key={member.name}
                     member={member}
+                    t={t}
                   />
                 ))}
 
