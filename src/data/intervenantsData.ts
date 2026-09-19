@@ -83,14 +83,6 @@ export const listeIntervenants: Intervenant[] = [
   },
 
   {
-    id: '10',
-    key: 'bakoAmbianda',
-    nom: 'Bako Ambianda',
-    photoUrl: '/images/Bako Ambianda.jpg',
-    statut: 'Invité',
-  },
-
-  {
     id: '12',
     key: 'eleonoreCaroit',
     nom: 'Éléonore Caroit',
