@@ -410,7 +410,7 @@ export default function ContactPage() {
                       </h3>
 
                       <p className="mt-1 text-gray-600">
-                        contact@africaeconomicforum.com
+                        contact@africaef.com
                       </p>
                     </div>
                   </div>
