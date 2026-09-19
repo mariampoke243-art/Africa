@@ -928,6 +928,33 @@ export default function AgendaPage() {
   const navigate = useNavigate();
 
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      setIsProfileDropdownOpen(false);
+      setShowMobileMenu(false);
+      navigate('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  const handleViewProfile = () => {
+    navigate('/profile');
+    setIsProfileDropdownOpen(false);
+    setShowMobileMenu(false);
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((word) => word.charAt(0))
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
   const [showSignInModal, setShowSignInModal] =
     useState(false);
@@ -1457,203 +1484,261 @@ export default function AgendaPage() {
           HEADER
           =================================================== */}
 
-      <header className="sticky top-0 z-50 bg-white shadow-sm">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <Link
-            to="/"
-            className="flex items-center"
-          >
-            <img
-              src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/55c329d4d58fb687f70c222c549f7ec1.png"
-              alt={ta('Africa Economic Forum')}
-              className="h-12 w-auto"
-            />
-          </Link>
-
-          <nav className="hidden items-center gap-6 md:flex">
-            <a
-              href="#about-aef"
-              className="text-sm text-gray-700 transition-colors hover:text-teal-600"
-            >
-              {ta('ABOUT AEF')}
-            </a>
-
-            <a
-              href="#why-kinshasa"
-              className="text-sm text-gray-700 transition-colors hover:text-teal-600"
-            >
-              {ta('WHY KINSHASA')}
-            </a>
-
-            <a
-              href="#programme"
-              className="text-sm text-gray-700 transition-colors hover:text-teal-600"
-            >
-              {ta('PROGRAMME')}
-            </a>
-
-            <a
-              href="#speakers"
-              className="text-sm text-gray-700 transition-colors hover:text-teal-600"
-            >
-              {ta('SPEAKERS')}
-            </a>
-
-            <a
-              href="#deal-ecosystem"
-              className="text-sm text-gray-700 transition-colors hover:text-teal-600"
-            >
-              {ta('DEAL ECOSYSTEM')}
-            </a>
-
-            <a
-              href="#partners"
-              className="text-sm text-gray-700 transition-colors hover:text-teal-600"
-            >
-              {ta('PARTNERS')}
-            </a>
-          </nav>
-
-          <div className="hidden items-center gap-3 md:flex">
-            <LanguageSelector />
-
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() =>
-                  setShowRegistrationModal(true)
-                }
-                className="rounded-lg bg-blue-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-800"
-              >
-                {ta('GET YOUR DELEGATE PASS')}
-              </button>
-
-              <Link
-                to="/contact"
-                className="rounded-lg bg-blue-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-800"
-              >
-                {ta('BECOME AN AEF PARTNER')}
+      <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <Link to="/" className="flex items-center space-x-3">
+                <img
+                  src="https://static.readdy.ai/image/849a2f489cee8d6814d30c5afad3a84a/b4bfbdc8f08b91298cef1ff69a069583.png"
+                  alt="AEF Logo"
+                  className="h-10 w-10 object-contain"
+                />
               </Link>
-
-              <a
-                href={agendaPdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg bg-white px-6 py-3 font-semibold text-blue-900 transition-colors hover:bg-gray-100 border border-gray-200"
-              >
-                {ta('Download Agenda')}
-              </a>
             </div>
 
-            {user ? (
-              <button
-                onClick={signOut}
-                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700"
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
               >
-                {ta('Sign out')}
-              </button>
-            ) : (
-              <button
-                onClick={() => setShowSignInModal(true)}
-                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700"
+                {t('header.home')}
+              </Link>
+              <Link
+                to="/about"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
               >
-                {ta('Sign in')}
-              </button>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2 md:hidden">
-            <button
-              type="button"
-              className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-50 hover:text-teal-600"
-              onClick={() => setShowMobileMenu((previous) => !previous)}
-              aria-label={ta('Menu')}
-              aria-expanded={showMobileMenu}
-            >
-              <span className="text-xl">{showMobileMenu ? '✕' : '☰'}</span>
-            </button>
-          </div>
-        </div>
-
-        {showMobileMenu && (
-          <div className="border-t border-gray-100 bg-white md:hidden">
-            <nav className="flex flex-col px-4 py-3">
-              {[
-                ['ABOUT AEF', '#about-aef'],
-                ['WHY KINSHASA', '#why-kinshasa'],
-                ['PROGRAMME', '#programme'],
-                ['SPEAKERS', '#speakers'],
-                ['DEAL ECOSYSTEM', '#deal-ecosystem'],
-                ['PARTNERS', '#partners'],
-              ].map(([label, href]) => (
-                <a
-                  key={href}
-                  href={href}
-                  onClick={() => setShowMobileMenu(false)}
-                  className="border-b border-gray-100 px-3 py-3 text-sm font-semibold text-gray-700 transition-colors hover:text-teal-600"
-                >
-                  {ta(label)}
-                </a>
-              ))}
-
-              <button
-                type="button"
-                onClick={() => {
-                  setShowRegistrationModal(true);
-                  setShowMobileMenu(false);
-                }}
-                className="mt-4 rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white"
+                {t('header.about')}
+              </Link>
+              <Link
+                to="/initiatives"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
               >
-                {ta('GET YOUR DELEGATE PASS')}
-              </button>
-
+                {t('header.initiatives')}
+              </Link>
+              <Link
+                to="/stakeholders"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.stakeholders')}
+              </Link>
+              <Link
+                to="/agenda"
+                className="text-blue-600 font-medium"
+              >
+                {t('header.agenda')}
+              </Link>
+              <Link
+                to="/publications"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.publications')}
+              </Link>
+              <Link
+                to="/meetings"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {t('header.meetings')}
+              </Link>
               <Link
                 to="/contact"
-                onClick={() => setShowMobileMenu(false)}
-                className="mt-3 rounded-lg bg-blue-900 px-5 py-3 text-center text-sm font-semibold text-white"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
               >
-                {ta('BECOME AN AEF PARTNER')}
+                {t('header.contact')}
               </Link>
+            </nav>
 
-              <a
-                href={agendaPdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setShowMobileMenu(false)}
-                className="mt-3 rounded-lg border border-gray-200 bg-white px-5 py-3 text-center text-sm font-semibold text-blue-900"
-              >
-                {ta('Download Agenda')}
-              </a>
-
-              <div className="mt-4 border-t border-gray-100 px-3 py-4">
-                <LanguageSelector />
-              </div>
+            <div className="hidden md:flex items-center space-x-4">
+              <LanguageSelector />
 
               {user ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    signOut();
-                    setShowMobileMenu(false);
-                  }}
-                  className="mt-3 rounded-lg border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700"
-                >
-                  {ta('Sign out')}
-                </button>
+                <div className="relative">
+                  <button
+                    onClick={() =>
+                      setIsProfileDropdownOpen(!isProfileDropdownOpen)
+                    }
+                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                    title={user.user_metadata?.full_name || user.email || t('header.profile')}
+                  >
+                    {user.user_metadata?.avatar_url ? (
+                      <img
+                        src={user.user_metadata.avatar_url}
+                        alt={t('header.profile')}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                        {getInitials(
+                          user.user_metadata?.full_name ||
+                            user.email?.charAt(0) ||
+                            'U'
+                        )}
+                      </div>
+                    )}
+                  </button>
+
+                  {isProfileDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+                      <div className="px-4 py-3 text-sm text-gray-700 border-b border-gray-100">
+                        <div className="font-medium truncate">
+                          {user.user_metadata?.full_name || t('header.user')}
+                        </div>
+                        <div className="text-gray-500 truncate">
+                          {user.email}
+                        </div>
+                      </div>
+                      <button
+                        onClick={handleViewProfile}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        {t('header.viewProfile')}
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        {t('header.signOut')}
+                      </button>
+                    </div>
+                  )}
+                </div>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowSignInModal(true);
-                    setShowMobileMenu(false);
-                  }}
-                  className="mt-3 rounded-lg border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700"
+                <Link
+                  to="/signin"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
                 >
-                  {ta('Sign in')}
-                </button>
+                  {t('header.signIn')}
+                </Link>
               )}
-            </nav>
+            </div>
+
+            <div className="md:hidden">
+              <button
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+                className="text-gray-700 hover:text-blue-600 focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                <i
+                  className={`ri-${showMobileMenu ? 'close' : 'menu'}-line text-xl`}
+                />
+              </button>
+            </div>
           </div>
-        )}
+
+          {showMobileMenu && (
+            <div className="md:hidden border-t border-gray-100 py-4">
+              <div className="flex flex-col space-y-4">
+                <Link
+                  to="/"
+                  onClick={() => setShowMobileMenu(false)}
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.home')}
+                </Link>
+                <Link
+                  to="/about"
+                  onClick={() => setShowMobileMenu(false)}
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.about')}
+                </Link>
+                <Link
+                  to="/initiatives"
+                  onClick={() => setShowMobileMenu(false)}
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.initiatives')}
+                </Link>
+                <Link
+                  to="/stakeholders"
+                  onClick={() => setShowMobileMenu(false)}
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.stakeholders')}
+                </Link>
+                <Link
+                  to="/agenda"
+                  onClick={() => setShowMobileMenu(false)}
+                  className="text-blue-600 font-medium"
+                >
+                  {t('header.agenda')}
+                </Link>
+                <Link
+                  to="/publications"
+                  onClick={() => setShowMobileMenu(false)}
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.publications')}
+                </Link>
+                <Link
+                  to="/meetings"
+                  onClick={() => setShowMobileMenu(false)}
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.meetings')}
+                </Link>
+                <Link
+                  to="/contact"
+                  onClick={() => setShowMobileMenu(false)}
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  {t('header.contact')}
+                </Link>
+
+                <div className="pt-4 border-t border-gray-100">
+                  <LanguageSelector />
+                </div>
+
+                {user ? (
+                  <div className="pt-4 border-t border-gray-100">
+                    <div className="flex items-center space-x-3 mb-4">
+                      {user.user_metadata?.avatar_url ? (
+                        <img
+                          src={user.user_metadata.avatar_url}
+                          alt={t('header.profile')}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                          {getInitials(
+                            user.user_metadata?.full_name ||
+                              user.email?.charAt(0) ||
+                              'U'
+                          )}
+                        </div>
+                      )}
+                      <span className="text-gray-700 font-medium">
+                        {user.user_metadata?.full_name || t('header.user')}
+                      </span>
+                    </div>
+                    <button
+                      onClick={handleViewProfile}
+                      className="block w-full text-left text-gray-700 hover:text-blue-600 font-medium mb-2"
+                    >
+                      {t('header.viewProfile')}
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left text-gray-700 hover:text-blue-600 font-medium"
+                    >
+                      {t('header.signOut')}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="pt-4 border-t border-gray-100">
+                    <Link
+                      to="/signin"
+                      onClick={() => setShowMobileMenu(false)}
+                      className="block text-gray-700 hover:text-blue-600 font-medium"
+                    >
+                      {t('header.signIn')}
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       </header>
 
       {/* The Agenda content below remains driven by the existing AEF copy.
@@ -4494,4 +4579,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-                  }
+                                                                                   }
