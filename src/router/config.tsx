@@ -20,89 +20,38 @@ import IntervenantsPage from '../pages/intervenants/IntervenantsPage';
 
 import { Layout } from '../components/Layout';
 
+const pageRoutes = [
+  { index: true, element: <HomePage /> },
+  { path: 'about', element: <AboutPage /> },
+  { path: 'history', element: <HistoryPage /> },
+  { path: 'initiatives', element: <InitiativesPage /> },
+  { path: 'meetings', element: <MeetingsPage /> },
+  { path: 'agenda', element: <AgendaPage /> },
+  { path: 'stakeholders', element: <StakeholdersPage /> },
+  { path: 'partners', element: <PartnersPage /> },
+  { path: 'publications', element: <PublicationsPage /> },
+  { path: 'gallery', element: <GalleryPage /> },
+  { path: 'careers', element: <CareersPage /> },
+  { path: 'contact', element: <ContactPage /> },
+  { path: 'join', element: <JoinPage /> },
+  { path: 'profile', element: <ProfilePage /> },
+  { path: 'signin', element: <SignInPage /> },
+  { path: 'privacy', element: <PrivacyPage /> },
+  { path: 'admin', element: <AdminPage /> },
+  { path: 'spotlight', element: <SpotlightPage /> },
+  { path: 'spotlight/:id', element: <SpotlightPage /> },
+  { path: 'intervenants', element: <IntervenantsPage /> },
+];
+
 const routes = [
   {
     element: <Layout />,
     children: [
+      ...pageRoutes,
+
       {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: 'about',
-        element: <AboutPage />,
-      },
-      {
-        path: 'history',
-        element: <HistoryPage />,
-      },
-      {
-        path: 'initiatives',
-        element: <InitiativesPage />,
-      },
-      {
-        path: 'meetings',
-        element: <MeetingsPage />,
-      },
-      {
-        path: 'agenda',
-        element: <AgendaPage />,
-      },
-      {
-        path: 'stakeholders',
-        element: <StakeholdersPage />,
-      },
-      {
-        path: 'partners',
-        element: <PartnersPage />,
-      },
-      {
-        path: 'publications',
-        element: <PublicationsPage />,
-      },
-      {
-        path: 'gallery',
-        element: <GalleryPage />,
-      },
-      {
-        path: 'careers',
-        element: <CareersPage />,
-      },
-      {
-        path: 'contact',
-        element: <ContactPage />,
-      },
-      {
-        path: 'join',
-        element: <JoinPage />,
-      },
-      {
-        path: 'profile',
-        element: <ProfilePage />,
-      },
-      {
-        path: 'signin',
-        element: <SignInPage />,
-      },
-      {
-        path: 'privacy',
-        element: <PrivacyPage />,
-      },
-      {
-        path: 'admin',
-        element: <AdminPage />,
-      },
-      {
-        path: 'spotlight',
-        element: <SpotlightPage />,
-      },
-      {
-        path: 'spotlight/:id',
-        element: <SpotlightPage />,
-      },
-      {
-        path: 'intervenants',
-        element: <IntervenantsPage />,
+        path: ':lang',
+        children: pageRoutes,
       },
     ],
   },
