@@ -11,7 +11,9 @@ export const Layout: React.FC = () => {
     <div className="min-h-screen flex flex-col">
       {!isHomePage && (
         <header className="flex justify-between items-center px-6 py-4 border-b bg-white">
-          <div className="font-bold text-lg">Africa</div>
+          <div className="font-bold text-lg">
+            Africa
+          </div>
 
           <LanguageSelector />
         </header>
