@@ -15,6 +15,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'abrahamDwumaOdoom',
     nom: 'Hon. Abraham Dwuma Odoom',
     photoUrl: '/images/Hon. Abraham Dwuma Odoom.jpg',
+    description:
+      'Ghanaian politician and former Member of Parliament for Twifo Atti-Morkwa, with experience in agricultural policy and development.',
     statut: 'Confirmé',
   },
 
@@ -23,6 +25,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'hildaSukaMafudze',
     nom: 'H.E Hilda Suka Mafudze',
     photoUrl: '/images/OfficeH.E Hilda Suka Mafudze.jpg',
+    description:
+      'Zimbabwean diplomat and senior African Union representative with experience in diplomacy, regional cooperation, trade, investment and development.',
     statut: 'Confirmé',
   },
 
@@ -31,6 +35,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'dominiqueMigisha',
     nom: 'H.E Dominique Migisha',
     photoUrl: '/images/H.E Dominique Migisha.jpg',
+    description:
+      'Digital development specialist focused on digital transformation and modernization of public-sector services in the Democratic Republic of Congo.',
     statut: 'Confirmé',
   },
 
@@ -39,6 +45,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'rashedMohamedKarkain',
     nom: 'Dr. Rashed Mohamed Karkain',
     photoUrl: '/images/Dr. Rashed Mohamed Karkain.jpg',
+    description:
+      'Emirati innovator, researcher and author specializing in sustainable development, circular economy, environmental leadership and sustainability.',
     statut: 'Confirmé',
   },
 
@@ -47,6 +55,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'abdullahBelhaifAlNuaimi',
     nom: 'H.E Abdullah Belhaif Al Nuaimi',
     photoUrl: '/images/H.E Abdullah Belhaif Al Nuaimi.jpg',
+    description:
+      'Emirati engineer, statesman and sustainability specialist with extensive experience in infrastructure, environmental policy and climate action.',
     statut: 'Confirmé',
   },
 
@@ -55,6 +65,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'abdullahiKassim',
     nom: 'Engr Abdullahi KassimEngr',
     photoUrl: '/images/Engr Abdullahi KassimEngr.jpg',
+    description:
+      'Energy and engineering executive with extensive experience in power generation, energy infrastructure and engineering leadership.',
     statut: 'Confirmé',
   },
 
@@ -63,6 +75,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'anaHelenaChaconEcheverria',
     nom: 'H.E Ana-Helena Chacón Echeverría',
     photoUrl: '/images/ana-helena-chacon.jpg',
+    description:
+      'Costa Rican diplomat and public leader, former Vice President of Costa Rica and advocate for human rights, social inclusion and international cooperation.',
     statut: 'Confirmé',
   },
 
@@ -71,6 +85,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'rosaliaArteaga',
     nom: 'H.E Rosalia Arteaga',
     photoUrl: '/images/H.E Rosalia Arteaga.jpg',
+    description:
+      'Former President and Vice President of Ecuador, educator, lawyer, writer and advocate for education, culture and sustainable development.',
     statut: 'Confirmé',
   },
 
@@ -79,6 +95,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'johnAgyekumKufuor',
     nom: 'H.E John Agyekum Kufuor',
     photoUrl: '/images/H.E John Agyekum Kufuor.jpg',
+    description:
+      'Former President of Ghana, lawyer and statesman with extensive experience in public service and African development.',
     statut: 'Confirmé',
   },
 
@@ -87,6 +105,8 @@ export const listeIntervenants: Intervenant[] = [
     key: 'eleonoreCaroit',
     nom: 'Éléonore Caroit',
     photoUrl: '/images/Éléonore Caroit.jpg',
+    description:
+      'French-Dominican lawyer and public official with experience in international law, international partnerships, Francophonie and relations with French citizens abroad.',
     statut: 'Invité',
   },
 
