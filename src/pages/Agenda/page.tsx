@@ -458,9 +458,10 @@ const conversionConfigs: Record<NonNullable<ConversionType>, ConversionConfigIte
 const agendaSlug = (value: string) =>
   value
     .normalize('NFD')
-    .replace(/[\\u0300-\\u036f]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
-    .replace(/&amp;/g, 'and')
+    .replace(/&amp;/g, '')
+    .replace(/[’']/g, '')
     .replace(/[^a-z0-9]+/g, '_')
     .replace(/^_+|_+$/g, '');
 
@@ -469,10 +470,6 @@ const agendaSlug = (value: string) =>
    =================================================== */
 
 function AEFMatchProfile({ onClose }: { onClose: () => void }) {
-  const { t } = useTranslation();
-  const ta = (value: string) =>
-    t(`agenda.texts.${agendaSlug(value)}`, { defaultValue: value });
-
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [role, setRole] = useState('');
@@ -4492,4 +4489,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-                }
+    }
