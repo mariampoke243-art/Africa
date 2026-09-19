@@ -469,6 +469,10 @@ const agendaSlug = (value: string) =>
    =================================================== */
 
 function AEFMatchProfile({ onClose }: { onClose: () => void }) {
+  const { t } = useTranslation();
+  const ta = (value: string) =>
+    t(`agenda.texts.${agendaSlug(value)}`, { defaultValue: value });
+
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [role, setRole] = useState('');
@@ -4488,4 +4492,4 @@ export default function AgendaPage() {
       )}
     </div>
   );
-    }
+                }
