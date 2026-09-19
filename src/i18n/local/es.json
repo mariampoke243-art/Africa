@@ -400,6 +400,48 @@
     }
   },
 
+  "intervenantsPage": {
+    "forum": "Africa Economic Forum 2026",
+    "title": "Oradores",
+    "subtitle": "LAS PERSONAS QUE DAN FORMA AL DIÁLOGO.",
+    "intro": "El AEF reúne a responsables de la toma de decisiones y voces que están dando forma a la relación de África con el capital mundial, la tecnología, la energía, el comercio y la inversión estratégica.",
+    "categories": "Categorías: jefes de Estado, líderes gubernamentales, inversores, directores ejecutivos, estrategas económicos, líderes financieros y expertos sectoriales.",
+    "confirmedTitle": "Oradores confirmados",
+    "confirmedSubtitle": "Conozca a los líderes y expertos que participarán en las conversaciones estratégicas de la edición de 2026.",
+    "confirmed": "Confirmado",
+    "invitedTitle": "Líderes invitados",
+    "invitedSubtitle": "Una selección de personalidades invitadas a participar en los debates del Africa Economic Forum.",
+    "invited": "Invitado",
+    "descriptions": {
+      "abrahamDwumaOdoom": "Político ghanés y antiguo miembro del Parlamento por Twifo Atti-Morkwa, con experiencia en políticas agrícolas y desarrollo.",
+      "hildaSukaMafudze": "Diplomática zimbabuense y representante sénior de la Unión Africana, con experiencia en diplomacia, cooperación regional, comercio, inversión y desarrollo.",
+      "dominiqueMigisha": "Especialista en desarrollo digital, centrado en la transformación digital y la modernización del sector público en la República Democrática del Congo.",
+      "rashedMohamedKarkain": "Innovador, investigador y autor emiratí especializado en desarrollo sostenible, economía circular, liderazgo ambiental y sostenibilidad.",
+      "abdullahBelhaifAlNuaimi": "Ingeniero, estadista y especialista emiratí en sostenibilidad, con amplia experiencia en infraestructuras, política ambiental y acción climática.",
+      "abdullahiKassim": "Directivo de los sectores de energía e ingeniería, con amplia experiencia en generación eléctrica, infraestructuras energéticas y liderazgo de ingeniería.",
+      "anaHelenaChaconEcheverria": "Diplomática y figura pública costarricense, antigua Vicepresidenta de Costa Rica y defensora de los derechos humanos, la inclusión social y la cooperación internacional.",
+      "rosaliaArteaga": "Antigua Presidenta y Vicepresidenta de Ecuador, educadora, abogada, escritora y defensora de la educación, la cultura y el desarrollo sostenible.",
+      "johnAgyekumKufuor": "Antiguo Presidente de Ghana, abogado y estadista con amplia experiencia en el servicio público y el desarrollo africano.",
+      "bakoAmbianda": "Empresario, inversor, autor y defensor de la energía sostenible, centrado en la inversión africana, las energías renovables, la tecnología y el desarrollo económico.",
+      "amalElFallahSeghrouchni": "Experta marroquí en inteligencia artificial, profesora e investigadora especializada en inteligencia artificial distribuida, sistemas multiagente y transformación digital.",
+      "eleonoreCaroit": "Abogada franco-dominicana y figura pública con experiencia en derecho internacional, asociaciones internacionales, Francofonía y relaciones con ciudadanos franceses en el extranjero.",
+      "zarinahTraciSilas": "Cofundadora de Africa Resources Capital Holdings y antigua alta funcionaria del Gobierno Federal de los Estados Unidos.",
+      "jacquelineJaqCampbell": "Ejecutiva de gestión patrimonial, empresaria y estratega de inversiones entre Estados Unidos y África.",
+      "vladimirNorov": "Antiguo Ministro de Asuntos Exteriores de Uzbekistán y antiguo Secretario General de la Organización de Cooperación de Shanghái.",
+      "akwasiOpongFosu": "Presidente del Ghana Investment Promotion Centre, antiguo Ministro de Estado y antiguo miembro del Parlamento.",
+      "mikeHorton": "Antiguo Federal Chief AI Officer de los Estados Unidos y Director del Center for Applied AI Maturity de Northeastern University.",
+      "afolakeOyinloye": "Periodista de AfricaNews.",
+      "eliezerMoodiSandberg": "Antiguo Ministro israelí de Ciencia y Tecnología.",
+      "muhammadAzfarAhsan": "Antiguo Ministro de Inversiones de Pakistán.",
+      "dagmawitMogesBekele": "Directora de la Secretaría del Fondo para la Paz de la Unión Africana.",
+      "kevinChikaUrama": "Economista Jefe y Vicepresidente responsable de Gobernanza Económica y Gestión del Conocimiento del Grupo del Banco Africano de Desarrollo.",
+      "mosesVilakati": "Comisario de Agricultura, Desarrollo Rural, Economía Azul y Medio Ambiente Sostenible de la Comisión de la Unión Africana.",
+      "agostinhoKapaia": "Presidente del Grupo OPAIA.",
+      "rebecaGrynspan": "Economista, antigua Vicepresidenta de Costa Rica y Secretaria General de la UNCTAD, con amplia experiencia en desarrollo internacional, comercio y cooperación multilateral.",
+      "lindaKarimCreevey": "Representante de Comercio e Inversiones de Liberia para Asia y Australia."
+    }
+  },
+
   "agenda": {
     "texts": {
       "unable_to_submit_your_aef_match_profile_please_try_again": "No se ha podido enviar su perfil AEF Match. Inténtelo de nuevo.",
