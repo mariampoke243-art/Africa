@@ -22,7 +22,7 @@ export const listeIntervenants: Intervenant[] = [
     id: '2',
     key: 'hildaSukaMafudze',
     nom: 'H.E Hilda Suka Mafudze',
-    photoUrl: '/images/OfficeH.E Hilda Suka Mafudze.jpg',
+    photoUrl: '/images/H.E Hilda Suka Mafudze.jpg',
     statut: 'Confirmé',
   },
 
@@ -114,7 +114,7 @@ export const listeIntervenants: Intervenant[] = [
     id: '13',
     key: 'zarinahTraciSilas',
     nom: 'Zarinah Traci Silas, J.D.',
-    photoUrl: '/images/Zarinah Traci Silas.jpg',
+    photoUrl: '/images/Zarinah_Traci_Silas.jpg',
     description:
       'Co-Founder, Africa Resources Capital Holdings & Former Senior Executive Service, USA Federal Government',
     statut: 'Confirmé',
@@ -124,7 +124,7 @@ export const listeIntervenants: Intervenant[] = [
     id: '14',
     key: 'jacquelineJaqCampbell',
     nom: 'Jacqueline JaQ Campbell',
-    photoUrl: '/images/Jacqueline JaQ Campbell.jpg',
+    photoUrl: '/images/Jaqueline JaQ Campbell.jpg',
     description:
       'Wealth Management Executive, Entrepreneur & U.S.–Africa Investment Strategist',
     statut: 'Confirmé',
@@ -154,7 +154,7 @@ export const listeIntervenants: Intervenant[] = [
     id: '17',
     key: 'mikeHorton',
     nom: 'Dr. Mike Horton',
-    photoUrl: '/images/Dr. Mike Horton.jpg',
+    photoUrl: '/images/Mike Horton.jpg',
     description:
       'Former Federal Chief AI Officer, U.S, Director of the Center for Applied AI Maturity, Northeastern University',
     statut: 'Confirmé',
