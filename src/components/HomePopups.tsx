@@ -3,18 +3,26 @@ import { Link } from 'react-router-dom';
 
 export default function HomePopups() {
   const [showMember, setShowMember] = useState(true);
-  const [showAnnouncement, setShowAnnouncement] = useState(true);
+  const [showAnnouncement, setShowAnnouncement] = useState(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setShowMember(true);
-      setShowAnnouncement(true);
     }, 800);
 
     return () => {
       window.clearTimeout(timer);
     };
   }, []);
+
+  const closeMemberAndShowAnnouncement = () => {
+    setShowMember(false);
+
+    // Affiche l'annonce après la fermeture du popup membre
+    window.setTimeout(() => {
+      setShowAnnouncement(true);
+    }, 250);
+  };
 
   return (
     <>
@@ -25,14 +33,17 @@ export default function HomePopups() {
         <div
           className="
             fixed
-            left-0
+            left-3
+            sm:left-0
             top-1/2
             -translate-y-1/2
             z-[9999]
-            w-[280px]
-            sm:w-[330px]
+            w-[calc(100vw-24px)]
+            max-w-[330px]
             bg-white
-            rounded-r-2xl
+            rounded-2xl
+            sm:rounded-r-2xl
+            sm:rounded-l-none
             overflow-hidden
             shadow-2xl
             border
@@ -42,7 +53,7 @@ export default function HomePopups() {
           {/* Close button */}
           <button
             type="button"
-            onClick={() => setShowMember(false)}
+            onClick={closeMemberAndShowAnnouncement}
             aria-label="Close Become a Member popup"
             className="
               absolute
@@ -88,7 +99,7 @@ export default function HomePopups() {
             <p className="text-sm text-gray-600 leading-relaxed mb-5">
               Join the Africa Economic Forum community and connect with
               leaders, investors, institutions and changemakers shaping
-              Africa's future.
+              Africa&apos;s future.
             </p>
 
             <Link
@@ -124,14 +135,17 @@ export default function HomePopups() {
         <div
           className="
             fixed
-            right-0
+            right-3
+            sm:right-0
             top-1/2
             -translate-y-1/2
             z-[9999]
-            w-[280px]
-            sm:w-[330px]
+            w-[calc(100vw-24px)]
+            max-w-[330px]
             bg-white
-            rounded-l-2xl
+            rounded-2xl
+            sm:rounded-l-2xl
+            sm:rounded-r-none
             overflow-hidden
             shadow-2xl
             border
@@ -168,9 +182,12 @@ export default function HomePopups() {
               ================================================= */}
           <div className="relative h-44">
             <img
-              src="/images/aef-2026-announcement.jpg"
+              src="/images/Africa_forum_nov2026.jpg"
               alt="Africa Economic Forum 2026 - 10–11 November 2026 - Kinshasa"
               className="w-full h-full object-cover"
+              onError={(event) => {
+                event.currentTarget.style.display = 'none';
+              }}
             />
 
             {/* Dark overlay for readability */}
@@ -215,12 +232,15 @@ export default function HomePopups() {
 
             <p className="text-sm text-gray-600 leading-relaxed mb-5">
               Join us in Kinshasa for the Africa Economic Forum 2026 and
-              discover the leaders, ideas and partnerships shaping Africa's
+              discover the leaders, ideas and partnerships shaping Africa&apos;s
               role in the new global order.
             </p>
 
+            {/* =================================================
+                LINK TO AGENDA
+                ================================================= */}
             <Link
-              to="/meetings"
+              to="/agenda"
               onClick={() => setShowAnnouncement(false)}
               className="
                 w-full
