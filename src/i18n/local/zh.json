@@ -1,0 +1,192 @@
+{
+  "welcome": "欢迎",
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "我们很乐意听到您的意见",
+    "name": "姓名",
+    "email": "电子邮箱",
+    "subject": "主题",
+    "message": "留言",
+    "send": "发送",
+    "success": "您的留言已成功发送。",
+    "error": "发送留言时发生错误。",
+    "required": "此字段为必填项"
+  },
+  "header": {
+    "home": "首页",
+    "meetings": "会议",
+    "forums": "论坛",
+    "initiatives": "倡议",
+    "about": "关于我们",
+    "contact": "联系我们",
+    "login": "登录",
+    "signup": "注册",
+    "language": "语言"
+  },
+  "meetingsPage": {
+    "title": "会议",
+    "subtitle": "参与塑造非洲经济未来的重要会议。",
+    "upcoming": "即将举行的会议",
+    "past": "往届会议",
+    "register": "注册",
+    "learnMore": "了解更多"
+  },
+  "cta": {
+    "title": "加入非洲经济论坛",
+    "subtitle": "参与塑造非洲经济未来的战略对话。",
+    "button": "立即加入"
+  },
+  "auth": {
+    "login": {
+      "title": "登录",
+      "email": "电子邮箱",
+      "password": "密码",
+      "submit": "登录",
+      "forgotPassword": "忘记密码？",
+      "noAccount": "还没有账户？",
+      "signup": "注册"
+    },
+    "signup": {
+      "title": "创建账户",
+      "name": "姓名",
+      "email": "电子邮箱",
+      "password": "密码",
+      "confirmPassword": "确认密码",
+      "submit": "注册",
+      "hasAccount": "已有账户？",
+      "login": "登录"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "非洲经济论坛",
+      "subtitle": "塑造非洲经济未来的战略平台。",
+      "button": "探索论坛"
+    },
+    "about": {
+      "title": "关于非洲经济论坛",
+      "text": "非洲经济论坛汇聚政府领导人、投资者、企业家、金融专家和思想领袖，共同探讨非洲经济增长与发展的关键议题。",
+      "button": "了解更多"
+    },
+    "forums": {
+      "title": "我们的论坛",
+      "subtitle": "推动战略对话与合作。"
+    },
+    "initiatives": {
+      "title": "我们的倡议",
+      "subtitle": "支持非洲可持续经济发展。"
+    },
+    "spotlight": {
+      "title": "聚焦非洲",
+      "subtitle": "了解正在塑造非洲未来的重要人物、思想和倡议。"
+    }
+  },
+  "initiatives": {
+    "title": "倡议",
+    "subtitle": "推动非洲经济和社会转型的倡议。",
+    "learnMore": "了解更多"
+  },
+  "spotlight": {
+    "title": "聚焦",
+    "subtitle": "探索非洲经济发展的关键人物和重要议题。"
+  },
+  "footer": {
+    "about": "关于我们",
+    "contact": "联系我们",
+    "privacy": "隐私政策",
+    "terms": "使用条款",
+    "followUs": "关注我们",
+    "copyright": "© 2026 Africa Economic Forum. 保留所有权利。"
+  },
+  "about": {
+    "title": "关于非洲经济论坛",
+    "subtitle": "一个汇聚思想、资本、技术和领导力的平台。",
+    "text": "非洲经济论坛（AEF）是一个战略平台，旨在汇聚非洲及全球的领导者、投资者、企业家、金融专家、创新者和思想领袖，共同探讨非洲经济发展的机遇与挑战。",
+    "mission": {
+      "title": "我们的使命",
+      "text": "促进战略对话、投资、合作和创新，为非洲创造可持续和包容性的经济增长。"
+    },
+    "vision": {
+      "title": "我们的愿景",
+      "text": "建设一个更加繁荣、互联、创新和可持续发展的非洲。"
+    },
+    "values": {
+      "title": "我们的价值观",
+      "text": "领导力、合作、创新、包容性、可持续发展和共同繁荣。"
+    }
+  },
+  "forums": {
+    "title": "论坛",
+    "subtitle": "战略对话与合作的平台。",
+    "africaPeaceForum": {
+      "title": "非洲和平论坛",
+      "description": "汇聚领导者和专家，共同探讨和平、安全、稳定以及非洲可持续发展的关键问题。"
+    },
+    "africaAgricultureFoodForum": {
+      "title": "非洲农业与粮食论坛",
+      "description": "围绕农业、粮食安全、投资、创新和可持续农业发展展开战略对话。"
+    }
+  },
+  "intervenantsPage": {
+    "forum": "Africa Economic Forum 2026",
+    "title": "演讲嘉宾",
+    "subtitle": "塑造对话的人。",
+    "intro": "AEF 汇聚塑造非洲与全球资本、技术、能源、贸易和战略投资关系的重要决策者与声音。",
+    "categories": "类别：国家元首、政府领导人、投资者、首席执行官、经济战略家、金融领导者和行业专家。",
+    "confirmedTitle": "已确认的演讲嘉宾",
+    "confirmedSubtitle": "认识将参加2026年战略对话的领导者和专家。",
+    "confirmed": "已确认",
+    "invitedTitle": "受邀领导者",
+    "invitedSubtitle": "受邀参加 Africa Economic Forum 辩论与讨论的杰出人士。",
+    "invited": "受邀",
+    "descriptions": {
+      "abrahamDwumaOdoom": "加纳政治家，曾任特维福-阿蒂-莫克瓦选区议会议员，曾参与农业政策、可可产业发展和水稻生产等工作。",
+      "hildaSukaMafudze": "津巴布韦外交官及非洲联盟高级代表，在外交、区域合作、贸易、投资和发展领域拥有丰富经验。",
+      "dominiqueMigisha": "数字发展专家，担任刚果民主共和国数字发展局协调员，专注于数字化转型和公共部门现代化。",
+      "rashedMohamedKarkain": "阿联酋创新者、研究人员和作家，专注于可持续发展、循环经济、环境领导力和可持续性。",
+      "abdullahBelhaifAlNuaimi": "阿联酋工程师、政治家和可持续发展专家，在基础设施、环境政策和气候行动领域拥有四十多年经验。",
+      "abdullahiKassim": "尼日尔三角洲电力控股公司发电部门执行董事，在发电、能源基础设施和工程领导方面拥有超过20年的经验。",
+      "anaHelenaChaconEcheverria": "哥斯达黎加外交官和公共事务领导者，曾任哥斯达黎加副总统，致力于人权、社会包容和国际合作。",
+      "rosaliaArteaga": "厄瓜多尔前总统兼副总统、教育家、律师和作家，致力于教育、文化和可持续发展。",
+      "johnAgyekumKufuor": "加纳前总统、律师和政治家，长期从事公共服务并参与非洲发展事务。",
+      "bakoAmbianda": "屡获殊荣的企业家、投资者、作家和可持续能源倡导者，专注于非洲投资、可再生能源、技术和经济发展。",
+      "amalElFallahSeghrouchni": "摩洛哥人工智能专家、教授和研究人员，专注于分布式人工智能、多智能体系统和数字化转型。",
+      "eleonoreCaroit": "法籍多米尼加律师和公共事务人士，拥有国际法、国际伙伴关系、法语国家事务以及海外法国公民关系方面的经验。",
+      "zarinahTraciSilas": "Africa Resources Capital Holdings 联合创始人及美国联邦政府前高级行政服务官员。",
+      "jacquelineJaqCampbell": "财富管理高管、企业家及美国—非洲投资战略专家。",
+      "vladimirNorov": "乌兹别克斯坦前外交部长及上海合作组织前秘书长。",
+      "akwasiOpongFosu": "加纳投资促进中心董事长，前国务部长及国会议员。",
+      "mikeHorton": "美国前联邦首席人工智能官，东北大学 Center for Applied AI Maturity 主任。",
+      "afolakeOyinloye": "AfricaNews 记者。",
+      "eliezerMoodiSandberg": "以色列前科学技术部长。",
+      "muhammadAzfarAhsan": "巴基斯坦前投资部长。",
+      "dagmawitMogesBekele": "非洲联盟和平基金秘书处主任。",
+      "kevinChikaUrama": "非洲开发银行集团首席经济学家兼负责经济治理与知识管理的副行长。",
+      "mosesVilakati": "非洲联盟委员会（AUC）农业、农村发展、蓝色经济和可持续环境专员。",
+      "agostinhoKapaia": "OPAIA 集团董事长。",
+      "rebecaGrynspan": "经济学家、哥斯达黎加前副总统及联合国贸发会议（UNCTAD）秘书长，在国际发展、贸易和多边合作领域拥有丰富经验。",
+      "lindaKarimCreevey": "利比里亚驻亚洲和澳大利亚贸易与投资代表。"
+    }
+  },
+  "agenda": {
+    "title": "议程",
+    "subtitle": "探索非洲经济论坛的战略议程。",
+    "texts": {
+      "title": "非洲经济论坛 2026",
+      "subtitle": "塑造非洲经济未来的战略对话。",
+      "day1": "第一天",
+      "day2": "第二天",
+      "day3": "第三天",
+      "opening": "开幕式",
+      "openingDescription": "非洲经济论坛2026正式开幕。",
+      "keynote": "主题演讲",
+      "keynoteDescription": "来自非洲及全球领导者的主题演讲。",
+      "panel": "专题讨论",
+      "panelDescription": "围绕非洲经济发展的关键议题展开深入讨论。",
+      "networking": "交流与合作",
+      "networkingDescription": "促进领导者、投资者和企业家之间的交流与合作。",
+      "closing": "闭幕式",
+      "closingDescription": "总结论坛成果并展望未来合作。"
+    }
+  }
+}

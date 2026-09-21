@@ -1,13 +1,12 @@
-import { useNavigate, type NavigateFunction } from "react-router-dom";
-import { useRoutes } from "react-router-dom";
+import { useNavigate, useRoutes, type NavigateFunction } from "react-router-dom";
 import { useEffect } from "react";
 import routes from "./config";
 
-let navigateResolver: (navigate: ReturnType<typeof useNavigate>) => void;
+let navigateResolver: (navigate: NavigateFunction) => void;
 
 declare global {
   interface Window {
-    REACT_APP_NAVIGATE: ReturnType<typeof useNavigate>;
+    REACT_APP_NAVIGATE: NavigateFunction;
   }
 }
 
@@ -16,13 +15,13 @@ export const navigatePromise = new Promise<NavigateFunction>((resolve) => {
 });
 
 export function AppRoutes() {
+  const navigate = useNavigate();
   const element = useRoutes(routes);
-  if (!window.REACT_APP_NAVIGATE) {
-    const navigate = useNavigate();
-    useEffect(() => {
-      window.REACT_APP_NAVIGATE = navigate;
-      navigateResolver(window.REACT_APP_NAVIGATE);
-    });
-  }
+
+  useEffect(() => {
+    window.REACT_APP_NAVIGATE = navigate;
+    navigateResolver(navigate);
+  }, [navigate]);
+
   return element;
 }

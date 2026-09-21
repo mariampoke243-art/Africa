@@ -1,0 +1,583 @@
+{
+  "welcome": "Bem-vindo",
+
+  "contact": {
+    "title": "Contacte-nos",
+    "send": "Enviar mensagem"
+  },
+
+  "header": {
+    "home": "Início",
+    "about": "Sobre",
+    "initiatives": "Iniciativas",
+    "stakeholders": "Partes interessadas",
+    "agenda": "Agenda",
+    "publications": "Publicações",
+    "meetings": "Fóruns e reuniões",
+    "contact": "Contacto",
+    "signIn": "Iniciar sessão",
+    "signOut": "Terminar sessão",
+    "profile": "Perfil",
+    "viewProfile": "Ver perfil",
+    "user": "Utilizador"
+  },
+
+  "meetingsPage": {
+    "heroTitle": "Fóruns e Reuniões",
+    "heroSubtitle": "Descubra as nossas próximas cimeiras e diálogos estratégicos",
+    "sectionTitle": "Os Nossos Fóruns",
+    "sectionSubtitle": "Plataformas fundamentais para impulsionar o crescimento económico em África",
+    "readMore": "Ler mais",
+    "showLess": "Mostrar menos",
+    "overview": "Visão geral",
+    "objectives": "Objetivos do Fórum",
+    "keyFocusAreas": "Áreas prioritárias",
+    "strategicPillars": "Pilares estratégicos",
+    "platform": "A Plataforma",
+    "whoWeConvene": "Quem reunimos",
+    "fromDialogueToAction": "Do diálogo à ação",
+    "joinForum": "Participar no Fórum"
+  },
+
+  "cta": {
+    "title": "Junte-se ao movimento",
+    "subtitle": "Faça parte do principal encontro económico de África",
+    "register": "Registar agora",
+    "contact": "Contacte-nos"
+  },
+
+  "auth": {
+    "createAccount": "Criar conta",
+    "signIn": "Iniciar sessão",
+    "emailAddress": "Endereço de e-mail",
+    "emailPlaceholder": "Introduza o seu endereço de e-mail",
+    "password": "Palavra-passe",
+    "passwordPlaceholder": "Introduza a sua palavra-passe",
+    "rememberMe": "Lembrar-me",
+    "forgotPassword": "Esqueceu-se da palavra-passe?",
+    "noAccount": "Não tem uma conta?",
+    "firstName": "Nome",
+    "firstNamePlaceholder": "Nome",
+    "lastName": "Apelido",
+    "lastNamePlaceholder": "Apelido",
+    "organization": "Organização",
+    "organizationPlaceholder": "A sua organização",
+    "createPasswordPlaceholder": "Criar uma palavra-passe",
+    "confirmPassword": "Confirmar palavra-passe",
+    "confirmPasswordPlaceholder": "Confirme a sua palavra-passe",
+    "terms": "Aceito os Termos de Serviço e a Política de Privacidade",
+    "newsletterConsent": "Quero receber atualizações sobre as atividades e eventos do Fórum",
+    "alreadyAccount": "Já tem uma conta?",
+    "orContinueWith": "Ou continuar com",
+    "google": "Google",
+    "linkedin": "LinkedIn",
+    "signInSuccess": "Sessão iniciada com sucesso! Bem-vindo de volta.",
+    "requiredFields": "Preencha todos os campos obrigatórios.",
+    "passwordMismatch": "As palavras-passe não coincidem. Tente novamente.",
+    "accountCreated": "Conta criada com sucesso! Bem-vindo ao Africa Economic Forum.",
+    "user": "Utilizador",
+    "profile": "Perfil",
+    "viewProfile": "Ver perfil",
+    "signOut": "Terminar sessão"
+  },
+
+  "home": {
+    "heroEyebrow": "Africa Economic Forum 2026 • 10–11 Nov • Kinshasa",
+    "heroTitle": "Africa Economic Forum 2026",
+    "heroSubtitle": "Uma plataforma de referência que reúne líderes, governos, investidores e pensadores para definir o papel de África na nova ordem mundial",
+    "moreAboutForum": "Mais sobre o Fórum",
+    "moreAboutInitiatives": "Mais sobre as nossas iniciativas",
+    "spotlightTitle": "Destaque",
+    "spotlightSubtitle": "Anúncios estratégicos e marcos institucionais da AEF",
+    "viewAllArticles": "Ver todos os artigos",
+    "impactTitle": "Como geramos impacto",
+    "impactSubtitle": "Uma plataforma concebida para transformar o diálogo estratégico em parcerias, investimento e execução.",
+    "strategicDialogue": "Plataformas de diálogo estratégico",
+    "strategicDialogueDescription": "Reunimos governos, investidores, instituições e líderes empresariais em torno de prioridades económicas estratégicas.",
+    "partnershipFacilitation": "Facilitação de parcerias",
+    "partnershipFacilitationDescription": "Ligamos governos, fornecedores de capital, promotores de projetos e parceiros estratégicos para facilitar uma colaboração significativa.",
+    "innovationAcceleration": "Aceleração da inovação",
+    "innovationAccelerationDescription": "Apoiamos ideias, projetos e oportunidades de investimento inovadoras que contribuem para a transformação económica de África.",
+    "newsletterTitle": "Subscreva as nossas newsletters",
+    "newsletterDescription": "Receba análises estratégicas, anúncios institucionais e atualizações do Africa Economic Forum.",
+    "newsletterPlaceholder": "Introduza o seu endereço de e-mail",
+    "subscribe": "Subscrever",
+    "subscriptionSuccess": "Obrigado por subscrever a newsletter do Africa Economic Forum."
+  },
+
+  "initiatives": {
+    "aiif": {
+      "title": "Fundo Africano de Investimento e Inovação"
+    },
+    "nextAfricaAccelerator": {
+      "title": "Aceleradora Next Africa"
+    },
+    "economicIntelligenceHub": {
+      "title": "Hub Africano de Inteligência Económica"
+    },
+    "aefLabs": {
+      "title": "Laboratórios AEF"
+    }
+  },
+
+  "spotlight": {
+    "afdbWomenForum": {
+      "category": "Fórum e Liderança",
+      "title": "Africa Women Forum",
+      "description": "Destacando a liderança, o investimento e as oportunidades para as mulheres africanas."
+    },
+    "africanTable": {
+      "category": "Liderança e Diálogo",
+      "title": "The African Table",
+      "description": "Um espaço de diálogo estratégico que reúne os atores que moldam o futuro económico de África."
+    },
+    "dealRooms": {
+      "category": "Investimento e Negócios",
+      "title": "Deal Rooms",
+      "description": "Espaços dedicados que ligam projetos, investidores, governos e parceiros estratégicos."
+    },
+    "multiSectorContinuity": {
+      "category": "Estratégia e Investimento",
+      "title": "Continuidade Multissetorial",
+      "description": "Promover uma abordagem integrada ao investimento e às oportunidades nos setores estratégicos de África."
+    },
+    "africaWomenForum2026": {
+      "category": "Evento",
+      "title": "Africa Women Forum 2026",
+      "description": "Uma plataforma centrada na liderança, no investimento e na participação das mulheres na transformação económica de África."
+    }
+  },
+
+  "about": {
+    "heroTitle": "Sobre o Africa Economic Forum",
+    "heroSubtitle": "Uma plataforma para o diálogo estratégico, a cooperação económica e uma ação transformadora em África.",
+    "whatWeAreTitle": "Quem Somos",
+    "whatWeAreText1": "O Africa Economic Forum é uma plataforma de referência que reúne líderes africanos e globais para moldar o futuro económico do continente.",
+    "whatWeAreText2": "Reunimos governos, investidores, instituições, líderes empresariais e pensadores para transformar o diálogo estratégico em parcerias, investimento e ação.",
+    "missionTitle": "A Nossa Missão",
+    "missionSubtitle": "Acelerar a transformação económica de África através de conexões estratégicas, liderança visionária e ação prática.",
+    "winWinTitle": "Parcerias Vantajosas para Todos",
+    "winWinText": "Criamos oportunidades para parcerias mutuamente benéficas entre partes interessadas africanas e internacionais.",
+    "visionaryLeadershipTitle": "Liderança Visionária",
+    "visionaryLeadershipText": "Reunimos líderes capazes de desenvolver ideias ambiciosas e transformá-las em resultados económicos concretos.",
+    "strategicConnectionsTitle": "Conexões Estratégicas",
+    "strategicConnectionsText": "Ligamos governos, investidores, instituições e empresas em torno de prioridades económicas estratégicas.",
+    "narrativeElevationTitle": "Valorização da Narrativa",
+    "narrativeElevationText": "Contribuímos para uma compreensão global mais forte das oportunidades, capacidades e potencial económico de África.",
+    "communityEmpowermentTitle": "Empoderamento das Comunidades",
+    "communityEmpowermentText": "Promovemos uma participação inclusiva e criamos oportunidades para que comunidades e novos líderes contribuam para a transformação de África.",
+    "visionTitle": "A Nossa Visão",
+    "visionText": "Uma África próspera, conectada e globalmente influente, impulsionada pela liderança africana, inovação e cooperação estratégica.",
+    "coreValuesTitle": "Os Nossos Valores Fundamentais",
+    "coreValuesSubtitle": "Os princípios que orientam o nosso trabalho e as nossas parcerias.",
+    "sovereigntyTitle": "Soberania",
+    "sovereigntyText": "Respeitar a capacidade de África para definir e promover as suas próprias prioridades económicas.",
+    "equityTitle": "Equidade",
+    "equityText": "Promover oportunidades justas, participação inclusiva e prosperidade partilhada.",
+    "transformationalLeadershipTitle": "Liderança Transformadora",
+    "transformationalLeadershipText": "Apoiar uma liderança capaz de promover uma transformação económica significativa e duradoura.",
+    "narrativeJusticeTitle": "Justiça Narrativa",
+    "narrativeJusticeText": "Promover narrativas precisas, equilibradas e orientadas para o futuro sobre África.",
+    "innovationTitle": "Inovação",
+    "innovationText": "Incentivar novas ideias, tecnologias e abordagens para responder aos desafios económicos de África.",
+    "inclusionTitle": "Inclusão",
+    "inclusionText": "Garantir que diversas vozes, perspetivas e comunidades tenham um lugar no futuro económico de África.",
+    "impactTitle": "O Nosso Impacto",
+    "impactSubtitle": "Criar conexões e oportunidades que contribuam para a transformação económica de África.",
+    "countriesEngaged": "54 Países Envolvidos",
+    "globalLeadersConnected": "Líderes Globais Conectados",
+    "investmentOpportunities": "Oportunidades de Investimento",
+    "strategicPartnerships": "Parcerias Estratégicas",
+    "organizingCommitteeTitle": "Comité Organizador",
+    "organizingCommitteeSubtitle": "A equipa que coordena o Africa Economic Forum.",
+    "founderTitle": "Fundador",
+    "founderSubtitle": "A liderança por detrás do Africa Economic Forum.",
+    "founderRole": "Fundador e Presidente",
+    "founderBio": "Liderar o Africa Economic Forum com a visão de reforçar a cooperação estratégica, o investimento e a transformação económica em África.",
+    "advisoryBoardTitle": "Conselho Consultivo",
+    "advisoryBoardSubtitle": "Líderes experientes que fornecem orientação estratégica ao Fórum.",
+    "executiveBoardTitle": "Conselho Executivo",
+    "executiveBoardSubtitle": "A equipa de liderança responsável pela estratégia e execução do Fórum.",
+    "scientificCommitteeTitle": "Comité Científico",
+    "scientificCommitteeSubtitle": "Especialistas que contribuem com conhecimento, investigação e perspetivas estratégicas.",
+    "joinMovementTitle": "Junte-se ao Movimento",
+    "joinMovementText": "Faça parte de uma comunidade crescente que trabalha para moldar o futuro económico de África.",
+    "becomeMember": "Tornar-se Membro",
+    "members": {
+      "akwasiOpongFosu": {
+        "role": "Presidente do Conselho Consultivo",
+        "bio": "Fornece orientação estratégica e liderança para apoiar a missão e a visão de longo prazo do Fórum."
+      },
+      "zarinahTraciSilas": {
+        "role": "Membro do Conselho Executivo",
+        "bio": "Apoia o desenvolvimento estratégico do Fórum e as suas parcerias institucionais."
+      },
+      "jacquelineJaqCampbell": {
+        "role": "Membro do Conselho Executivo",
+        "bio": "Contribui para iniciativas estratégicas e para o envolvimento do Fórum com as principais partes interessadas."
+      },
+      "femiSalami": {
+        "role": "Membro do Conselho Executivo",
+        "bio": "Apoia o diálogo económico, as parcerias e as iniciativas estratégicas em África."
+      },
+      "abrahamDwumaOdoom": {
+        "role": "Membro do Conselho Executivo",
+        "bio": "Contribui com liderança e perspetivas estratégicas para os programas e parcerias do Fórum."
+      },
+      "aminaToure": {
+        "role": "Membro do Conselho Executivo",
+        "bio": "Apoia o desenvolvimento económico inclusivo, a liderança e a cooperação estratégica."
+      },
+      "nathanLewis": {
+        "role": "Membro do Comité Científico",
+        "bio": "Contribui com investigação, conhecimento especializado e perspetivas analíticas para o trabalho estratégico do Fórum."
+      }
+    }
+  },
+
+  "footer": {
+    "aboutUs": "Sobre nós",
+    "ourMission": "A nossa missão",
+    "ourFramework": "O nosso quadro",
+    "history": "História",
+    "leadership": "Liderança",
+    "ourImpact": "O nosso impacto",
+    "moreFromForum": "Mais do Fórum",
+    "centres": "Centros",
+    "meetings": "Fóruns e reuniões",
+    "stakeholders": "Partes interessadas",
+    "forumStories": "Histórias do Fórum",
+    "pressReleases": "Comunicados de imprensa",
+    "gallery": "Galeria",
+    "podcasts": "Podcasts",
+    "videos": "Vídeos",
+    "engage": "Participar",
+    "logout": "Terminar sessão",
+    "signIn": "Iniciar sessão",
+    "partner": "Parceiro",
+    "member": "Membro",
+    "pressSignUp": "Registo de imprensa",
+    "newsletters": "Newsletters",
+    "contactUs": "Contacte-nos",
+    "quickLinks": "Links rápidos",
+    "sustainability": "Sustentabilidade",
+    "careers": "Carreiras",
+    "languageEditions": "Edições linguísticas",
+    "privacy": "Política de privacidade",
+    "copyright": "© 2026 Africa Economic Forum. Todos os direitos reservados."
+  },
+
+  "forums": {
+    "africaPeaceForum": {
+      "title": "Africa Peace Forum",
+      "sectoralLabel": "Um fórum setorial do Africa Economic Forum",
+      "description": "Moldar a paz, a segurança e a cooperação estratégica de África.",
+      "overview": "O Africa Peace Forum reúne líderes, governos, diplomatas, especialistas em segurança, investidores e pensadores para abordar os desafios de paz e segurança de África e promover as condições necessárias para uma transformação económica sustentável.",
+      "keyAreas": [
+        "Paz e segurança",
+        "Estabilidade regional",
+        "Cooperação estratégica",
+        "Prevenção de conflitos",
+        "Transformação económica"
+      ],
+      "objectives": [
+        "Reforçar a cooperação regional em matéria de paz e segurança",
+        "Promover o diálogo estratégico entre governos e instituições",
+        "Ligar as prioridades de paz e segurança ao desenvolvimento económico",
+        "Construir bases mais sólidas para o investimento sustentável"
+      ],
+      "platform": {
+        "title": "A Plataforma",
+        "description": "Uma plataforma de alto nível que liga liderança política, instituições, empresas e capital em torno das prioridades africanas de paz, segurança e economia.",
+        "items": [
+          {
+            "title": "Diálogo Estratégico",
+            "description": "Intercâmbios de alto nível sobre as prioridades africanas de paz, segurança e geopolítica."
+          },
+          {
+            "title": "Cooperação Institucional",
+            "description": "Construir parcerias mais fortes entre governos, instituições e partes interessadas estratégicas."
+          },
+          {
+            "title": "Segurança Económica",
+            "description": "Ligar estabilidade, segurança e transformação económica."
+          }
+        ]
+      },
+      "whoWeConvene": [
+        "Chefes de Estado e de Governo",
+        "Ministros e altos funcionários públicos",
+        "Diplomatas e instituições internacionais",
+        "Especialistas em segurança e estratégia",
+        "Investidores e líderes empresariais",
+        "Pensadores e líderes de políticas públicas"
+      ],
+      "fromDialogueToAction": "Ligar liderança política, instituições, empresas e capital para construir bases mais sólidas para a paz, estabilidade e prosperidade em África.",
+      "joinForum": "Participar no Africa Peace Forum"
+    },
+
+    "africaAgricultureFoodForum": {
+      "title": "Africa Agriculture & Food Forum (AAFF)",
+      "description": "Transformar a agricultura africana de uma agricultura de subsistência num sistema moderno, produtivo e sustentável.",
+      "overview": "O Fórum de Agricultura e Segurança Alimentar aborda a transformação dos sistemas agrícolas africanos, das cadeias de valor alimentares e das oportunidades de investimento necessárias para construir economias alimentares resilientes e produtivas.",
+      "keyAreas": [
+        "Agricultura",
+        "Segurança alimentar",
+        "Agri-Tech",
+        "Processamento alimentar",
+        "Cadeias de valor regionais",
+        "Investimento"
+      ],
+      "objectives": [
+        "Acelerar a transformação agrícola em África",
+        "Reforçar a segurança alimentar e os sistemas alimentares resilientes",
+        "Mobilizar investimentos para as cadeias de valor agrícolas",
+        "Promover tecnologia e inovação na agricultura",
+        "Expandir o comércio agrícola intra-africano"
+      ],
+      "strategicPillars": "Pilares estratégicos",
+      "pillars": [
+        {
+          "title": "Produtividade e Inovação",
+          "items": [
+            "Agri-Tech e agricultura digital",
+            "Sistemas agrícolas modernos",
+            "Investigação e inovação"
+          ]
+        },
+        {
+          "title": "Cadeias de Valor e Processamento",
+          "items": [
+            "Processamento alimentar",
+            "Armazenamento e logística",
+            "Cadeias de valor regionais"
+          ]
+        },
+        {
+          "title": "Investimento e Financiamento",
+          "items": [
+            "Financiamento agrícola",
+            "Investimento privado",
+            "Mecanismos de financiamento combinado"
+          ]
+        }
+      ],
+      "whoWeConvene": [
+        "Governos e decisores políticos",
+        "Investidores agrícolas",
+        "Agricultores e produtores",
+        "Empresas alimentares",
+        "Instituições financeiras",
+        "Empresas tecnológicas",
+        "Instituições de desenvolvimento"
+      ],
+      "fromDialogueToAction": "Ligar líderes agrícolas, investidores, fornecedores de tecnologia e governos para transformar os sistemas alimentares africanos e desbloquear oportunidades de investimento escaláveis.",
+      "joinForum": "Participar no Africa Agriculture & Food Forum"
+    }
+  },
+
+  "intervenantsPage": {
+    "forum": "Africa Economic Forum 2026",
+    "title": "Oradores",
+    "subtitle": "AS PESSOAS QUE MOLDAM O DIÁLOGO.",
+    "intro": "A AEF reúne decisores e vozes que moldam a relação de África com o capital global, a tecnologia, a energia, o comércio e o investimento estratégico.",
+    "categories": "Categorias: chefes de Estado, líderes governamentais, investidores, CEOs, estrategas económicos, líderes financeiros e especialistas setoriais.",
+    "confirmedTitle": "Oradores confirmados",
+    "confirmedSubtitle": "Conheça os líderes e especialistas que participarão nas conversas estratégicas da edição de 2026.",
+    "confirmed": "Confirmado",
+    "invitedTitle": "Líderes convidados",
+    "invitedSubtitle": "Uma seleção de personalidades convidadas a participar nos debates do Africa Economic Forum.",
+    "invited": "Convidado",
+
+    "descriptions": {
+      "abrahamDwumaOdoom": "Político ganês e antigo membro do Parlamento por Twifo Atti-Morkwa, com experiência em políticas agrícolas e desenvolvimento.",
+      "hildaSukaMafudze": "Diplomata zimbabueana e representante sénior da União Africana, com experiência em diplomacia, cooperação regional, comércio, investimento e desenvolvimento.",
+      "dominiqueMigisha": "Especialista em desenvolvimento digital, com foco na transformação digital e na modernização dos serviços do setor público na República Democrática do Congo.",
+      "rashedMohamedKarkain": "Inovador, investigador e autor emiradense especializado em desenvolvimento sustentável, economia circular, liderança ambiental e sustentabilidade.",
+      "abdullahBelhaifAlNuaimi": "Engenheiro, estadista e especialista emiradense em sustentabilidade, com vasta experiência em infraestruturas, política ambiental e ação climática.",
+      "abdullahiKassim": "Dirigente dos setores da energia e engenharia, com vasta experiência em produção de eletricidade, infraestruturas energéticas e liderança de engenharia.",
+      "anaHelenaChaconEcheverria": "Diplomata e personalidade pública costa-riquenha, antiga Vice-Presidente da Costa Rica e defensora dos direitos humanos, da inclusão social e da cooperação internacional.",
+      "rosaliaArteaga": "Antiga Presidente e Vice-Presidente do Equador, educadora, advogada, escritora e defensora da educação, cultura e desenvolvimento sustentável.",
+      "johnAgyekumKufuor": "Antigo Presidente do Gana, advogado e estadista com vasta experiência no serviço público e no desenvolvimento africano.",
+      "eleonoreCaroit": "Advogada franco-dominicana e personalidade pública com experiência em direito internacional, parcerias internacionais, Francofonia e relações com cidadãos franceses no estrangeiro.",
+
+      "zarinahTraciSilas": "Cofundadora da Africa Resources Capital Holdings e antiga dirigente sénior do Governo Federal dos Estados Unidos.",
+      "jacquelineJaqCampbell": "Executiva de gestão de património, empreendedora e estratega de investimento entre os Estados Unidos e África.",
+      "vladimirNorov": "Antigo Ministro dos Negócios Estrangeiros do Uzbequistão e antigo Secretário-Geral da Organização de Cooperação de Xangai.",
+      "akwasiOpongFosu": "Presidente do Ghana Investment Promotion Centre, antigo Ministro de Estado e antigo membro do Parlamento.",
+      "mikeHorton": "Antigo Federal Chief AI Officer dos Estados Unidos e Diretor do Center for Applied AI Maturity da Northeastern University.",
+      "afolakeOyinloye": "Jornalista da AfricaNews.",
+      "eliezerMoodiSandberg": "Antigo Ministro israelita da Ciência e Tecnologia.",
+      "muhammadAzfarAhsan": "Antigo Ministro do Investimento do Paquistão.",
+
+      "dagmawitMogesBekele": "Diretora do Secretariado do Fundo para a Paz da União Africana.",
+      "kevinChikaUrama": "Economista-Chefe e Vice-Presidente responsável pela Governação Económica e Gestão do Conhecimento do Grupo do Banco Africano de Desenvolvimento.",
+      "mosesVilakati": "Comissário para a Agricultura, Desenvolvimento Rural, Economia Azul e Ambiente Sustentável da Comissão da União Africana.",
+      "agostinhoKapaia": "Presidente do Grupo OPAIA.",
+      "rebecaGrynspan": "Economista, antiga Vice-Presidente da Costa Rica e Secretária-Geral da UNCTAD, com vasta experiência em desenvolvimento internacional, comércio e cooperação multilateral.",
+      "lindaKarimCreevey": "Representante do comércio e investimento da Libéria para a Ásia e a Austrália."
+    }
+  },
+
+  "agenda": {
+    "texts": {
+      "unable_to_submit_your_aef_match_profile_please_try_again": "Não foi possível enviar o seu perfil AEF Match. Tente novamente.",
+      "close_aef_match_profile": "Fechar o perfil AEF Match",
+      "aef_match_profile_received": "PERFIL AEF MATCH RECEBIDO",
+      "thank_you_your_aef_match_profile_has_been_submitted_for_qualification_and_matchmaking_review": "Obrigado. O seu perfil AEF Match foi enviado para qualificação e análise para efeitos de matchmaking.",
+      "close": "FECHAR",
+      "aef_match_profile": "PERFIL AEF MATCH",
+      "build_your_aef_match_profile": "CRIE O SEU PERFIL AEF MATCH",
+      "step_01_your_role": "ETAPA 01 — O SEU PAPEL",
+      "what_brings_you_to_aef": "O que o traz à AEF?*",
+      "step_02_what_you_bring": "ETAPA 02 — O QUE TRAZ",
+      "capital": "CAPITAL",
+      "projects_sectors": "PROJETOS / SETORES",
+      "capabilities": "CAPACIDADES",
+      "markets": "MERCADOS",
+      "step_03_what_you_are_looking_for": "ETAPA 03 — O QUE PROCURA",
+      "what_would_you_like_to_find_at_aef": "O que gostaria de encontrar na AEF?",
+      "step_04_your_investment_business_parameters": "ETAPA 04 — OS SEUS PARÂMETROS DE INVESTIMENTO / NEGÓCIO",
+      "investment_sectors": "Setores de investimento",
+      "geographies_of_interest": "Áreas geográficas de interesse",
+      "typical_investment_ticket": "Ticket de investimento habitual",
+      "investment_structure": "Estrutura de investimento",
+      "investment_stage": "Fase de investimento",
+      "preferred_counterparties": "Contrapartes preferenciais",
+      "country": "País*",
+      "select_country": "Selecionar um país",
+      "sector": "Setor*",
+      "select_sector": "Selecionar um setor",
+      "project_stage": "Fase do projeto*",
+      "capital_structure_sought": "Estrutura de capital pretendida",
+      "priority_sectors": "Setores prioritários",
+      "type_of_partners_sought": "Tipo de parceiros procurados",
+      "strategic_capabilities_you_bring": "Capacidades estratégicas que traz",
+      "african_markets_of_interest": "Mercados africanos de interesse",
+      "sectors_of_interest": "Setores de interesse",
+      "type_of_partnerships_sought": "Tipo de parcerias procuradas",
+      "select_your_role_in_step_01_to_display_the_relevant_investment_business_parameters": "Selecione o seu papel na Etapa 01 para apresentar os parâmetros de investimento / negócio relevantes.",
+      "step_05_who_do_you_want_to_meet": "ETAPA 05 — QUEM DESEJA CONHECER?",
+      "who_would_you_like_to_meet_at_aef": "Quem gostaria de conhecer na AEF?",
+      "step_06_your_availability": "ETAPA 06 — A SUA DISPONIBILIDADE",
+      "10_november": "10 de novembro",
+      "11_november": "11 de novembro",
+      "preferred_meeting_format": "Formato de reunião preferencial",
+      "step_07_your_priority": "ETAPA 07 — A SUA PRIORIDADE",
+      "step_08_contact_consent": "ETAPA 08 — CONTACTO E CONSENTIMENTO",
+      "email": "E-mail*",
+      "consent": "Consentimento",
+      "submitting": "A ENVIAR...",
+      "create_my_aef_match_profile": "CRIAR O MEU PERFIL AEF MATCH",
+      "thank_you_for_your_submission_your_information_and_documents_have_been_successfully_recorded_our_team_will_review_your_mandate_and_contact_you_regarding_the_appropriate_engagement_format": "Obrigado pelo seu envio. As suas informações e documentos foram registados com sucesso. A nossa equipa analisará o seu mandato e entrará em contacto consigo relativamente ao formato de participação adequado.",
+      "an_unexpected_error_occurred_during_submission_please_try_again": "Ocorreu um erro inesperado durante o envio. Tente novamente.",
+      "this_email_is_already_registered_for_this_event": "Este endereço de e-mail já está registado para este evento.",
+      "unable_to_complete_your_registration_please_try_again": "Não foi possível concluir o seu registo. Tente novamente.",
+      "registration_submitted_successfully_we_look_forward_to_welcoming_you_to_aef_2026": "Registo enviado com sucesso. Esperamos recebê-lo na AEF 2026.",
+      "an_unexpected_error_occurred_please_try_again": "Ocorreu um erro inesperado. Tente novamente.",
+      "hide_details": "OCULTAR DETALHES",
+      "view_details": "VER DETALHES",
+      "format": "Formato",
+      "purpose": "Objetivo",
+      "strategic_questions": "Questões estratégicas",
+      "focus": "Foco",
+      "deal_track": "Deal Track",
+      "africa_economic_forum": "Africa Economic Forum",
+      "about_aef": "SOBRE A AEF",
+      "why_kinshasa": "PORQUÊ KINSHASA",
+      "programme": "PROGRAMA",
+      "speakers": "ORADORES",
+      "deal_ecosystem": "ECOSSISTEMA DE NEGÓCIOS",
+      "partners": "PARCEIROS",
+      "get_your_delegate_pass": "OBTER O SEU PASSE DE DELEGADO",
+      "become_an_aef_partner": "TORNAR-SE PARCEIRO DA AEF",
+      "download_agenda": "Descarregar a agenda",
+      "sign_out": "Terminar sessão",
+      "sign_in": "Iniciar sessão",
+      "menu": "Menu",
+      "1011_november_2026": "10–11 de novembro de 2026",
+      "africas_next_investment_corridors_are_being_built_in_kinshasa": "OS PRÓXIMOS CORREDORES DE INVESTIMENTO DE ÁFRICA ESTÃO A SER CONSTRUÍDOS EM KINSHASA.",
+      "africa_and_global_realignment": "ÁFRICA E O REALINHAMENTO GLOBAL:",
+      "investments_alliances_strategic_opportunities": "INVESTIMENTOS, ALIANÇAS E OPORTUNIDADES ESTRATÉGICAS",
+      "for_governments_investors_project_owners_strategic_partners": "Para governos | Investidores | Promotores de projetos | Parceiros estratégicos",
+      "02_the_premise": "02 — O CONTEXTO",
+      "the_world_is_realigning_africa_is_negotiating_its_place": "O MUNDO ESTÁ A REALINHAR-SE. ÁFRICA ESTÁ A NEGOCIAR O SEU LUGAR.",
+      "the_architecture_of_global_economic_cooperation_is_changing": "A arquitetura da cooperação económica global está a mudar.",
+      "03_what_is_aef": "03 — O QUE É A AEF?",
+      "a_platform_for_capital_partnerships_and_strategic_deal_making": "UMA PLATAFORMA PARA CAPITAL, PARCERIAS E NEGÓCIOS ESTRATÉGICOS.",
+      "04_the_aef_deal_architecture": "04 — A ARQUITETURA DE NEGÓCIOS DA AEF",
+      "this_is_not_a_conference": "ISTO NÃO É UMA CONFERÊNCIA.",
+      "it_is_a_deal_making_architecture": "É UMA ARQUITETURA PARA A CONCRETIZAÇÃO DE NEGÓCIOS.",
+      "from_access_to_alignment_from_alignment_to_transactions": "« Do acesso ao alinhamento. Do alinhamento às transações. »",
+      "05_four_ways_to_enter_aef": "05 — QUATRO FORMAS DE ENTRAR NA AEF",
+      "dont_just_attend_aef": "NÃO SE LIMITE A PARTICIPAR NA AEF.",
+      "come_with_a_mandate": "VENHA COM UM MANDATO.",
+      "01_african_governments": "01 — GOVERNOS AFRICANOS",
+      "bring_your_countrys_priorities_to_the_table": "TRAGA AS PRIORIDADES DO SEU PAÍS PARA A MESA DE NEGOCIAÇÕES.",
+      "participation_opportunities": "Oportunidades de participação:",
+      "submit_your_country_for_a_roundtable": "SUBMETER O SEU PAÍS PARA UMA MESA-REDONDA",
+      "request_country_participation": "Solicitar participação nacional",
+      "02_foreign_countries_regional_blocs": "02 — PAÍSES ESTRANGEIROS E BLOCOS REGIONAIS",
+      "bring_your_market_build_your_africa_strategy": "TRAGA O SEU MERCADO. CONSTRUA A SUA ESTRATÉGIA PARA ÁFRICA.",
+      "engagement_opportunities": "Oportunidades de participação:",
+      "explore_country_bloc_participation": "EXPLORAR A PARTICIPAÇÃO DE PAÍSES E BLOCOS",
+      "03_investors": "03 — INVESTIDORES",
+      "bring_capital_find_the_right_projects": "TRAGA CAPITAL. ENCONTRE OS PROJETOS CERTOS.",
+      "target": "Alvo:",
+      "join_the_aef_investor_network": "ADERIR À REDE DE INVESTIDORES DA AEF",
+      "04_project_owners": "04 — PROMOTORES DE PROJETOS",
+      "bring_the_project_meet_the_capital": "TRAGA O PROJETO. ENCONTRE O CAPITAL.",
+      "submit_a_project": "SUBMETER UM PROJETO",
+      "project_submissions_are_subject_to_aef_review_and_selection": "« Os projetos submetidos estão sujeitos à análise e seleção pela AEF. »",
+      "06_speakers": "06 — ORADORES",
+      "the_people_shaping_the_conversation": "AS PESSOAS QUE MOLDAM O DIÁLOGO.",
+      "view_all_speakers": "VER TODOS OS ORADORES",
+      "invited_leaders_only": "APENAS LÍDERES CONVIDADOS",
+      "07_programme_introduction": "07 — INTRODUÇÃO AO PROGRAMA",
+      "two_days_one_economic_mission": "DOIS DIAS. UMA MISSÃO ECONÓMICA.",
+      "day_one": "PRIMEIRO DIA",
+      "the_geopolitics_of_capital": "A GEOPOLÍTICA DO CAPITAL",
+      "day_two": "SEGUNDO DIA",
+      "sector_deep_dives_trade": "ANÁLISES SETORIAIS E COMÉRCIO",
+      "view_full_programme": "VER O PROGRAMA COMPLETO",
+      "deal_matchmaking": "MATCHMAKING DE NEGÓCIOS",
+      "ai_powered_matchmaking_connecting_participants_according_to": "Matchmaking baseado em IA de acordo com:",
+      "sector_geography_capital_project_partnership": "Setor × Geografia × Capital × Projeto × Parceria",
+      "investment_showcase": "VITRINE DE INVESTIMENTOS",
+      "selected_projects_presented_to_qualified_investors": "Projetos selecionados apresentados a investidores qualificados.",
+      "10_sector_deal_tracks": "10 — SETORES DE NEGÓCIOS",
+      "13_the_future_economy": "13 — A ECONOMIA DO FUTURO",
+      "five_investment_frontiers": "CINCO FRONTEIRAS DE INVESTIMENTO",
+      "what_does_this_mean_for_african_capital_industry_and_investment": "« O que significa isto para o capital, a indústria e o investimento africanos? »",
+      "content_investment_focused_not_entertainment_focused": "Conteúdo focado no investimento, e não no entretenimento.",
+      "14_closing_deal_rally": "14 — RALI FINAL DE NEGÓCIOS",
+      "what_moved_from_conversation_to_commitment": "O QUE PASSOU DA CONVERSA AO COMPROMISSO?",
+      "africa_investment_scoreboard": "PAINEL DE INVESTIMENTO EM ÁFRICA",
+      "display_only_verified_aef_outcomes": "Apresentar apenas resultados verificados da AEF.",
+      "aef_scale_up_unicorn_award": "PRÉMIO AEF SCALE-UP / UNICORN",
+      "15_the_deal_room": "15 — A DEAL ROOM",
+      "where_capital_meets_the_project": "ONDE O CAPITAL ENCONTRA O PROJETO.",
+      "enter_the_deal_room": "ENTRAR NA DEAL ROOM",
+      "16_country_specific_investment_roundtables": "16 — MESAS-REDONDAS DE INVESTIMENTO POR PAÍS",
+      "your_country_your_priorities_your_investor_table": "O SEU PAÍS. AS SUAS PRIORIDADES. A SUA MESA DE INVESTIDORES.",
+      "request_a_country_roundtable": "SOLICITAR UMA MESA-REDONDA NACIONAL",
+      "by_invitation_application_subject_to_aef_selection": "Por convite / candidatura / sujeito à seleção pela AEF.",
+      "17_vip_luncheon": "17 — ALMOÇO VIP",
+      "request_vip_participation": "SOLICITAR PARTICIPAÇÃO VIP",
+      "18_coffee_with_presidents": "18 — CAFÉ COM OS PRESIDENTES",
+      "access_dialogue_decision_making": "ACESSO. DIÁLOGO. TOMADA DE DECISÕES.",
+      "request_consideration": "SOLICITAR CONSIDERAÇÃO",
+      "19_why_kinshasa": "19 — PORQUÊ KINSHASA",
+      "why_kinshasa_why_now": "PORQUÊ KINSHASA. PORQUÊ AGORA.",
+      "20_who_will_be_at_the_table": "20 — QUEM ESTARÁ À MESA?",
+      "21_access_vs_position": "21 — ACESSO VS POSICIONAMENTO",
+      "a_pass_gives_you_access": "UM PASSE DÁ-LHE ACESSO.",
+      "a_partnership_gives_your_institution_a_position": "UMA PARCERIA DÁ À SUA INSTITUIÇÃO UMA POSIÇÃO.",
+      "delegate_investor_pass": "PASSE DE DELEGADO / INVESTIDOR",
+      "participate_in_the_ecosystem": "PARTICIPAR NO ECOSSISTEMA.",
+      "access_may_include": "O acesso pode incluir:",
+      "be_in_the_room_access_the_conversations_build_relationships": "« Esteja na sala. Aceda às conversas. Construa relações. »",
+      "aef_partnership": "PARCERIA AEF"
+    }
+  }
+}

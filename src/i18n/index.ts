@@ -1,16 +1,20 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 import messages from './local/index';
 
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    lng: 'en',
-    fallbackLng: 'en',
-    debug: false,
     resources: messages,
+
+    // Langue utilisée uniquement si une traduction
+    // n'existe pas dans la langue sélectionnée.
+    fallbackLng: 'en',
+
+    // Ne force PAS une langue au démarrage.
+    // La langue peut donc être changée avec i18n.changeLanguage().
+    debug: false,
+
     interpolation: {
       escapeValue: false,
     },

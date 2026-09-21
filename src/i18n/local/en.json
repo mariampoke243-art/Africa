@@ -1,0 +1,444 @@
+{
+  "welcome": "Welcome",
+
+  "contact": {
+    "title": "Contact us",
+    "send": "Send message"
+  },
+
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "initiatives": "Initiatives",
+    "stakeholders": "Stakeholders",
+    "agenda": "Agenda",
+    "publications": "Publications",
+    "meetings": "Meetings",
+    "contact": "Contact",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "profile": "Profile",
+    "viewProfile": "View Profile",
+    "user": "User"
+  },
+
+  "meetingsPage": {
+    "heroTitle": "Forums & Meetings",
+    "heroSubtitle": "Discover our upcoming summits and strategic dialogues",
+    "sectionTitle": "Our Forums",
+    "sectionSubtitle": "Key platforms driving economic growth across Africa",
+    "readMore": "Read More",
+    "showLess": "Show Less",
+    "overview": "Overview",
+    "objectives": "Forum Objectives",
+    "keyFocusAreas": "Key Focus Areas",
+    "strategicPillars": "Strategic Pillars",
+    "platform": "The Platform",
+    "whoWeConvene": "Who We Convene",
+    "fromDialogueToAction": "From Dialogue to Action",
+    "joinForum": "Join the Forum"
+  },
+
+  "cta": {
+    "title": "Join the Movement",
+    "subtitle": "Be part of the premier economic gathering in Africa",
+    "register": "Register Now",
+    "contact": "Contact Us"
+  },
+
+  "auth": {
+    "createAccount": "Create Account",
+    "signIn": "Sign In",
+    "emailAddress": "Email Address",
+    "emailPlaceholder": "Enter your email address",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "First name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Last name",
+    "organization": "Organization",
+    "organizationPlaceholder": "Your organization",
+    "createPasswordPlaceholder": "Create a password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "terms": "I agree to the Terms of Service and Privacy Policy",
+    "newsletterConsent": "I would like to receive updates about Forum activities and events",
+    "alreadyAccount": "Already have an account?",
+    "orContinueWith": "Or continue with",
+    "google": "Google",
+    "linkedin": "LinkedIn",
+    "signInSuccess": "Sign in successful! Welcome back.",
+    "requiredFields": "Please fill in all required fields.",
+    "passwordMismatch": "Passwords do not match. Please try again.",
+    "accountCreated": "Account created successfully! Welcome to Africa Economic Forum.",
+    "user": "User",
+    "profile": "Profile",
+    "viewProfile": "View Profile",
+    "signOut": "Sign Out"
+  },
+
+  "home": {
+    "heroEyebrow": "Africa Economic Forum 2026 • 10–11 Nov • Kinshasa",
+    "heroTitle": "Africa Economic Forum 2026",
+    "heroSubtitle": "A premier platform convening leaders, governments, investors, and thinkers to shape Africa’s role in the new global order",
+    "moreAboutForum": "More about the Forum",
+    "moreAboutInitiatives": "More about our Initiatives",
+    "spotlightTitle": "Spotlight",
+    "spotlightSubtitle": "AEF Strategic Announcements & Institutional Milestones",
+    "viewAllArticles": "View All Articles",
+    "impactTitle": "How We Drive Impact",
+    "impactSubtitle": "A platform designed to transform strategic dialogue into partnerships, investment and execution.",
+    "strategicDialogue": "Strategic Dialogue Platforms",
+    "strategicDialogueDescription": "We convene governments, investors, institutions and business leaders around strategic economic priorities.",
+    "partnershipFacilitation": "Partnership Facilitation",
+    "partnershipFacilitationDescription": "We connect governments, capital providers, project owners and strategic partners to facilitate meaningful collaboration.",
+    "innovationAcceleration": "Innovation Acceleration",
+    "innovationAccelerationDescription": "We support innovative ideas, projects and investment opportunities that contribute to Africa’s economic transformation.",
+    "newsletterTitle": "Subscribe to our Newsletters",
+    "newsletterDescription": "Receive strategic insights, institutional announcements and updates from the Africa Economic Forum.",
+    "newsletterPlaceholder": "Enter your email address",
+    "subscribe": "Subscribe",
+    "subscriptionSuccess": "Thank you for subscribing to the Africa Economic Forum newsletter."
+  },
+
+  "initiatives": {
+    "aiif": {
+      "title": "Africa Investment & Innovation Fund"
+    },
+    "nextAfricaAccelerator": {
+      "title": "Next Africa Accelerator"
+    },
+    "economicIntelligenceHub": {
+      "title": "African Economic Intelligence Hub"
+    },
+    "aefLabs": {
+      "title": "AEF Labs"
+    }
+  },
+
+  "spotlight": {
+    "afdbWomenForum": {
+      "category": "Forum & Leadership",
+      "title": "Africa Women Forum",
+      "description": "Highlighting African women's leadership, investment and opportunities."
+    },
+    "africanTable": {
+      "category": "Leadership & Dialogue",
+      "title": "The African Table",
+      "description": "A strategic dialogue space bringing together the actors shaping Africa's economic future."
+    },
+    "dealRooms": {
+      "category": "Investment & Business",
+      "title": "Deal Rooms",
+      "description": "Dedicated spaces connecting projects, investors, governments and strategic partners."
+    },
+    "multiSectorContinuity": {
+      "category": "Strategy & Investment",
+      "title": "Multi-Sector Continuity",
+      "description": "Promoting an integrated approach to investment and opportunities across Africa's strategic sectors."
+    },
+    "africaWomenForum2026": {
+      "category": "Event",
+      "title": "Africa Women Forum 2026",
+      "description": "A platform focused on leadership, investment and women's participation in Africa's economic transformation."
+    }
+  },
+
+  "about": {
+    "heroTitle": "About the Africa Economic Forum",
+    "heroSubtitle": "A platform for strategic dialogue, economic cooperation and transformative action across Africa.",
+
+    "whatWeAreTitle": "What We Are",
+    "whatWeAreText1": "The Africa Economic Forum is a premier platform bringing together African and global leaders to shape the continent's economic future.",
+    "whatWeAreText2": "We convene governments, investors, institutions, business leaders and thinkers to transform strategic dialogue into partnerships, investment and action.",
+
+    "missionTitle": "Our Mission",
+    "missionSubtitle": "To accelerate Africa's economic transformation through strategic connections, visionary leadership and practical action.",
+
+    "winWinTitle": "Win-Win Partnerships",
+    "winWinText": "We create opportunities for mutually beneficial partnerships between African and international stakeholders.",
+
+    "visionaryLeadershipTitle": "Visionary Leadership",
+    "visionaryLeadershipText": "We bring together leaders who can shape bold ideas and translate them into meaningful economic outcomes.",
+
+    "strategicConnectionsTitle": "Strategic Connections",
+    "strategicConnectionsText": "We connect governments, investors, institutions and businesses around strategic economic priorities.",
+
+    "narrativeElevationTitle": "Narrative Elevation",
+    "narrativeElevationText": "We contribute to a stronger global understanding of Africa's opportunities, capabilities and economic potential.",
+
+    "communityEmpowermentTitle": "Community Empowerment",
+    "communityEmpowermentText": "We support inclusive participation and create opportunities for communities and emerging leaders to contribute to Africa's transformation.",
+
+    "visionTitle": "Our Vision",
+    "visionText": "A prosperous, connected and globally influential Africa driven by African leadership, innovation and strategic cooperation.",
+
+    "coreValuesTitle": "Our Core Values",
+    "coreValuesSubtitle": "The principles guiding our work and our partnerships.",
+
+    "sovereigntyTitle": "Sovereignty",
+    "sovereigntyText": "Respecting Africa's ability to define and advance its own economic priorities.",
+
+    "equityTitle": "Equity",
+    "equityText": "Promoting fair opportunities, inclusive participation and shared prosperity.",
+
+    "transformationalLeadershipTitle": "Transformational Leadership",
+    "transformationalLeadershipText": "Supporting leadership capable of driving meaningful and lasting economic transformation.",
+
+    "narrativeJusticeTitle": "Narrative Justice",
+    "narrativeJusticeText": "Promoting accurate, balanced and forward-looking narratives about Africa.",
+
+    "innovationTitle": "Innovation",
+    "innovationText": "Encouraging new ideas, technologies and approaches to Africa's economic challenges.",
+
+    "inclusionTitle": "Inclusion",
+    "inclusionText": "Ensuring that diverse voices, perspectives and communities have a place in Africa's economic future.",
+
+    "impactTitle": "Our Impact",
+    "impactSubtitle": "Building connections and opportunities that contribute to Africa's economic transformation.",
+
+    "countriesEngaged": "54 Countries Engaged",
+    "globalLeadersConnected": "Global Leaders Connected",
+    "investmentOpportunities": "Investment Opportunities",
+    "strategicPartnerships": "Strategic Partnerships",
+
+    "organizingCommitteeTitle": "Organizing Committee",
+    "organizingCommitteeSubtitle": "The team coordinating the Africa Economic Forum.",
+
+    "founderTitle": "Founder",
+    "founderSubtitle": "The leadership behind the Africa Economic Forum.",
+    "founderRole": "Founder & Chair",
+    "founderBio": "Leading the Africa Economic Forum with a vision to strengthen strategic cooperation, investment and economic transformation across Africa.",
+
+    "advisoryBoardTitle": "Advisory Board",
+    "advisoryBoardSubtitle": "Experienced leaders providing strategic guidance to the Forum.",
+
+    "executiveBoardTitle": "Executive Board",
+    "executiveBoardSubtitle": "The leadership team driving the Forum's strategy and execution.",
+
+    "scientificCommitteeTitle": "Scientific Committee",
+    "scientificCommitteeSubtitle": "Experts contributing knowledge, research and strategic perspectives.",
+
+    "joinMovementTitle": "Join the Movement",
+    "joinMovementText": "Become part of a growing community working to shape Africa's economic future.",
+    "becomeMember": "Become a Member",
+
+    "members": {
+      "akwasiOpongFosu": {
+        "role": "Chairman, Advisory Board",
+        "bio": "Providing strategic guidance and leadership to support the Forum's mission and long-term vision."
+      },
+      "zarinahTraciSilas": {
+        "role": "Executive Board Member",
+        "bio": "Supporting the Forum's strategic development and institutional partnerships."
+      },
+      "jacquelineJaqCampbell": {
+        "role": "Executive Board Member",
+        "bio": "Contributing to strategic initiatives and the Forum's engagement with key stakeholders."
+      },
+      "femiSalami": {
+        "role": "Executive Board Member",
+        "bio": "Supporting economic dialogue, partnerships and strategic initiatives across Africa."
+      },
+      "abrahamDwumaOdoom": {
+        "role": "Executive Board Member",
+        "bio": "Contributing leadership and strategic perspectives to the Forum's programmes and partnerships."
+      },
+      "aminaToure": {
+        "role": "Executive Board Member",
+        "bio": "Supporting inclusive economic development, leadership and strategic cooperation."
+      },
+      "nathanLewis": {
+        "role": "Scientific Committee Member",
+        "bio": "Contributing research, expertise and analytical perspectives to the Forum's strategic work."
+      }
+    }
+  },
+
+  "footer": {
+    "aboutUs": "About Us",
+    "ourMission": "Our Mission",
+    "ourFramework": "Our Framework",
+    "history": "History",
+    "leadership": "Leadership",
+    "ourImpact": "Our Impact",
+    "moreFromForum": "More from Forum",
+    "centres": "Centres",
+    "meetings": "Meetings",
+    "stakeholders": "Stakeholders",
+    "forumStories": "Forum Stories",
+    "pressReleases": "Press Releases",
+    "gallery": "Gallery",
+    "podcasts": "Podcasts",
+    "videos": "Videos",
+    "engage": "Engage",
+    "logout": "Log Out",
+    "signIn": "Sign In",
+    "partner": "Partner",
+    "member": "Member",
+    "pressSignUp": "Press Sign Up",
+    "newsletters": "Newsletters",
+    "contactUs": "Contact Us",
+    "quickLinks": "Quick Links",
+    "sustainability": "Sustainability",
+    "careers": "Careers",
+    "languageEditions": "Language Editions",
+    "privacy": "Privacy Policy",
+    "copyright": "© 2026 Africa Economic Forum. All rights reserved."
+  },
+
+  "forums": {
+    "africaPeaceForum": {
+      "title": "Africa Peace Forum",
+      "sectoralLabel": "A Sectoral Forum of the Africa Economic Forum",
+      "description": "Shaping Africa’s Peace, Security and Strategic Cooperation.",
+      "overview": "The Africa Peace Forum convenes leaders, governments, diplomats, security experts, investors and thinkers to address Africa’s peace and security challenges and advance the conditions for sustainable economic transformation.",
+      "keyAreas": [
+        "Peace and Security",
+        "Regional Stability",
+        "Strategic Cooperation",
+        "Conflict Prevention",
+        "Economic Transformation"
+      ],
+      "objectives": [
+        "Strengthen regional peace and security cooperation",
+        "Promote strategic dialogue between governments and institutions",
+        "Connect peace and security priorities with economic development",
+        "Build stronger foundations for sustainable investment"
+      ],
+      "platform": {
+        "title": "The Platform",
+        "description": "A high-level platform connecting political leadership, institutions, business and capital around Africa’s peace, security and economic priorities.",
+        "items": [
+          {
+            "title": "Strategic Dialogue",
+            "description": "High-level exchanges on Africa’s peace, security and geopolitical priorities."
+          },
+          {
+            "title": "Institutional Cooperation",
+            "description": "Building stronger partnerships between governments, institutions and strategic stakeholders."
+          },
+          {
+            "title": "Economic Security",
+            "description": "Connecting stability, security and economic transformation."
+          }
+        ]
+      },
+      "whoWeConvene": [
+        "Heads of State and Government",
+        "Ministers and senior public officials",
+        "Diplomats and international institutions",
+        "Security and strategic experts",
+        "Investors and business leaders",
+        "Thinkers and policy leaders"
+      ],
+      "fromDialogueToAction": "Connecting political leadership, institutions, business and capital to build stronger foundations for peace, stability and prosperity across Africa.",
+      "joinForum": "Join the Africa Peace Forum"
+    },
+
+    "africaAgricultureFoodForum": {
+      "title": "Africa Agriculture & Food Forum (AAFF)",
+      "description": "Transforming African agriculture from subsistence farming to a modern, productive, and sustainable system.",
+      "overview": "The Agriculture and Food Security Forum addresses the transformation of Africa’s agricultural systems, food value chains and investment opportunities required to build resilient and productive food economies.",
+      "keyAreas": [
+        "Agriculture",
+        "Food Security",
+        "Agri-Tech",
+        "Food Processing",
+        "Regional Value Chains",
+        "Investment"
+      ],
+      "objectives": [
+        "Accelerate agricultural transformation across Africa",
+        "Strengthen food security and resilient food systems",
+        "Mobilize investment into agricultural value chains",
+        "Promote technology and innovation in agriculture",
+        "Expand intra-African agricultural trade"
+      ],
+      "strategicPillars": "Strategic Pillars",
+      "pillars": [
+        {
+          "title": "Productivity & Innovation",
+          "items": [
+            "Agri-Tech and digital agriculture",
+            "Modern farming systems",
+            "Research and innovation"
+          ]
+        },
+        {
+          "title": "Value Chains & Processing",
+          "items": [
+            "Food processing",
+            "Storage and logistics",
+            "Regional value chains"
+          ]
+        },
+        {
+          "title": "Investment & Finance",
+          "items": [
+            "Agricultural finance",
+            "Private investment",
+            "Blended finance mechanisms"
+          ]
+        }
+      ],
+      "whoWeConvene": [
+        "Governments and policymakers",
+        "Agricultural investors",
+        "Farmers and producers",
+        "Food companies",
+        "Financial institutions",
+        "Technology companies",
+        "Development institutions"
+      ],
+      "fromDialogueToAction": "Connecting agricultural leaders, investors, technology providers and governments to transform Africa’s food systems and unlock scalable investment opportunities.",
+      "joinForum": "Join the Africa Agriculture & Food Forum"
+    }
+  },
+
+  "intervenantsPage": {
+    "forum": "Africa Economic Forum 2026",
+    "title": "Speakers",
+    "subtitle": "THE PEOPLE SHAPING THE DIALOGUE.",
+    "intro": "The AEF brings together decision-makers and voices shaping Africa's relationship with global capital, technology, energy, trade and strategic investment.",
+    "categories": "Categories: heads of state, government leaders, investors, CEOs, economic strategists, financial leaders and sector experts.",
+    "confirmedTitle": "Confirmed Speakers",
+    "confirmedSubtitle": "Meet the leaders and experts who will participate in the strategic conversations of the 2026 edition.",
+    "confirmed": "Confirmed",
+    "invitedTitle": "Invited Leaders",
+    "invitedSubtitle": "A selection of distinguished personalities invited to participate in the Africa Economic Forum debates.",
+    "invited": "Invited",
+    "descriptions": {
+      "abrahamDwumaOdoom": "Ghanaian politician and former Member of Parliament for Twifo Atti-Morkwa, with experience in agricultural policy and development.",
+      "hildaSukaMafudze": "Zimbabwean diplomat and senior African Union representative, with experience in diplomacy, regional cooperation, trade, investment and development.",
+      "dominiqueMigisha": "Digital development specialist focused on digital transformation and public-sector modernization in the Democratic Republic of Congo.",
+      "rashedMohamedKarkain": "Emirati innovator, researcher and author specializing in sustainable development, circular economy, environmental leadership and sustainability.",
+      "abdullahBelhaifAlNuaimi": "Emirati engineer, statesman and sustainability specialist with extensive experience in infrastructure, environmental policy and climate action.",
+      "abdullahiKassim": "Energy and engineering executive with extensive experience in power generation, energy infrastructure and engineering leadership.",
+      "anaHelenaChaconEcheverria": "Costa Rican diplomat and public leader, former Vice President of Costa Rica and advocate for human rights, social inclusion and international cooperation.",
+      "rosaliaArteaga": "Former President and Vice President of Ecuador, educator, lawyer, writer and advocate for education, culture and sustainable development.",
+      "johnAgyekumKufuor": "Former President of Ghana, lawyer and statesman with extensive experience in public service and African development.",
+      "bakoAmbianda": "Award-winning entrepreneur, investor, author and sustainable energy advocate focused on African investment, renewable energy, technology and economic development.",
+      "amalElFallahSeghrouchni": "Moroccan artificial intelligence expert, professor and researcher specializing in distributed artificial intelligence, multi-agent systems and digital transformation.",
+      "eleonoreCaroit": "French-Dominican lawyer and public official with experience in international law, international partnerships, Francophonie and relations with French citizens abroad.",
+      "zarinahTraciSilas": "Co-Founder of Africa Resources Capital Holdings and former Senior Executive Service member of the United States Federal Government.",
+      "jacquelineJaqCampbell": "Wealth management executive, entrepreneur and U.S.–Africa investment strategist.",
+      "vladimirNorov": "Former Foreign Affairs Minister of Uzbekistan and former Secretary-General of the Shanghai Cooperation Organisation.",
+      "akwasiOpongFosu": "Chairman of the Ghana Investment Promotion Centre, former Minister of State and former Member of Parliament.",
+      "mikeHorton": "Former Federal Chief AI Officer of the United States and Director of the Center for Applied AI Maturity at Northeastern University.",
+      "afolakeOyinloye": "Journalist at AfricaNews.",
+      "eliezerMoodiSandberg": "Former Israeli Minister of Science and Technology.",
+      "muhammadAzfarAhsan": "Former Minister of Investment of Pakistan.",
+      "dagmawitMogesBekele": "Director of the African Union Peace Fund Secretariat.",
+      "kevinChikaUrama": "Chief Economist and Vice-President responsible for Economic Governance and Knowledge Management at the African Development Bank Group.",
+      "mosesVilakati": "Commissioner for Agriculture, Rural Development, Blue Economy and Sustainable Environment of the African Union Commission.",
+      "agostinhoKapaia": "Chairman of OPAIA Group.",
+      "rebecaGrynspan": "Economist, former Vice President of Costa Rica and Secretary-General of UNCTAD, with extensive experience in international development, trade and multilateral cooperation.",
+      "lindaKarimCreevey": "Liberia's Trade and Investment Representative for Asia and Australia."
+    }
+  }
+}

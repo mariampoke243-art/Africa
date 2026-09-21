@@ -1,16 +1,29 @@
-
-import React, { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
 
-export default function Contact() {
-  const { user, signOut } = useAuth();
+export default function ContactPage() {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const [showSignInModal, setShowSignInModal] = useState(false);
-  const [showCreateAccount, setShowCreateAccount] = useState(false);
+  const { user, signOut } = useAuth();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const text = (key: string, fallback: string) =>
+    i18n.exists(key) ? t(key) : fallback;
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitted(true);
+    event.currentTarget.reset();
+  };
+
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -18,180 +31,125 @@ export default function Contact() {
   };
 
   const handleViewProfile = () => {
-    navigate('/profile');
+    navigate(`/${i18n.language}/profile`);
     setIsProfileDropdownOpen(false);
   };
 
   const getInitials = (name: string) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase();
   };
 
   const handleSignIn = () => {
-    setShowSignInModal(true);
-    setShowCreateAccount(false);
+    navigate(`/${i18n.language}/signin`);
   };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    
-    try {
-      const response = await fetch('https://readdy.ai/api/form/d3edvgd2v2m9odki5mm0', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData as any).toString()
-      });
-      
-      if (response.ok) {
-        setFormSubmitted(true);
-        (e.target as HTMLFormElement).reset();
-      } else {
-        alert('Message failed to send. Please try again.');
-      }
-    } catch (error) {
-      alert('Message failed to send. Please try again.');
-    }
-  };
-
-  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    
-    try {
-      const response = await fetch('https://readdy.ai/api/form/d3edvgd2v2m9odki5mlg', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData as any).toString()
-      });
-      
-      if (response.ok) {
-        alert('Successfully subscribed to our newsletter!');
-        (e.target as HTMLFormElement).reset();
-      } else {
-        alert('Subscription failed. Please try again.');
-      }
-    } catch (error) {
-      alert('Subscription failed. Please try again.');
-    }
-  };
-
-  const switchToCreateAccount = () => {
-    setShowCreateAccount(true);
-  };
-
-  const switchToSignIn = () => {
-    setShowCreateAccount(false);
-  };
-
-  const handleSignInSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData(e.currentTarget);
-
-      // Simulate sign-in process
-      const email = formData.get('email') as string;
-      const password = formData.get('password') as string;
-
-      if (email && password) {
-        alert('Sign in successful! Welcome back.');
-        setShowSignInModal(false);
-      } else {
-        alert('Please fill in all required fields.');
-      }
-    } catch (err) {
-      console.error('Sign-in error:', err);
-      alert('An unexpected error occurred. Please try again later.');
-    }
-  };
-
-  const handleCreateAccountSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData(e.currentTarget);
-
-      // Simulate account creation process
-      const email = formData.get('email') as string;
-      const password = formData.get('password') as string;
-      const confirmPassword = formData.get('confirm_password') as string;
-      const firstName = formData.get('first_name') as string;
-      const lastName = formData.get('last_name') as string;
-
-      if (password !== confirmPassword) {
-        alert('Passwords do not match. Please try again.');
-        return;
-      }
-
-      if (email && password && firstName && lastName) {
-        alert('Account created successfully! Welcome to Africa Economic Forum.');
-        setShowSignInModal(false);
-        setShowCreateAccount(false);
-      } else {
-        alert('Please fill in all required fields.');
-      }
-    } catch (err) {
-      console.error('Account creation error:', err);
-      alert('An unexpected error occurred. Please try again later.');
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
+    <div className="min-h-screen bg-white text-gray-900">
+
+      {/* HEADER */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
+
+            {/* LOGO */}
             <div className="flex items-center">
-              <Link to="/" className="flex items-center">
-                <img 
-                  src="https://static.readdy.ai/image/433d1257c1dbc1f8bb2f3f1c418f6689/0727857f21d196505f8ef18cfc1cd897.png" 
-                  alt="Africa Economic Forum" 
-                  className="h-10 w-auto" 
+              <Link
+                to={`/${i18n.language}`}
+                className="flex items-center"
+              >
+                <img
+                  src="https://static.readdy.ai/image/433d1257c1dbc1f8bb2f3f1c418f6689/0727857f21d196505f8ef18cfc1cd897.png"
+                  alt="Africa Economic Forum"
+                  className="h-10 w-auto"
                 />
               </Link>
             </div>
+
+            {/* DESKTOP MENU */}
             <nav className="hidden md:flex space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                Home
+
+              <Link
+                to={`/${i18n.language}`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
+                {t('header.home')}
               </Link>
-              <Link to="/about" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                About
+
+              <Link
+                to={`/${i18n.language}/about`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
+                {t('header.about')}
               </Link>
-              <Link to="/initiatives" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                Initiatives
+
+              <Link
+                to={`/${i18n.language}/initiatives`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
+                {t('header.initiatives')}
               </Link>
-              <Link to="/stakeholders" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                Stakeholders
+
+              <Link
+                to={`/${i18n.language}/stakeholders`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
+                {t('header.stakeholders')}
               </Link>
-              <Link to="/agenda" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                Agenda
+
+              <Link
+                to={`/${i18n.language}/agenda`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
+                {t('header.agenda')}
               </Link>
-              <Link to="/publications" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                Publications
+
+              <Link
+                to={`/${i18n.language}/publications`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
+                {t('header.publications')}
               </Link>
-              <Link to="/meetings" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
-                Meetings
+
+              <Link
+                to={`/${i18n.language}/meetings`}
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
+                {t('header.meetings')}
               </Link>
-              <Link to="/contact" className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600">
-                Contact
+
+              <Link
+                to={`/${i18n.language}/contact`}
+                className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600"
+              >
+                {t('header.contact')}
               </Link>
+
             </nav>
 
-            {/* Updated user profile section */}
+            {/* DESKTOP AUTH */}
             <div className="hidden md:flex items-center space-x-4">
+
               {user ? (
                 <div className="relative">
+
                   <button
-                    onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                    onClick={() =>
+                      setIsProfileDropdownOpen(!isProfileDropdownOpen)
+                    }
                     className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    title={user.user_metadata?.full_name || user.email}
+                    title={
+                      user.user_metadata?.full_name ||
+                      user.email ||
+                      'Profile'
+                    }
                   >
                     {user.user_metadata?.avatar_url ? (
                       <img
@@ -200,766 +158,868 @@ export default function Contact() {
                         className="w-8 h-8 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                        {getInitials(user.user_metadata?.full_name || user.email?.charAt(0) || 'U')}
+                      <div className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                        {getInitials(
+                          user.user_metadata?.full_name ||
+                            user.email?.charAt(0) ||
+                            'U'
+                        )}
                       </div>
                     )}
                   </button>
 
                   {isProfileDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+
                       <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
-                        <div className="font-medium">{user.user_metadata?.full_name || 'User'}</div>
-                        <div className="text-gray-500">{user.email}</div>
+                        <div className="font-medium">
+                          {user.user_metadata?.full_name ||
+                            t('auth.user')}
+                        </div>
+
+                        <div className="text-gray-500">
+                          {user.email}
+                        </div>
                       </div>
+
                       <button
                         onClick={handleViewProfile}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        View Profile
+                        {t('auth.viewProfile')}
                       </button>
+
                       <button
                         onClick={handleSignOut}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        Sign Out
+                        {t('auth.signOut')}
                       </button>
+
                     </div>
                   )}
+
                 </div>
               ) : (
-                <Link 
-                  to="/signin"
+                <button
+                  onClick={handleSignIn}
                   className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
                 >
-                  Sign In
-                </Link>
+                  {t('header.signIn')}
+                </button>
               )}
+
             </div>
 
-            <button 
+            {/* MOBILE BUTTON */}
+            <button
               className="md:hidden p-2 cursor-pointer"
               onClick={toggleMobileMenu}
+              aria-label="Menu"
             >
-              <i className={`ri-${isMobileMenuOpen ? 'close' : 'menu'}-line text-2xl`}></i>
+              <i
+                className={`ri-${
+                  isMobileMenuOpen ? 'close' : 'menu'
+                }-line text-2xl`}
+              ></i>
             </button>
+
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* MOBILE MENU */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
+
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link to="/" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                Home
+
+              <Link
+                to={`/${i18n.language}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+              >
+                {t('header.home')}
               </Link>
-              <Link to="/about" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                About
+
+              <Link
+                to={`/${i18n.language}/about`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+              >
+                {t('header.about')}
               </Link>
-              <Link to="/initiatives" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                Initiatives
+
+              <Link
+                to={`/${i18n.language}/initiatives`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+              >
+                {t('header.initiatives')}
               </Link>
-              <Link to="/stakeholders" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                Stakeholders
+
+              <Link
+                to={`/${i18n.language}/stakeholders`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+              >
+                {t('header.stakeholders')}
               </Link>
-              <Link to="/agenda" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                Agenda
+
+              <Link
+                to={`/${i18n.language}/agenda`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+              >
+                {t('header.agenda')}
               </Link>
-              <Link to="/publications" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                Publications
+
+              <Link
+                to={`/${i18n.language}/publications`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+              >
+                {t('header.publications')}
               </Link>
-              <Link to="/meetings" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md">
-                Meetings
+
+              <Link
+                to={`/${i18n.language}/meetings`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+              >
+                {t('header.meetings')}
               </Link>
-              <Link to="/contact" className="block px-3 py-2 text-base font-medium text-teal-600 bg-teal-50 rounded-md">
-                Contact
+
+              <Link
+                to={`/${i18n.language}/contact`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium text-teal-600 bg-teal-50 rounded-md"
+              >
+                {t('header.contact')}
               </Link>
-              <div className="px-3 py-2">
+
+              {/* MOBILE AUTH */}
+              <div className="pt-2 border-t border-gray-200 mt-2">
+
                 {user ? (
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2 px-3 py-2">
-                      {user.user_metadata?.avatar_url ? (
-                        <img
-                          src={user.user_metadata.avatar_url}
-                          alt="Profile"
-                          className="w-6 h-6 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                          <span className="text-blue-600 text-xs font-medium">
-                            {getInitials(user.user_metadata?.full_name || user.email?.charAt(0) || 'U')}
-                          </span>
-                        </div>
-                      )}
-                      <span className="text-gray-700 font-medium">{user.user_metadata?.full_name || 'User'}</span>
+                  <>
+
+                    <div className="px-3 py-2">
+                      <div className="font-medium text-gray-800">
+                        {user.user_metadata?.full_name ||
+                          t('auth.user')}
+                      </div>
+
+                      <div className="text-sm text-gray-500">
+                        {user.email}
+                      </div>
                     </div>
-                    <button 
+
+                    <button
                       onClick={() => {
                         handleViewProfile();
                         setIsMobileMenuOpen(false);
                       }}
-                      className="block w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium text-center"
+                      className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 rounded-md"
                     >
-                      View Profile
+                      {t('auth.viewProfile')}
                     </button>
-                    <button 
+
+                    <button
                       onClick={() => {
                         handleSignOut();
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 font-medium whitespace-nowrap cursor-pointer"
+                      className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 rounded-md"
                     >
-                      Sign Out
+                      {t('auth.signOut')}
                     </button>
-                  </div>
+
+                  </>
                 ) : (
-                  <Link 
-                    to="/signin"
-                    className="w-full bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer block text-center"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                  <button
+                    onClick={() => {
+                      handleSignIn();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full text-left px-3 py-2 text-base font-medium text-blue-900 hover:bg-gray-50 rounded-md"
                   >
-                    Sign In
-                  </Link>
+                    {t('header.signIn')}
+                  </button>
                 )}
+
               </div>
+
             </div>
           </div>
         )}
       </header>
 
-      {/* Main Content */}
-      <main>
-        {/* Hero Section */}
-        <section 
-          className="relative py-32 bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.8)), url('https://readdy.ai/api/search-image?query=Modern%20African%20business%20office%20with%20professional%20staff%20ready%20to%20assist%2C%20customer%20service%20representatives%20in%20contemporary%20workspace%20with%20communication%20technology&width=1920&height=800&seq=contact-hero&orientation=landscape')`
-          }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">Contact Us</h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">Get in touch with our team to learn more about our initiatives, partnerships, or how you can contribute to Africa's economic transformation.</p>
-          </div>
-        </section>
+      {/* HERO */}
+      <section className="bg-blue-950 px-6 py-20 text-white">
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-teal-400">
+            {text('contact.eyebrow', 'Contact')}
+          </p>
 
-        {/* Contact Form Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16">
-              <div className="space-y-8">
-                <div>
-                  <h2 className="text-4xl font-bold text-gray-900 mb-6">Send us a message</h2>
-                  <p className="text-lg text-gray-600 leading-relaxed">
-                    Whether you're interested in partnership opportunities, have questions about our programs, 
-                    or want to contribute to our mission, we'd love to hear from you.
-                  </p>
-                </div>
-                
-                {formSubmitted ? (
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                    <div className="flex items-center">
-                      <i className="ri-check-circle-fill text-green-600 text-2xl mr-3"></i>
-                      <div>
-                        <h3 className="text-lg font-semibold text-green-800">Message Sent Successfully!</h3>
-                        <p className="text-green-700">Thank you for contacting us. We'll get back to you within 24 hours.</p>
-                      </div>
-                    </div>
-                    <button 
-                      onClick={() => setFormSubmitted(false)}
-                      className="mt-4 text-green-600 hover:text-green-800 font-medium cursor-pointer"
-                    >
-                      Send another message
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleFormSubmit} data-readdy-form id="contact-form" className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                        <input 
-                          type="text" 
-                          name="first_name" 
-                          required 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                        <input 
-                          type="text" 
-                          name="last_name" 
-                          required 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                      <input 
-                        type="email" 
-                        name="email" 
-                        required 
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Organization</label>
-                        <input 
-                          type="text" 
-                          name="organization" 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                        <input 
-                          type="tel" 
-                          name="phone" 
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
-                      <select 
-                        name="subject" 
-                        required 
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm pr-8"
-                      >
-                        <option value="">Select a subject</option>
-                        <option value="Partnership Inquiry">Partnership Inquiry</option>
-                        <option value="Membership Information">Membership Information</option>
-                        <option value="Event Registration">Event Registration</option>
-                        <option value="Media Inquiry">Media Inquiry</option>
-                        <option value="General Question">General Question</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-                      <textarea 
-                        name="message" 
-                        rows={6}
-                        required
-                        maxLength={500}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none"
-                        placeholder="Please provide details about your inquiry..."
-                      ></textarea>
-                      <div className="text-xs text-gray-5 mt-1">Maximum 500 characters</div>
-                    </div>
-                    <div>
-                      <label className="flex items-start space-x-3">
-                        <input 
-                          type="checkbox" 
-                          name="newsletter_consent" 
-                          value="yes"
-                          className="mt-1 cursor-pointer"
-                        />
-                        <span className="text-sm text-gray-600">
-                          I would like to receive updates about Forum activities and events
-                        </span>
-                      </label>
-                    </div>
-                    <button 
-                      type="submit"
-                      className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
-                    >
-                      Send Message
-                    </button>
-                  </form>
+          <h1 className="max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
+            {text(
+              'contact.title',
+              'Let’s build Africa’s economic future together.'
+            )}
+          </h1>
+
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-gray-300">
+            {text(
+              'contact.description',
+              'Connect with the Africa Economic Forum team for partnerships, participation, media enquiries, or general information.'
+            )}
+          </p>
+        </div>
+      </section>
+
+      {/* CONTACT CONTENT */}
+      <section className="px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-6xl">
+
+          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+
+            {/* CONTACT INFORMATION */}
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900">
+                {text('contact.infoTitle', 'Get in touch')}
+              </h2>
+
+              <p className="mt-4 text-lg leading-8 text-gray-600">
+                {text(
+                  'contact.infoDescription',
+                  'Our team is available to answer your questions and explore opportunities for collaboration.'
                 )}
-              </div>
+              </p>
 
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h3>
-                  <div className="space-y-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i className="ri-map-pin-line text-blue-600 text-xl"></i>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">Headquarters</h4>
-                        <p className="text-gray-600">
-                          Africa Economic Forum<br />
-                          28, avenue Isiro Kinshasa-Gombe<br />
-                          Belgian Embassy Building
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i className="ri-phone-line text-blue-600 text-xl"></i>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
-                        <p className="text-gray-600">+243 896 656 905</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i className="ri-mail-line text-blue-600 text-xl"></i>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                        <p className="text-gray-600">info@africaef.com</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i className="ri-time-line text-blue-600 text-xl"></i>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">Office Hours</h4>
-                        <p className="text-gray-600">
-                          Monday - Friday: 8:00 AM - 6:00 PM (SAST)<br />
-                          Saturday: 9:00 AM - 1:00 PM (SAST)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="mt-8 space-y-5">
 
-                {/* Regional Offices */}
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Regional Offices</h3>
-                  <div className="space-y-4">
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">West Africa Office</h4>
-                      <p className="text-gray-600 text-sm">
-                        Soon to be announced<br />
-                        +243 896 656 905
-                      </p>
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+                      <i className="ri-mail-line text-xl"></i>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">East Africa Office</h4>
-                      <p className="text-gray-600 text-sm">
-                        Soon to be announced<br />
-                        +243 896 656 905
-                      </p>
-                    </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">North Africa Office</h4>
-                      <p className="text-gray-600 text-sm">
-                        Soon to be announced<br />
-                        +243 896 656 905
+
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        {text('contact.emailTitle', 'Email')}
+                      </h3>
+
+                      <p className="mt-1 text-gray-600">
+                        contact@africaef.com
                       </p>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Map Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Find Us</h2>
-              <p className="text-lg text-gray-600">Visit our headquarters in 28, avenue Isiro Kinshasa-Gombe Belgian Embassy Building</p>
-            </div>
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.7729!2d28.0473!3d-26.2041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDEyJzE0LjgiUyAyOMKwMDInNTAuMyJF!5e0!3m2!1sen!2sza!4v1234567890"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Africa Economic Forum Location"
-              ></iframe>
-            </div>
-          </div>
-        </section>
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+                      <i className="ri-map-pin-line text-xl"></i>
+                    </div>
 
-        {/* Newsletter Section */}
-        <section className="py-20 bg-blue-900 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold">Stay Connected</h2>
-                <p className="text-xl text-blue-100">
-                  Subscribe to our newsletter for the latest updates on African economic development, 
-                  upcoming events, and exclusive insights from our experts.
-                </p>
-                <div className="flex space-x-4">
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                    <i className="ri-facebook-fill text-xl"></i>
-                  </a>
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                    <i className="ri-twitter-x-fill text-xl"></i>
-                  </a>
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                    <i className="ri-linkedin-fill text-xl"></i>
-                  </a>
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-                    <i className="ri-instagram-fill text-xl"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
-                <h3 className="text-2xl font-bold mb-6">Newsletter Subscription</h3>
-                <form onSubmit={handleNewsletterSubmit} data-readdy-form id="newsletter-subscription" className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-blue-100 mb-2">Email Address *</label>
-                    <input 
-                      type="email"
-                      name="email"
-                      required
-                      className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white placeholder-blue-200 text-sm"
-                      placeholder="Enter your email address"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-blue-100 mb-2">Name</label>
-                    <input 
-                      type="text"
-                      name="name"
-                      className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white placeholder-blue-200 text-sm"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-blue-100 mb-2">Interests</label>
-                    <div className="space-y-2">
-                      <label className="flex items-center space-x-3">
-                        <input type="checkbox" name="interests" value="Economic Policy" className="cursor-pointer" />
-                        <span className="text-sm text-blue-100">Economic Policy</span>
-                      </label>
-                      <label className="flex items-center space-x-3">
-                        <input type="checkbox" name="interests" value="Technology Innovation" className="cursor-pointer" />
-                        <span className="text-sm text-blue-100">Technology Innovation</span>
-                      </label>
-                      <label className="flex items-center space-x-3">
-                        <input type="checkbox" name="interests" value="Sustainable Development" className="cursor-pointer" />
-                        <span className="text-sm text-blue-100">Sustainable Development</span>
-                      </label>
-                      <label className="flex items-center space-x-3">
-                        <input type="checkbox" name="interests" value="Events & Meetings" className="cursor-pointer" />
-                        <span className="text-sm text-blue-100">Events & Meetings</span>
-                      </label>
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        {text('contact.locationTitle', 'Location')}
+                      </h3>
+
+                      <p className="mt-1 text-gray-600">
+                        Africa Economic Forum
+                      </p>
                     </div>
                   </div>
-                  <button 
-                    type="submit"
-                    className="w-full bg-white text-blue-900 px-6 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
+                </div>
+
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+                      <i className="ri-time-line text-xl"></i>
+                    </div>
+
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        {text('contact.hoursTitle', 'Office hours')}
+                      </h3>
+
+                      <p className="mt-1 text-gray-600">
+                        {text(
+                          'contact.hours',
+                          'Monday – Friday, 9:00 – 17:00'
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* CONTACT FORM */}
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+
+              {isSubmitted ? (
+                <div className="flex min-h-[420px] flex-col items-center justify-center text-center">
+
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-50 text-teal-700">
+                    <i className="ri-check-line text-3xl"></i>
+                  </div>
+
+                  <h2 className="mt-6 text-2xl font-bold text-gray-900">
+                    {text(
+                      'contact.successTitle',
+                      'Message sent successfully'
+                    )}
+                  </h2>
+
+                  <p className="mt-3 max-w-md text-gray-600">
+                    {text(
+                      'contact.successDescription',
+                      'Thank you for contacting us. Our team will get back to you shortly.'
+                    )}
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => setIsSubmitted(false)}
+                    className="mt-6 rounded-md bg-blue-900 px-6 py-3 font-medium text-white hover:bg-blue-800"
                   >
-                    Subscribe Now
+                    {text('contact.sendAnother', 'Send another message')}
                   </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
 
-      {/* Sign In Modal */}
-      {showSignInModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">
-                  {showCreateAccount ? 'Create Account' : 'Sign In'}
-                </h3>
-                <button
-                  onClick={() => setShowSignInModal(false)}
-                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
-                >
-                  <i className="ri-close-line text-2xl"></i>
-                </button>
-              </div>
-
-              {/* Sign-In Form */}
-              {!showCreateAccount && (
-                <>
-                  <form onSubmit={handleSignInSubmit} className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Enter your email address"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Password *
-                      </label>
-                      <input
-                        type="password"
-                        name="password"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Enter your password"
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label className="flex items-center space-x-2">
-                        <input type="checkbox" name="remember_me" className="cursor-pointer" />
-                        <span className="text-sm text-gray-600">Remember me</span>
-                      </label>
-                      <button type="button" className="text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
-                        Forgot password?
-                      </button>
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
-                    >
-                      Sign In
-                    </button>
-                  </form>
-                  <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-600">
-                      Don't have an account?
-                      <button
-                        onClick={switchToCreateAccount}
-                        className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
-                      >
-                        Create Account
-                      </button>
-                    </p>
-                  </div>
-                </>
-              )}
-
-              {/* Create Account Form */}
-              {showCreateAccount && (
-                <>
-                  <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                        <input
-                          type="text"
-                          name="first_name"
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                          placeholder="First name"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                        <input
-                          type="text"
-                          name="last_name"
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                          placeholder="Last name"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Enter your email address"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Organization</label>
-                      <input
-                        type="text"
-                        name="organization"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Your organization"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Password *</label>
-                      <input
-                        type="password"
-                        name="password"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Create a password"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password *</label>
-                      <input
-                        type="password"
-                        name="confirm_password"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="Confirm your password"
-                      />
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <input
-                        type="checkbox"
-                        name="terms_agreement"
-                        required
-                        className="mt-1 cursor-pointer"
-                      />
-                      <span className="text-sm text-gray-600">
-                        I agree to the Terms of Service and Privacy Policy
-                      </span>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <input
-                        type="checkbox"
-                        name="newsletter_consent"
-                        className="mt-1 cursor-pointer"
-                      />
-                      <span className="text-sm text-gray-600">
-                        I would like to receive updates about Forum activities and events
-                      </span>
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
-                    >
-                      Create Account
-                    </button>
-                  </form>
-                  <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-600">
-                      Already have an account?
-                      <button
-                        onClick={switchToSignIn}
-                        className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
-                      >
-                        Sign In
-                      </button>
-                    </p>
-                  </div>
-                </>
-              )}
-
-              {/* Social Auth Buttons – shown only for sign-in */}
-              {!showCreateAccount && (
-                <div className="mt-6">
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-gray-300"></div>
-                    </div>
-                    <div className="relative flex justify-center text-sm">
-                      <span className="px-2 bg-white text-gray-500">Or continue with</span>
-                    </div>
-                  </div>
-                  <div className="mt-4 grid grid-cols-2 gap-3">
-                    <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
-                      <i className="ri-google-fill text-red-500 text-lg"></i>
-                      <span className="ml-2">Google</span>
-                    </button>
-                    <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
-                      <i className="ri-linkedin-fill text-blue-600 text-lg"></i>
-                      <span className="ml-2">LinkedIn</span>
-                    </button>
-                  </div>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit}>
+
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    {text('contact.formTitle', 'Send us a message')}
+                  </h2>
+
+                  <p className="mt-2 text-gray-600">
+                    {text(
+                      'contact.formDescription',
+                      'Fill in the form below and our team will contact you.'
+                    )}
+                  </p>
+
+                  <div className="mt-8 grid gap-6 md:grid-cols-2">
+
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="mb-2 block text-sm font-medium text-gray-700"
+                      >
+                        {text('contact.name', 'Name')}
+                      </label>
+
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        className="w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="mb-2 block text-sm font-medium text-gray-700"
+                      >
+                        {text('contact.email', 'Email')}
+                      </label>
+
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        className="w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                      />
+                    </div>
+
+                  </div>
+
+                  <div className="mt-6">
+                    <label
+                      htmlFor="subject"
+                      className="mb-2 block text-sm font-medium text-gray-700"
+                    >
+                      {text('contact.subject', 'Subject')}
+                    </label>
+
+                    <input
+                      id="subject"
+                      name="subject"
+                      type="text"
+                      required
+                      className="w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                    />
+                  </div>
+
+                  <div className="mt-6">
+                    <label
+                      htmlFor="message"
+                      className="mb-2 block text-sm font-medium text-gray-700"
+                    >
+                      {text('contact.message', 'Message')}
+                    </label>
+
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={6}
+                      required
+                      className="w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="mt-6 inline-flex items-center justify-center rounded-md bg-blue-900 px-6 py-3 font-medium text-white hover:bg-blue-800"
+                  >
+                    {text('contact.send', 'Send message')}
+                  </button>
+
+                </form>
               )}
+
             </div>
+
           </div>
         </div>
-      )}
+      </section>
 
-      {/* Footer */}
+      {/* CTA */}
+      <section className="bg-teal-600 px-6 py-16 text-white">
+        <div className="mx-auto max-w-6xl text-center">
+
+          <h2 className="text-3xl font-bold md:text-4xl">
+            {text(
+              'contact.ctaTitle',
+              'Be part of Africa’s economic transformation.'
+            )}
+          </h2>
+
+          <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-teal-50">
+            {text(
+              'contact.ctaDescription',
+              'Join the Africa Economic Forum community and connect with leaders, investors, institutions and partners across the continent.'
+            )}
+          </p>
+
+          <Link
+            to={`/${i18n.language}/join`}
+            className="mt-8 inline-flex items-center rounded-md bg-white px-6 py-3 font-semibold text-teal-700 hover:bg-gray-100"
+          >
+            {text('contact.ctaButton', 'Join us')}
+          </Link>
+
+        </div>
+      </section>
+
+      {/* =========================================================
+          FOOTER
+      ========================================================= */}
       <footer className="bg-gray-900 text-white py-16">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+
+            {/* About */}
             <div>
-              <h3 className="font-semibold text-lg mb-6">About us</h3>
+
+              <h3 className="font-semibold text-lg mb-6">
+                {t('footer.aboutUs')}
+              </h3>
+
               <ul className="space-y-3">
-                <li><Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">Our mission</Link></li>
-                <li><Link to="/framework" className="text-gray-300 hover:text-white cursor-pointer">Our Institutional Framework</Link></li>
-                <li><Link to="/history" className="text-gray-300 hover:text-white cursor-pointer">History</Link></li>
-                <li><Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">Leadership and governance</Link></li>
-                <li><Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">Our Impact</Link></li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/about`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.ourMission')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/framework`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.ourFramework')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/history`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.history')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/about`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.leadership')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/about`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.ourImpact')}
+                  </Link>
+                </li>
+
               </ul>
             </div>
+
+            {/* More From Forum */}
             <div>
-              <h3 className="font-semibold text-lg mb-6">More from the Forum</h3>
+
+              <h3 className="font-semibold text-lg mb-6">
+                {t('footer.moreFromForum')}
+              </h3>
+
               <ul className="space-y-3">
-                <li><Link to="/initiatives" className="text-gray-300 hover:text-white cursor-pointer">Centres</Link></li>
-                <li><Link to="/meetings" className="text-gray-300 hover:text-white cursor-pointer">Meetings</Link></li>
-                <li><Link to="/stakeholders" className="text-gray-300 hover:text-white cursor-pointer">Stakeholders</Link></li>
-                <li><Link to="/agenda" className="text-gray-300 hover:text-white cursor-pointer">Forum Stories</Link></li>
-                <li><Link to="/publications" className="text-gray-300 hover:text-white cursor-pointer">Press releases</Link></li>
-                <li><Link to="/gallery" className="text-gray-300 hover:text-white cursor-pointer">Photo gallery</Link></li>
-                <li><Link to="/publications" className="text-gray-300 hover:text-white cursor-pointer">Podcasts</Link></li>
-                <li><Link to="/publications" className="text-gray-300 hover:text-white cursor-pointer">Videos</Link></li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/initiatives`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.centres')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/meetings`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.meetings')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/stakeholders`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.stakeholders')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/agenda`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.forumStories')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/publications`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.pressReleases')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/gallery`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.gallery')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/publications`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.podcasts')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/publications`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.videos')}
+                  </Link>
+                </li>
+
               </ul>
             </div>
+
+            {/* Engage */}
             <div>
-              <h3 className="font-semibold text-lg mb-6">Engage with us</h3>
+
+              <h3 className="font-semibold text-lg mb-6">
+                {t('footer.engage')}
+              </h3>
+
               <ul className="space-y-3">
+
                 <li>
                   {user ? (
-                    <button onClick={signOut} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer">
-                      Logout
+                    <button
+                      onClick={handleSignOut}
+                      className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                    >
+                      {t('footer.logout')}
                     </button>
                   ) : (
-                    <Link to="/signin" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer">
-                      Sign in
-                    </Link>
+                    <button
+                      onClick={handleSignIn}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer"
+                    >
+                      {t('footer.signIn')}
+                    </button>
                   )}
                 </li>
-                <li><Link to="/partners" className="text-gray-300 hover:text-white cursor-pointer">Partner with us</Link></li>
-                <li><Link to="/join" className="text-gray-300 hover:text-white cursor-pointer">Become a member</Link></li>
-                <li><Link to="/contact" className="text-gray-300 hover:text-white cursor-pointer">Sign up for our press releases</Link></li>
-                <li><Link to="/contact" className="text-gray-300 hover:text-white cursor-pointer">Subscribe to our newsletters</Link></li>
-                <li><Link to="/contact" className="text-gray-300 hover:text-white cursor-pointer">Contact us</Link></li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/partners`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.partner')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/join`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.member')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/contact`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.pressSignUp')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/contact`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.newsletters')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/contact`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.contactUs')}
+                  </Link>
+                </li>
+
               </ul>
             </div>
+
+            {/* Quick Links */}
             <div>
-              <h3 className="font-semibold text-lg mb-6">Quick links</h3>
+
+              <h3 className="font-semibold text-lg mb-6">
+                {t('footer.quickLinks')}
+              </h3>
+
               <ul className="space-y-3 mb-8">
-                <li><Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">Sustainability at the Forum</Link></li>
-                <li><Link to="/careers" className="text-gray-300 hover:text-white cursor-pointer">Careers</Link></li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/about`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.sustainability')}
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={`/${i18n.language}/careers`}
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    {t('footer.careers')}
+                  </Link>
+                </li>
+
               </ul>
+
+              {/* Languages */}
               <div>
-                <h4 className="font-semibold mb-4">Language editions</h4>
+
+                <h4 className="font-semibold mb-4">
+                  {t('footer.languageEditions')}
+                </h4>
+
                 <div className="flex space-x-2">
-                  <Link to="/" className="text-gray-300 hover:text-white cursor-pointer">EN</Link>
-                  <span className="text-gray-500">•</span>
-                  <Link to="/" className="text-gray-300 hover:text-white cursor-pointer">ES</Link>
-                  <span className="text-gray-500">•</span>
-                  <Link to="/" className="text-gray-300 hover:text-white cursor-pointer">中文</Link>
-                  <span className="text-gray-500">•</span>
-                  <Link to="/" className="text-gray-300 hover:text-white cursor-pointer">日本語</Link>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('pt')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    PT
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('en')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    EN
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('es')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    ES
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('fr')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    FR
+                  </button>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      i18n.changeLanguage('zh')
+                    }
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    ZH
+                  </button>
+
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
+          {/* Bottom Footer */}
           <div className="border-t border-gray-700 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-6">
+
+              {/* Social Networks */}
               <div className="flex space-x-4">
-                <a href="https://www.facebook.com/share/17Jr8NpqZJ/" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="https://www.facebook.com/share/17Jr8NpqZJ/"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-facebook-fill text-xl"></i>
                 </a>
-                <a href="https://www.linkedin.com/company/the-africa-economic-forum/" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="https://www.linkedin.com/company/the-africa-economic-forum/"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-linkedin-fill text-xl"></i>
                 </a>
-                <a href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ==" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ=="
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-instagram-fill text-xl"></i>
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-youtube-fill text-xl"></i>
                 </a>
+
               </div>
+
+              {/* Copyright */}
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
-                <Link to="/privacy" className="hover:text-white cursor-pointer">Privacy Policy &amp; Terms of Service</Link>
-                
-                <p>© 2025 Africa Economic Forum</p>
-                <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
+
+                <Link
+                  to={`/${i18n.language}/privacy`}
+                  className="hover:text-white cursor-pointer"
+                >
+                  {t('footer.privacy')}
+                </Link>
+
+                <p>
+                  {t('footer.copyright')}
+                </p>
+
+                <a
+                  href="https://codesignglobal.com"
+                  className="hover:text-white cursor-pointer"
+                >
+                  Code Design Global
+                </a>
+
               </div>
+
             </div>
           </div>
+
         </div>
       </footer>
+
     </div>
   );
-}
+              }

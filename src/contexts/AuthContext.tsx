@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User, AuthState, initializeAuth, signIn, signUp, signOut, getCurrentUser } from '../auth/localAuth';
+import type { User, AuthState } from '../auth/localAuth';
+import { initializeAuth, signIn, signUp, signOut, getCurrentUser } from '../auth/localAuth';
 
 interface AuthContextType extends AuthState {
   signIn: (email: string, password: string) => Promise<{ user: User | null; error: string | null }>;
@@ -29,7 +30,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [authState, setAuthState] = useState<AuthState>(() => initializeAuth());
 
   useEffect(() => {
-    // Check for user on mount
     const user = getCurrentUser();
     setAuthState({
       user,
@@ -57,7 +57,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     accountType: 'personal' | 'organization';
   }) => {
     const result = await signUp(userData);
-    // Don't auto-login after signup, let user sign in manually
     return result;
   };
 
