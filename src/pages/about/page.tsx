@@ -99,6 +99,13 @@ const executiveBoard: CommitteeMember[] = [
     image: '/images/Afolake Oyinloye.jpg',
     bio: `Afolake Oyinloye is a journalist, moderator, and strategic communications expert specializing in African affairs, investment, and economic development. As an anchor and journalist for Africa Business on Africanews (Euronews Group), she leads high-level conversations with presidents, ministers, CEOs, investors, and development finance leaders on trade, industrialization, critical minerals, AI, climate finance, and the continent's economic transformation. She also advises institutions, NGOs, and philanthropic organizations independently on advocacy, public engagement, and organizational strategy. Fluent in English, French, and Portuguese, Afolake is recognized for moderating global forums and facilitating dialogue at the highest international level.`,
   },
+  {
+    name: 'Dr. Femi Salami',
+    role: 'Executive Board Member & Chair of the Africa Mining & Minerals Forum',
+    translationKey: 'femiSalami',
+    image: '/images/Dr. Femi Salami.jpg',
+    bio: `Dr. Femi Salami (Ph.D., P.E., MAusIMM) is a distinguished mining engineer, academic, and professional with expertise in mining innovation, energy sustainability, critical minerals development, and climate-smart mining. He earned a First-Class Bachelor’s degree in Mining Engineering from the Federal University of Technology Akure, Nigeria and a Ph.D. in Mining Engineering from Missouri University of Science and Technology, USA. Dr. Salami has received over 70 awards and recognitions for scholarly excellence in Mining. He is a licensed mining engineer in the United Kingdom and Nigeria and a Professional Engineer (P.E.) in the United States. He is also a member of several leading professional and scientific organizations.`,
+  },
 ];
 
 const scientificCommittee: CommitteeMember[] = [
