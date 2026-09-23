@@ -104,14 +104,14 @@ const executiveBoard: CommitteeMember[] = [
 const scientificCommittee: CommitteeMember[] = [
   {
     name: 'Nathan Lewis',
-    role: 'International Economist & Author',
+    role: 'Scientific Committee member',
     translationKey: 'nathanLewis',
     image: '/images/nathan-lewis.jpg',
     bio: `Specializing in monetary policy and fiscal systems. Senior Fellow at the Discovery Institute. Contributor to global debates on sound money, sustainable finance, and economic development.`,
   },
   {
     name: 'Amina Touré',
-    role: 'Development Practitioner, Researcher & Strategic Communicator',
+    role: 'Scientific Committee member',
     translationKey: 'aminaToure',
     image: '/images/Amina Touré.jpg',
     bio: `Amina Touré
@@ -128,7 +128,7 @@ function MemberCard({
   t: (key: string, options?: { defaultValue?: string }) => string;
 }) {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
       <img
         src={member.image}
         alt={member.name}
@@ -149,7 +149,7 @@ function MemberCard({
           })}
         </p>
 
-        <p className="text-gray-600 text-sm leading-relaxed">
+        <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
           {t(`about.members.${member.translationKey}.bio`, {
             defaultValue: member.bio,
           })}
@@ -706,47 +706,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ================= IMPACT ================= */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <div className="text-center mb-16">
-
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                {t('about.impactTitle')}
-              </h2>
-
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                {t('about.impactSubtitle')}
-              </p>
-
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-              {[
-                ['54', t('about.countriesEngaged')],
-                ['1000+', t('about.globalLeadersConnected')],
-                ['$50B+', t('about.investmentOpportunities')],
-                ['25+', t('about.strategicPartnerships')],
-              ].map(([number, label]) => (
-                <div key={label} className="text-center">
-
-                  <div className="text-4xl font-bold text-blue-900 mb-2">
-                    {number}
-                  </div>
-
-                  <div className="text-gray-600">
-                    {label}
-                  </div>
-
-                </div>
-              ))}
-
-            </div>
-          </div>
-        </section>
-
         {/* ================= ORGANIZING COMMITTEE ================= */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -967,15 +926,6 @@ export default function AboutPage() {
                     className="text-gray-300 hover:text-white"
                   >
                     {t('footer.leadership')}
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to="/about"
-                    className="text-gray-300 hover:text-white"
-                  >
-                    {t('footer.ourImpact')}
                   </Link>
                 </li>
 
