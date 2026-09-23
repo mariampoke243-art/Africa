@@ -957,27 +957,18 @@ export default function Join() {
 
                     <div className="space-y-5">
                       {foundingPrinciples.map((principle) => (
-                        <label
+                        <div
                           key={principle.number}
-                          className="flex items-start gap-4 border rounded-lg p-5 hover:bg-gray-50 cursor-pointer"
+                          className="border rounded-lg p-5 hover:bg-gray-50"
                         >
-                          <input
-                            type="checkbox"
-                            name={principle.name}
-                            required
-                            className="mt-1 w-5 h-5 cursor-pointer"
-                          />
+                          <strong className="block text-gray-900 mb-2">
+                            {principle.number}. {principle.title}
+                          </strong>
 
-                          <span>
-                            <strong className="block text-gray-900 mb-2">
-                              {principle.number}. {principle.title}
-                            </strong>
-
-                            <span className="text-gray-600 text-sm leading-relaxed">
-                              {principle.text}
-                            </span>
+                          <span className="text-gray-600 text-sm leading-relaxed">
+                            {principle.text}
                           </span>
-                        </label>
+                        </div>
                       ))}
                     </div>
                   </section>
@@ -1650,4 +1641,4 @@ function TextArea({
       />
     </div>
   );
-      }
+}
