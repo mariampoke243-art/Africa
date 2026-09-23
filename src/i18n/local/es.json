@@ -1,11 +1,9 @@
 {
   "welcome": "Welcome",
-
   "contact": {
     "title": "Contact us",
     "send": "Send message"
   },
-
   "header": {
     "home": "Home",
     "about": "About",
@@ -21,7 +19,6 @@
     "viewProfile": "View Profile",
     "user": "User"
   },
-
   "meetingsPage": {
     "heroTitle": "Forums & Meetings",
     "heroSubtitle": "Discover our upcoming summits and strategic dialogues",
@@ -38,14 +35,12 @@
     "fromDialogueToAction": "From Dialogue to Action",
     "joinForum": "Join the Forum"
   },
-
   "cta": {
     "title": "Join the Movement",
     "subtitle": "Be part of the premier economic gathering in Africa",
     "register": "Register Now",
     "contact": "Contact Us"
   },
-
   "auth": {
     "createAccount": "Create Account",
     "signIn": "Sign In",
@@ -80,7 +75,6 @@
     "viewProfile": "View Profile",
     "signOut": "Sign Out"
   },
-
   "home": {
     "heroEyebrow": "Africa Economic Forum 2026 • 10–11 Nov • Kinshasa",
     "heroTitle": "Africa Economic Forum 2026",
@@ -104,7 +98,6 @@
     "subscribe": "Subscribe",
     "subscriptionSuccess": "Thank you for subscribing to the Africa Economic Forum newsletter."
   },
-
   "initiatives": {
     "aiif": {
       "title": "Africa Investment & Innovation Fund"
@@ -119,114 +112,160 @@
       "title": "AEF Labs"
     }
   },
-
   "spotlight": {
-    "afdbWomenForum": {
-      "category": "Forum & Leadership",
-      "title": "Africa Women Forum",
-      "description": "Highlighting African women's leadership, investment and opportunities."
+    "home": "Inicio",
+    "title": "Spotlight",
+    "africaEconomicForum": "Africa Economic Forum",
+    "subtitle": "Anuncios estratégicos e hitos institucionales de AEF",
+    "description": "Spotlight es la plataforma oficial del Africa Economic Forum dedicada a sus principales alianzas, iniciativas emblemáticas, anuncios institucionales y reflexiones estratégicas que están dando forma al papel de África en los reajustes globales.",
+    "readMore": "Leer más",
+    "backToSpotlight": "Volver a Spotlight",
+    "noArticles": "No se encontraron artículos de Spotlight.",
+    "publicRelationsTeam": "Equipo de Relaciones Públicas del Africa Economic Forum",
+    "categories": {
+      "all": "Todos",
+      "institutionalPartnership": "Alianza institucional",
+      "strategicLeadership": "Liderazgo estratégico",
+      "investmentDealRooms": "Inversión y Deal Rooms",
+      "institutionalContinuity": "Continuidad institucional",
+      "africaWomenForum": "Africa Women Forum"
     },
-    "africanTable": {
-      "category": "Leadership & Dialogue",
-      "title": "The African Table",
-      "description": "A strategic dialogue space bringing together the actors shaping Africa's economic future."
-    },
-    "dealRooms": {
-      "category": "Investment & Business",
-      "title": "Deal Rooms",
-      "description": "Dedicated spaces connecting projects, investors, governments and strategic partners."
-    },
-    "multiSectorContinuity": {
-      "category": "Strategy & Investment",
-      "title": "Multi-Sector Continuity",
-      "description": "Promoting an integrated approach to investment and opportunities across Africa's strategic sectors."
-    },
-    "africaWomenForum2026": {
-      "category": "Event",
-      "title": "Africa Women Forum 2026",
-      "description": "A platform focused on leadership, investment and women's participation in Africa's economic transformation."
+    "articles": {
+      "afdbWomenForum": {
+        "date": "31 de enero de 2026",
+        "title": "El Banco Africano de Desarrollo se convierte en socio técnico del Africa Women Forum",
+        "description": "El Africa Economic Forum se complace en anunciar que el Banco Africano de Desarrollo (BAfD) se ha incorporado formalmente al Africa Women Forum (AWF) como socio técnico oficial.",
+        "content": [
+          "El Africa Economic Forum se complace en anunciar que el Banco Africano de Desarrollo (BAfD) se ha incorporado formalmente al Africa Women Forum (AWF) como socio técnico oficial.",
+          "Esta alianza representa un importante hito institucional para el Africa Women Forum y refuerza su posicionamiento como una plataforma continental de referencia para el liderazgo económico de las mujeres, la participación en las políticas públicas y la transformación impulsada por la inversión.",
+          "El Banco Africano de Desarrollo, como principal institución multilateral de financiación del desarrollo de África, aporta una experiencia técnica excepcional, conocimiento de políticas públicas y una amplia profundidad sectorial en infraestructuras, sistemas financieros, desarrollo del sector privado, gobernanza y crecimiento sostenible. Su participación en el Africa Women Forum fortalece la capacidad del AWF para convertir el diálogo de alto nivel en resultados creíbles, escalables y alineados con las políticas públicas.",
+          "Esta colaboración refleja una visión estratégica compartida: situar a las mujeres africanas en el centro de la arquitectura económica, no como participantes periféricas, sino como arquitectas de las estrategias de desarrollo de África, de la asignación de capital y de las reformas de gobernanza. La alianza refuerza el principio de que el liderazgo de las mujeres no es un complemento social del desarrollo, sino un pilar estructural de la soberanía económica, la resiliencia institucional y el crecimiento a largo plazo.",
+          "A través de esta alianza técnica, el Africa Women Forum integrará los marcos analíticos, instrumentos de política pública y experiencia de desarrollo del BAfD en su programación, garantizando que las iniciativas del AWF se basen en un análisis económico riguroso y estén alineadas con las prioridades continentales y nacionales. Esto eleva al Foro de un espacio de encuentro a una plataforma de ejecución, coherencia de políticas públicas y credibilidad institucional.",
+          "Para el Africa Economic Forum, esta alianza envía una señal clara a los gobiernos, inversores e instituciones globales: el Africa Women Forum no es simbólico. Es una plataforma seria donde género, capital, políticas públicas y desarrollo soberano convergen para producir resultados medibles.",
+          "El Africa Economic Forum considera esta alianza como una piedra angular para construir un ecosistema continental en el que el liderazgo de las mujeres esté estructuralmente integrado en el futuro económico de África."
+        ]
+      },
+      "africanTable": {
+        "date": "30 de enero de 2026",
+        "title": "The African Table: cómo AEF está reconstruyendo el lugar de África en la toma de decisiones económicas mundiales",
+        "description": "El Africa Economic Forum se fundó sobre una convicción estratégica: África no solo debe participar en las conversaciones económicas mundiales, sino también acogerlas, darles forma y definir sus condiciones.",
+        "content": [
+          "El Africa Economic Forum se fundó sobre una convicción estratégica: África no solo debe participar en las conversaciones económicas mundiales, sino también acogerlas, darles forma y definir sus condiciones.",
+          "Esta convicción se materializa en la arquitectura estratégica central de AEF: The African Table.",
+          "The African Table es más que un concepto simbólico. Es un rediseño estructural de la manera en que África interactúa con el capital, las instituciones y los gobiernos mundiales. Representa un cambio desde una participación definida externamente hacia una definición de prioridades centrada en África, donde las prioridades, los marcos y los modelos de cooperación se establecen a partir de los intereses estratégicos africanos y de los objetivos de desarrollo soberano.",
+          "En The African Table, África no es una invitada. África es la anfitriona.",
+          "Al organizar el espacio, establecer la agenda y definir las condiciones de participación, África recupera su capacidad de acción sobre la forma en que se estructuran las alianzas, se establecen las prioridades y la cooperación se transforma en ejecución.",
+          "The African Table va más allá de las conferencias puntuales y de las reuniones transaccionales. Establece una arquitectura permanente de participación, en la que África lidera durante todo el año un diálogo continuo entre gobiernos, inversores, instituciones y socios mundiales.",
+          "Este modelo transforma el papel de África, pasando de una posición reactiva a una posición arquitectónica. En lugar de responder a marcos diseñados externamente, África se convierte en coautora de los acuerdos económicos mundiales, dando forma a la manera en que se estructuran la cooperación, la inversión y la alineación de políticas.",
+          "A través de The African Table, AEF posiciona a África no como un mercado que debe ser evaluado, sino como un colíder estratégico que contribuye a dar forma al futuro de la cooperación económica mundial.",
+          "Se trata de un reposicionamiento fundamental: de la participación a la creación, de la inclusión al liderazgo, de la presencia a la arquitectura."
+        ]
+      },
+      "dealRooms": {
+        "date": "29 de enero de 2026",
+        "title": "Del acceso a la alineación: por qué las Deal Rooms de AEF importan más que el networking",
+        "description": "En muchos foros mundiales, la interacción entre inversores y gobiernos sigue siendo principalmente social. Los paneles, las recepciones y las reuniones informales dominan las interacciones, generando visibilidad pero dejando a menudo los riesgos de ejecución sin resolver.",
+        "content": [
+          "En muchos foros mundiales, la interacción entre inversores y gobiernos sigue siendo principalmente social. Los paneles, las recepciones y las reuniones informales dominan las interacciones, generando visibilidad pero dejando a menudo los riesgos de ejecución sin resolver.",
+          "El Africa Economic Forum fue diseñado para superar este modelo.",
+          "En AEF, las Deal Rooms no son sesiones de presentación de proyectos: son entornos estructurados dedicados a la ejecución.",
+          "Las Deal Rooms de AEF son espacios de negociación diseñados específicamente para que gobiernos, inversores y promotores de proyectos dialoguen directamente sobre las condiciones necesarias para que los proyectos avancen. Esto incluye claridad regulatoria, alineación de políticas, compromiso político, coordinación institucional y vías de ejecución.",
+          "Para los inversores serios, los mayores riesgos rara vez son técnicos. Son institucionales: incertidumbre sobre la orientación de las políticas, estabilidad regulatoria, prioridades políticas y obstáculos administrativos.",
+          "Las Deal Rooms de AEF permiten a los inversores poner a prueba sus hipótesis directamente con los responsables de la toma de decisiones. En lugar de adivinar cómo evolucionarán las políticas, los inversores pueden validar el apoyo político, aclarar los marcos regulatorios y evaluar la capacidad de ejecución antes de desplegar capital.",
+          "Esto transforma la relación con los gobiernos, pasando del protocolo al rendimiento.",
+          "Las Deal Rooms permiten al capital comprender cómo piensan los gobiernos, qué priorizan y dónde será más sólido el apoyo de las políticas públicas. Esto crea una forma poco común de claridad en los mercados emergentes: un mapa de inversión más claro, construido mediante una alineación institucional directa.",
+          "En AEF, el capital no se reúne con los gobiernos únicamente en un marco social. El capital se reúne con los gobiernos en un marco estructural.",
+          "Esta alineación reduce la incertidumbre, refuerza la confianza de los inversores y acelera la transición del interés a la ejecución. No se trata de networking. Se trata de gestión de riesgos y arquitectura de ejecución."
+        ]
+      },
+      "multiSectorContinuity": {
+        "date": "28 de enero de 2026",
+        "title": "Por qué multisectorial no significa fragmentado: cómo AEF crea continuidad para inversores y gobiernos",
+        "description": "A primera vista, la estructura multisectorial de AEF puede parecer fragmentada. Cada foro se centra en un área temática diferente. Sin embargo, esta interpretación no refleja la forma en que operan el capital serio y los socios soberanos.",
+        "content": [
+          "A primera vista, la estructura multisectorial de AEF puede parecer fragmentada. Cada foro se centra en un área temática diferente. Sin embargo, esta interpretación no refleja la forma en que operan el capital serio y los socios soberanos.",
+          "La continuidad en AEF no se basa en los sectores. Se basa en las relaciones, las políticas públicas y las carteras de proyectos.",
+          "Los inversores no construyen sus estrategias en torno a las conferencias. Las construyen en torno a los gobiernos, las relaciones institucionales y los mandatos de capital a largo plazo.",
+          "AEF garantiza la continuidad manteniendo a los mismos interlocutores gubernamentales clave en múltiples foros: ministerios de Finanzas, agencias de inversión, reguladores, oficinas presidenciales y principales instituciones públicas. Aunque cambien los temas sectoriales, las relaciones institucionales permanecen constantes.",
+          "Esto permite que la confianza se acumule, que la inteligencia política se profundice y que se construya memoria institucional.",
+          "Desde la perspectiva de los inversores, esto es mucho más valioso que permanecer dentro de un solo sector. Los mandatos de capital —como infraestructuras, transición energética, sistemas sanitarios, sistemas alimentarios e infraestructuras digitales— abarcan naturalmente varios sectores. La arquitectura de AEF permite a los inversores perseguir la misma tesis de inversión a través de diferentes foros temáticos con los mismos socios soberanos.",
+          "Además, los proyectos no maduran en una sola reunión. Evolucionan con el tiempo. Un proyecto puede presentarse en un foro, perfeccionarse mediante el diálogo sobre políticas públicas y regresar posteriormente a las Deal Rooms para la alineación y finalización de su ejecución.",
+          "De este modo, AEF se convierte en una cartera de maduración de proyectos y no en un entorno de presentación puntual.",
+          "Esto crea una ventaja institucional poco común: continuidad basada en relaciones, políticas públicas y lógica de ejecución, en lugar de una repetición temática.",
+          "La continuidad de AEF es institucional, no temática. Esto es precisamente lo que más valoran el capital a largo plazo y los socios soberanos."
+        ]
+      },
+      "africaWomenForum2026": {
+        "date": "27 de enero de 2026",
+        "title": "Africa Women Forum 2026: las mujeres como arquitectas del futuro económico soberano de África",
+        "description": "El Africa Women Forum (AWF) es una de las plataformas emblemáticas del Africa Economic Forum, concebida para situar a las mujeres en el centro de la transformación económica, política y estratégica de África.",
+        "content": [
+          "El Africa Women Forum (AWF) es una de las plataformas emblemáticas del Africa Economic Forum, concebida para situar a las mujeres en el centro de la transformación económica, política y estratégica de África.",
+          "El AWF 2026 reunirá a mujeres líderes, jefas y jefes de Estado, responsables de políticas públicas, inversores, empresarias e instituciones mundiales para definir estrategias concretas para el liderazgo de las mujeres en la gobernanza, las finanzas, el emprendimiento y el desarrollo soberano.",
+          "El Foro reunirá a personalidades de alto nivel, entre ellas la expresidenta de la República de Mauricio, Ameenah Gurib-Fakim, y la exvicepresidenta de Costa Rica, Ana Helena Chacón Echeverría, junto con altos responsables de los gobiernos africanos, instituciones multilaterales e inversores mundiales.",
+          "Con el Banco Africano de Desarrollo como socio técnico, el AWF se posiciona como una plataforma continental seria donde el liderazgo de las mujeres se conecta directamente con las estrategias de inversión, los marcos de políticas públicas y la reforma institucional.",
+          "El Africa Economic Forum considera el AWF un pilar estratégico del futuro de África. Es una plataforma donde las mujeres no solo están representadas, sino que diseñan activamente los sistemas, las instituciones y los flujos de capital que configuran la soberanía y la competitividad de África a largo plazo.",
+          "El AWF constituye un motor central de la arquitectura económica de África.",
+          "A través del AWF, el Africa Economic Forum reafirma una verdad sencilla: el futuro de África será construido por mujeres que lideran, gobiernan, invierten y diseñan transformaciones a gran escala."
+        ]
+      }
     }
   },
-
   "about": {
     "heroTitle": "About the Africa Economic Forum",
     "heroSubtitle": "A platform for strategic dialogue, economic cooperation and transformative action across Africa.",
-
     "whatWeAreTitle": "What We Are",
     "whatWeAreText1": "The Africa Economic Forum is a premier platform bringing together African and global leaders to shape the continent's economic future.",
     "whatWeAreText2": "We convene governments, investors, institutions, business leaders and thinkers to transform strategic dialogue into partnerships, investment and action.",
-
     "missionTitle": "Our Mission",
     "missionSubtitle": "To accelerate Africa's economic transformation through strategic connections, visionary leadership and practical action.",
-
     "winWinTitle": "Win-Win Partnerships",
     "winWinText": "We create opportunities for mutually beneficial partnerships between African and international stakeholders.",
-
     "visionaryLeadershipTitle": "Visionary Leadership",
     "visionaryLeadershipText": "We bring together leaders who can shape bold ideas and translate them into meaningful economic outcomes.",
-
     "strategicConnectionsTitle": "Strategic Connections",
     "strategicConnectionsText": "We connect governments, investors, institutions and businesses around strategic economic priorities.",
-
     "narrativeElevationTitle": "Narrative Elevation",
     "narrativeElevationText": "We contribute to a stronger global understanding of Africa's opportunities, capabilities and economic potential.",
-
     "communityEmpowermentTitle": "Community Empowerment",
     "communityEmpowermentText": "We support inclusive participation and create opportunities for communities and emerging leaders to contribute to Africa's transformation.",
-
     "visionTitle": "Our Vision",
     "visionText": "A prosperous, connected and globally influential Africa driven by African leadership, innovation and strategic cooperation.",
-
     "coreValuesTitle": "Our Core Values",
     "coreValuesSubtitle": "The principles guiding our work and our partnerships.",
-
     "sovereigntyTitle": "Sovereignty",
     "sovereigntyText": "Respecting Africa's ability to define and advance its own economic priorities.",
-
     "equityTitle": "Equity",
     "equityText": "Promoting fair opportunities, inclusive participation and shared prosperity.",
-
     "transformationalLeadershipTitle": "Transformational Leadership",
     "transformationalLeadershipText": "Supporting leadership capable of driving meaningful and lasting economic transformation.",
-
     "narrativeJusticeTitle": "Narrative Justice",
     "narrativeJusticeText": "Promoting accurate, balanced and forward-looking narratives about Africa.",
-
     "innovationTitle": "Innovation",
     "innovationText": "Encouraging new ideas, technologies and approaches to Africa's economic challenges.",
-
     "inclusionTitle": "Inclusion",
     "inclusionText": "Ensuring that diverse voices, perspectives and communities have a place in Africa's economic future.",
-
     "impactTitle": "Our Impact",
     "impactSubtitle": "Building connections and opportunities that contribute to Africa's economic transformation.",
-
     "countriesEngaged": "54 Countries Engaged",
     "globalLeadersConnected": "Global Leaders Connected",
     "investmentOpportunities": "Investment Opportunities",
     "strategicPartnerships": "Strategic Partnerships",
-
     "organizingCommitteeTitle": "Organizing Committee",
     "organizingCommitteeSubtitle": "The team coordinating the Africa Economic Forum.",
-
     "founderTitle": "Founder",
     "founderSubtitle": "The leadership behind the Africa Economic Forum.",
     "founderRole": "Founder & Chair",
     "founderBio": "Leading the Africa Economic Forum with a vision to strengthen strategic cooperation, investment and economic transformation across Africa.",
-
     "advisoryBoardTitle": "Advisory Board",
     "advisoryBoardSubtitle": "Experienced leaders providing strategic guidance to the Forum.",
-
     "executiveBoardTitle": "Executive Board",
     "executiveBoardSubtitle": "The leadership team driving the Forum's strategy and execution.",
-
     "scientificCommitteeTitle": "Scientific Committee",
     "scientificCommitteeSubtitle": "Experts contributing knowledge, research and strategic perspectives.",
-
     "joinMovementTitle": "Join the Movement",
     "joinMovementText": "Become part of a growing community working to shape Africa's economic future.",
     "becomeMember": "Become a Member",
-
     "members": {
       "akwasiOpongFosu": {
         "role": "Chairman, Advisory Board",
@@ -258,7 +297,6 @@
       }
     }
   },
-
   "footer": {
     "aboutUs": "About Us",
     "ourMission": "Our Mission",
@@ -290,7 +328,6 @@
     "privacy": "Privacy Policy",
     "copyright": "© 2026 Africa Economic Forum. All rights reserved."
   },
-
   "forums": {
     "africaPeaceForum": {
       "title": "Africa Peace Forum",
@@ -339,7 +376,6 @@
       "fromDialogueToAction": "Connecting political leadership, institutions, business and capital to build stronger foundations for peace, stability and prosperity across Africa.",
       "joinForum": "Join the Africa Peace Forum"
     },
-
     "africaAgricultureFoodForum": {
       "title": "Africa Agriculture & Food Forum (AAFF)",
       "description": "Transforming African agriculture from subsistence farming to a modern, productive, and sustainable system.",
@@ -399,7 +435,6 @@
       "joinForum": "Join the Africa Agriculture & Food Forum"
     }
   },
-
   "intervenantsPage": {
     "forum": "Africa Economic Forum 2026",
     "title": "Oradores",
@@ -441,7 +476,6 @@
       "lindaKarimCreevey": "Representante de Comercio e Inversiones de Liberia para Asia y Australia."
     }
   },
-
   "agenda": {
     "texts": {
       "unable_to_submit_your_aef_match_profile_please_try_again": "No se ha podido enviar su perfil AEF Match. Inténtelo de nuevo.",
