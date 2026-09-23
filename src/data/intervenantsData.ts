@@ -192,6 +192,69 @@ export const listeIntervenants: Intervenant[] = [
   },
 
   // =========================
+  // NOUVEAUX CONFIRMÉS
+  // =========================
+
+  {
+    id: '27',
+    key: 'yassinAlSuroor',
+    nom: 'Yassin Al Suroor',
+    photoUrl: '/images/Yassin Al Suroor.jpg',
+    description: "Founder & CEO of A'amal Group",
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '28',
+    key: 'cheikhAhmedHAlGhareeb',
+    nom: 'LE Cheikh Ahmed H al ghareeb',
+    photoUrl: '/images/LE Cheikh Ahmed H al ghareeb.jpg',
+    description:
+      'PDG du Moyen-Orient CICERES MONACO et Président Moyen-Orient - GROUPE MARIA INTERNATIONAL',
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '29',
+    key: 'thanveerUmmerHaji',
+    nom: 'Thanveer Ummer Haji',
+    photoUrl: '/images/Thanveer Ummer Haji.jpg',
+    description:
+      'Directeur - CICERES MONACO et PDG - GROUPE MARIA INTERNATIONAL',
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '30',
+    key: 'njAyuk',
+    nom: 'NJ Ayuk',
+    photoUrl: '/images/NJ Ayuk.jpg',
+    description:
+      'Executive Chairman, African Energy Chamber',
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '31',
+    key: 'rtnManpreetSingh',
+    nom: 'Rtn Manpreet Singh',
+    photoUrl: '/images/Rtn Manpreet Singh.jpg',
+    description:
+      'President, Indian Chamber of International Business',
+    statut: 'Confirmé',
+  },
+
+  {
+    id: '32',
+    key: 'lethaboBosoga',
+    nom: 'Lethabo Bosoga',
+    photoUrl: '/images/Lethabo Bosoga.jpg',
+    description:
+      'Partenaire Associé dans la Banque et les Finances, Procureur Motsoeneng Bill',
+    statut: 'Confirmé',
+  },
+
+  // =========================
   // INVITÉS
   // =========================
 
@@ -251,6 +314,6 @@ export const listeIntervenants: Intervenant[] = [
     photoUrl: '/images/Dr. Linda Karim-Creevey.jpg',
     description:
       'Liberia Trade Investment and Representative for Asia and Australia',
-    statut: 'Invité',
+    statut: 'Confirmé',
   },
 ];
