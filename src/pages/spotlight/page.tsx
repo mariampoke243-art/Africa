@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { spotlightArticles } from '../../data/spotlightData';
 
 const categories = [
@@ -10,9 +11,32 @@ const categories = [
 ];
 
 export default function SpotlightPage() {
+  const { t } = useTranslation();
   const { id } = useParams();
 
   const [activeCategory, setActiveCategory] = useState('All');
+
+  // ============================================================
+  // TRADUCTIONS DES TEXTES DE L'INTERFACE
+  // ============================================================
+
+  const translateCategory = (category: string) => {
+    const categoryMap: Record<string, string> = {
+      All: 'spotlight.categories.all',
+      'Institutional Partnership':
+        'spotlight.categories.institutionalPartnership',
+      'Strategic Leadership':
+        'spotlight.categories.strategicLeadership',
+      'Investment & Deal Rooms':
+        'spotlight.categories.investmentDealRooms',
+      'Institutional Continuity':
+        'spotlight.categories.institutionalContinuity',
+      'Africa Women Forum':
+        'spotlight.categories.africaWomenForum',
+    };
+
+    return t(categoryMap[category] || category);
+  };
 
   // ============================================================
   // ARTICLE SÉLECTIONNÉ
@@ -24,7 +48,6 @@ export default function SpotlightPage() {
 
   // ============================================================
   // LISTE FILTRÉE
-  // Le Hook est appelé avant tout return conditionnel
   // ============================================================
 
   const filteredArticles = useMemo(() => {
@@ -54,7 +77,7 @@ export default function SpotlightPage() {
                 to="/"
                 className="hover:text-blue-700 transition"
               >
-                Home
+                {t('spotlight.home')}
               </Link>
 
               <span>/</span>
@@ -63,13 +86,13 @@ export default function SpotlightPage() {
                 to="/spotlight"
                 className="hover:text-blue-700 transition"
               >
-                Spotlight
+                {t('spotlight.title')}
               </Link>
 
               <span>/</span>
 
               <span className="text-gray-900">
-                {selectedArticle.category}
+                {translateCategory(selectedArticle.category)}
               </span>
 
             </div>
@@ -81,7 +104,7 @@ export default function SpotlightPage() {
 
           {/* CATEGORY */}
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-blue-100 text-blue-900 font-semibold mb-10">
-            {selectedArticle.category}
+            {translateCategory(selectedArticle.category)}
           </div>
 
           {/* TITLE */}
@@ -108,7 +131,7 @@ export default function SpotlightPage() {
             <div>
 
               <p className="font-semibold text-gray-900">
-                Africa Economic Forum Public Relations Team
+                {t('spotlight.publicRelationsTeam')}
               </p>
 
               <p className="text-gray-500">
@@ -143,7 +166,6 @@ export default function SpotlightPage() {
                 </p>
               ))}
 
-            {/* Si aucun long contenu n'existe */}
             {!selectedArticle.content && (
               <p className="text-gray-700 text-lg md:text-xl leading-9">
                 {selectedArticle.description}
@@ -160,7 +182,7 @@ export default function SpotlightPage() {
               className="inline-flex items-center text-blue-900 font-semibold hover:text-blue-700 transition"
             >
               <i className="ri-arrow-left-line mr-2"></i>
-              Back to Spotlight
+              {t('spotlight.backToSpotlight')}
             </Link>
 
           </div>
@@ -186,22 +208,19 @@ export default function SpotlightPage() {
           <div className="max-w-4xl">
 
             <p className="text-blue-200 uppercase tracking-wider text-sm font-semibold mb-4">
-              Africa Economic Forum
+              {t('spotlight.africaEconomicForum')}
             </p>
 
             <h1 className="text-4xl md:text-5xl font-bold mb-5">
-              Spotlight
+              {t('spotlight.title')}
             </h1>
 
             <p className="text-xl md:text-2xl text-blue-100 mb-6">
-              AEF Strategic Announcements & Institutional Milestones
+              {t('spotlight.subtitle')}
             </p>
 
             <p className="text-blue-100 text-lg leading-relaxed max-w-3xl">
-              Spotlight is the official platform for Africa Economic Forum's
-              major partnerships, flagship initiatives, institutional
-              announcements, and strategic thought leadership shaping Africa's
-              role in global realignments.
+              {t('spotlight.description')}
             </p>
 
           </div>
@@ -229,7 +248,7 @@ export default function SpotlightPage() {
                     : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-100'
                 }`}
               >
-                {category}
+                {translateCategory(category)}
               </button>
             ))}
 
@@ -267,7 +286,7 @@ export default function SpotlightPage() {
                     <div className="flex flex-wrap items-center gap-3 mb-4">
 
                       <span className="text-sm font-semibold text-teal-600">
-                        {article.category}
+                        {translateCategory(article.category)}
                       </span>
 
                       <span className="text-gray-300">
@@ -293,7 +312,8 @@ export default function SpotlightPage() {
                       to={`/spotlight/${article.id}`}
                       className="inline-flex items-center text-blue-900 font-semibold hover:text-blue-700 transition"
                     >
-                      Read More
+                      {t('spotlight.readMore')}
+
                       <i className="ri-arrow-right-line ml-2"></i>
                     </Link>
 
@@ -312,7 +332,7 @@ export default function SpotlightPage() {
             <div className="text-center py-16">
 
               <p className="text-gray-500">
-                No Spotlight articles found.
+                {t('spotlight.noArticles')}
               </p>
 
             </div>
