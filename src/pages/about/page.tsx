@@ -13,49 +13,91 @@ type CommitteeMember = {
 
 const advisoryBoard: CommitteeMember[] = [
   {
+    name: 'H.E. John Agyekum Kufuor',
+    role: 'Former President of Ghana (2001–2009)',
+    translationKey: 'johnAgyekumKufuor',
+    image: '/images/H.E John Agyekum Kufuor.jpg',
+    bio: `Distinguished statesman and advocate for democratic governance and economic reform in Africa. Widely recognized for leading Ghana's peaceful democratic consolidation and advancing macroeconomic stability, regional integration, and private-sector–led development. Continues to serve on international advisory boards and foundations, promoting good governance, leadership, and sustainable development across Africa and globally.`,
+  },
+  {
+    name: 'H.E. Ameenah Gurib-Fakim',
+    role: 'Former President of Mauritius (2015–2018)',
+    translationKey: 'ameenahGuribFakim',
+    image: '/images/ameenah-gurib-fakim.jpg',
+    bio: `Internationally recognized biodiversity scientist and entrepreneur. Advocate for sustainable development, women in science, and innovation ecosystems across Africa. Serves on numerous global boards promoting climate resilience, research, and youth empowerment.`,
+  },
+  {
+    name: 'H.E. Rosalia Arteaga',
+    role: 'Former President of Ecuador',
+    translationKey: 'rosaliaArteaga',
+    image: '/images/H.E Rosalia Arteaga.jpg',
+    bio: `Distinguished advocate for education, democracy, and sustainable development. Founder of international initiatives on environmental governance and women's leadership. Prominent voice on Amazon protection and intercultural dialogue.`,
+  },
+  {
+    name: 'H.E. Ana Helena Chacón',
+    role: 'Former Vice President of Costa Rica (2014–2018)',
+    translationKey: 'anaHelenaChaconEcheverria',
+    image: '/images/ana-helena-chacon.jpg',
+    bio: `Global advocate for human rights, gender equality, and social inclusion. Diplomat and policy shaper with extensive experience in governance, public policy, and international cooperation.`,
+  },
+  {
+    name: 'H.E. Vladimir Norov',
+    role: 'Former Foreign Minister of Uzbekistan',
+    translationKey: 'vladimirNorov',
+    image: '/images/H.E Vladimir Norov.jpg',
+    bio: `Former Secretary-General of the Shanghai Cooperation Organization (2019–2021). Veteran diplomat with decades of experience representing Uzbekistan to the EU, NATO, and key European capitals. Recognized for advancing regional security, connectivity, and multilateral diplomacy.`,
+  },
+  {
     name: 'Hon. Dr. Akwasi Opong-Fosu',
     role: 'Advisory Board Member',
     translationKey: 'akwasiOpongFosu',
-    image: '/images/Hon.Dr.Akwasi.jpg',
+    image: '/images/Hon. Akwasi Opong-Fosu.jpg',
     bio: `Hon. Dr. Akwasi Opong-Fosu is a distinguished Ghanaian politician, governance and public policy expert with over four decades of public service. He spent almost two decades in local government leadership, including as Mayor, and later served as President of the African Union of Local Authorities and UN Special Advisor on Local Authorities. A former Member of Parliament, he held key ministerial portfolios, including Minister of State at the Presidency responsible for Development Authorities. He currently chairs the Ghana Investment Promotion Centre and founded the Africa Global Emergence Centre, a research, policy and advocacy think tank working at the intersection of governance and economic growth through increased trade and investment flows to Africa.`,
+  },
+  {
+    name: 'H.E. Muhammad Azfar Ahsan',
+    role: 'Advisory Board Member, Africa Economic Forum',
+    translationKey: 'muhammadAzfarAhsan',
+    image: '/images/H.E Muhammad Azfar.jpg',
+    bio: `Former Minister of State and Chairman of the Board of Investment, Pakistan. International entrepreneur, public policy leader, and founder of Corporate Pakistan Group—a leading platform uniting business, government, and thought leaders. Recognized for driving investment diplomacy and fostering global economic partnerships. A respected voice in emerging market development, he bridges the public and private sectors to promote inclusive growth, innovation, and cross-border collaboration.`,
   },
 ];
 
 const executiveBoard: CommitteeMember[] = [
   {
-    name: 'Zarinah Traci Silas',
-    role: 'Chair and Executive Board Member of the Africa Economic Forum',
+    name: 'H.E. Abraham Dwuma Odoom',
+    role: 'Executive Board Member and Chair of the Africa Agriculture & Food Forum',
+    translationKey: 'abrahamDwumaOdoom',
+    image: '/images/Hon. Abraham Dwuma Odoom.jpg',
+    bio: `Former Member of Parliament and Deputy Minister of Agriculture, Ghana. Architect of Ghana's agricultural transformation through pro-poor policies. Internationally respected expert on agribusiness, rural development, and food security strategies.`,
+  },
+  {
+    name: 'Dr. Mike Horton',
+    role: 'Executive Board Member & Chair of the Africa Tech Forum',
+    translationKey: 'mikeHorton',
+    image: '/images/Dr. Mike Horton.jpg',
+    bio: `Dr. Mike Horton is an award-winning former Federal Chief AI Officer in the United States with two decades of experience advising governments and businesses worldwide in the strategic development, deployment, and governance of human-centered, ethical, and scalable AI, data, and machine learning ecosystems. He is an assistant professor of AI and analytics and Director of the Center for Applied AI Maturity at Northeastern University, and the author of “Hype Immunity: Timeless Lessons for Navigating the AI Revolution.” Dr. Mike is a West Point graduate and holds a Master’s in Business Intelligence from St. Joseph’s University and a Doctorate in Business Administration from Drexel University.`,
+  },
+  {
+    name: 'Zarinah Traci Silas, J.D.',
+    role: 'Peace Chair and Executive Board Member of the Africa Economic Forum',
     translationKey: 'zarinahTraciSilas',
     image: '/images/Zarinah Traci Silas.jpg',
     bio: `Zarinah Traci Silas, J.D. is Peace Chair and Executive Board Member of the Africa Economic Forum, a career federal executive holding a lifetime appointment to the United States Senior Executive Service. Over two decades, she has advised Presidents, Cabinet Secretaries, and world leaders on national security and counterterrorism, building DHS’s $120 million USD terrorism prevention program and founding CBP’s first Forced Labor Division, commanding a $3 billion USD portfolio against global trafficking. As a trained international lawyer, she is Co-Founder of Africa Resources Capital Holdings and CEO of Ballard & Silas LLC, driving international trade and diplomacy worldwide.`,
   },
   {
-    name: 'Jacqueline JaQ Campbell',
-    role: 'Chair of the AEF Investors Alliance & Co-Chair, Africa Women Forum',
+    name: 'Jacqueline “JaQ” Campbell',
+    role: 'Board Member and Chair of the AEF Investors Alliance | Co-Chair, Africa Women Forum',
     translationKey: 'jacquelineJaqCampbell',
-    image: '/images/Jaqueline JaQ Campbell.jpg',
+    image: '/images/Jacqueline_JaQ_Campbell.jpg',
     bio: `Jacqueline “JaQ” Campbell is a wealth management executive, entrepreneur, educator, and U.S.–Africa investment strategist with more than three decades of financial-services experience. She is on a global investment and trade mission to bring capital and careers to the continent of Africa, building bridges between investors, institutions, businesses, and emerging talent. As Founder & CEO of Alexander Legacy Private Wealth, Visiting Faculty at GIMPA, and Chair of the Africa Economic Forum Investors Alliance, her work advances investment, workforce development, and economic opportunity. Enstooled in Ghana as Nana Yaa Asabea, JaQ is committed to transforming relationships into sustainable investment, ownership, and generational prosperity across Africa.`,
   },
   {
-    name: 'Dr. Femi Salami',
-    role: 'Executive Board Member & Chair of the Africa Mining & Minerals Forum',
-    translationKey: 'femiSalami',
-    image: '/images/Dr. Femi Salami.jpg',
-    bio: `Dr. Femi Salami (Ph.D., P.E., MAusIMM) is a distinguished mining engineer, academic, and professional with expertise in mining innovation, energy sustainability, critical minerals development, and climate-smart mining. He earned a First-Class Bachelor’s degree in Mining Engineering from the Federal University of Technology Akure, Nigeria and a Ph.D. in Mining Engineering from Missouri University of Science and Technology, USA. Dr. Salami has received over 70 awards and recognitions for scholarly excellence in Mining. He is a licensed mining engineer in the United Kingdom and Nigeria and a Professional Engineer (P.E.) in the United States. He is also a member of several leading professional and scientific organizations.`,
-  },
-  {
-    name: 'H.E. Abraham Dwuma Odoom',
-    role: 'Former Member of Parliament and Deputy Minister of Agriculture, Ghana',
-    translationKey: 'abrahamDwumaOdoom',
-    image: '/images/abraham-dwuma-odoom.jpg',
-    bio: `Ghanaian public servant and former Member of Parliament with experience in agricultural transformation, pro-poor policies, agribusiness, rural development, and food security.`,
-  },
-  {
-    name: 'Amina Touré',
-    role: 'Director of Communication, Media & Public Relations, Africa Economic Forum',
-    translationKey: 'aminaToure',
-    image: '/images/amina-Touré.jpeg',
-    bio: `Development practitioner, researcher, and strategic communicator specializing in African political economy and global narratives. She holds a Bachelor of Laws and an MSc in International Development & Humanitarian Emergencies from LSE and is completing an MPhil in African Studies at Cambridge. Her research and professional work covers extractives, Chinese investment, state-business relations in the DRC, policy research, media strategy, and narrative shaping. She is also an independent journalist covering the conflict in eastern Congo and the mining sector in southern Africa.`,
+    name: 'Afolake Oyinloye',
+    role: 'Member and Director of Communications and Media Relations',
+    translationKey: 'afolakeOyinloye',
+    image: '/images/Afolake Oyinloye.jpg',
+    bio: `Afolake Oyinloye is a journalist, moderator, and strategic communications expert specializing in African affairs, investment, and economic development. As an anchor and journalist for Africa Business on Africanews (Euronews Group), she leads high-level conversations with presidents, ministers, CEOs, investors, and development finance leaders on trade, industrialization, critical minerals, AI, climate finance, and the continent's economic transformation. She also advises institutions, NGOs, and philanthropic organizations independently on advocacy, public engagement, and organizational strategy. Fluent in English, French, and Portuguese, Afolake is recognized for moderating global forums and facilitating dialogue at the highest international level.`,
   },
 ];
 
@@ -65,7 +107,14 @@ const scientificCommittee: CommitteeMember[] = [
     role: 'International Economist & Author',
     translationKey: 'nathanLewis',
     image: '/images/nathan-lewis.jpg',
-    bio: `International economist and author specializing in monetary policy, fiscal systems, sound money, sustainable finance, and economic development. He is a Senior Fellow at Discovery Institute.`,
+    bio: `Specializing in monetary policy and fiscal systems. Senior Fellow at the Discovery Institute. Contributor to global debates on sound money, sustainable finance, and economic development.`,
+  },
+  {
+    name: 'Amina Touré',
+    role: 'Development Practitioner, Researcher & Strategic Communicator',
+    translationKey: 'aminaToure',
+    image: '/images/amina-Touré.jpeg',
+    bio: `Development practitioner, researcher, and strategic communicator with a strong focus on Africa’s political economy and global narratives. Amina holds a Bachelor of Laws and an MSc in International Development & Humanitarian Emergencies from the London School of Economics, and is completing an MPhil in African Studies at the University of Cambridge, specializing in extractive industries, Chinese investment, and state–business relations in the Democratic Republic of Congo (DRC). Her work spans policy research, media strategy, and narrative shaping. She has authored influential analyses on resource governance, value-chain upgrading, and the political economy of strategic minerals. As an independent journalist, she documents the conflict in eastern Congo and the expansion of mining operations in the south, producing field-rooted reporting that centers Congolese perspectives and brings nuance to globally misunderstood issues. Amina brings to the AEF a unique blend of intellectual rigor, communication expertise, and geopolitical insight—crafting narratives that strengthen Africa’s voice, credibility, and influence on the global stage.`,
   },
 ];
 
@@ -762,7 +811,7 @@ export default function AboutPage() {
               <div className="text-center mb-12">
 
                 <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                  {t('about.advisoryBoardTitle')}
+                  AEF Strategic Advisory Board
                 </h3>
 
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -790,7 +839,7 @@ export default function AboutPage() {
               <div className="text-center mb-12">
 
                 <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                  {t('about.executiveBoardTitle')}
+                  AEF Executive Board
                 </h3>
 
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -818,7 +867,7 @@ export default function AboutPage() {
               <div className="text-center mb-12">
 
                 <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                  {t('about.scientificCommitteeTitle')}
+                  Scientific Committee
                 </h3>
 
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -827,7 +876,7 @@ export default function AboutPage() {
 
               </div>
 
-              <div className="max-w-md mx-auto">
+              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
 
                 {scientificCommittee.map((member) => (
                   <MemberCard
