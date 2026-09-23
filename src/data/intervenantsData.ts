@@ -207,10 +207,10 @@ export const listeIntervenants: Intervenant[] = [
   {
     id: '28',
     key: 'cheikhAhmedHAlGhareeb',
-    nom: 'LE Cheikh Ahmed H al ghareeb',
+    nom: 'HE Sheikh Ahmed H. Al Ghareeb',
     photoUrl: '/images/LE Cheikh Ahmed H al ghareeb.jpg',
     description:
-      'PDG du Moyen-Orient CICERES MONACO et Président Moyen-Orient - GROUPE MARIA INTERNATIONAL',
+      'CEO Middle East - CICERES MONACO\nChairman Middle East - MARIA GROUP INTERNATIONAL',
     statut: 'Confirmé',
   },
 
@@ -220,7 +220,7 @@ export const listeIntervenants: Intervenant[] = [
     nom: 'Thanveer Ummer Haji',
     photoUrl: '/images/Thanveer Ummer Haji.jpg',
     description:
-      'Directeur - CICERES MONACO et PDG - GROUPE MARIA INTERNATIONAL',
+      'Board Director - CICERES MONACO\nCEO - MARIA GROUP INTERNATIONAL',
     statut: 'Confirmé',
   },
 
