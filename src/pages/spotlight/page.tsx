@@ -1,42 +1,19 @@
 import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { spotlightArticles } from '../../data/spotlightData';
 
-const categories = [
-  'All',
-  ...Array.from(
-    new Set(spotlightArticles.map((article) => article.category))
-  ),
-];
+import {
+  spotlightArticles,
+  spotlightCategories,
+  type SpotlightCategoryFilter,
+} from '../../data/spotlightData';
 
 export default function SpotlightPage() {
   const { t } = useTranslation();
   const { id } = useParams();
 
-  const [activeCategory, setActiveCategory] = useState('All');
-
-  // ============================================================
-  // TRADUCTIONS DES TEXTES DE L'INTERFACE
-  // ============================================================
-
-  const translateCategory = (category: string) => {
-    const categoryMap: Record<string, string> = {
-      All: 'spotlight.categories.all',
-      'Institutional Partnership':
-        'spotlight.categories.institutionalPartnership',
-      'Strategic Leadership':
-        'spotlight.categories.strategicLeadership',
-      'Investment & Deal Rooms':
-        'spotlight.categories.investmentDealRooms',
-      'Institutional Continuity':
-        'spotlight.categories.institutionalContinuity',
-      'Africa Women Forum':
-        'spotlight.categories.africaWomenForum',
-    };
-
-    return t(categoryMap[category] || category);
-  };
+  const [activeCategory, setActiveCategory] =
+    useState<SpotlightCategoryFilter>('all');
 
   // ============================================================
   // ARTICLE SÉLECTIONNÉ
@@ -47,11 +24,11 @@ export default function SpotlightPage() {
     : null;
 
   // ============================================================
-  // LISTE FILTRÉE
+  // ARTICLES FILTRÉS
   // ============================================================
 
   const filteredArticles = useMemo(() => {
-    if (activeCategory === 'All') {
+    if (activeCategory === 'all') {
       return spotlightArticles;
     }
 
@@ -61,10 +38,31 @@ export default function SpotlightPage() {
   }, [activeCategory]);
 
   // ============================================================
+  // TRADUCTIONS DES ARTICLES
+  // ============================================================
+
+  const getArticleTitle = (key: string) =>
+    t(`spotlight.articles.${key}.title`);
+
+  const getArticleDescription = (key: string) =>
+    t(`spotlight.articles.${key}.description`);
+
+  const getArticleContent = (key: string): string[] => {
+    const content = t(`spotlight.articles.${key}.content`, {
+      returnObjects: true,
+    });
+
+    return Array.isArray(content) ? content : [];
+  };
+
+  // ============================================================
   // PAGE ARTICLE INDIVIDUEL
   // ============================================================
 
   if (selectedArticle) {
+    const articleTitle = getArticleTitle(selectedArticle.key);
+    const articleContent = getArticleContent(selectedArticle.key);
+
     return (
       <div className="min-h-screen bg-white">
 
@@ -92,7 +90,9 @@ export default function SpotlightPage() {
               <span>/</span>
 
               <span className="text-gray-900">
-                {translateCategory(selectedArticle.category)}
+                {t(
+                  `spotlight.categories.${selectedArticle.category}`
+                )}
               </span>
 
             </div>
@@ -104,12 +104,14 @@ export default function SpotlightPage() {
 
           {/* CATEGORY */}
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-blue-100 text-blue-900 font-semibold mb-10">
-            {translateCategory(selectedArticle.category)}
+            {t(
+              `spotlight.categories.${selectedArticle.category}`
+            )}
           </div>
 
           {/* TITLE */}
           <h1 className="max-w-5xl text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-10">
-            {selectedArticle.title}
+            {articleTitle}
           </h1>
 
           {/* AUTHOR / DATE */}
@@ -135,7 +137,7 @@ export default function SpotlightPage() {
               </p>
 
               <p className="text-gray-500">
-                {selectedArticle.date}
+                {t(selectedArticle.dateKey)}
               </p>
 
             </div>
@@ -147,7 +149,7 @@ export default function SpotlightPage() {
 
             <img
               src={selectedArticle.image}
-              alt={selectedArticle.title}
+              alt={articleTitle}
               className="w-full max-h-[650px] object-cover rounded-2xl shadow-lg"
             />
 
@@ -156,21 +158,14 @@ export default function SpotlightPage() {
           {/* LONG ARTICLE CONTENT */}
           <div className="max-w-5xl mx-auto">
 
-            {selectedArticle.content &&
-              selectedArticle.content.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="text-gray-700 text-lg md:text-xl leading-9 mb-8"
-                >
-                  {paragraph}
-                </p>
-              ))}
-
-            {!selectedArticle.content && (
-              <p className="text-gray-700 text-lg md:text-xl leading-9">
-                {selectedArticle.description}
+            {articleContent.map((paragraph, index) => (
+              <p
+                key={index}
+                className="text-gray-700 text-lg md:text-xl leading-9 mb-8"
+              >
+                {paragraph}
               </p>
-            )}
+            ))}
 
           </div>
 
@@ -194,7 +189,7 @@ export default function SpotlightPage() {
   }
 
   // ============================================================
-  // PAGE SPOTLIGHT / ALL
+  // PAGE SPOTLIGHT
   // ============================================================
 
   return (
@@ -237,7 +232,8 @@ export default function SpotlightPage() {
           {/* FILTERS */}
           <div className="flex flex-wrap gap-3 mb-10">
 
-            {categories.map((category) => (
+            {spotlightCategories.map((category) => (
+
               <button
                 key={category}
                 type="button"
@@ -248,8 +244,9 @@ export default function SpotlightPage() {
                     : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-100'
                 }`}
               >
-                {translateCategory(category)}
+                {t(`spotlight.categories.${category}`)}
               </button>
+
             ))}
 
           </div>
@@ -271,7 +268,7 @@ export default function SpotlightPage() {
 
                     <img
                       src={article.image}
-                      alt={article.title}
+                      alt={getArticleTitle(article.key)}
                       className="w-full h-full object-cover"
                       onError={(event) => {
                         event.currentTarget.style.display = 'none';
@@ -286,7 +283,9 @@ export default function SpotlightPage() {
                     <div className="flex flex-wrap items-center gap-3 mb-4">
 
                       <span className="text-sm font-semibold text-teal-600">
-                        {translateCategory(article.category)}
+                        {t(
+                          `spotlight.categories.${article.category}`
+                        )}
                       </span>
 
                       <span className="text-gray-300">
@@ -294,17 +293,17 @@ export default function SpotlightPage() {
                       </span>
 
                       <span className="text-sm text-gray-500">
-                        {article.date}
+                        {t(article.dateKey)}
                       </span>
 
                     </div>
 
                     <h2 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">
-                      {article.title}
+                      {getArticleTitle(article.key)}
                     </h2>
 
                     <p className="text-gray-600 leading-relaxed mb-6">
-                      {article.description}
+                      {getArticleDescription(article.key)}
                     </p>
 
                     {/* LIEN VERS L'ARTICLE */}
