@@ -1,11 +1,9 @@
 {
   "welcome": "Bienvenue",
-
   "contact": {
     "title": "Contactez-nous",
     "send": "Envoyer le message"
   },
-
   "header": {
     "home": "Accueil",
     "about": "À propos",
@@ -21,7 +19,6 @@
     "viewProfile": "Voir le profil",
     "user": "Utilisateur"
   },
-
   "meetingsPage": {
     "heroTitle": "Forums et Rencontres",
     "heroSubtitle": "Découvrez nos prochains sommets et dialogues stratégiques",
@@ -38,14 +35,12 @@
     "fromDialogueToAction": "Du dialogue à l’action",
     "joinForum": "Rejoindre le Forum"
   },
-
   "cta": {
     "title": "Rejoignez le mouvement",
     "subtitle": "Participez au principal rassemblement économique en Afrique",
     "register": "S’inscrire maintenant",
     "contact": "Nous contacter"
   },
-
   "auth": {
     "createAccount": "Créer un compte",
     "signIn": "Se connecter",
@@ -80,7 +75,6 @@
     "viewProfile": "Voir le profil",
     "signOut": "Se déconnecter"
   },
-
   "home": {
     "heroEyebrow": "Africa Economic Forum 2026 • 10–11 Nov • Kinshasa",
     "heroTitle": "Africa Economic Forum 2026",
@@ -104,7 +98,6 @@
     "subscribe": "S’abonner",
     "subscriptionSuccess": "Merci de vous être abonné à la newsletter de l’Africa Economic Forum."
   },
-
   "initiatives": {
     "aiif": {
       "title": "Fonds Africain d’Investissement et d’Innovation"
@@ -119,35 +112,105 @@
       "title": "Laboratoires AEF"
     }
   },
-
   "spotlight": {
-    "afdbWomenForum": {
-      "category": "Forum et Leadership",
-      "title": "Africa Women Forum",
-      "description": "Mettre en lumière le leadership, les investissements et les opportunités pour les femmes africaines."
+    "home": "Accueil",
+    "title": "À la une",
+    "africaEconomicForum": "Africa Economic Forum",
+    "subtitle": "Annonces stratégiques et étapes institutionnelles de l’AEF",
+    "description": "À la une est la plateforme officielle de l’Africa Economic Forum dédiée à ses principaux partenariats, initiatives phares, annonces institutionnelles et réflexions stratégiques qui façonnent le rôle de l’Afrique dans les réalignements mondiaux.",
+    "readMore": "Lire plus",
+    "backToSpotlight": "Retour à la une",
+    "noArticles": "Aucun article à la une trouvé.",
+    "publicRelationsTeam": "Équipe des relations publiques de l’Africa Economic Forum",
+    "categories": {
+      "all": "Tous",
+      "institutionalPartnership": "Partenariat institutionnel",
+      "strategicLeadership": "Leadership stratégique",
+      "investmentDealRooms": "Investissement et Deal Rooms",
+      "institutionalContinuity": "Continuité institutionnelle",
+      "africaWomenForum": "Africa Women Forum"
     },
-    "africanTable": {
-      "category": "Leadership et Dialogue",
-      "title": "The African Table",
-      "description": "Un espace de dialogue stratégique réunissant les acteurs qui façonnent l’avenir économique de l’Afrique."
-    },
-    "dealRooms": {
-      "category": "Investissement et Affaires",
-      "title": "Deal Rooms",
-      "description": "Des espaces dédiés mettant en relation projets, investisseurs, gouvernements et partenaires stratégiques."
-    },
-    "multiSectorContinuity": {
-      "category": "Stratégie et Investissement",
-      "title": "Continuité multisectorielle",
-      "description": "Promouvoir une approche intégrée de l’investissement et des opportunités dans les secteurs stratégiques de l’Afrique."
-    },
-    "africaWomenForum2026": {
-      "category": "Événement",
-      "title": "Africa Women Forum 2026",
-      "description": "Une plateforme axée sur le leadership, l’investissement et la participation des femmes à la transformation économique de l’Afrique."
+    "articles": {
+      "afdbWomenForum": {
+        "date": "31 janvier 2026",
+        "title": "La Banque africaine de développement devient partenaire technique de l’Africa Women Forum",
+        "description": "L’Africa Economic Forum est honoré d’annoncer que la Banque africaine de développement (BAD) a officiellement rejoint l’Africa Women Forum (AWF) en tant que partenaire technique officiel.",
+        "content": [
+          "L’Africa Economic Forum est honoré d’annoncer que la Banque africaine de développement (BAD) a officiellement rejoint l’Africa Women Forum (AWF) en tant que partenaire technique officiel.",
+          "Ce partenariat représente une étape institutionnelle majeure pour l’Africa Women Forum et renforce son positionnement en tant que plateforme continentale de premier plan pour le leadership économique des femmes, le dialogue politique et la transformation portée par l’investissement.",
+          "La Banque africaine de développement, en tant que principale institution multilatérale de financement du développement en Afrique, apporte une expertise technique, des connaissances en matière de politiques publiques et une profondeur sectorielle exceptionnelles dans les domaines des infrastructures, des systèmes financiers, du développement du secteur privé, de la gouvernance et de la croissance durable. Son engagement auprès de l’Africa Women Forum renforce la capacité de l’AWF à transformer le dialogue de haut niveau en résultats crédibles, évolutifs et alignés sur les politiques publiques.",
+          "Cette collaboration reflète une vision stratégique commune : placer les femmes africaines au centre de l’architecture économique, non pas comme des participantes périphériques, mais comme des architectes des stratégies de développement de l’Afrique, de l’allocation des capitaux et des réformes de gouvernance. Le partenariat renforce le principe selon lequel le leadership des femmes n’est pas un complément social au développement, mais un pilier structurel de la souveraineté économique, de la résilience institutionnelle et de la croissance à long terme.",
+          "Grâce à ce partenariat technique, l’Africa Women Forum intégrera les cadres analytiques, les instruments politiques et l’expérience en matière de développement de la BAD dans sa programmation, garantissant ainsi que les initiatives de l’AWF reposent sur une analyse économique rigoureuse et soient alignées sur les priorités continentales et nationales. Cela fait évoluer le Forum d’un simple espace de rassemblement vers une plateforme d’exécution, de cohérence des politiques publiques et de crédibilité institutionnelle.",
+          "Pour l’Africa Economic Forum, ce partenariat envoie un signal fort aux gouvernements, aux investisseurs et aux institutions internationales : l’Africa Women Forum n’est pas symbolique. Il s’agit d’une plateforme sérieuse où le genre, le capital, les politiques publiques et le développement souverain se rencontrent afin de produire des résultats mesurables.",
+          "L’Africa Economic Forum considère ce partenariat comme une pierre angulaire dans la construction d’un écosystème continental où le leadership des femmes est structurellement intégré à l’avenir économique de l’Afrique."
+        ]
+      },
+      "africanTable": {
+        "date": "30 janvier 2026",
+        "title": "The African Table : comment l’AEF reconstruit la place de l’Afrique dans la prise de décision économique mondiale",
+        "description": "L’Africa Economic Forum repose sur une conviction stratégique : l’Afrique ne doit pas seulement participer aux conversations économiques mondiales, elle doit les accueillir, les façonner et en définir les conditions.",
+        "content": [
+          "L’Africa Economic Forum repose sur une conviction stratégique : l’Afrique ne doit pas seulement participer aux conversations économiques mondiales, elle doit les accueillir, les façonner et en définir les conditions.",
+          "Cette conviction se concrétise dans l’architecture stratégique centrale de l’AEF : The African Table.",
+          "The African Table est plus qu’un concept symbolique. Il s’agit d’une refonte structurelle de la manière dont l’Afrique interagit avec les capitaux, les institutions et les gouvernements mondiaux. Il représente le passage d’un engagement défini de l’extérieur à une définition des priorités centrée sur l’Afrique, où les priorités, les cadres et les modèles de coopération sont définis à partir des intérêts stratégiques africains et des objectifs de développement souverain.",
+          "À The African Table, l’Afrique n’est pas une invitée. L’Afrique est l’hôte.",
+          "En organisant l’espace, en fixant l’ordre du jour et en définissant les conditions d’engagement, l’Afrique reprend son pouvoir d’action sur la manière dont les partenariats sont structurés, dont les priorités sont définies et dont la coopération se traduit en actions concrètes.",
+          "The African Table va au-delà des conférences ponctuelles et des réunions transactionnelles. Il établit une architecture permanente d’engagement, dans laquelle l’Afrique dirige tout au long de l’année un dialogue continu entre gouvernements, investisseurs, institutions et partenaires mondiaux.",
+          "Ce modèle transforme le rôle de l’Afrique, qui passe d’une position réactive à une position architecturale. Au lieu de répondre à des cadres conçus de l’extérieur, l’Afrique devient co-auteure des arrangements économiques mondiaux, en façonnant la manière dont la coopération, l’investissement et l’alignement des politiques sont structurés.",
+          "À travers The African Table, l’AEF positionne l’Afrique non pas comme un marché à évaluer, mais comme un co-leader stratégique qui façonne l’avenir de la coopération économique mondiale.",
+          "Il s’agit d’un repositionnement fondamental : de la participation à la création, de l’inclusion au leadership, de la présence à l’architecture."
+        ]
+      },
+      "dealRooms": {
+        "date": "29 janvier 2026",
+        "title": "De l’accès à l’alignement : pourquoi les Deal Rooms de l’AEF comptent davantage que le réseautage",
+        "description": "Dans de nombreux forums mondiaux, les échanges entre investisseurs et gouvernements restent principalement sociaux. Les panels, réceptions et réunions informelles dominent les interactions, créant de la visibilité mais laissant souvent les risques d’exécution sans réponse.",
+        "content": [
+          "Dans de nombreux forums mondiaux, les échanges entre investisseurs et gouvernements restent principalement sociaux. Les panels, réceptions et réunions informelles dominent les interactions, créant de la visibilité mais laissant souvent les risques d’exécution sans réponse.",
+          "L’Africa Economic Forum a été conçu pour dépasser ce modèle.",
+          "À l’AEF, les Deal Rooms ne sont pas des sessions de présentation de projets : ce sont des environnements structurés dédiés à l’exécution.",
+          "Les Deal Rooms de l’AEF sont des espaces de négociation spécialement conçus où gouvernements, investisseurs et porteurs de projets échangent directement sur les conditions nécessaires à la réalisation des projets. Cela comprend la clarté réglementaire, l’alignement des politiques, l’engagement politique, la coordination institutionnelle et les voies d’exécution.",
+          "Pour les investisseurs sérieux, les principaux risques sont rarement techniques. Ils sont institutionnels : incertitude concernant l’orientation des politiques, stabilité réglementaire, priorités politiques et blocages administratifs.",
+          "Les Deal Rooms de l’AEF permettent aux investisseurs de tester directement leurs hypothèses auprès des décideurs. Plutôt que de deviner comment les politiques évolueront, les investisseurs peuvent valider le soutien politique, clarifier les cadres réglementaires et évaluer la capacité d’exécution avant de déployer des capitaux.",
+          "Cela transforme l’engagement avec les gouvernements, qui passe du protocole à la performance.",
+          "Les Deal Rooms permettent aux capitaux de comprendre comment les gouvernements pensent, ce qu’ils privilégient et où le soutien politique sera le plus fort. Cela crée une forme rare de clarté sur les marchés émergents : une cartographie plus claire de l’investissement, façonnée par un alignement institutionnel direct.",
+          "À l’AEF, les capitaux ne rencontrent pas les gouvernements uniquement dans un cadre social. Les capitaux rencontrent les gouvernements dans un cadre structurel.",
+          "Cet alignement réduit l’incertitude, renforce la confiance des investisseurs et accélère le passage de l’intérêt à l’exécution. Il ne s’agit pas de réseautage. Il s’agit de gestion des risques et d’architecture de l’exécution."
+        ]
+      },
+      "multiSectorContinuity": {
+        "date": "28 janvier 2026",
+        "title": "Pourquoi le multisectoriel ne signifie pas fragmenté : comment l’AEF crée une continuité pour les investisseurs et les gouvernements",
+        "description": "À première vue, la structure multisectorielle de l’AEF peut sembler fragmentée. Chaque forum se concentre sur un domaine thématique différent. Cependant, cette interprétation ne correspond pas à la manière dont fonctionnent les capitaux sérieux et les partenaires souverains.",
+        "content": [
+          "À première vue, la structure multisectorielle de l’AEF peut sembler fragmentée. Chaque forum se concentre sur un domaine thématique différent. Cependant, cette interprétation ne correspond pas à la manière dont fonctionnent les capitaux sérieux et les partenaires souverains.",
+          "La continuité à l’AEF n’est pas fondée sur les secteurs. Elle est fondée sur les relations, les politiques publiques et les pipelines de projets.",
+          "Les investisseurs ne construisent pas leurs stratégies autour des conférences. Ils construisent leurs stratégies autour des gouvernements, des relations institutionnelles et des mandats de capitaux à long terme.",
+          "L’AEF assure la continuité en maintenant les mêmes interlocuteurs gouvernementaux essentiels à travers plusieurs forums : ministères des Finances, agences d’investissement, régulateurs, bureaux présidentiels et principales institutions publiques. Même lorsque les thèmes sectoriels évoluent, les relations institutionnelles restent constantes.",
+          "Cela permet à la confiance de s’accumuler, à l’intelligence politique de s’approfondir et à la mémoire institutionnelle de se constituer.",
+          "Du point de vue des investisseurs, cela est beaucoup plus précieux que de rester dans un seul secteur. Les mandats de capitaux — tels que les infrastructures, la transition énergétique, les systèmes de santé, les systèmes alimentaires et les infrastructures numériques — couvrent naturellement plusieurs secteurs. L’architecture de l’AEF permet aux investisseurs de poursuivre la même thèse d’investissement à travers différents forums thématiques avec les mêmes partenaires souverains.",
+          "De plus, les projets n’arrivent pas à maturité lors d’une seule réunion. Ils évoluent dans le temps. Un projet peut être présenté lors d’un forum, affiné grâce au dialogue politique, puis revenir plus tard dans les Deal Rooms pour l’alignement et la finalisation de son exécution.",
+          "L’AEF devient ainsi un pipeline de maturation des projets et non un environnement de présentation ponctuelle.",
+          "Cela crée un avantage institutionnel rare : une continuité fondée sur les relations, les politiques et la logique d’exécution plutôt que sur la répétition thématique.",
+          "La continuité de l’AEF est institutionnelle et non thématique. C’est précisément ce que les capitaux à long terme et les partenaires souverains valorisent le plus."
+        ]
+      },
+      "africaWomenForum2026": {
+        "date": "27 janvier 2026",
+        "title": "Africa Women Forum 2026 : les femmes comme architectes de l’avenir économique souverain de l’Afrique",
+        "description": "L’Africa Women Forum (AWF) est l’une des plateformes phares de l’Africa Economic Forum, conçue pour placer les femmes au centre de la transformation économique, politique et stratégique de l’Afrique.",
+        "content": [
+          "L’Africa Women Forum (AWF) est l’une des plateformes phares de l’Africa Economic Forum, conçue pour placer les femmes au centre de la transformation économique, politique et stratégique de l’Afrique.",
+          "L’AWF 2026 réunira des femmes dirigeantes, des chefs d’État, des décideurs publics, des investisseurs, des entrepreneures et des institutions mondiales afin de définir des stratégies concrètes pour le leadership des femmes dans la gouvernance, la finance, l’entrepreneuriat et le développement souverain.",
+          "Le Forum réunira notamment des personnalités de haut niveau telles que l’ancienne présidente de la République de Maurice, Ameenah Gurib-Fakim, et l’ancienne vice-présidente du Costa Rica, Ana Helena Chacón Echeverría, aux côtés de hauts responsables des gouvernements africains, d’institutions multilatérales et d’investisseurs mondiaux.",
+          "Avec la Banque africaine de développement comme partenaire technique, l’AWF se positionne comme une plateforme continentale sérieuse où le leadership des femmes rencontre directement les stratégies d’investissement, les cadres politiques et la réforme institutionnelle.",
+          "L’Africa Economic Forum considère l’AWF comme un pilier stratégique de l’avenir de l’Afrique. Il s’agit d’une plateforme où les femmes ne sont pas seulement représentées, mais où elles conçoivent activement les systèmes, les institutions et les flux de capitaux qui façonnent la souveraineté et la compétitivité à long terme de l’Afrique.",
+          "L’AWF constitue un moteur central de l’architecture économique de l’Afrique.",
+          "À travers l’AWF, l’Africa Economic Forum réaffirme une vérité simple : l’avenir de l’Afrique sera construit par des femmes qui dirigent, gouvernent, investissent et architecturent la transformation à grande échelle."
+        ]
+      }
     }
   },
-
   "footer": {
     "aboutUs": "À propos de nous",
     "ourMission": "Notre mission",
@@ -179,7 +242,6 @@
     "privacy": "Politique de confidentialité",
     "copyright": "© 2026 Africa Economic Forum. Tous droits réservés."
   },
-
   "about": {
     "heroTitle": "À propos de l’Africa Economic Forum",
     "heroSubtitle": "Une plateforme panafricaine et mondiale dédiée au dialogue économique, à la coopération stratégique et au développement souverain. Plus qu’un événement, l’AEF est un mouvement qui repositionne l’Afrique comme partenaire stratégique et co-architecte de l’avenir du monde.",
@@ -236,7 +298,6 @@
     "joinMovementText": "Participez à la transformation de l’Afrique. Connectez-vous à des dirigeants visionnaires, contribuez à des partenariats stratégiques et participez à façonner l’avenir économique souverain du continent.",
     "becomeMember": "Devenir membre"
   },
-
   "agenda": {
     "texts": {
       "unable_to_submit_your_aef_match_profile_please_try_again": "Impossible d’envoyer votre profil AEF Match. Veuillez réessayer.",
@@ -256,24 +317,24 @@
       "step_03_what_you_are_looking_for": "ÉTAPE 03 — CE QUE VOUS RECHERCHEZ",
       "what_would_you_like_to_find_at_aef": "Que souhaitez-vous trouver à l’AEF ?",
       "step_04_your_investment_business_parameters": "ÉTAPE 04 — VOS PARAMÈTRES D’INVESTISSEMENT / D’ACTIVITÉ",
-      "investment_sectors": "Secteurs d’investissement",
-      "geographies_of_interest": "Zones géographiques d’intérêt",
-      "typical_investment_ticket": "Ticket d’investissement habituel",
-      "investment_structure": "Structure d’investissement",
-      "investment_stage": "Stade d’investissement",
+      "investment_sectors": "Secteurs d’investissement*",
+      "geographies_of_interest": "Zones géographiques d’intérêt*",
+      "typical_investment_ticket": "Ticket d’investissement habituel*",
+      "investment_structure": "Structure d’investissement*",
+      "investment_stage": "Stade d’investissement*",
       "preferred_counterparties": "Contreparties privilégiées",
-      "country": "Pays*",
+      "country": "Pays",
       "select_country": "Sélectionner un pays",
-      "sector": "Secteur*",
+      "sector": "Secteur",
       "select_sector": "Sélectionner un secteur",
       "project_stage": "Stade du projet*",
-      "capital_structure_sought": "Structure de capital recherchée",
-      "priority_sectors": "Secteurs prioritaires",
+      "capital_structure_sought": "Structure de capital recherchée*",
+      "priority_sectors": "Secteurs prioritaires*",
       "type_of_partners_sought": "Type de partenaires recherchés",
-      "strategic_capabilities_you_bring": "Capacités stratégiques que vous apportez",
-      "african_markets_of_interest": "Marchés africains d’intérêt",
-      "sectors_of_interest": "Secteurs d’intérêt",
-      "type_of_partnerships_sought": "Type de partenariats recherchés",
+      "strategic_capabilities_you_bring": "Capacités stratégiques que vous apportez*",
+      "african_markets_of_interest": "Marchés africains d’intérêt*",
+      "sectors_of_interest": "Secteurs d’intérêt*",
+      "type_of_partnerships_sought": "Type de partenariats recherchés*",
       "select_your_role_in_step_01_to_display_the_relevant_investment_business_parameters": "Sélectionnez votre rôle à l’étape 01 pour afficher les paramètres d’investissement / d’activité correspondants.",
       "step_05_who_do_you_want_to_meet": "ÉTAPE 05 — QUI SOUHAITEZ-VOUS RENCONTRER ?",
       "who_would_you_like_to_meet_at_aef": "Qui souhaitez-vous rencontrer à l’AEF ?",
@@ -283,7 +344,7 @@
       "preferred_meeting_format": "Format de rencontre privilégié",
       "step_07_your_priority": "ÉTAPE 07 — VOTRE PRIORITÉ",
       "step_08_contact_consent": "ÉTAPE 08 — CONTACT ET CONSENTEMENT",
-      "email": "E-mail*",
+      "email": "E-mail",
       "consent": "Consentement",
       "submitting": "ENVOI EN COURS...",
       "create_my_aef_match_profile": "CRÉER MON PROFIL AEF MATCH",
@@ -299,7 +360,7 @@
       "purpose": "Objectif",
       "strategic_questions": "Questions stratégiques",
       "focus": "Focus",
-      "deal_track": "Deal Track",
+      "deal_track": "DEAL TRACK",
       "africa_economic_forum": "Africa Economic Forum",
       "about_aef": "À PROPOS DE L’AEF",
       "why_kinshasa": "POURQUOI KINSHASA",
@@ -316,7 +377,7 @@
       "1011_november_2026": "10–11 novembre 2026",
       "africas_next_investment_corridors_are_being_built_in_kinshasa": "LES PROCHAINS CORRIDORS D’INVESTISSEMENT DE L’AFRIQUE SE CONSTRUISENT À KINSHASA.",
       "africa_and_global_realignment": "L’AFRIQUE ET LE RÉALIGNEMENT MONDIAL :",
-      "investments_alliances_strategic_opportunities": "INVESTISSEMENTS, ALLIANCES ET OPPORTUNITÉS STRATÉGIQUES",
+      "investments_alliances_strategic_opportunities": "Investissements. Alliances. Opportunités stratégiques.",
       "for_governments_investors_project_owners_strategic_partners": "Pour les gouvernements | Investisseurs | Porteurs de projets | Partenaires stratégiques",
       "02_the_premise": "02 — LE CONTEXTE",
       "the_world_is_realigning_africa_is_negotiating_its_place": "LE MONDE SE RÉALIGNE. L’AFRIQUE NÉGOCIE SA PLACE.",
@@ -342,10 +403,9 @@
       "03_investors": "03 — INVESTISSEURS",
       "bring_capital_find_the_right_projects": "APPORTEZ DES CAPITAUX. TROUVEZ LES BONS PROJETS.",
       "target": "Cible :",
-      "join_the_aef_investor_network": "REJOINDRE LE RÉSEAU DES INVESTISSEURS DE L’AEF",
+      "join_the_aef_investor_network": "Rejoindre le réseau des investisseurs de l’AEF",
       "04_project_owners": "04 — PORTEURS DE PROJETS",
       "bring_the_project_meet_the_capital": "APPORTEZ LE PROJET. RENCONTREZ LES CAPITAUX.",
-      "priority_sectors": "Secteurs prioritaires :",
       "submit_a_project": "SOUMETTRE UN PROJET",
       "project_submissions_are_subject_to_aef_review_and_selection": "« Les projets soumis sont soumis à l’examen et à la sélection de l’AEF. »",
       "06_speakers": "06 — INTERVENANTS",
@@ -365,7 +425,6 @@
       "investment_showcase": "VITRINE DES INVESTISSEMENTS",
       "selected_projects_presented_to_qualified_investors": "Projets sélectionnés présentés à des investisseurs qualifiés.",
       "10_sector_deal_tracks": "10 — SECTEURS DE CONCLUSION D’ACCORDS",
-      "deal_track": "DEAL TRACK",
       "13_the_future_economy": "13 — L’ÉCONOMIE DU FUTUR",
       "five_investment_frontiers": "CINQ FRONTIÈRES D’INVESTISSEMENT",
       "what_does_this_mean_for_african_capital_industry_and_investment": "« Qu’est-ce que cela signifie pour le capital, l’industrie et l’investissement africains ? »",
@@ -416,12 +475,9 @@
       "i_represent_a_foreign_country_bloc": "JE REPRÉSENTE UN PAYS ÉTRANGER / BLOC",
       "request_vip_institutional_participation": "Demander une participation VIP / institutionnelle",
       "i_am_an_investor": "JE SUIS UN INVESTISSEUR",
-      "join_the_aef_investor_network": "Rejoindre le réseau des investisseurs de l’AEF",
       "i_have_a_project": "J’AI UN PROJET",
       "submit_an_investment_opportunity": "Soumettre une opportunité d’investissement",
-      "africa_economic_forum": "Africa Economic Forum",
       "kinshasa_10_11_november_2026": "Kinshasa | 10–11 novembre 2026",
-      "investments_alliances_strategic_opportunities": "Investissements. Alliances. Opportunités stratégiques.",
       "2026_africa_economic_forum_all_rights_reserved": "© 2026 Africa Economic Forum. Tous droits réservés.",
       "aef_deal_room": "DEAL ROOM AEF",
       "enter_the_aef_deal_room": "ENTRER DANS LE DEAL ROOM AEF",
@@ -434,7 +490,6 @@
       "institution_company_name": "Nom de l’institution / entreprise*",
       "company_name": "Nom de l’entreprise",
       "country_headquarters": "Pays / Siège social*",
-      "country": "Pays",
       "website": "Site web",
       "https": "https://...",
       "institution_type": "Type d’institution*",
@@ -453,23 +508,16 @@
       "email_example_com": "email@example.com",
       "phone_whatsapp": "Téléphone / WhatsApp*",
       "your_capital_mandate_investor": "VOTRE MANDAT DE CAPITAL (INVESTISSEUR)",
-      "investment_sectors": "Secteurs d’investissement*",
-      "geographies_of_interest": "Zones géographiques d’intérêt*",
-      "investment_structure": "Structure d’investissement*",
-      "typical_investment_ticket": "Ticket d’investissement habituel*",
-      "investment_stage": "Stade d’investissement*",
       "what_are_you_looking_for_at_aef": "Que recherchez-vous à l’AEF ?*",
       "examples_infrastructure_projects_energy_assets_mineral_processing_opportunities_government_backed_projects_etc": "Exemples : projets d’infrastructure, actifs énergétiques, opportunités de transformation des minerais, projets soutenus par les gouvernements, etc.",
       "your_investment_opportunity_project_owner": "VOTRE OPPORTUNITÉ D’INVESTISSEMENT (PORTEUR DE PROJET)",
       "project_name": "Nom du projet*",
       "project_title": "Titre du projet",
       "country_location": "Pays / Localisation",
-      "sector": "Secteur",
       "expected_investment_financing_timeline": "Calendrier prévu pour l’investissement / financement*",
       "e_g_q3_2026": "ex. T3 2026",
       "total_project_value": "Valeur totale du projet*",
       "capital_required": "Capital requis*",
-      "capital_structure_sought": "Structure de capital recherchée*",
       "current_funding_partners": "Financement / Partenaires actuels",
       "details": "Détails...",
       "what_type_of_investor_or_partner_are_you_seeking": "Quel type d’investisseur ou de partenaire recherchez-vous ?*",
@@ -480,16 +528,10 @@
       "your_strategic_mandate_government": "VOTRE MANDAT STRATÉGIQUE (GOUVERNEMENT)",
       "institution_ministry": "Institution / Ministère*",
       "senior_representative": "Représentant principal*",
-      "priority_sectors": "Secteurs prioritaires*",
       "investment_priorities": "Priorités d’investissement*",
       "projects_requiring_capital": "Projets nécessitant des capitaux",
       "estimated_capital_requirement": "Besoin estimé en capital (€)",
-      "type_of_partners_sought": "Type de partenaires recherchés",
       "your_partnership_mandate_strategic_partner": "VOTRE MANDAT DE PARTENARIAT (PARTENAIRE STRATÉGIQUE)",
-      "strategic_capabilities_you_bring": "Capacités stratégiques que vous apportez*",
-      "african_markets_of_interest": "Marchés africains d’intérêt*",
-      "sectors_of_interest": "Secteurs d’intérêt*",
-      "type_of_partnerships_sought": "Type de partenariats recherchés*",
       "describe_the_opportunity_or_partnership_you_would_like_to_explore": "Décrivez l’opportunité ou le partenariat que vous souhaitez explorer*",
       "step_3_your_deal_priority": "ÉTAPE 3 — VOTRE PRIORITÉ D’AFFAIRES",
       "what_would_you_like_to_advance_through_the_aef_deal_room": "QUE SOUHAITEZ-VOUS FAIRE AVANCER GRÂCE AU DEAL ROOM AEF ?*",
@@ -519,7 +561,6 @@
       "register_for_aef_2026": "S’inscrire à l’AEF 2026",
       "10_11_november_2026_kinshasa": "10–11 novembre 2026 · Kinshasa",
       "your_full_name": "Votre nom complet",
-      "email": "E-mail",
       "you_example_com": "vous@example.com",
       "organization": "Organisation",
       "organization_company": "Organisation / Entreprise",
@@ -531,7 +572,6 @@
       "create_your_aef_account_to_access_the_platform": "Créez votre compte AEF pour accéder à la plateforme."
     }
   },
-
   "forums": {
     "africaPeaceForum": {
       "title": "Africa Peace Forum",
@@ -580,7 +620,6 @@
       "fromDialogueToAction": "Relier leadership politique, institutions, entreprises et capitaux afin de créer des bases plus solides pour la paix, la stabilité et la prospérité en Afrique.",
       "joinForum": "Rejoindre l’Africa Peace Forum"
     },
-
     "africaAgricultureFoodForum": {
       "title": "Africa Agriculture & Food Forum (AAFF)",
       "description": "Transformer l’agriculture africaine d’une agriculture de subsistance en un système moderne, productif et durable.",
@@ -640,7 +679,6 @@
       "joinForum": "Rejoindre l’Africa Agriculture & Food Forum"
     }
   },
-
   "intervenantsPage": {
     "forum": "Africa Economic Forum 2026",
     "title": "Intervenants",
@@ -682,4 +720,4 @@
       "lindaKarimCreevey": "Représentante du Liberia pour le commerce et l’investissement en Asie et en Australie."
     }
   }
-        }
+}
