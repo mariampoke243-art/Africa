@@ -268,24 +268,24 @@
     "becomeMember": "Become a Member",
     "members": {
       "akwasiOpongFosu": {
-        "role": "Chairman, Advisory Board",
-        "bio": "Providing strategic guidance and leadership to support the Forum's mission and long-term vision."
+        "role": "Advisory Board Member",
+        "bio": "Hon. Dr. Akwasi Opong-Fosu is a distinguished Ghanaian politician, governance and public policy expert with over four decades of public service. He spent almost two decades in local government leadership, including as Mayor, and later served as President of the African Union of Local Authorities and UN Special Advisor on Local Authorities. A former Member of Parliament, he held key ministerial portfolios, including Minister of State at the Presidency responsible for Development Authorities. He currently chairs the Ghana Investment Promotion Centre and founded the Africa Global Emergence Centre, a research, policy and advocacy think tank working at the intersection of governance and economic growth through increased trade and investment flows to Africa."
       },
       "zarinahTraciSilas": {
-        "role": "Executive Board Member",
-        "bio": "Supporting the Forum's strategic development and institutional partnerships."
+        "role": "Africa Peace Forum Chair and Executive Board Member",
+        "bio": "A career federal executive holding a lifetime appointment to the United States Senior Executive Service. Over two decades, she has advised Presidents, Cabinet Secretaries, and world leaders on national security and counterterrorism, building DHS’s $120 million USD terrorism prevention program and founding CBP’s first Forced Labor Division, commanding a $3 billion USD portfolio against global trafficking. As a trained international lawyer, she is Co-Founder of Africa Resources Capital Holdings and CEO of Ballard & Silas LLC, driving international trade and diplomacy worldwide."
       },
       "jacquelineJaqCampbell": {
-        "role": "Executive Board Member",
-        "bio": "Contributing to strategic initiatives and the Forum's engagement with key stakeholders."
+        "role": "Executive Board Member & Chair of AEF Investors Alliance | Co-Chair of Africa Women Forum",
+        "bio": "Jacqueline “JaQ” Campbell is a wealth management executive, entrepreneur, educator, and U.S.–Africa investment strategist with more than three decades of financial-services experience. She is on a global investment and trade mission to bring capital and careers to the continent of Africa, building bridges between investors, institutions, businesses, and emerging talent. As Founder & CEO of Alexander Legacy Private Wealth, Visiting Faculty at GIMPA, and Chair of the Africa Economic Forum Investors Alliance, her work advances investment, workforce development, and economic opportunity. Enstooled in Ghana as Nana Yaa Asabea, JaQ is committed to transforming relationships into sustainable investment, ownership, and generational prosperity across Africa."
       },
       "femiSalami": {
         "role": "Executive Board Member & Chair of the Africa Mining & Minerals Forum",
         "bio": "Dr. Femi Salami (Ph.D., P.E., MAusIMM) is a distinguished mining engineer, academic, and professional with expertise in mining innovation, energy sustainability, critical minerals development, and climate-smart mining. He earned a First-Class Bachelor’s degree in Mining Engineering from the Federal University of Technology Akure, Nigeria and a Ph.D. in Mining Engineering from Missouri University of Science and Technology, USA. Dr. Salami has received over 70 awards and recognitions for scholarly excellence in Mining. He is a licensed mining engineer in the United Kingdom and Nigeria and a Professional Engineer (P.E.) in the United States. He is also a member of several leading professional and scientific organizations."
       },
       "abrahamDwumaOdoom": {
-        "role": "Executive Board Member",
-        "bio": "Contributing leadership and strategic perspectives to the Forum's programmes and partnerships."
+        "role": "Executive Board Member and Chair of the Africa Agriculture & Food Forum",
+        "bio": "Former Member of Parliament and Deputy Minister of Agriculture, Ghana. Architect of Ghana's agricultural transformation through pro-poor policies. Internationally respected expert on agribusiness, rural development, and food security strategies."
       },
       "aminaToure": {
         "role": "Scientific Committee member",
@@ -476,4 +476,4 @@
       "lindaKarimCreevey": "Liberia's Trade and Investment Representative for Asia and Australia."
     }
   }
-          }
+}
