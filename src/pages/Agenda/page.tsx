@@ -48,7 +48,7 @@ const event = {
 };
 
 const agendaPdfUrl =
-  '/images/AEF_2026_Kinshasa_Brochure_FINAL-1.pdf';
+  '/images/AEF_2026_Kinshasa_Brochure_REVISED.pdf';
 
 /* ===================================================
    DAY ONE
