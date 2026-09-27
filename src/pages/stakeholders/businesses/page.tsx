@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 
 export default function BusinessesPage() {
@@ -141,83 +143,6 @@ export default function BusinessesPage() {
     }
   };
 
-  const benefits = [
-    {
-      icon: 'ri-handshake-line',
-      title: 'Strategic Partnerships',
-      description: 'Connect with leading African and international businesses for joint ventures and collaborations.'
-    },
-    {
-      icon: 'ri-funds-line',
-      title: 'Investment Opportunities',
-      description: 'Access exclusive investment deals and funding opportunities across African markets.'
-    },
-    {
-      icon: 'ri-global-line',
-      title: 'Market Intelligence',
-      description: 'Receive quarterly insights and market analysis to inform your business strategy.'
-    },
-    {
-      icon: 'ri-group-line',
-      title: 'Executive Networking',
-      description: 'Join exclusive events and roundtables with C-suite executives and industry leaders.'
-    },
-    {
-      icon: 'ri-government-line',
-      title: 'Policy Influence',
-      description: 'Participate in policy discussions and contribute to economic frameworks.'
-    },
-    {
-      icon: 'ri-trophy-line',
-      title: 'Recognition Programs',
-      description: 'Showcase your achievements through our awards and recognition initiatives.'
-    }
-  ];
-
-  const memberCompanies = [
-    {
-      name: 'Dangote Group',
-      industry: 'Conglomerate',
-      country: 'Nigeria',
-      description: 'Africa\'s largest industrial conglomerate with operations across cement, sugar, and petrochemicals.',
-      logo: 'https://readdy.ai/api/search-image?query=Dangote%20Group%20corporate%20logo%2C%20Nigerian%20multinational%20conglomerate%20company%20branding%2C%20professional%20business%20logo%20design&width=120&height=80&seq=dangote-logo&orientation=landscape'
-    },
-    {
-      name: 'Shoprite Holdings',
-      industry: 'Retail',
-      country: 'South Africa',
-      description: 'Leading retail chain across Africa with over 2,800 stores in 15 countries.',
-      logo: 'https://readdy.ai/api/search-image?query=Shoprite%20Holdings%20corporate%20logo%2C%20South%20African%20retail%20company%20branding%2C%20supermarket%20chain%20logo%20design&width=120&height=80&seq=shoprite-logo&orientation=landscape'
-    },
-    {
-      name: 'Equity Bank',
-      industry: 'Financial Services',
-      country: 'Kenya',
-      description: 'Pan-African financial services provider serving over 14 million customers.',
-      logo: 'https://readdy.ai/api/search-image?query=Equity%20Bank%20corporate%20logo%2C%20Kenyan%20financial%20services%20company%20branding%2C%20banking%20institution%20logo%20design&width=120&height=80&seq=equity-logo&orientation=landscape'
-    },
-    {
-      name: 'MTN Group',
-      industry: 'Telecommunications',
-      country: 'South Africa',
-      description: 'Leading telecommunications operator across Africa and the Middle East.',
-      logo: 'https://readdy.ai/api/search-image?query=MTN%20Group%20corporate%20logo%2C%20South%20African%20telecommunications%20company%20branding%2C%20mobile%20network%20operator%20logo&width=120&height=80&seq=mtn-logo&orientation=landscape'
-    },
-    {
-      name: 'Ecobank',
-      industry: 'Banking',
-      country: 'Togo',
-      description: 'Pan-African banking group operating in 33 African countries.',
-      logo: 'https://readdy.ai/api/search-image?query=Ecobank%20corporate%20logo%2C%20Togolese%20pan-African%20banking%20group%20branding%2C%20financial%20institution%20logo%20design&width=120&height=80&seq=ecobank-logo&orientation=landscape'
-    },
-    {
-      name: 'Sasol',
-      industry: 'Energy & Chemicals',
-      country: 'South Africa',
-      description: 'Integrated energy and chemical company with operations across Africa.',
-      logo: 'https://readdy.ai/api/search-image?query=Sasol%20corporate%20logo%2C%20South%20African%20energy%20and%20chemical%20company%20branding%2C%20industrial%20corporation%20logo&width=120&height=80&seq=sasol-logo&orientation=landscape'
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -356,126 +281,193 @@ export default function BusinessesPage() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center text-white">
-            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <i className="ri-building-line text-3xl text-white"></i>
-            </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">Business Stakeholders</h1>
-            <p className="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-              Leading enterprises, corporates, and entrepreneurs shaping Africa's economic landscape and driving innovation across sectors.
+          <div className="text-white">
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6">Business & Private Sector</h1>
+            <h2 className="text-2xl lg:text-3xl font-semibold mb-8 text-blue-100">Private Sector as the Engine of Africa's Transformation</h2>
+            <p className="text-lg text-blue-100 max-w-4xl mb-8 leading-relaxed">
+              The Business & Private Sector platform connects African and international companies, corporate leaders, industry associations, and business ecosystems to drive investment, innovation, job creation, and sustainable economic growth across the continent.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Membership Benefits</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Join Africa's most influential business network and unlock exclusive opportunities for growth and collaboration.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <i className={`${benefit.icon} text-2xl text-blue-600`}></i>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Member Companies */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Distinguished Members</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Join leading African businesses that are driving economic transformation across the continent.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {memberCompanies.map((company, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-                <div className="flex items-center mb-4">
-                  <img
-                    src={company.logo}
-                    alt={`${company.name} logo`}
-                    className="w-16 h-12 object-contain mr-4"
-                  />
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{company.name}</h3>
-                    <p className="text-sm text-gray-500">{company.country}</p>
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">
-                    {company.industry}
-                  </span>
-                </div>
-                <p className="text-gray-600 text-sm">{company.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Statistics */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Business Network Impact</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-900 mb-2">500+</div>
-              <div className="text-gray-600">Member Companies</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-900 mb-2">$50B+</div>
-              <div className="text-gray-600">Combined Revenue</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-900 mb-2">2M+</div>
-              <div className="text-gray-600">Jobs Created</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-900 mb-2">35</div>
-              <div className="text-gray-600">Countries Represented</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-20 bg-blue-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Join Africa's Leading Business Network?</h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-            Connect with influential business leaders, access exclusive opportunities, and drive Africa's economic transformation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => setShowMembershipForm(true)}
               className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
             >
-              Apply for Membership
+              Apply for Partnership
             </button>
-            <a
-              href="/contact"
-              className="border-2 border-white text-white px-8 py-3 rounded-md hover:bg-white hover:text-blue-900 font-medium whitespace-nowrap cursor-pointer inline-block"
-            >
-              Learn More
-            </a>
           </div>
+        </div>
+      </section>
+
+      {/* Building Resilient Ecosystem Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">Building a Resilient African Business Ecosystem</h2>
+            <p className="text-lg text-gray-600 max-w-4xl mb-12 leading-relaxed">
+              The AEF Business Platform is designed to serve as a strategic interface between African governments, global corporations, African enterprises, investors, and industry leaders. It facilitates market entry strategies, partnerships, and long-term value creation in Africa's most dynamic sectors.
+            </p>
+
+            <div className="space-y-8">
+              {/* Item 1 */}
+              <div className="flex gap-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex-shrink-0 flex items-center justify-center">
+                  <i className="ri-handshake-line text-2xl text-blue-600"></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Strategic Partnerships & Market Entry</h3>
+                  <p className="text-gray-600">
+                    Facilitation of cross-border partnerships, joint ventures, and market access strategies for companies seeking to expand their operations in Africa.
+                  </p>
+                </div>
+              </div>
+
+              {/* Item 2 */}
+              <div className="flex gap-6">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex-shrink-0 flex items-center justify-center">
+                  <i className="ri-building-line text-2xl text-green-600"></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Corporate-to-Government Dialogue & Policy Alignment</h3>
+                  <p className="text-gray-600">
+                    Private dialogue platforms, policy roundtables, and business councils connecting corporate leaders with policymakers to shape regulatory frameworks and investment environments.
+                  </p>
+                </div>
+              </div>
+
+              {/* Item 3 */}
+              <div className="flex gap-6">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex-shrink-0 flex items-center justify-center">
+                  <i className="ri-store-2-line text-2xl text-purple-600"></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Sector-Specific Collaboration & Supply Chain Development</h3>
+                  <p className="text-gray-600">
+                    Industry forums, supply chain optimization programs, and sector-based investment roadmaps across key industries including agriculture, manufacturing, logistics, energy, and technology.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Platform Features Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-20">
+            <div className="relative mb-16">
+              <img
+                src="https://readdy.ai/api/search-image?query=African%20business%20leaders%20in%20modern%20corporate%20boardroom%2C%20diverse%20group%20of%20executives%20in%20professional%20attire%20discussing%20strategy%2C%20contemporary%20office%20setting%20with%20African%20art%20and%20city%20skyline&width=1200&height=500&seq=businesses-meeting&orientation=landscape"
+                alt="Business Meeting"
+                className="w-full h-96 object-cover rounded-lg shadow-lg"
+              />
+            </div>
+
+            <div className="text-center mb-16">
+              <p className="text-gray-600 text-lg mb-16">Direct connections to African governments, businesses, and civil society</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-12">
+              {/* Program Implementation */}
+              <div className="text-center space-y-4">
+                <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
+                  <i className="ri-notification-badge-line text-4xl text-purple-600"></i>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Program Implementation</h3>
+                <p className="text-gray-600">Efficient delivery of development programs and initiatives</p>
+              </div>
+
+              {/* Impact Measurement */}
+              <div className="text-center space-y-4">
+                <div className="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
+                  <i className="ri-bar-chart-line text-4xl text-orange-600"></i>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Impact Measurement</h3>
+                <p className="text-gray-600">Comprehensive monitoring and evaluation of development outcomes</p>
+              </div>
+
+              {/* Innovation Hub */}
+              <div className="text-center space-y-4">
+                <div className="w-24 h-24 bg-teal-100 rounded-full flex items-center justify-center mx-auto">
+                  <i className="ri-lightbulb-line text-4xl text-teal-600"></i>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Innovation Hub</h3>
+                <p className="text-gray-600">Platform for testing and scaling innovative development solutions</p>
+              </div>
+
+              {/* Risk Mitigation */}
+              <div className="text-center space-y-4">
+                <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+                  <i className="ri-shield-check-line text-4xl text-red-600"></i>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Risk Mitigation</h3>
+                <p className="text-gray-600">Reduced operational risks through local partnerships and knowledge</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partnership Benefits Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Partnership Benefits</h2>
+            <p className="text-lg text-gray-600">Advantages of collaborating with the Africa Economic Forum</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-16">
+            {/* Local Expertise */}
+            <div className="text-center space-y-4">
+              <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                <i className="ri-map-pin-line text-4xl text-blue-600"></i>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900">Local Expertise</h3>
+              <p className="text-gray-600">Deep understanding of African markets, cultures, and business environments</p>
+            </div>
+
+            {/* Network Access */}
+            <div className="text-center space-y-4">
+              <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                <i className="ri-group-line text-4xl text-green-600"></i>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900">Network Access</h3>
+              <p className="text-gray-600">Direct connections to African governments, businesses, and civil society</p>
+            </div>
+
+            {/* Program Implementation */}
+            <div className="text-center space-y-4">
+              <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
+                <i className="ri-notification-badge-line text-4xl text-purple-600"></i>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900">Program Implementation</h3>
+              <p className="text-gray-600">Efficient delivery of development programs and initiatives</p>
+            </div>
+
+            {/* Risk Mitigation */}
+            <div className="text-center space-y-4">
+              <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+                <i className="ri-shield-check-line text-4xl text-red-600"></i>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900">Risk Mitigation</h3>
+              <p className="text-gray-600">Reduced operational risks through local partnerships and knowledge</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partner with Us Section */}
+      <section className="py-20 bg-blue-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold mb-6">Partner with Us</h2>
+          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+            Join our network of business leaders driving sustainable economic growth and innovation across Africa.
+          </p>
+          <button
+            onClick={() => setShowMembershipForm(true)}
+            className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
+          >
+            Apply for Partnership
+          </button>
         </div>
       </section>
 
@@ -676,7 +668,7 @@ export default function BusinessesPage() {
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Business Membership Application</h3>
+                <h3 className="text-2xl font-bold text-gray-900">Business Partnership Application</h3>
                 <button
                   onClick={() => setShowMembershipForm(false)}
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
