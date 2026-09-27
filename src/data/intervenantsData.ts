@@ -206,11 +206,11 @@ export const listeIntervenants: Intervenant[] = [
 
   {
     id: '28',
-    key: 'cheikhAhmedHAlGhareeb',
-    nom: 'HE Sheikh Ahmed H. Al Ghareeb',
-    photoUrl: '/images/LE Cheikh Ahmed H al ghareeb.jpg',
+    key: 'drMohamedTawfik',
+    nom: 'Dr Mohamed Tawfik',
+    photoUrl: '/images/Dr Mohamed Tawfik.jpg',
     description:
-      'CEO Middle East - CICERES MONACO\nChairman Middle East - MARIA GROUP INTERNATIONAL',
+      'President, ISCEA KSA\nMember of the ISCEA IMPA Healthcare Advisory Board',
     statut: 'Confirmé',
   },
 
@@ -250,7 +250,7 @@ export const listeIntervenants: Intervenant[] = [
     nom: 'Lethabo Bosoga',
     photoUrl: '/images/Lethabo Bosoga.jpg',
     description:
-      'Partenaire Associé dans la Banque et les Finances, Procureur Motsoeneng Bill',
+      'Associate Partner in Banking and Finance, Motsoeneng Bill Attorneys',
     statut: 'Confirmé',
   },
 
