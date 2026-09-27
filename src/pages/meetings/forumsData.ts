@@ -546,4 +546,154 @@ export const forums: Forum[] = [
       },
     ],
   },
+
+  // ============================================================
+  // NEW FORUMS
+  // ============================================================
+
+  {
+    id: 10,
+    key: 'africaWomenForum',
+    image: '/images/africa-lead.jpg',
+
+    title: 'Africa Women Forum',
+
+    description:
+      "Establish the women's economic leadership agenda as the cornerstone of continental sovereignty.",
+
+    overview:
+      "The Africa Women Forum moves beyond empowerment rhetoric to focus on women as essential architects of economic resilience, strategic decision-makers, and drivers of inclusive growth. The agenda is designed to secure tangible leadership roles, investment capital, and procurement opportunities for women, integrating their influence directly into the continent's sovereign agenda.",
+
+    objectives: [
+      "Establish women's economic leadership as a core component of Africa's development agenda.",
+      'Increase access to investment capital for women-led and women-backed enterprises.',
+      'Strengthen strategic alliances between women leaders across sectors and borders.',
+      'Promote financial inclusion and access to capital for women.',
+      "Advance women's leadership in the digital economy and governance.",
+    ],
+
+    keyAreas: [
+      "Policy Architecture: Designing Africa's Gender Economic Agenda",
+      'Capital Connectivity: Women-Backed Enterprises Investment Fund',
+      'Strategic Alliance Building: Partnerships across sectors and borders',
+      'Financial Inclusion Architecture and Access to Capital',
+      "Digital Economy Governance and Women's Leadership",
+    ],
+
+    pillars: [
+      {
+        title: 'Policy Architecture',
+        items: [
+          "Designing Africa's Gender Economic Agenda",
+          "Women's economic leadership",
+          'Policy and institutional frameworks',
+        ],
+      },
+      {
+        title: 'Capital Connectivity',
+        items: [
+          'Women-Backed Enterprises Investment Fund',
+          'Access to investment capital',
+          'Investment opportunities for women-led businesses',
+        ],
+      },
+      {
+        title: 'Strategic Alliance Building',
+        items: [
+          'Partnerships across sectors',
+          'Cross-border partnerships',
+          'Women leaders and strategic networks',
+        ],
+      },
+      {
+        title: 'Financial Inclusion',
+        items: [
+          'Access to capital',
+          'Financial inclusion architecture',
+          'Inclusive economic participation',
+        ],
+      },
+      {
+        title: 'Digital Economy and Leadership',
+        items: [
+          "Digital economy governance",
+          "Women's leadership in technology",
+          'Digital transformation and inclusion',
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 11,
+    key: 'africaTourismTradeForum',
+    image: '/images/africatourism.jpg',
+
+    title: 'Africa Tourism & Trade Forum',
+
+    description:
+      'Selling the African experience to the world and dismantling barriers to intra-African trade.',
+
+    overview:
+      'This forum is dedicated to selling the African experience to the world and dismantling barriers to intra-African trade. We target global hotel chains, airlines, tour operators, and retail giants, focusing on high-value tourism (eco, cultural, luxury) and the practical implementation of the AfCFTA.',
+
+    objectives: [
+      'Promote Africa as a high-value global tourism destination.',
+      'Attract international investment into African tourism and trade.',
+      'Strengthen intra-African trade and remove practical barriers to regional commerce.',
+      'Develop partnerships with global hotel chains, airlines, tour operators, and retail groups.',
+      'Support the practical implementation of the AfCFTA through tourism, trade, and retail partnerships.',
+    ],
+
+    keyAreas: [
+      'Luxury Eco-Tourism and Conservation-Led Development',
+      'Film, Music, and Cultural Festivals as Economic Drivers',
+      'The Single African Air Transport Market – Making Travel Seamless',
+      'Cross-border Trade and Retail Partnerships',
+      'High-Value Tourism Investment',
+    ],
+
+    pillars: [
+      {
+        title: 'Luxury Eco-Tourism',
+        items: [
+          'Luxury tourism',
+          'Eco-tourism',
+          'Conservation-led development',
+        ],
+      },
+      {
+        title: 'Culture and Creative Economy',
+        items: [
+          'Film and music',
+          'Cultural festivals',
+          'Creative industries as economic drivers',
+        ],
+      },
+      {
+        title: 'African Air Transport',
+        items: [
+          'The Single African Air Transport Market',
+          'Seamless travel across Africa',
+          'Airline partnerships',
+        ],
+      },
+      {
+        title: 'Trade and Retail',
+        items: [
+          'Cross-border trade',
+          'Retail partnerships',
+          'Intra-African commerce',
+        ],
+      },
+      {
+        title: 'Tourism Investment',
+        items: [
+          'High-value tourism investment',
+          'Global tourism partnerships',
+          'Tourism infrastructure and development',
+        ],
+      },
+    ],
+  },
 ];
