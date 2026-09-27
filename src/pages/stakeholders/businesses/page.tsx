@@ -1,12 +1,45 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export default function BusinessesPage() {
+  // ✅ State variables (ÉTAIENT MANQUANTS)
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showCreateAccount, setShowCreateAccount] = useState(false);
   const [showMembershipForm, setShowMembershipForm] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
 
+  // ✅ Load user from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedUser = localStorage.getItem('aef_user');
+      if (savedUser) {
+        const parsed = JSON.parse(savedUser);
+        if (parsed && typeof parsed.name === 'string' && typeof parsed.email === 'string') {
+          setUser(parsed);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to read user from localStorage:', err);
+    }
+  }, []);
+
+  // ✅ Handlers (ÉTAIENT MANQUANTS OU INCOMPLETS)
   const handleSignIn = () => {
     setShowSignInModal(true);
+    setShowCreateAccount(false);
+  };
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('aef_user');
+    } catch (err) {
+      console.error('Failed to remove user from localStorage:', err);
+    }
+    setUser(null);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const handleSignInSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,8 +50,21 @@ export default function BusinessesPage() {
       const password = formData.get('password') as string;
 
       if (email && password) {
-        alert('Login successful! Welcome back.');
-        setShowSignInModal(false);
+        const userName = email.split('@')[0];
+        const userData = {
+          name: userName.charAt(0).toUpperCase() + userName.slice(1),
+          email: email,
+        };
+
+        try {
+          localStorage.setItem('aef_user', JSON.stringify(userData));
+          setUser(userData);
+          alert('Sign in successful! Welcome back.');
+          setShowSignInModal(false);
+        } catch (err) {
+          console.error('Failed to store user data:', err);
+          alert('An error occurred while signing in. Please try again.');
+        }
       } else {
         alert('Please fill in all required fields.');
       }
@@ -26,6 +72,50 @@ export default function BusinessesPage() {
       console.error('Login error:', err);
       alert('An unexpected error occurred. Please try again later.');
     }
+  };
+
+  const handleCreateAccountSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const confirmPassword = formData.get('confirm_password') as string;
+    const firstName = formData.get('first_name') as string;
+    const lastName = formData.get('last_name') as string;
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match. Please try again.');
+      return;
+    }
+
+    if (email && password && firstName && lastName) {
+      const userData = {
+        name: `${firstName} ${lastName}`,
+        email: email,
+      };
+
+      try {
+        localStorage.setItem('aef_user', JSON.stringify(userData));
+        setUser(userData);
+        alert('Account created successfully! Welcome to Africa Economic Forum.');
+        setShowSignInModal(false);
+        setShowCreateAccount(false);
+      } catch (err) {
+        console.error('Failed to store new account data:', err);
+        alert('An error occurred while creating the account. Please try again.');
+      }
+    } else {
+      alert('Please fill in all required fields.');
+    }
+  };
+
+  const switchToCreateAccount = () => {
+    setShowCreateAccount(true);
+  };
+
+  const switchToSignIn = () => {
+    setShowCreateAccount(false);
   };
 
   const handleMembershipSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -171,18 +261,91 @@ export default function BusinessesPage() {
               </a>
             </nav>
             <div className="hidden md:flex items-center space-x-4">
-              <button
-                onClick={handleSignIn}
-                className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
-              >
-                Sign In
-              </button>
+              {user ? (
+                <div className="flex items-center space-x-3">
+                  <span className="text-gray-700">Welcome, {user.name}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </button>
+              )}
             </div>
-            <button className="md:hidden p-2 cursor-pointer">
-              <i className="ri-menu-line text-2xl"></i>
+            <button
+              className="md:hidden p-2 cursor-pointer"
+              onClick={toggleMobileMenu}
+            >
+              <i className={`ri-${isMobileMenuOpen ? 'close' : 'menu'}-line text-2xl`}></i>
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <a href="/" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                Home
+              </a>
+              <a href="/about" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                About
+              </a>
+              <a href="/initiatives" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                Initiatives
+              </a>
+              <a href="/stakeholders" className="block px-3 py-2 text-base font-medium text-teal-600 bg-teal-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                Stakeholders
+              </a>
+              <a href="/agenda" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                Agenda
+              </a>
+              <a href="/publications" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                Publications
+              </a>
+              <a href="/meetings" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                Meetings
+              </a>
+              <a href="/contact" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+                Contact
+              </a>
+              <div className="px-3 py-2">
+                {user ? (
+                  <div className="space-y-2">
+                    <div className="text-gray-700">Welcome, {user.name}</div>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      handleSignIn();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
+                  >
+                    Sign In
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
@@ -322,7 +485,9 @@ export default function BusinessesPage() {
           <div className="bg-white rounded-lg max-w-md w-full">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Sign In</h3>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  {showCreateAccount ? 'Create Account' : 'Sign In'}
+                </h3>
                 <button
                   onClick={() => setShowSignInModal(false)}
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -331,38 +496,175 @@ export default function BusinessesPage() {
                 </button>
               </div>
 
-              <form onSubmit={handleSignInSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    placeholder="Enter your email address"
-                  />
+              {/* Sign‑In Form */}
+              {!showCreateAccount && (
+                <>
+                  <form onSubmit={handleSignInSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        placeholder="Enter your email address"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Password *
+                      </label>
+                      <input
+                        type="password"
+                        name="password"
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        placeholder="Enter your password"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="flex items-center space-x-2">
+                        <input type="checkbox" name="remember_me" className="cursor-pointer" />
+                        <span className="text-sm text-gray-600">Remember me</span>
+                      </label>
+                      <button type="button" className="text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
+                        Forgot password?
+                      </button>
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
+                    >
+                      Sign In
+                    </button>
+                  </form>
+                  <div className="mt-6 text-center">
+                    <p className="text-sm text-gray-600">
+                      Don't have an account?
+                      <button
+                        onClick={switchToCreateAccount}
+                        className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
+                      >
+                        Create Account
+                      </button>
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {/* Create Account Form */}
+              {showCreateAccount && (
+                <>
+                  <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                        <input
+                          type="text"
+                          name="first_name"
+                          required
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                          placeholder="First name"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                        <input
+                          type="text"
+                          name="last_name"
+                          required
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                          placeholder="Last name"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        placeholder="Enter your email address"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Password *</label>
+                      <input
+                        type="password"
+                        name="password"
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        placeholder="Create a password"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password *</label>
+                      <input
+                        type="password"
+                        name="confirm_password"
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        placeholder="Confirm your password"
+                      />
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <input
+                        type="checkbox"
+                        name="terms_agreement"
+                        required
+                        className="mt-1 cursor-pointer"
+                      />
+                      <span className="text-sm text-gray-600">
+                        I agree to the Terms of Service and Privacy Policy
+                      </span>
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
+                    >
+                      Create Account
+                    </button>
+                  </form>
+                  <div className="mt-6 text-center">
+                    <p className="text-sm text-gray-600">
+                      Already have an account?
+                      <button
+                        onClick={switchToSignIn}
+                        className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
+                      >
+                        Sign In
+                      </button>
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {/* Social Auth Buttons – shown only for sign‑in */}
+              {!showCreateAccount && (
+                <div className="mt-6">
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                    </div>
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-3">
+                    <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
+                      <i className="ri-google-fill text-red-500 text-lg"></i>
+                      <span className="ml-2">Google</span>
+                    </button>
+                    <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
+                      <i className="ri-linkedin-fill text-blue-600 text-lg"></i>
+                      <span className="ml-2">LinkedIn</span>
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Password *
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    placeholder="Enter your password"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
-                >
-                  Sign In
-                </button>
-              </form>
+              )}
             </div>
           </div>
         </div>
@@ -371,7 +673,7 @@ export default function BusinessesPage() {
       {/* Membership Application Modal */}
       {showMembershipForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-screen overflow-y-auto">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-900">Business Membership Application</h3>
@@ -530,12 +832,21 @@ export default function BusinessesPage() {
                   </span>
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
-                >
-                  Submit Application
-                </button>
+                <div className="flex justify-end space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowMembershipForm(false)}
+                    className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 cursor-pointer"
+                  >
+                    Submit Application
+                  </button>
+                </div>
               </form>
             </div>
           </div>
@@ -631,9 +942,11 @@ export default function BusinessesPage() {
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy &amp; Terms of Service
                 </a>
-                
+                <a href="/sitemap" className="hover:text-white cursor-pointer">
+                  Sitemap
+                </a>
                 <p>© 2025 Africa Economic Forum</p>
-                <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
+                <a href="https://readdy.ai/?origin=logo" className="hover:text-white cursor-pointer">Website Builder</a>
               </div>
             </div>
           </div>
