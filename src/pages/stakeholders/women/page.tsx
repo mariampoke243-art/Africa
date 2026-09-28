@@ -1,7 +1,12 @@
+'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const WomenPage: React.FC = () => {
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -22,45 +27,120 @@ const WomenPage: React.FC = () => {
     termsAccepted: false,
   });
 
+  useEffect(() => {
+    const savedUser = localStorage.getItem('aef_user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  const handleSignIn = () => {
+    setShowSignInModal(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('aef_user');
+    setUser(null);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const switchToCreateAccount = () => {
+    setShowSignInModal(false);
+    setShowCreateAccountModal(true);
+  };
+
+  const switchToSignIn = () => {
+    setShowCreateAccountModal(false);
+    setShowSignInModal(true);
+  };
+
+  const handleSignInSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      if (email && password) {
+        const userData = { name: email.split('@')[0], email };
+        localStorage.setItem('aef_user', JSON.stringify(userData));
+        setUser(userData);
+        alert('Login successful! Welcome back.');
+        setShowSignInModal(false);
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('An unexpected error occurred. Please try again later.');
+    }
+  };
+
+  const handleCreateAccountSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      if (name && email && password) {
+        const userData = { name, email };
+        localStorage.setItem('aef_user', JSON.stringify(userData));
+        setUser(userData);
+        alert('Account created successfully! Welcome to AEF.');
+        setShowCreateAccountModal(false);
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    } catch (err) {
+      console.error('Account creation error:', err);
+      alert('An unexpected error occurred. Please try again later.');
+    }
+  };
+
   const focusAreaOptions = [
-    'Economic Empowerment',
-    'Leadership Development',
-    'Entrepreneurship',
-    'Education & Skills',
-    'Health & Wellness',
+    'Entrepreneurship & Business',
+    'Leadership & Governance',
+    'Finance & Investment',
     'Technology & Innovation',
-    'Political Participation',
-    'Gender Equality Advocacy',
-    'Work-Life Balance',
-    'Financial Inclusion',
-    'Social Impact',
-    'Climate Action',
+    'Education & Skills Development',
+    'Healthcare & Social Services',
+    'Environmental Sustainability',
+    'Policy & Advocacy',
+    'Arts & Culture',
+    'Agriculture & Rural Development',
+    'Manufacturing & Industry',
+    'Nonprofit & Social Enterprise'
   ];
 
   const mentorshipOptions = [
-    'Career Advancement',
-    'Business Development',
-    'Leadership Skills',
-    'Public Speaking',
-    'Networking Strategies',
-    'Work-Life Integration',
-    'Financial Planning',
-    'Personal Branding',
-    'Negotiation Skills',
-    'Board Readiness',
-    'Entrepreneurship',
-    'Digital Skills',
+    'Seeking mentorship',
+    'Willing to mentor',
+    'Both mentoring and being mentored',
+    'Senior leadership guidance',
+    'Technical skills training',
+    'Business strategy coaching',
+    'Career development support',
+    'Financial literacy training',
+    'Industry-specific knowledge',
+    'Public speaking & communication',
+    'Board & governance experience',
+    'Startup founder support'
   ];
 
   const networkingOptions = [
-    'Professional Meetups',
-    'Industry Conferences',
-    'Mentorship Circles',
-    'Online Communities',
-    'Skill-sharing Workshops',
-    'Leadership Retreats',
-    'Panel Discussions',
-    'Networking Events',
+    'In-person events',
+    'Virtual events & webinars',
+    'One-on-one meetings',
+    'Small group discussions',
+    'Large conferences',
+    'Online community forums',
+    'Regional meetups',
+    'International conferences'
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -85,7 +165,7 @@ const WomenPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Women Empowerment Network application submitted:', formData);
+    console.log('Women Network application submitted:', formData);
     alert('Application submitted successfully! Welcome to the AEF Women Empowerment Network!');
     setIsFormOpen(false);
     setFormData({
@@ -111,48 +191,98 @@ const WomenPage: React.FC = () => {
   const womenLeaders = [
     {
       name: 'Dr. Amara Okafor',
-      role: 'CEO & Founder, TechWomen Africa',
+      title: 'Founder & CEO',
+      organization: 'TechVision Africa',
       expertise: 'Technology & Innovation',
-      achievement: 'Empowered 10,000+ women in tech',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20African%20woman%20CEO%2C%20confident%20expression%2C%20modern%20office%20background%2C%20business%20attire%2C%20technology%20setting%2C%20executive%20leadership%20portrait&width=300&height=300&seq=16&orientation=squarish',
+      image: 'https://readdy.ai/api/search-image?query=Professional%20Black%20female%20tech%20entrepreneur%2C%20confident%20expression%2C%20modern%20office%20setting%2C%20CEO%20business%20professional%2C%20African%20woman%20leader&width=300&height=300&seq=wl1&orientation=squarish',
     },
     {
-      name: 'Maria Santos',
-      role: 'Social Impact Entrepreneur',
-      expertise: 'Economic Empowerment',
-      achievement: 'Founded microfinance network',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20Latina%20woman%20entrepreneur%2C%20warm%20smile%2C%20social%20impact%20background%2C%20business%20attire%2C%20community%20development%20setting%2C%20leadership%20portrait&width=300&height=300&seq=17&orientation=squarish',
+      name: 'Zainab Al-Mansouri',
+      title: 'Investment Director',
+      organization: 'Arab Women Capital Fund',
+      expertise: 'Finance & Investment',
+      image: 'https://readdy.ai/api/search-image?query=Professional%20Middle%20Eastern%20woman%2C%20investment%20professional%2C%20confident%20smile%2C%20financial%20services%20setting%2C%20female%20investor%20executive&width=300&height=300&seq=wl2&orientation=squarish',
     },
     {
-      name: 'Dr. Priya Sharma',
-      role: 'Healthcare Innovation Leader',
-      expertise: 'Health & Wellness',
-      achievement: 'Revolutionized maternal healthcare',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20Indian%20woman%20doctor%2C%20confident%20smile%2C%20healthcare%20innovation%20background%2C%20medical%20professional%20attire%2C%20modern%20hospital%20setting%2C%20leadership%20portrait&width=300&height=300&seq=18&orientation=squarish',
+      name: 'Chioma Adeyemi',
+      title: 'Policy Advocate',
+      organization: 'Women Rights International',
+      expertise: 'Policy & Advocacy',
+      image: 'https://readdy.ai/api/search-image?query=Professional%20African%20female%20advocate%2C%20policy%20professional%2C%20confident%20expression%2C%20NGO%20setting%2C%20women%20rights%20champion&width=300&height=300&seq=wl3&orientation=squarish',
     },
     {
-      name: 'Sarah Mitchell',
-      role: 'Climate Action Advocate',
-      expertise: 'Environmental Leadership',
-      achievement: 'Led global climate initiatives',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20woman%20environmental%20leader%2C%20confident%20expression%2C%20sustainability%20background%2C%20business%20attire%2C%20green%20technology%20setting%2C%20climate%20action%20portrait&width=300&height=300&seq=19&orientation=squarish',
+      name: 'María Santos',
+      title: 'Sustainability Director',
+      organization: 'Latin America Green Initiative',
+      expertise: 'Environmental Sustainability',
+      image: 'https://readdy.ai/api/search-image?query=Professional%20Latina%20woman%2C%20environmental%20professional%2C%20sustainability%20expert%2C%20confident%20smile%2C%20green%20business%20setting&width=300&height=300&seq=wl4&orientation=squarish',
     },
   ];
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <a href="/" className="flex items-center">
+                <img
+                  src="https://static.readdy.ai/image/433d1257c1dbc1f8bb2f3f1c418f6689/0727857f21d196505f8ef18cfc1cd897.png"
+                  alt="Africa Economic Forum"
+                  className="h-10 w-auto"
+                />
+              </a>
+            </div>
+            <nav className="hidden md:flex space-x-8">
+              <a href="/" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Home</a>
+              <a href="/about" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">About</a>
+              <a href="/initiatives" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Initiatives</a>
+              <a href="/stakeholders" className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600">Stakeholders</a>
+              <a href="/agenda" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Agenda</a>
+              <a href="/publications" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Publications</a>
+              <a href="/meetings" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Meetings</a>
+              <a href="/contact" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Contact</a>
+            </nav>
+            <div className="hidden md:flex items-center space-x-4">
+              {user ? (
+                <>
+                  <span className="text-gray-700">{user.name}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </button>
+              )}
+            </div>
+            <button onClick={toggleMobileMenu} className="md:hidden p-2 cursor-pointer">
+              <i className="ri-menu-line text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section 
         className="relative h-96 bg-cover bg-center bg-no-repeat flex items-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Diverse%20group%20of%20professional%20women%20collaborating%2C%20modern%20boardroom%20setting%2C%20leadership%20and%20empowerment%2C%20confident%20expressions%2C%20business%20environment%2C%20women%20in%20leadership&width=1200&height=400&seq=20&orientation=landscape')`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Diverse%20group%20of%20professional%20women%20networking%2C%20confident%20female%20leaders%2C%20business%20environment%2C%20women%20empowerment%2C%20female%20leadership%20conference&width=1200&height=400&seq=women-hero&orientation=landscape')`
         }}
       >
         <div className="container mx-auto px-6">
           <div className="max-w-3xl text-white">
             <h1 className="text-5xl font-bold mb-6">Women Empowerment Network</h1>
             <p className="text-xl mb-8 leading-relaxed">
-              Advancing women's leadership, economic empowerment, and gender equality through collaboration, mentorship, and advocacy.
+              Uniting brilliant women leaders, entrepreneurs, and changemakers across Africa and the world to create lasting economic and social impact.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
@@ -170,39 +300,38 @@ const WomenPage: React.FC = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-gray-900 mb-8">Empowering Women Leaders</h2>
             <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-              The AEF Women Empowerment Network is dedicated to advancing women's leadership across all sectors. 
-              We create opportunities for professional growth, provide mentorship and support, and advocate for 
-              policies that promote gender equality and women's economic empowerment globally.
+              The AEF Women Empowerment Network is dedicated to advancing women's leadership, entrepreneurship, and economic participation. 
+              We create spaces for women to connect, learn, share experiences, and collaborate on initiatives that drive positive change.
             </p>
             
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-user-star-line text-2xl text-pink-600"></i>
+                  <i className="ri-team-line text-2xl text-pink-600"></i>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Leadership Development</h3>
+                <h3 className="text-xl font-semibold mb-3">Community & Connection</h3>
                 <p className="text-gray-600">
-                  Comprehensive programs to develop and enhance women's leadership capabilities.
+                  Build meaningful relationships with accomplished women leaders and professionals.
                 </p>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-team-line text-2xl text-purple-600"></i>
+                  <i className="ri-graduation-cap-line text-2xl text-purple-600"></i>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Mentorship & Support</h3>
+                <h3 className="text-xl font-semibold mb-3">Learning & Growth</h3>
                 <p className="text-gray-600">
-                  Connect with experienced mentors and build supportive professional relationships.
+                  Access resources, training, and mentorship to advance your career and impact.
                 </p>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-megaphone-line text-2xl text-blue-600"></i>
+                <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i className="ri-lightbulb-line text-2xl text-teal-600"></i>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Advocacy & Policy</h3>
+                <h3 className="text-xl font-semibold mb-3">Impact & Influence</h3>
                 <p className="text-gray-600">
-                  Advocate for policies and practices that advance gender equality and women's rights.
+                  Collaborate on initiatives that create positive change in your community and globally.
                 </p>
               </div>
             </div>
@@ -219,79 +348,79 @@ const WomenPage: React.FC = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-gradient-to-br from-pink-50 to-pink-100 p-6 rounded-lg">
                 <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-crown-line text-xl text-white"></i>
+                  <i className="ri-briefcase-line text-xl text-white"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Women in Leadership Program</h3>
-                <p className="text-gray-600 mb-4">Executive leadership development for senior women professionals.</p>
+                <h3 className="font-semibold text-gray-900 mb-3">Women Entrepreneurs Program</h3>
+                <p className="text-gray-600 mb-4">Support for women starting and scaling businesses across all sectors.</p>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Executive coaching</li>
-                  <li>• Board readiness training</li>
-                  <li>• Strategic leadership skills</li>
+                  <li>• Startup funding access</li>
+                  <li>• Business mentorship</li>
+                  <li>• Pitch competitions</li>
                 </ul>
               </div>
               
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
                 <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-rocket-line text-xl text-white"></i>
+                  <i className="ri-user-voice-line text-xl text-white"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Women Entrepreneurs Hub</h3>
-                <p className="text-gray-600 mb-4">Support for women starting and scaling their businesses.</p>
+                <h3 className="font-semibold text-gray-900 mb-3">Leadership Academy</h3>
+                <p className="text-gray-600 mb-4">Develop executive and board-level leadership capabilities.</p>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Business incubation</li>
-                  <li>• Access to funding</li>
-                  <li>• Market expansion support</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-graduation-cap-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Skills & Education Initiative</h3>
-                <p className="text-gray-600 mb-4">Professional development and skill-building programs.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Digital literacy training</li>
-                  <li>• Professional certifications</li>
-                  <li>• Career transition support</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-hand-heart-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Mentorship Circles</h3>
-                <p className="text-gray-600 mb-4">Structured mentorship programs connecting women across industries.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• One-on-one mentoring</li>
-                  <li>• Group mentorship circles</li>
-                  <li>• Reverse mentoring programs</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-scales-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Policy Advocacy</h3>
-                <p className="text-gray-600 mb-4">Advancing gender equality through policy research and advocacy.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Policy research</li>
-                  <li>• Legislative advocacy</li>
-                  <li>• Public awareness campaigns</li>
+                  <li>• Leadership coaching</li>
+                  <li>• Board training</li>
+                  <li>• Executive development</li>
                 </ul>
               </div>
               
               <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-lg">
                 <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-global-line text-xl text-white"></i>
+                  <i className="ri-hearts-line text-xl text-white"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Global Women's Summit</h3>
-                <p className="text-gray-600 mb-4">Annual international conference for women leaders and changemakers.</p>
+                <h3 className="font-semibold text-gray-900 mb-3">Mentorship & Coaching</h3>
+                <p className="text-gray-600 mb-4">One-on-one mentoring with experienced leaders in your field.</p>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Keynote speakers</li>
-                  <li>• Networking opportunities</li>
-                  <li>• Workshop sessions</li>
+                  <li>• Career mentoring</li>
+                  <li>• Executive coaching</li>
+                  <li>• Peer support groups</li>
+                </ul>
+              </div>
+              
+              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg">
+                <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
+                  <i className="ri-article-line text-xl text-white"></i>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-3">Research & Advocacy</h3>
+                <p className="text-gray-600 mb-4">Evidence-based advocacy for women's economic participation.</p>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Impact research</li>
+                  <li>• Policy advocacy</li>
+                  <li>• Data insights</li>
+                </ul>
+              </div>
+              
+              <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
+                <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
+                  <i className="ri-calendar-event-line text-xl text-white"></i>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-3">Events & Summits</h3>
+                <p className="text-gray-600 mb-4">Networking conferences and leadership summits throughout the year.</p>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Annual summit</li>
+                  <li>• Regional meetups</li>
+                  <li>• Virtual events</li>
+                </ul>
+              </div>
+              
+              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
+                  <i className="ri-shield-check-line text-xl text-white"></i>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-3">Advocacy & Policy</h3>
+                <p className="text-gray-600 mb-4">Shaping policies that support women's economic empowerment.</p>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Policy engagement</li>
+                  <li>• Stakeholder advocacy</li>
+                  <li>• Rights initiatives</li>
                 </ul>
               </div>
             </div>
@@ -315,11 +444,11 @@ const WomenPage: React.FC = () => {
                   />
                   <div className="p-6">
                     <h3 className="font-semibold text-gray-900 mb-1">{leader.name}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{leader.role}</p>
-                    <p className="text-sm text-pink-600 mb-3">{leader.expertise}</p>
+                    <p className="text-sm text-gray-600 mb-2">{leader.title}</p>
+                    <p className="text-sm text-pink-600 mb-3">{leader.organization}</p>
                     <div className="flex items-center text-sm text-green-600">
-                      <i className="ri-award-line mr-2"></i>
-                      {leader.achievement}
+                      <i className="ri-focus-line mr-2"></i>
+                      {leader.expertise}
                     </div>
                   </div>
                 </div>
@@ -338,61 +467,61 @@ const WomenPage: React.FC = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-user-heart-line text-xl text-pink-600"></i>
+                  <i className="ri-team-line text-xl text-pink-600"></i>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Professional Mentorship</h3>
-                  <p className="text-gray-600">Access to experienced mentors and career guidance.</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">Exclusive Network</h3>
+                  <p className="text-gray-600">Access to a curated network of successful women leaders and professionals.</p>
                 </div>
               </div>
               
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-briefcase-line text-xl text-purple-600"></i>
+                  <i className="ri-graduation-cap-line text-xl text-purple-600"></i>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Career Advancement</h3>
-                  <p className="text-gray-600">Opportunities for professional growth and leadership roles.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-group-line text-xl text-blue-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Networking Opportunities</h3>
-                  <p className="text-gray-600">Connect with women leaders across industries and sectors.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-book-open-line text-xl text-green-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Skill Development</h3>
-                  <p className="text-gray-600">Access to training programs and professional development resources.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-funds-line text-xl text-orange-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Funding Access</h3>
-                  <p className="text-gray-600">Connect with investors and funding opportunities for women-led ventures.</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">Learning Opportunities</h3>
+                  <p className="text-gray-600">Workshops, webinars, and training programs on leadership and business topics.</p>
                 </div>
               </div>
               
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-voice-recognition-line text-xl text-teal-600"></i>
+                  <i className="ri-lightbulb-line text-xl text-teal-600"></i>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Advocacy Platform</h3>
-                  <p className="text-gray-600">Amplify your voice in gender equality and policy discussions.</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">Mentorship</h3>
+                  <p className="text-gray-600">Connect with experienced mentors who can guide your career journey.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i className="ri-briefcase-line text-xl text-orange-600"></i>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Business Opportunities</h3>
+                  <p className="text-gray-600">Partnership and collaboration opportunities with other network members.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i className="ri-article-line text-xl text-red-600"></i>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Resources & Tools</h3>
+                  <p className="text-gray-600">Access to exclusive resources, toolkits, and industry insights.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i className="ri-megaphone-line text-xl text-green-600"></i>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Visibility & Recognition</h3>
+                  <p className="text-gray-600">Opportunities to share your story and be recognized for your impact.</p>
                 </div>
               </div>
             </div>
@@ -408,20 +537,20 @@ const WomenPage: React.FC = () => {
             
             <div className="grid md:grid-cols-4 gap-8">
               <div>
-                <div className="text-4xl font-bold text-pink-100 mb-2">5,000+</div>
-                <p className="text-pink-100">Women Leaders</p>
+                <div className="text-4xl font-bold text-pink-100 mb-2">5000+</div>
+                <p className="text-pink-100">Women Members</p>
               </div>
               <div>
                 <div className="text-4xl font-bold text-pink-100 mb-2">120+</div>
                 <p className="text-pink-100">Countries Represented</p>
               </div>
               <div>
-                <div className="text-4xl font-bold text-pink-100 mb-2">1,200+</div>
-                <p className="text-pink-100">Mentorship Connections</p>
+                <div className="text-4xl font-bold text-pink-100 mb-2">1200+</div>
+                <p className="text-pink-100">Businesses Supported</p>
               </div>
               <div>
                 <div className="text-4xl font-bold text-pink-100 mb-2">$25M+</div>
-                <p className="text-pink-100">Funding Facilitated</p>
+                <p className="text-pink-100">Capital Mobilized</p>
               </div>
             </div>
           </div>
@@ -432,27 +561,163 @@ const WomenPage: React.FC = () => {
       <section className="py-16">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Join the Movement</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Become a Member Today</h2>
             <p className="text-xl text-gray-600 mb-8">
-              Be part of a global network of women leaders driving change and creating opportunities for the next generation.
+              Join a global community of women leaders committed to creating economic opportunity, advancing equality, and driving positive change.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
               className="bg-pink-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-pink-700 transition-colors whitespace-nowrap cursor-pointer"
             >
-              Become a Member
+              Join Our Network
             </button>
           </div>
         </div>
       </section>
 
-      {/* Application Form Modal */}
+      {/* Sign In Modal */}
+      {showSignInModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Sign In</h3>
+                <button
+                  onClick={() => setShowSignInModal(false)}
+                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                >
+                  <i className="ri-close-line text-2xl"></i>
+                </button>
+              </div>
+
+              <form onSubmit={handleSignInSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Password *
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm"
+                    placeholder="Enter your password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-pink-600 text-white px-6 py-3 rounded-md hover:bg-pink-700 font-medium whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </button>
+                <p className="text-center text-sm text-gray-600">
+                  Don't have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={switchToCreateAccount}
+                    className="text-pink-600 hover:underline cursor-pointer"
+                  >
+                    Create one
+                  </button>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Create Account Modal */}
+      {showCreateAccountModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Create Account</h3>
+                <button
+                  onClick={() => setShowCreateAccountModal(false)}
+                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                >
+                  <i className="ri-close-line text-2xl"></i>
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Password *
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm"
+                    placeholder="Create a password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-pink-600 text-white px-6 py-3 rounded-md hover:bg-pink-700 font-medium whitespace-nowrap cursor-pointer"
+                >
+                  Create Account
+                </button>
+                <p className="text-center text-sm text-gray-600">
+                  Already have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={switchToSignIn}
+                    className="text-pink-600 hover:underline cursor-pointer"
+                  >
+                    Sign in
+                  </button>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Membership Application Modal */}
       {isFormOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Women Empowerment Network Application</h3>
+                <h3 className="text-2xl font-bold text-gray-900">Women Network Application</h3>
                 <button
                   onClick={() => setIsFormOpen(false)}
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -462,18 +727,33 @@ const WomenPage: React.FC = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    required
-                  />
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Profession *
+                    </label>
+                    <input
+                      type="text"
+                      name="profession"
+                      value={formData.profession}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
@@ -537,20 +817,7 @@ const WomenPage: React.FC = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Profession/Title *
-                    </label>
-                    <input
-                      type="text"
-                      name="profession"
-                      value={formData.profession}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Organization/Company
+                      Organization *
                     </label>
                     <input
                       type="text"
@@ -558,28 +825,28 @@ const WomenPage: React.FC = () => {
                       value={formData.organization}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Years of Experience *
+                    </label>
+                    <input
+                      type="text"
+                      name="experience"
+                      value={formData.experience}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                      placeholder="e.g., 10+ years"
+                      required
                     />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Professional Experience *
-                  </label>
-                  <textarea
-                    name="experience"
-                    value={formData.experience}
-                    onChange={handleInputChange}
-                    rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    placeholder="Describe your professional background and key achievements..."
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Leadership Roles &amp; Responsibilities
+                    Leadership Roles *
                   </label>
                   <textarea
                     name="leadershipRoles"
@@ -587,7 +854,8 @@ const WomenPage: React.FC = () => {
                     onChange={handleInputChange}
                     rows={3}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    placeholder="Describe any leadership positions or responsibilities you've held..."
+                    placeholder="Describe any leadership positions or roles you've held..."
+                    required
                   />
                 </div>
 
@@ -614,9 +882,9 @@ const WomenPage: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Mentorship Interests
+                    Mentorship Interests (Select all that apply)
                   </label>
-                  <div className="grid md:grid-cols-2 gap-3 max-h-32 overflow-y-auto">
+                  <div className="grid md:grid-cols-2 gap-3 max-h-40 overflow-y-auto">
                     {mentorshipOptions.map((option) => (
                       <label key={option} className="flex items-center">
                         <input
@@ -635,7 +903,7 @@ const WomenPage: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Goals &amp; Aspirations *
+                    Personal Goals *
                   </label>
                   <textarea
                     name="goals"
@@ -643,28 +911,29 @@ const WomenPage: React.FC = () => {
                     onChange={handleInputChange}
                     rows={3}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    placeholder="What do you hope to achieve through the Women Empowerment Network?"
+                    placeholder="What are your personal and professional goals?"
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Current Challenges
+                    Challenges & Support Needed *
                   </label>
                   <textarea
                     name="challenges"
                     value={formData.challenges}
                     onChange={handleInputChange}
-                    rows={2}
+                    rows={3}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    placeholder="What challenges are you currently facing in your career or business?"
+                    placeholder="What challenges are you facing? What support do you need?"
+                    required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Networking Preferences
+                    Networking Preferences (Select all that apply)
                   </label>
                   <div className="grid md:grid-cols-2 gap-3">
                     {networkingOptions.map((option) => (
@@ -685,7 +954,7 @@ const WomenPage: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Availability for Network Activities *
+                    Availability *
                   </label>
                   <select
                     name="availability"
@@ -695,11 +964,10 @@ const WomenPage: React.FC = () => {
                     required
                   >
                     <option value="">Select Availability</option>
-                    <option value="Very Active (10+ hours/month)">Very Active (10+ hours/month)</option>
-                    <option value="Active (5-10 hours/month)">Active (5-10 hours/month)</option>
-                    <option value="Moderate (2-5 hours/month)">Moderate (2-5 hours/month)</option>
-                    <option value="Light (1-2 hours/month)">Light (1-2 hours/month)</option>
-                    <option value="Event-based participation">Event-based participation</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Flexible">Flexible</option>
+                    <option value="Project-based">Project-based</option>
                   </select>
                 </div>
 
@@ -825,7 +1093,7 @@ const WomenPage: React.FC = () => {
               </div>
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <a href="/privacy" className="hover:text-white cursor-pointer">
-                  Privacy Policy &amp; Terms of Service
+                  Privacy Policy & Terms of Service
                 </a>
                 
                 <p>© 2025 Africa Economic Forum</p>
