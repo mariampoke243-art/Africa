@@ -1,7 +1,12 @@
+'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ArtistsAthletesPage: React.FC = () => {
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -22,34 +27,109 @@ const ArtistsAthletesPage: React.FC = () => {
     termsAccepted: false,
   });
 
+  useEffect(() => {
+    const savedUser = localStorage.getItem('aef_user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  const handleSignIn = () => {
+    setShowSignInModal(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('aef_user');
+    setUser(null);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const switchToCreateAccount = () => {
+    setShowSignInModal(false);
+    setShowCreateAccountModal(true);
+  };
+
+  const switchToSignIn = () => {
+    setShowCreateAccountModal(false);
+    setShowSignInModal(true);
+  };
+
+  const handleSignInSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      if (email && password) {
+        const userData = { name: email.split('@')[0], email };
+        localStorage.setItem('aef_user', JSON.stringify(userData));
+        setUser(userData);
+        alert('Login successful! Welcome back.');
+        setShowSignInModal(false);
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('An unexpected error occurred. Please try again later.');
+    }
+  };
+
+  const handleCreateAccountSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      if (name && email && password) {
+        const userData = { name, email };
+        localStorage.setItem('aef_user', JSON.stringify(userData));
+        setUser(userData);
+        alert('Account created successfully! Welcome to AEF.');
+        setShowCreateAccountModal(false);
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    } catch (err) {
+      console.error('Account creation error:', err);
+      alert('An unexpected error occurred. Please try again later.');
+    }
+  };
+
   const categories = [
     'Visual Arts',
-    'Performing Arts',
     'Music',
+    'Theater & Performance',
+    'Film & Video Production',
+    'Dance',
     'Literature',
-    'Film & Media',
-    'Digital Arts',
     'Professional Sports',
-    'Olympic Sports',
-    'Paralympic Sports',
-    'Traditional Sports',
     'Emerging Sports',
-    'Sports Management',
+    'Traditional Arts',
+    'Digital/New Media Arts',
+    'Fashion Design',
+    'Photography'
   ];
 
   const interestOptions = [
-    'Youth Development Programs',
-    'Community Engagement',
-    'Cultural Exchange',
-    'Social Justice Advocacy',
-    'Environmental Awareness',
-    'Education & Mentorship',
-    'Health & Wellness Promotion',
-    'Economic Development',
-    'Peace & Reconciliation',
-    'Gender Equality',
-    'Disability Inclusion',
     'Cultural Preservation',
+    'Youth Mentorship',
+    'Social Impact Initiatives',
+    'Economic Empowerment',
+    'Education Programs',
+    'Community Development',
+    'International Collaboration',
+    'Technology & Innovation',
+    'Environmental Sustainability',
+    'Gender Equality',
+    'Health & Wellness',
+    'Advocacy & Policy'
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -98,49 +178,99 @@ const ArtistsAthletesPage: React.FC = () => {
 
   const featuredMembers = [
     {
-      name: 'Maya Rodriguez',
-      category: 'Visual Artist',
-      discipline: 'Sustainable Art & Sculpture',
-      impact: 'Climate awareness through art',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20female%20visual%20artist%2C%20creative%20studio%20background%2C%20confident%20expression%2C%20artistic%20environment%2C%20sustainable%20art%20materials%2C%20contemporary%20art%20setting&width=300&height=300&seq=26&orientation=squarish',
+      name: 'Kwesi Mensah',
+      title: 'Contemporary Artist',
+      discipline: 'Visual Arts',
+      achievement: 'International Exhibition Winner',
+      image: 'https://readdy.ai/api/search-image?query=Professional%20male%20artist%2C%20confident%20expression%2C%20art%20studio%20background%2C%20creative%20professional%2C%20African%20artist%20portrait&width=300&height=300&seq=aa1&orientation=squarish',
     },
     {
-      name: 'James Thompson',
-      category: 'Professional Athlete',
-      discipline: 'Marathon Running',
-      impact: 'Youth fitness programs',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20male%20marathon%20runner%2C%20athletic%20training%20background%2C%20confident%20expression%2C%20sports%20facility%20setting%2C%20running%20track%20environment%2C%20athletic%20achievement&width=300&height=300&seq=27&orientation=squarish',
+      name: 'Amara Okonkwo',
+      title: 'Professional Footballer',
+      discipline: 'Sports',
+      achievement: 'National Team Captain',
+      image: 'https://readdy.ai/api/search-image?query=Professional%20female%20athlete%2C%20confident%20smile%2C%20sports%20setting%2C%20African%20sportswoman%2C%20team%20captain%20portrait&width=300&height=300&seq=aa2&orientation=squarish',
     },
     {
-      name: 'Aisha Patel',
-      category: 'Musician',
-      discipline: 'World Music & Cultural Fusion',
-      impact: 'Cultural bridge-building',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20female%20musician%2C%20music%20studio%20background%2C%20confident%20smile%2C%20musical%20instruments%2C%20cultural%20fusion%20setting%2C%20world%20music%20environment&width=300&height=300&seq=28&orientation=squarish',
+      name: 'Jamal Ahmed',
+      title: 'Hip-Hop Producer',
+      discipline: 'Music',
+      achievement: 'Grammy-Nominated Artist',
+      image: 'https://readdy.ai/api/search-image?query=Professional%20male%20music%20producer%2C%20confident%20expression%2C%20recording%20studio%20background%2C%20African%20musician%20artist&width=300&height=300&seq=aa3&orientation=squarish',
     },
     {
-      name: 'Carlos Silva',
-      category: 'Film Director',
-      discipline: 'Documentary & Social Impact',
-      impact: 'Social justice storytelling',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20male%20film%20director%2C%20movie%20production%20background%2C%20confident%20expression%2C%20film%20equipment%2C%20documentary%20filmmaking%20setting%2C%20creative%20industry&width=300&height=300&seq=29&orientation=squarish',
+      name: 'Zara Konaté',
+      title: 'Contemporary Dancer',
+      discipline: 'Dance',
+      achievement: 'International Dance Festival Winner',
+      image: 'https://readdy.ai/api/search-image?query=Professional%20female%20dancer%2C%20confident%20expression%2C%20dance%20studio%20background%2C%20contemporary%20dancer%20African%20woman&width=300&height=300&seq=aa4&orientation=squarish',
     },
   ];
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <a href="/" className="flex items-center">
+                <img
+                  src="https://static.readdy.ai/image/433d1257c1dbc1f8bb2f3f1c418f6689/0727857f21d196505f8ef18cfc1cd897.png"
+                  alt="Africa Economic Forum"
+                  className="h-10 w-auto"
+                />
+              </a>
+            </div>
+            <nav className="hidden md:flex space-x-8">
+              <a href="/" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Home</a>
+              <a href="/about" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">About</a>
+              <a href="/initiatives" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Initiatives</a>
+              <a href="/stakeholders" className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600">Stakeholders</a>
+              <a href="/agenda" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Agenda</a>
+              <a href="/publications" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Publications</a>
+              <a href="/meetings" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Meetings</a>
+              <a href="/contact" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Contact</a>
+            </nav>
+            <div className="hidden md:flex items-center space-x-4">
+              {user ? (
+                <>
+                  <span className="text-gray-700">{user.name}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </button>
+              )}
+            </div>
+            <button onClick={toggleMobileMenu} className="md:hidden p-2 cursor-pointer">
+              <i className="ri-menu-line text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section 
         className="relative h-96 bg-cover bg-center bg-no-repeat flex items-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Creative%20arts%20and%20sports%20collaboration%2C%20diverse%20artists%20and%20athletes%20working%20together%2C%20cultural%20and%20athletic%20expression%2C%20inspiring%20creative%20environment%2C%20unity%20through%20arts%20and%20sports&width=1200&height=400&seq=30&orientation=landscape')`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Artists%20and%20athletes%20collaboration%2C%20creative%20professionals%2C%20performance%20stage%2C%20cultural%20diversity%2C%20arts%20and%20sports%20event&width=1200&height=400&seq=aa-hero&orientation=landscape')`
         }}
       >
         <div className="container mx-auto px-6">
           <div className="max-w-3xl text-white">
             <h1 className="text-5xl font-bold mb-6">Artists & Athletes Network</h1>
             <p className="text-xl mb-8 leading-relaxed">
-              Uniting creative artists and athletes to drive social change, inspire communities, and promote positive values through the power of arts and sports.
+              Bringing together creative talents and sports champions to amplify their voice, expand their impact, and create meaningful partnerships for social and economic change.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
@@ -156,41 +286,40 @@ const ArtistsAthletesPage: React.FC = () => {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Arts & Sports for Social Impact</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Empowering Creative and Athletic Excellence</h2>
             <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-              The AEF Artists & Athletes Network harnesses the transformative power of creativity and athletic excellence 
-              to address global challenges. We connect talented individuals who use their platforms to inspire positive 
-              change, promote social values, and build bridges across communities and cultures.
+              The AEF Artists & Athletes Network celebrates and amplifies the voices of artists, performers, and athletes who are creating cultural impact 
+              and driving social change. We provide platforms, partnerships, and opportunities to expand their reach and influence globally.
             </p>
             
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-palette-line text-2xl text-purple-600"></i>
+                  <i className="ri-creativity-line text-2xl text-purple-600"></i>
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Creative Expression</h3>
                 <p className="text-gray-600">
-                  Amplify important messages through artistic creativity and cultural expression.
+                  Celebrate and amplify diverse artistic voices and athletic excellence.
                 </p>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-trophy-line text-2xl text-orange-600"></i>
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i className="ri-global-line text-2xl text-blue-600"></i>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Athletic Excellence</h3>
+                <h3 className="text-xl font-semibold mb-3">Global Platform</h3>
                 <p className="text-gray-600">
-                  Inspire through sporting achievements and promote healthy, active lifestyles.
+                  Reach international audiences and expand your global influence.
                 </p>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-heart-line text-2xl text-green-600"></i>
+                  <i className="ri-lightbulb-line text-2xl text-green-600"></i>
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Social Impact</h3>
                 <p className="text-gray-600">
-                  Create meaningful change in communities through collaborative initiatives.
+                  Drive meaningful change through your art and athletic achievements.
                 </p>
               </div>
             </div>
@@ -207,79 +336,79 @@ const ArtistsAthletesPage: React.FC = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
                 <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-brush-line text-xl text-white"></i>
+                  <i className="ri-stage-line text-xl text-white"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Art for Change</h3>
-                <p className="text-gray-600 mb-4">Collaborative art projects addressing social and environmental issues.</p>
+                <h3 className="font-semibold text-gray-900 mb-3">Performance Showcase</h3>
+                <p className="text-gray-600 mb-4">International stages and platforms to showcase your talent.</p>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Community murals</li>
-                  <li>• Awareness campaigns</li>
-                  <li>• Cultural exhibitions</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-run-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Sports for Development</h3>
-                <p className="text-gray-600 mb-4">Athletic programs promoting health, education, and social inclusion.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Youth sports programs</li>
-                  <li>• Inclusive athletics</li>
-                  <li>• Health promotion</li>
+                  <li>• Festival participation</li>
+                  <li>• Concert tours</li>
+                  <li>• Exhibition opportunities</li>
                 </ul>
               </div>
               
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
                 <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-global-line text-xl text-white"></i>
+                  <i className="ri-briefcase-line text-xl text-white"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Cultural Exchange</h3>
-                <p className="text-gray-600 mb-4">International programs fostering cross-cultural understanding.</p>
+                <h3 className="font-semibold text-gray-900 mb-3">Sponsorship & Partnerships</h3>
+                <p className="text-gray-600 mb-4">Connect with sponsors, brands, and strategic partners.</p>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Artist residencies</li>
-                  <li>• Sports exchanges</li>
-                  <li>• Cultural festivals</li>
+                  <li>• Sponsorship opportunities</li>
+                  <li>• Brand partnerships</li>
+                  <li>• Endorsement deals</li>
                 </ul>
               </div>
               
               <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
                 <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-graduation-cap-line text-xl text-white"></i>
+                  <i className="ri-team-line text-xl text-white"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Mentorship Programs</h3>
-                <p className="text-gray-600 mb-4">Guidance and support for emerging artists and athletes.</p>
+                <h3 className="font-semibold text-gray-900 mb-3">Collaborative Projects</h3>
+                <p className="text-gray-600 mb-4">Create impactful projects with fellow artists and athletes.</p>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Career development</li>
-                  <li>• Skill workshops</li>
-                  <li>• Industry connections</li>
+                  <li>• Joint ventures</li>
+                  <li>• Cross-genre projects</li>
+                  <li>• Community initiatives</li>
+                </ul>
+              </div>
+              
+              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg">
+                <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
+                  <i className="ri-hearts-line text-xl text-white"></i>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-3">Social Impact Programs</h3>
+                <p className="text-gray-600 mb-4">Use your platform for positive social and environmental change.</p>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Advocacy campaigns</li>
+                  <li>• Community outreach</li>
+                  <li>• Cause marketing</li>
                 </ul>
               </div>
               
               <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
                 <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-mic-line text-xl text-white"></i>
+                  <i className="ri-graduation-cap-line text-xl text-white"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Advocacy Platform</h3>
-                <p className="text-gray-600 mb-4">Amplifying voices for social justice and positive change.</p>
+                <h3 className="font-semibold text-gray-900 mb-3">Mentorship & Training</h3>
+                <p className="text-gray-600 mb-4">Develop skills and get guidance from industry experts.</p>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Awareness campaigns</li>
-                  <li>• Public speaking</li>
-                  <li>• Media engagement</li>
+                  <li>• Masterclasses</li>
+                  <li>• One-on-one coaching</li>
+                  <li>• Skill development</li>
                 </ul>
               </div>
               
               <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-lg">
                 <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-award-line text-xl text-white"></i>
+                  <i className="ri-money-dollar-circle-line text-xl text-white"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Recognition Awards</h3>
-                <p className="text-gray-600 mb-4">Celebrating excellence in arts, sports, and social impact.</p>
+                <h3 className="font-semibold text-gray-900 mb-3">Monetization Support</h3>
+                <p className="text-gray-600 mb-4">Build sustainable income from your creative and athletic work.</p>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Annual awards ceremony</li>
-                  <li>• Impact recognition</li>
-                  <li>• Career advancement</li>
+                  <li>• Revenue strategies</li>
+                  <li>• Licensing support</li>
+                  <li>• Business consulting</li>
                 </ul>
               </div>
             </div>
@@ -291,7 +420,7 @@ const ArtistsAthletesPage: React.FC = () => {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Featured Network Members</h2>
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Featured Members</h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {featuredMembers.map((member, index) => (
@@ -303,11 +432,11 @@ const ArtistsAthletesPage: React.FC = () => {
                   />
                   <div className="p-6">
                     <h3 className="font-semibold text-gray-900 mb-1">{member.name}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{member.category}</p>
+                    <p className="text-sm text-gray-600 mb-2">{member.title}</p>
                     <p className="text-sm text-purple-600 mb-3">{member.discipline}</p>
                     <div className="flex items-center text-sm text-green-600">
-                      <i className="ri-heart-line mr-2"></i>
-                      {member.impact}
+                      <i className="ri-award-line mr-2"></i>
+                      {member.achievement}
                     </div>
                   </div>
                 </div>
@@ -317,114 +446,43 @@ const ArtistsAthletesPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Network Benefits */}
+      {/* Impact Focus Areas */}
       <section className="py-16">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Network Benefits</h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-team-line text-xl text-purple-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Creative Collaboration</h3>
-                  <p className="text-gray-600">Partner with like-minded artists and athletes on impactful projects.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-megaphone-line text-xl text-orange-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Platform Amplification</h3>
-                  <p className="text-gray-600">Expand your reach and amplify your message through our network.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-funds-line text-xl text-blue-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Funding Opportunities</h3>
-                  <p className="text-gray-600">Access grants and sponsorships for social impact projects.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-calendar-event-line text-xl text-green-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Exclusive Events</h3>
-                  <p className="text-gray-600">Participate in showcases, competitions, and networking events.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-user-heart-line text-xl text-red-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Mentorship Access</h3>
-                  <p className="text-gray-600">Connect with experienced mentors and industry leaders.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-global-line text-xl text-teal-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Global Exposure</h3>
-                  <p className="text-gray-600">Showcase your work and achievements on international platforms.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Impact Areas */}
-      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Impact Focus Areas</h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-user-star-line text-2xl text-purple-600"></i>
+              <div className="bg-white rounded-lg shadow-md p-6 text-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <i className="ri-earth-line text-2xl text-purple-600"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Youth Development</h3>
-                <p className="text-sm text-gray-600">Inspiring and mentoring the next generation</p>
+                <h3 className="font-semibold text-gray-900 mb-2">Environmental Sustainability</h3>
+                <p className="text-sm text-gray-600">Using art and athletics to advocate for climate action and environmental conservation.</p>
               </div>
               
-              <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-earth-line text-2xl text-blue-600"></i>
+              <div className="bg-white rounded-lg shadow-md p-6 text-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <i className="ri-team-line text-2xl text-blue-600"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Environmental Action</h3>
-                <p className="text-sm text-gray-600">Promoting sustainability and climate awareness</p>
+                <h3 className="font-semibold text-gray-900 mb-2">Social Inclusion</h3>
+                <p className="text-sm text-gray-600">Promoting diversity, equality, and social inclusion through creative expression.</p>
               </div>
               
-              <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-scales-line text-2xl text-green-600"></i>
+              <div className="bg-white rounded-lg shadow-md p-6 text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <i className="ri-graduation-cap-line text-2xl text-green-600"></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Social Justice</h3>
-                <p className="text-sm text-gray-600">Advocating for equality and human rights</p>
+                <h3 className="font-semibold text-gray-900 mb-2">Youth Empowerment</h3>
+                <p className="text-sm text-gray-600">Mentoring and inspiring young talent to reach their potential.</p>
               </div>
               
-              <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-heart-pulse-line text-2xl text-orange-600"></i>
+              <div className="bg-white rounded-lg shadow-md p-6 text-center">
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  <i className="ri-hearts-line text-2xl text-orange-600"></i>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Health & Wellness</h3>
-                <p className="text-sm text-gray-600">Promoting physical and mental well-being</p>
+                <p className="text-sm text-gray-600">Promoting physical and mental well-being through sports and creative arts.</p>
               </div>
             </div>
           </div>
@@ -439,8 +497,8 @@ const ArtistsAthletesPage: React.FC = () => {
             
             <div className="grid md:grid-cols-4 gap-8">
               <div>
-                <div className="text-4xl font-bold text-purple-100 mb-2">1,200+</div>
-                <p className="text-purple-100">Artists & Athletes</p>
+                <div className="text-4xl font-bold text-purple-100 mb-2">1200+</div>
+                <p className="text-purple-100">Network Members</p>
               </div>
               <div>
                 <div className="text-4xl font-bold text-purple-100 mb-2">95+</div>
@@ -448,11 +506,11 @@ const ArtistsAthletesPage: React.FC = () => {
               </div>
               <div>
                 <div className="text-4xl font-bold text-purple-100 mb-2">300+</div>
-                <p className="text-purple-100">Impact Projects</p>
+                <p className="text-purple-100">Projects Supported</p>
               </div>
               <div>
                 <div className="text-4xl font-bold text-purple-100 mb-2">2M+</div>
-                <p className="text-purple-100">Lives Touched</p>
+                <p className="text-purple-100">Lives Impacted</p>
               </div>
             </div>
           </div>
@@ -463,9 +521,9 @@ const ArtistsAthletesPage: React.FC = () => {
       <section className="py-16">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Create Impact Through Your Talent</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Join the Network</h2>
             <p className="text-xl text-gray-600 mb-8">
-              Join a community of artists and athletes who are using their talents and platforms to make a positive difference in the world.
+              Connect with fellow creative talents and athletes, amplify your voice, and create lasting impact on the world stage.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
@@ -477,13 +535,149 @@ const ArtistsAthletesPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Sign In Modal */}
+      {showSignInModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Sign In</h3>
+                <button
+                  onClick={() => setShowSignInModal(false)}
+                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                >
+                  <i className="ri-close-line text-2xl"></i>
+                </button>
+              </div>
+
+              <form onSubmit={handleSignInSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Password *
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                    placeholder="Enter your password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 font-medium whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </button>
+                <p className="text-center text-sm text-gray-600">
+                  Don't have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={switchToCreateAccount}
+                    className="text-purple-600 hover:underline cursor-pointer"
+                  >
+                    Create one
+                  </button>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Create Account Modal */}
+      {showCreateAccountModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Create Account</h3>
+                <button
+                  onClick={() => setShowCreateAccountModal(false)}
+                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                >
+                  <i className="ri-close-line text-2xl"></i>
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Password *
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                    placeholder="Create a password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 font-medium whitespace-nowrap cursor-pointer"
+                >
+                  Create Account
+                </button>
+                <p className="text-center text-sm text-gray-600">
+                  Already have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={switchToSignIn}
+                    className="text-purple-600 hover:underline cursor-pointer"
+                  >
+                    Sign in
+                  </button>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Application Form Modal */}
       {isFormOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Artists & Athletes Network Application</h3>
+                <h3 className="text-2xl font-bold text-gray-900">Artists & Athletes Application</h3>
                 <button
                   onClick={() => setIsFormOpen(false)}
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -493,18 +687,37 @@ const ArtistsAthletesPage: React.FC = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    required
-                  />
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Category *
+                    </label>
+                    <select
+                      name="category"
+                      value={formData.category}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      required
+                    >
+                      <option value="">Select Category</option>
+                      {categories.map((cat) => (
+                        <option key={cat} value={cat}>{cat}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
@@ -565,51 +778,32 @@ const ArtistsAthletesPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Category *
-                    </label>
-                    <select
-                      name="category"
-                      value={formData.category}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      required
-                    >
-                      <option value="">Select Category</option>
-                      {categories.map((cat) => (
-                        <option key={cat} value={cat}>{cat}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Specific Discipline *
-                    </label>
-                    <input
-                      type="text"
-                      name="discipline"
-                      value={formData.discipline}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      placeholder="e.g., Oil Painting, Marathon Running, Jazz Music"
-                      required
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Discipline/Specialty *
+                  </label>
+                  <input
+                    type="text"
+                    name="discipline"
+                    value={formData.discipline}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="e.g., Jazz Music, Figure Skating, Digital Art"
+                    required
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Experience & Background *
+                    Years of Experience *
                   </label>
-                  <textarea
+                  <input
+                    type="text"
                     name="experience"
                     value={formData.experience}
                     onChange={handleInputChange}
-                    rows={3}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Describe your professional experience, training, and background..."
+                    placeholder="e.g., 10+ years"
                     required
                   />
                 </div>
@@ -624,14 +818,14 @@ const ArtistsAthletesPage: React.FC = () => {
                     onChange={handleInputChange}
                     rows={3}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="List your notable achievements, awards, exhibitions, competitions, etc..."
+                    placeholder="Awards, recognitions, notable performances..."
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Social Impact Work
+                    Social Impact Work *
                   </label>
                   <textarea
                     name="socialImpact"
@@ -639,7 +833,8 @@ const ArtistsAthletesPage: React.FC = () => {
                     onChange={handleInputChange}
                     rows={3}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Describe any social impact work, community involvement, or advocacy you've done..."
+                    placeholder="Describe any social impact or community initiatives..."
+                    required
                   />
                 </div>
 
@@ -648,17 +843,17 @@ const ArtistsAthletesPage: React.FC = () => {
                     Areas of Interest (Select all that apply)
                   </label>
                   <div className="grid md:grid-cols-2 gap-3 max-h-40 overflow-y-auto">
-                    {interestOptions.map((interest) => (
-                      <label key={interest} className="flex items-center">
+                    {interestOptions.map((option) => (
+                      <label key={option} className="flex items-center">
                         <input
                           type="checkbox"
                           name="interests"
-                          value={interest}
-                          checked={formData.interests.includes(interest)}
+                          value={option}
+                          checked={formData.interests.includes(option)}
                           onChange={handleInputChange}
                           className="mr-3 text-purple-600 focus:ring-purple-500"
                         />
-                        <span className="text-sm text-gray-700">{interest}</span>
+                        <span className="text-sm text-gray-700">{option}</span>
                       </label>
                     ))}
                   </div>
@@ -674,43 +869,42 @@ const ArtistsAthletesPage: React.FC = () => {
                     onChange={handleInputChange}
                     rows={3}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="What do you hope to achieve through the Artists & Athletes Network?"
+                    placeholder="What are your collaboration and partnership goals?"
                     required
                   />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Portfolio/Website
-                    </label>
-                    <input
-                      type="url"
-                      name="portfolio"
-                      value={formData.portfolio}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      placeholder="Link to your portfolio, website, or professional profile"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Social Media
-                    </label>
-                    <input
-                      type="text"
-                      name="socialMedia"
-                      value={formData.socialMedia}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      placeholder="Your main social media handle or platform"
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Portfolio/Website URL
+                  </label>
+                  <input
+                    type="url"
+                    name="portfolio"
+                    value={formData.portfolio}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="https://yourportfolio.com"
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Availability for Network Activities *
+                    Social Media Handles
+                  </label>
+                  <input
+                    type="text"
+                    name="socialMedia"
+                    value={formData.socialMedia}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="@instagram @twitter @tiktok etc."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Availability *
                   </label>
                   <select
                     name="availability"
@@ -720,11 +914,11 @@ const ArtistsAthletesPage: React.FC = () => {
                     required
                   >
                     <option value="">Select Availability</option>
-                    <option value="Very Active (10+ hours/month)">Very Active (10+ hours/month)</option>
-                    <option value="Active (5-10 hours/month)">Active (5-10 hours/month)</option>
-                    <option value="Moderate (2-5 hours/month)">Moderate (2-5 hours/month)</option>
-                    <option value="Light (1-2 hours/month)">Light (1-2 hours/month)</option>
-                    <option value="Event-based participation">Event-based participation</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Project-based">Project-based</option>
+                    <option value="Event collaboration">Event collaboration</option>
+                    <option value="Occasional">Occasional</option>
                   </select>
                 </div>
 
