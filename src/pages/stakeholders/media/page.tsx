@@ -1,7 +1,12 @@
+'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MediaPage: React.FC = () => {
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -21,6 +26,81 @@ const MediaPage: React.FC = () => {
     availability: '',
     termsAccepted: false,
   });
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem('aef_user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  const handleSignIn = () => {
+    setShowSignInModal(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('aef_user');
+    setUser(null);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const switchToCreateAccount = () => {
+    setShowSignInModal(false);
+    setShowCreateAccountModal(true);
+  };
+
+  const switchToSignIn = () => {
+    setShowCreateAccountModal(false);
+    setShowSignInModal(true);
+  };
+
+  const handleSignInSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      if (email && password) {
+        const userData = { name: email.split('@')[0], email };
+        localStorage.setItem('aef_user', JSON.stringify(userData));
+        setUser(userData);
+        alert('Login successful! Welcome back.');
+        setShowSignInModal(false);
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('An unexpected error occurred. Please try again later.');
+    }
+  };
+
+  const handleCreateAccountSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      if (name && email && password) {
+        const userData = { name, email };
+        localStorage.setItem('aef_user', JSON.stringify(userData));
+        setUser(userData);
+        alert('Account created successfully! Welcome to AEF.');
+        setShowCreateAccountModal(false);
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    } catch (err) {
+      console.error('Account creation error:', err);
+      alert('An unexpected error occurred. Please try again later.');
+    }
+  };
 
   const mediaTypes = [
     'Television',
@@ -145,6 +225,56 @@ const MediaPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <a href="/" className="flex items-center">
+                <img
+                  src="https://static.readdy.ai/image/433d1257c1dbc1f8bb2f3f1c418f6689/0727857f21d196505f8ef18cfc1cd897.png"
+                  alt="Africa Economic Forum"
+                  className="h-10 w-auto"
+                />
+              </a>
+            </div>
+            <nav className="hidden md:flex space-x-8">
+              <a href="/" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Home</a>
+              <a href="/about" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">About</a>
+              <a href="/initiatives" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Initiatives</a>
+              <a href="/stakeholders" className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600">Stakeholders</a>
+              <a href="/agenda" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Agenda</a>
+              <a href="/publications" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Publications</a>
+              <a href="/meetings" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Meetings</a>
+              <a href="/contact" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">Contact</a>
+            </nav>
+            <div className="hidden md:flex items-center space-x-4">
+              {user ? (
+                <>
+                  <span className="text-gray-700">{user.name}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </button>
+              )}
+            </div>
+            <button onClick={toggleMobileMenu} className="md:hidden p-2 cursor-pointer">
+              <i className="ri-menu-line text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section 
         className="relative h-96 bg-cover bg-center bg-no-repeat flex items-center"
@@ -450,6 +580,142 @@ const MediaPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Sign In Modal */}
+      {showSignInModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Sign In</h3>
+                <button
+                  onClick={() => setShowSignInModal(false)}
+                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                >
+                  <i className="ri-close-line text-2xl"></i>
+                </button>
+              </div>
+
+              <form onSubmit={handleSignInSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Password *
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+                    placeholder="Enter your password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 font-medium whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </button>
+                <p className="text-center text-sm text-gray-600">
+                  Don't have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={switchToCreateAccount}
+                    className="text-red-600 hover:underline cursor-pointer"
+                  >
+                    Create one
+                  </button>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Create Account Modal */}
+      {showCreateAccountModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Create Account</h3>
+                <button
+                  onClick={() => setShowCreateAccountModal(false)}
+                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                >
+                  <i className="ri-close-line text-2xl"></i>
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Password *
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+                    placeholder="Create a password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 font-medium whitespace-nowrap cursor-pointer"
+                >
+                  Create Account
+                </button>
+                <p className="text-center text-sm text-gray-600">
+                  Already have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={switchToSignIn}
+                    className="text-red-600 hover:underline cursor-pointer"
+                  >
+                    Sign in
+                  </button>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Application Form Modal */}
       {isFormOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -638,7 +904,7 @@ const MediaPage: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Coverage Areas &amp; Audience *
+                    Coverage Areas & Audience *
                   </label>
                   <textarea
                     name="coverage"
@@ -829,7 +1095,7 @@ const MediaPage: React.FC = () => {
               </div>
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <a href="/privacy" className="hover:text-white cursor-pointer">
-                  Privacy Policy &amp; Terms of Service
+                  Privacy Policy & Terms of Service
                 </a>
                 
                 <p>© 2025 Africa Economic Forum</p>
