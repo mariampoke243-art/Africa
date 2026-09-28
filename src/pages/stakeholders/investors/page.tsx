@@ -1,11 +1,41 @@
+'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function InvestorsPage() {
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
   const [showMembershipForm, setShowMembershipForm] = useState(false);
 
+  useEffect(() => {
+    const savedUser = localStorage.getItem('aef_user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
   const handleSignIn = () => {
+    setShowSignInModal(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('aef_user');
+    setUser(null);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const switchToCreateAccount = () => {
+    setShowSignInModal(false);
+    setShowCreateAccountModal(true);
+  };
+
+  const switchToSignIn = () => {
+    setShowCreateAccountModal(false);
     setShowSignInModal(true);
   };
 
@@ -17,6 +47,9 @@ export default function InvestorsPage() {
       const password = formData.get('password') as string;
 
       if (email && password) {
+        const userData = { name: email.split('@')[0], email };
+        localStorage.setItem('aef_user', JSON.stringify(userData));
+        setUser(userData);
         alert('Login successful! Welcome back.');
         setShowSignInModal(false);
       } else {
@@ -24,6 +57,29 @@ export default function InvestorsPage() {
       }
     } catch (err) {
       console.error('Login error:', err);
+      alert('An unexpected error occurred. Please try again later.');
+    }
+  };
+
+  const handleCreateAccountSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      if (name && email && password) {
+        const userData = { name, email };
+        localStorage.setItem('aef_user', JSON.stringify(userData));
+        setUser(userData);
+        alert('Account created successfully! Welcome to AEF.');
+        setShowCreateAccountModal(false);
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    } catch (err) {
+      console.error('Account creation error:', err);
       alert('An unexpected error occurred. Please try again later.');
     }
   };
@@ -171,14 +227,26 @@ export default function InvestorsPage() {
               </a>
             </nav>
             <div className="hidden md:flex items-center space-x-4">
-              <button
-                onClick={handleSignIn}
-                className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
-              >
-                Sign In
-              </button>
+              {user ? (
+                <>
+                  <span className="text-gray-700">{user.name}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800 whitespace-nowrap cursor-pointer"
+                >
+                  Sign In
+                </button>
+              )}
             </div>
-            <button className="md:hidden p-2 cursor-pointer">
+            <button onClick={toggleMobileMenu} className="md:hidden p-2 cursor-pointer">
               <i className="ri-menu-line text-2xl"></i>
             </button>
           </div>
@@ -434,6 +502,90 @@ export default function InvestorsPage() {
                 >
                   Sign In
                 </button>
+                <p className="text-center text-sm text-gray-600">
+                  Don't have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={switchToCreateAccount}
+                    className="text-blue-600 hover:underline cursor-pointer"
+                  >
+                    Create one
+                  </button>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Create Account Modal */}
+      {showCreateAccountModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Create Account</h3>
+                <button
+                  onClick={() => setShowCreateAccountModal(false)}
+                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                >
+                  <i className="ri-close-line text-2xl"></i>
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Password *
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    placeholder="Create a password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
+                >
+                  Create Account
+                </button>
+                <p className="text-center text-sm text-gray-600">
+                  Already have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={switchToSignIn}
+                    className="text-blue-600 hover:underline cursor-pointer"
+                  >
+                    Sign in
+                  </button>
+                </p>
               </form>
             </div>
           </div>
@@ -557,93 +709,6 @@ export default function InvestorsPage() {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Assets Under Management
-                    </label>
-                    <select
-                      name="aum_range"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm pr-8"
-                    >
-                      <option value="">Select range</option>
-                      <option value="under_10m">Under $10M</option>
-                      <option value="10m_50m">$10M - $50M</option>
-                      <option value="50m_100m">$50M - $100M</option>
-                      <option value="100m_500m">$100M - $500M</option>
-                      <option value="500m_1b">$500M - $1B</option>
-                      <option value="over_1b">Over $1B</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Geographic Focus
-                    </label>
-                    <select
-                      name="geographic_focus"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm pr-8"
-                    >
-                      <option value="">Select focus</option>
-                      <option value="pan_african">Pan-African</option>
-                      <option value="west_africa">West Africa</option>
-                      <option value="east_africa">East Africa</option>
-                      <option value="southern_africa">Southern Africa</option>
-                      <option value="north_africa">North Africa</option>
-                      <option value="specific_countries">Specific Countries</option>
-                      <option value="global_with_africa">Global with Africa Focus</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Investment Thesis
-                  </label>
-                  <textarea
-                    name="investment_thesis"
-                    rows={4}
-                    maxLength={500}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    placeholder="Brief description of your investment approach and thesis for African markets (max 500 characters)"
-                  ></textarea>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Alliance Interests
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <label className="flex items-center space-x-2">
-                      <input type="checkbox" name="interest_deal_flow" className="cursor-pointer" />
-                      <span className="text-sm text-gray-700">Deal Flow Access</span>
-                    </label>
-                    <label className="flex items-center space-x-2">
-                      <input type="checkbox" name="interest_co_investment" className="cursor-pointer" />
-                      <span className="text-sm text-gray-700">Co-Investment</span>
-                    </label>
-                    <label className="flex items-center space-x-2">
-                      <input type="checkbox" name="interest_networking" className="cursor-pointer" />
-                      <span className="text-sm text-gray-700">Investor Networking</span>
-                    </label>
-                    <label className="flex items-center space-x-2">
-                      <input type="checkbox" name="interest_intelligence" className="cursor-pointer" />
-                      <span className="text-sm text-gray-700">Market Intelligence</span>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <input
-                    type="checkbox"
-                    name="terms_agreement"
-                    required
-                    className="mt-1 cursor-pointer"
-                  />
-                  <span className="text-sm text-gray-600">
-                    I agree to the Terms of Service and Privacy Policy, and consent to being contacted regarding exclusive investment opportunities and alliance activities.
-                  </span>
-                </div>
-
                 <button
                   type="submit"
                   className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
@@ -746,7 +811,7 @@ export default function InvestorsPage() {
                   Privacy Policy & Terms of Service
                 </a>
                 
-                <p>© 2025 Africa Economic Forum</p>
+                <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
             </div>
