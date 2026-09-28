@@ -121,7 +121,9 @@ const scientificCommittee: CommitteeMember[] = [
     role: 'Scientific Committee member',
     translationKey: 'aminaToure',
     image: '/images/Amina Touré.jpg',
-    bio: `Development practitioner, researcher, and strategic communicator with a strong focus on Africa’s political economy and global narratives. Amina holds a Bachelor of Laws and an MSc in International Development & Humanitarian Emergencies from the London School of Economics, and is completing an MPhil in African Studies at the University of Cambridge, specializing in extractive industries, Chinese investment, and state–business relations in the Democratic Republic of Congo (DRC). Her work spans policy research, media strategy, and narrative shaping. She has authored influential analyses on resource governance, value-chain upgrading, and the political economy of strategic minerals. As an independent journalist, she documents the conflict in eastern Congo and the expansion of mining operations in the south, producing field-rooted reporting that centers Congolese perspectives and brings nuance to globally misunderstood issues. Amina brings to the AEF a unique blend of intellectual rigor, communication expertise, and geopolitical insight—crafting narratives that strengthen Africa’s voice, credibility, and influence on the global stage.`,
+    bio: `Amina Touré
+
+Development practitioner, researcher, and strategic communicator with a strong focus on Africa’s political economy and global narratives. Amina holds a Bachelor of Laws and an MSc in International Development & Humanitarian Emergencies from the London School of Economics, and is completing an MPhil in African Studies at the University of Cambridge, specializing in extractive industries, Chinese investment, and state–business relations in the Democratic Republic of Congo (DRC). Her work spans policy research, media strategy, and narrative shaping. She has authored influential analyses on resource governance, value-chain upgrading, and the political economy of strategic minerals. As an independent journalist, she documents the conflict in eastern Congo and the expansion of mining operations in the south, producing field-rooted reporting that centers Congolese perspectives and brings nuance to globally misunderstood issues. Amina brings to the AEF a unique blend of intellectual rigor, communication expertise, and geopolitical insight—crafting narratives that strengthen Africa’s voice, credibility, and influence on the global stage.`,
   },
 ];
 
@@ -133,7 +135,7 @@ function MemberCard({
   t: (key: string, options?: { defaultValue?: string }) => string;
 }) {
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
       <img
         src={member.image}
         alt={member.name}
@@ -159,38 +161,6 @@ function MemberCard({
             defaultValue: member.bio,
           })}
         </p>
-      </div>
-    </div>
-  );
-}
-
-function FrameworkCard({
-  number,
-  title,
-  children,
-}: {
-  number?: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
-      <div className="flex items-start gap-4">
-        {number && (
-          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold">
-            {number}
-          </div>
-        )}
-
-        <div className="flex-1">
-          <h4 className="text-xl font-bold text-gray-900 mb-4">
-            {title}
-          </h4>
-
-          <div className="text-gray-600 leading-relaxed">
-            {children}
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -234,9 +204,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* =========================================================
-          HEADER
-      ========================================================= */}
+      {/* ================= HEADER ================= */}
       <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -255,7 +223,6 @@ export default function AboutPage() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-
               <Link
                 to="/"
                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
@@ -311,12 +278,10 @@ export default function AboutPage() {
               >
                 {t('header.contact')}
               </Link>
-
             </nav>
 
             {/* Auth */}
             <div className="hidden md:flex items-center space-x-4">
-
               {user ? (
                 <div className="relative">
 
@@ -331,7 +296,6 @@ export default function AboutPage() {
                       t('header.profile')
                     }
                   >
-
                     {user.user_metadata?.avatar_url ? (
                       <img
                         src={user.user_metadata.avatar_url}
@@ -347,14 +311,12 @@ export default function AboutPage() {
                         )}
                       </div>
                     )}
-
                   </button>
 
                   {isProfileDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
 
                       <div className="px-4 py-3 text-sm text-gray-700 border-b border-gray-100">
-
                         <div className="font-medium truncate">
                           {user.user_metadata?.full_name ||
                             t('header.user')}
@@ -363,7 +325,6 @@ export default function AboutPage() {
                         <div className="text-gray-500 truncate">
                           {user.email}
                         </div>
-
                       </div>
 
                       <button
@@ -379,10 +340,8 @@ export default function AboutPage() {
                       >
                         {t('header.signOut')}
                       </button>
-
                     </div>
                   )}
-
                 </div>
               ) : (
                 <Link
@@ -392,12 +351,10 @@ export default function AboutPage() {
                   {t('header.signIn')}
                 </Link>
               )}
-
             </div>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden">
-
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="text-gray-700 hover:text-blue-600 focus:outline-none"
@@ -409,15 +366,12 @@ export default function AboutPage() {
                   }-line text-xl`}
                 />
               </button>
-
             </div>
-
           </div>
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
             <div className="md:hidden border-t border-gray-100 py-4">
-
               <div className="flex flex-col space-y-4">
 
                 <Link
@@ -480,7 +434,6 @@ export default function AboutPage() {
                   <div className="pt-4 border-t border-gray-100">
 
                     <div className="flex items-center space-x-3 mb-4">
-
                       {user.user_metadata?.avatar_url ? (
                         <img
                           src={user.user_metadata.avatar_url}
@@ -501,7 +454,6 @@ export default function AboutPage() {
                         {user.user_metadata?.full_name ||
                           t('header.user')}
                       </span>
-
                     </div>
 
                     <button
@@ -521,860 +473,332 @@ export default function AboutPage() {
                   </div>
                 ) : (
                   <div className="pt-4 border-t border-gray-100">
-
                     <Link
                       to="/signin"
                       className="block text-gray-700 hover:text-blue-600 font-medium"
                     >
                       {t('header.signIn')}
                     </Link>
-
                   </div>
                 )}
-
               </div>
-
             </div>
           )}
-
         </div>
       </header>
 
       <main>
 
-        {/* =========================================================
-            HERO
-        ========================================================= */}
+        {/* ================= HERO ================= */}
         <section
           className="relative py-32 bg-cover bg-center"
           style={{
-            backgroundImage: `linear-gradient(rgba(30, 58, 138, 0.82), rgba(30, 58, 138, 0.82)), url('https://readdy.ai/api/search-image?query=African%20leaders%20and%20business%20executives%20in%20a%20modern%20conference%20hall%20discussing%20economic%20development%2C%20professional%20meeting%20with%20diverse%20participants%2C%20contemporary%20architecture%20with%20African%20cultural%20elements%2C%20dignified%20cooperation%20and%20strategic%20partnerships&width=1920&height=800&seq=about-hero&orientation=landscape')`,
+            backgroundImage: `linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.8)), url('https://readdy.ai/api/search-image?query=African%20leaders%20and%20business%20executives%20in%20a%20modern%20conference%20hall%20discussing%20economic%20development%2C%20professional%20meeting%20with%20diverse%20participants%2C%20contemporary%20architecture%20with%20African%20cultural%20elements%2C%20dignified%20cooperation%20and%20strategic%20partnerships&width=1920&height=800&seq=about-hero&orientation=landscape')`,
           }}
         >
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
             <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-              About the Africa Economic Forum
+              {t('about.heroTitle')}
             </h1>
 
-            <p className="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-              A pan-African and global platform for strategic dialogue,
-              sovereign cooperation, and long-term economic transformation.
-              More than an event, the AEF is a permanent architecture for
-              aligning leadership, capital, and policy to shape Africa's role
-              in the world economy.
+            <p className="text-xl text-blue-100 max-w-4xl mx-auto">
+              {t('about.heroSubtitle')}
             </p>
 
           </div>
-
         </section>
 
-        {/* =========================================================
-            WHAT WE ARE
-        ========================================================= */}
+        {/* ================= WHAT WE ARE ================= */}
         <section className="py-20 bg-white">
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-              <div>
+              <div className="space-y-8">
+                <div>
 
-                <span className="text-blue-600 font-semibold uppercase tracking-wider text-sm">
-                  Africa Economic Forum
-                </span>
+                  <h2 className="text-4xl font-bold text-gray-900 mb-6">
+                    {t('about.whatWeAreTitle')}
+                  </h2>
 
-                <h2 className="text-4xl font-bold text-gray-900 mt-3 mb-6">
-                  What We Are
-                </h2>
+                  <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                    {t('about.whatWeAreText1')}
+                  </p>
 
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  The Africa Economic Forum (AEF) is a pan-African and global
-                  platform for strategic cooperation, sovereign development,
-                  and high-level economic alignment. It brings together
-                  African governments, global investors, institutions, and
-                  thought leaders to co-create new models of growth,
-                  partnership, and long-term value creation.
-                </p>
+                  <p className="text-lg text-gray-600 leading-relaxed">
+                    {t('about.whatWeAreText2')}
+                  </p>
 
+                </div>
               </div>
 
               <div className="relative">
-
                 <img
                   src="https://readdy.ai/api/search-image?query=Modern%20African%20business%20district%20with%20skyscrapers%20and%20economic%20development%2C%20bustling%20financial%20center%20with%20contemporary%20architecture%2C%20symbol%20of%20African%20economic%20sovereignty%20and%20strategic%20partnerships%2C%20dignified%20cooperation&width=600&height=500&seq=what-we-are&orientation=portrait"
-                  alt="Africa Economic Forum"
-                  className="w-full h-96 object-cover rounded-xl shadow-lg"
+                  alt={t('about.whatWeAreTitle')}
+                  className="w-full h-96 object-cover object-top rounded-lg shadow-lg"
                 />
-
               </div>
 
             </div>
-
           </div>
-
         </section>
 
-        {/* =========================================================
-            OUR HISTORY
-        ========================================================= */}
-        <section className="py-20 bg-gray-50">
+        {/* ================= VISION ================= */}
+        <section className="py-24 bg-blue-900 text-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-5xl font-bold mb-10">
+              Our Vision
+            </h2>
 
-            <div className="text-center mb-16">
-
-              <span className="text-blue-600 font-semibold uppercase tracking-wider text-sm">
-                Our Journey
-              </span>
-
-              <h2 className="text-4xl font-bold text-gray-900 mt-3 mb-6">
-                Our History
-              </h2>
-
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                From its origins as a platform for leadership recognition to
-                its evolution into a permanent pan-African and global
-                economic platform.
-              </p>
-
-            </div>
-
-            <div className="max-w-5xl mx-auto">
-
-              <div className="relative border-l-2 border-blue-200 ml-4 md:ml-8 space-y-12">
-
-                {/* 2022 Origins */}
-                <div className="relative pl-8 md:pl-12">
-
-                  <div className="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow" />
-
-                  <span className="text-blue-600 font-bold text-lg">
-                    2022 – Origins
-                  </span>
-
-                  <h3 className="text-2xl font-bold text-gray-900 mt-2 mb-4">
-                    The Beginning
-                  </h3>
-
-                  <p className="text-gray-600 leading-relaxed">
-                    The initiative began in 2022 under the name ICN Global
-                    Summit and Award, created as a platform to celebrate
-                    inspiring leaders and foster dialogue on Africa’s role
-                    in the world.
-                  </p>
-
-                </div>
-
-                {/* First Edition */}
-                <div className="relative pl-8 md:pl-12">
-
-                  <div className="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow" />
-
-                  <span className="text-blue-600 font-bold text-lg">
-                    2022 – First Edition, Kinshasa
-                  </span>
-
-                  <h3 className="text-2xl font-bold text-gray-900 mt-2 mb-4">
-                    Building a Pan-African Platform
-                  </h3>
-
-                  <p className="text-gray-600 leading-relaxed">
-                    The inaugural edition took place in Kinshasa and honored
-                    Dr. Denis Mukwege, Nobel Peace Prize laureate, and
-                    Mrs. Julienne Lusenge, Aurora Prize laureate and Time 100
-                    honoree. The summit convened senators, parliamentarians,
-                    business leaders, and international investors.
-                  </p>
-
-                </div>
-
-                {/* Second Edition */}
-                <div className="relative pl-8 md:pl-12">
-
-                  <div className="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow" />
-
-                  <span className="text-blue-600 font-bold text-lg">
-                    2023 – Second Edition, Kinshasa
-                  </span>
-
-                  <h3 className="text-2xl font-bold text-gray-900 mt-2 mb-4">
-                    Expanding Global Recognition
-                  </h3>
-
-                  <p className="text-gray-600 leading-relaxed">
-                    The initiative returned to Kinshasa with broader
-                    recognition and global reach. Speakers included
-                    H.E. Rosalía Arteaga, former President of Ecuador, and
-                    H.E. Guy Loando, Minister of Territorial and Land
-                    Management of the Democratic Republic of Congo. The
-                    summit also celebrated Inoss’B, renowned superstar and
-                    humanitarian. Hundreds of government officials,
-                    entrepreneurs, and investors from Africa and beyond
-                    participated.
-                  </p>
-
-                </div>
-
-                {/* 2024 and Beyond */}
-                <div className="relative pl-8 md:pl-12">
-
-                  <div className="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow" />
-
-                  <span className="text-blue-600 font-bold text-lg">
-                    2024 and Beyond – Evolution into AEF
-                  </span>
-
-                  <h3 className="text-2xl font-bold text-gray-900 mt-2 mb-4">
-                    The Africa Economic Forum
-                  </h3>
-
-                  <p className="text-gray-600 leading-relaxed">
-                    The initiative was rebranded as the Africa Economic Forum
-                    (AEF), consolidating its identity as a global platform.
-                    AEF convenes governments, investors, and thought leaders
-                    to drive investment, shape Africa’s global agenda, and
-                    build equitable international partnerships.
-                  </p>
-
-                </div>
-
-              </div>
-
-            </div>
+            <p className="text-2xl lg:text-3xl text-blue-100 max-w-5xl mx-auto leading-relaxed">
+              To position Africa as a sovereign economic power, a center
+              of innovation, and a global co-leader — shaping the future
+              through strategic alliances, dignified cooperation, and
+              purpose-driven leadership.
+            </p>
 
           </div>
-
         </section>
 
-        {/* =========================================================
-            INSTITUTIONAL FRAMEWORK
-        ========================================================= */}
+        {/* ================= THE CONCEPT ================= */}
         <section className="py-24 bg-white">
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div className="text-center mb-20">
+            {/* Concept Header */}
+            <div className="text-center max-w-5xl mx-auto mb-16">
 
-              <span className="text-blue-600 font-semibold uppercase tracking-wider text-sm">
-                Our Framework
-              </span>
-
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mt-3 mb-6">
-                Our Institutional Framework
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
+                The Concept: The Perpetual Forum &amp; The African Table
               </h2>
 
-              <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                The Africa Economic Forum brings together strategic
-                cooperation, quality leadership, governance, and economic
-                sovereignty within a long-term institutional architecture.
+              <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
+                A new approach to economic diplomacy: continuous, strategic,
+                and sovereign.
               </p>
 
             </div>
 
-            {/* =====================================================
-                A. WIN-WIN COOPERATION
-            ===================================================== */}
-            <div className="mb-24">
+            {/* Introduction */}
+            <div className="max-w-6xl mx-auto mb-16">
 
-              <div className="mb-12">
+              <p className="text-lg lg:text-xl text-gray-700 leading-relaxed mb-8">
+                The Africa Economic Forum is not a gathering. It is an
+                architecture. It operates as a{' '}
+                <strong className="font-bold">
+                  perpetual, year-round platform
+                </strong>{' '}
+                designed to align African sovereign priorities with global
+                capital flows, institutional frameworks, and execution
+                capacity. This model redefines how Africa positions itself
+                in the global economy — not as a destination for donor
+                conferences, but as{' '}
+                <strong className="font-bold">
+                  the convening authority setting the terms of engagement.
+                </strong>
+              </p>
 
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 text-blue-700 font-semibold mb-4">
-                  A
-                </div>
-
-                <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                  Win-Win, Equitable and Ethical Economic Cooperation
-                </h3>
-
-                <h4 className="text-xl text-blue-700 font-semibold mb-6">
-                  Rethinking and Reshaping Cooperation Models with Africa
-                </h4>
-
-                <p className="text-lg text-gray-600 leading-relaxed max-w-5xl">
-                  Cooperation with Africa has often been defined by
-                  asymmetries in power, perception, and value creation.
-                  The AEF advocates a shift from traditional dependency
-                  models toward partnerships that create shared value,
-                  strengthen African ownership, and support long-term
-                  transformation.
-                </p>
-
-              </div>
-
-              <div className="grid lg:grid-cols-2 gap-8 mb-10">
-
-                <FrameworkCard title="Why This Rethink Matters">
-
-                  <p className="mb-5">
-                    A new cooperation model requires a fundamental shift:
-                  </p>
-
-                  <ul className="space-y-3">
-
-                    <li className="flex gap-3">
-                      <span className="text-blue-600 font-bold">→</span>
-                      <span>
-                        <strong>Aid dependency</strong> → economic sovereignty
-                      </span>
-                    </li>
-
-                    <li className="flex gap-3">
-                      <span className="text-blue-600 font-bold">→</span>
-                      <span>
-                        <strong>Foreign-led agendas</strong> → African-owned
-                        strategies
-                      </span>
-                    </li>
-
-                    <li className="flex gap-3">
-                      <span className="text-blue-600 font-bold">→</span>
-                      <span>
-                        <strong>Short-term fixes</strong> → systems change and
-                        sustainable growth
-                      </span>
-                    </li>
-
-                  </ul>
-
-                </FrameworkCard>
-
-                <FrameworkCard title="The AEF Contribution">
-
-                  <p>
-                    The AEF provides an architecture through which African
-                    and global stakeholders can develop practical
-                    partnerships, investment opportunities, policy dialogue,
-                    and long-term cooperation.
-                  </p>
-
-                </FrameworkCard>
-
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <FrameworkCard
-                  number="1"
-                  title="Platform for Policy Dialogue"
-                >
-                  <p>
-                    Heads of state, ministers, CEOs, investors, and thought
-                    leaders co-design policies and frameworks serving
-                    long-term African and global interests.
-                  </p>
-                </FrameworkCard>
-
-                <FrameworkCard
-                  number="2"
-                  title="Investment Matchmaking"
-                >
-                  <p>
-                    Connecting African opportunities with global capital,
-                    with a focus on infrastructure, green energy, technology,
-                    health, agriculture, and the creative economy.
-                  </p>
-                </FrameworkCard>
-
-                <FrameworkCard
-                  number="3"
-                  title="Narrative Reset"
-                >
-                  <p>
-                    Positioning Africa as a solution provider rather than
-                    simply a problem to be solved; elevating success stories,
-                    championing innovation, and celebrating global
-                    contributors.
-                  </p>
-                </FrameworkCard>
-
-                <FrameworkCard
-                  number="4"
-                  title="Geopolitical Rebalancing"
-                >
-                  <p>
-                    Supporting Africa’s participation at the table as a
-                    co-architect of the world’s future.
-                  </p>
-                </FrameworkCard>
-
-                <FrameworkCard
-                  number="5"
-                  title="Inclusive Development Models"
-                >
-                  <p>
-                    Partnerships that empower youth, women, entrepreneurs,
-                    and local communities so that economic growth translates
-                    into shared prosperity.
-                  </p>
-                </FrameworkCard>
-
-              </div>
+              <p className="text-lg lg:text-xl text-gray-700 leading-relaxed">
+                Three interconnected pillars define the AEF Model:
+              </p>
 
             </div>
 
-            {/* =====================================================
-                B. LEADERSHIP AND GOVERNANCE
-            ===================================================== */}
-            <div className="mb-24">
+            {/* ================= PILLAR 1 ================= */}
+            <div className="mb-10">
 
-              <div className="mb-12">
+              <div className="rounded-2xl bg-blue-50 border-b-8 border-blue-800 shadow-lg overflow-hidden">
 
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-50 text-green-700 font-semibold mb-4">
-                  B
+                <div className="px-6 sm:px-10 lg:px-14 py-12">
+
+                  {/* Icon */}
+                  <div className="flex justify-center mb-8">
+                    <div className="w-28 h-28 rounded-full bg-blue-800 flex items-center justify-center">
+                      <i className="ri-calendar-event-line text-5xl text-white" />
+                    </div>
+                  </div>
+
+                  <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-8">
+                    1. The Perpetual Forum
+                  </h3>
+
+                  <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center max-w-5xl mx-auto mb-10">
+                    Unlike episodic summits, the AEF runs a continuous cycle
+                    of sector-specific forums, ensuring strategic continuity
+                    and measurable outcomes.
+                  </p>
+
+                  <div className="space-y-7 max-w-5xl mx-auto">
+
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        <strong className="font-bold">
+                          Year-Round Engagement:
+                        </strong>{' '}
+                        Sustained dialogue between African governments,
+                        global investors, and institutions.
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        <strong className="font-bold">
+                          Sector-Driven Precision:
+                        </strong>{' '}
+                        From critical minerals to infrastructure, each forum
+                        zeroes in on concrete deal structures and investment
+                        vehicles.
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        <strong className="font-bold">
+                          Africa Sets the Clock:
+                        </strong>{' '}
+                        The Forum adapts to African policy cycles, resource
+                        extraction timelines, and political priorities—not
+                        external agendas.
+                      </p>
+                    </div>
+
+                  </div>
                 </div>
-
-                <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                  Quality Leadership and Governance in Africa
-                </h3>
-
               </div>
-
-              <div className="space-y-8">
-
-                <FrameworkCard
-                  number="1"
-                  title="Rethinking Leadership: From Power to Purpose"
-                >
-                  <p className="mb-4">
-                    The current challenge is that leadership can become
-                    centered on the accumulation of personal or
-                    clan-based power.
-                  </p>
-
-                  <p className="mb-4">
-                    A new paradigm calls for transformational leadership
-                    rooted in purpose, accountability, ethics, and
-                    long-term impact.
-                  </p>
-
-                  <p>
-                    This includes approaches such as servant leadership and
-                    leadership inspired by African values such as Ubuntu.
-                  </p>
-                </FrameworkCard>
-
-                <FrameworkCard
-                  number="2"
-                  title="Reshaping Governance: Institutions That Serve People"
-                >
-                  <p className="mb-4">
-                    The objective is to shift from extractive institutions
-                    toward inclusive and accountable institutions.
-                  </p>
-
-                  <ul className="list-disc pl-6 space-y-2">
-
-                    <li>Participatory constitutional reform</li>
-
-                    <li>
-                      Digitalization of public administration
-                    </li>
-
-                    <li>
-                      Stronger transparency and citizen auditing mechanisms
-                    </li>
-
-                    <li>
-                      Real and effective decentralization
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-                <FrameworkCard
-                  number="3"
-                  title="New Patterns: Leadership Ecosystems & Collaborative Governance"
-                >
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Moving from verticality toward horizontality through
-                      co-creation of public policies with citizens, diaspora,
-                      youth, and local communities.
-                    </li>
-
-                    <li>
-                      Developing multi-stakeholder coalitions involving
-                      governments, business, civil society, and traditional
-                      institutions.
-                    </li>
-
-                    <li>
-                      Promoting distributed leadership environments where
-                      every citizen can become an agent of change.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-                <FrameworkCard
-                  number="4"
-                  title="African Solutions to African Challenges"
-                >
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Integrating African wisdom and governance traditions,
-                      including systems inspired by chiefdoms and councils
-                      of elders, adapted to contemporary challenges.
-                    </li>
-
-                    <li>
-                      Revaluing Africa’s cultural and spiritual capital in
-                      governance models.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-                <FrameworkCard
-                  number="5"
-                  title="Youth & Women as New Pillars of Governance"
-                >
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Promoting intergenerational leadership.
-                    </li>
-
-                    <li>
-                      Expanding access to political and institutional power
-                      for women and youth through measures such as smart
-                      quotas, campaign financing, and capacity building.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-                <FrameworkCard
-                  number="6"
-                  title="Strategic Actions for Change"
-                >
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Establish an African Center for Leadership and
-                      Innovative Governance.
-                    </li>
-
-                    <li>
-                      Launch inter-country dialogue forums on institutional
-                      reform.
-                    </li>
-
-                    <li>
-                      Set up public policy labs led by African youth and
-                      intellectuals.
-                    </li>
-
-                    <li>
-                      Train a new generation of leaders through pan-African
-                      governance schools.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-              </div>
-
             </div>
 
-            {/* =====================================================
-                C. ECONOMIC SOVEREIGNTY
-            ===================================================== */}
+            {/* ================= PILLAR 2 ================= */}
+            <div className="mb-10">
+
+              <div className="rounded-2xl bg-teal-50 border-b-8 border-teal-800 shadow-lg overflow-hidden">
+
+                <div className="px-6 sm:px-10 lg:px-14 py-12">
+
+                  {/* Icon */}
+                  <div className="flex justify-center mb-8">
+                    <div className="w-28 h-28 rounded-full bg-teal-800 flex items-center justify-center">
+                      <i className="ri-team-line text-5xl text-white" />
+                    </div>
+                  </div>
+
+                  <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-8">
+                    2. The African Table
+                  </h3>
+
+                  <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center max-w-5xl mx-auto mb-10">
+                    Sovereignty begins with control of the agenda. The
+                    African Table means Africa invites, Africa convenes, and
+                    Africa defines the terms of cooperation.
+                  </p>
+
+                  <div className="space-y-7 max-w-5xl mx-auto">
+
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        <strong className="font-bold">
+                          Agenda Sovereignty:
+                        </strong>{' '}
+                        Topics reflect African priorities, not external
+                        frameworks or geopolitical impositions.
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        <strong className="font-bold">
+                          Strategic Matchmaking:
+                        </strong>{' '}
+                        Investors are curated based on alignment with
+                        long-term African development, not short-term
+                        extraction.
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        <strong className="font-bold">
+                          Deal-Oriented Diplomacy:
+                        </strong>{' '}
+                        Every panel, every roundtable, every closed-door
+                        session is structured to move from dialogue to signed
+                        commitments.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ================= PILLAR 3 ================= */}
             <div>
 
-              <div className="mb-12">
+              <div className="rounded-2xl bg-emerald-50 border-b-8 border-emerald-800 shadow-lg overflow-hidden">
 
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-orange-50 text-orange-700 font-semibold mb-4">
-                  C
+                <div className="px-6 sm:px-10 lg:px-14 py-12">
+
+                  {/* Icon */}
+                  <div className="flex justify-center mb-8">
+                    <div className="w-28 h-28 rounded-full bg-emerald-800 flex items-center justify-center">
+                      <i className="ri-government-line text-5xl text-white" />
+                    </div>
+                  </div>
+
+                  <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-8">
+                    3. Host Country Partnership
+                  </h3>
+
+                  <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center max-w-5xl mx-auto mb-10">
+                    Each sector forum is hosted by an African nation that has
+                    committed to leading the agenda in that domain, ensuring
+                    the highest level of government engagement and deal-making
+                    potential.
+                  </p>
+
+                  <div className="space-y-7 max-w-5xl mx-auto">
+
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        <strong className="font-bold">
+                          National Champions:
+                        </strong>{' '}
+                        The forum host demonstrates sovereign ownership of
+                        the sector&apos;s strategic vision.
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        <strong className="font-bold">
+                          Infrastructure for Execution:
+                        </strong>{' '}
+                        Forums integrate national project pipelines,
+                        regulatory frameworks, and investment climate reforms.
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        <strong className="font-bold">
+                          Permanent Regional Hub:
+                        </strong>{' '}
+                        Host nations become nodes of expertise and investment,
+                        sustaining sectoral networks beyond the event.
+                      </p>
+                    </div>
+
+                  </div>
                 </div>
-
-                <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                  Africa’s Economic Sovereignty
-                </h3>
-
-                <h4 className="text-xl text-blue-700 font-semibold mb-6">
-                  Reclaiming and Reasserting African Sovereignty:
-                  Our Fight at the Africa Economic Forum
-                </h4>
-
-                <p className="text-lg text-gray-600 leading-relaxed max-w-5xl">
-                  The Africa Economic Forum positions itself as a platform
-                  for advancing a collective mission around the
-                  reappropriation and reconquest of African sovereignty
-                  across economic, media, cultural, scientific, and
-                  philosophical dimensions. This is presented as a practical
-                  pathway toward greater emancipation and prosperity.
-                </p>
-
               </div>
-
-              <div className="space-y-8">
-
-                {/* Economic Sovereignty */}
-                <FrameworkCard
-                  number="1"
-                  title="Economic Sovereignty: An African Market Dominated by African Products"
-                >
-                  <p className="mb-5">
-                    Africa remains significantly dependent on imported
-                    products. The legacy page cited intra-African trade as
-                    representing approximately 15–18% of total trade,
-                    compared with higher levels in Europe and Asia.
-                  </p>
-
-                  <p className="font-semibold text-gray-900 mb-3">
-                    Proposed directions:
-                  </p>
-
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Strengthen local production and value-added industries.
-                    </li>
-
-                    <li>
-                      Accelerate implementation of the AfCFTA and expand
-                      intra-African trade.
-                    </li>
-
-                    <li>
-                      Develop strategic policies that nurture homegrown
-                      industries while fostering fair and equitable global
-                      trade.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-                {/* South-South */}
-                <FrameworkCard
-                  number="2"
-                  title="Win-Win South-South and Global Cooperation Based on Equality"
-                >
-                  <p className="mb-5">
-                    Global engagement should move away from asymmetric
-                    partnerships that perpetuate dependency and toward
-                    cooperation based on equality and shared value.
-                  </p>
-
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Strengthen South-South alliances, including engagement
-                      with platforms such as BRICS+ and ASEAN-Africa.
-                    </li>
-
-                    <li>
-                      Enhance Africa’s bargaining power in global economic
-                      relations.
-                    </li>
-
-                    <li>
-                      Promote technology and knowledge transfer that
-                      prioritizes long-term African development.
-                    </li>
-
-                    <li>
-                      Advance discussions around debt justice and fair
-                      financing.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-                {/* Media Sovereignty */}
-                <FrameworkCard
-                  number="3"
-                  title="Media Sovereignty: Controlling Our Narrative"
-                >
-                  <p className="mb-5">
-                    The legacy page highlighted concerns about the
-                    significant reliance of African media ecosystems on
-                    external content and argued for greater African
-                    ownership of narratives about the continent.
-                  </p>
-
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Invest in Pan-African media networks and Afrocentric
-                      digital platforms.
-                    </li>
-
-                    <li>
-                      Promote balanced representation in international media.
-                    </li>
-
-                    <li>
-                      Support journalistic training and investigative
-                      reporting rooted in African realities.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-                {/* Cultural Sovereignty */}
-                <FrameworkCard
-                  number="4"
-                  title="Cultural Sovereignty: Reclaiming Our Heritage"
-                >
-                  <p className="mb-5">
-                    Cultural sovereignty focuses on the protection,
-                    preservation, and revitalization of Africa’s heritage.
-                  </p>
-
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Support the repatriation of African cultural artifacts.
-                    </li>
-
-                    <li>
-                      Resist cultural domination and strengthen African
-                      cultural identity.
-                    </li>
-
-                    <li>
-                      Revitalize indigenous African languages.
-                    </li>
-
-                    <li>
-                      Support Afrocentric education and creative industries,
-                      including Nollywood, Afrobeats, and African literature
-                      as sources of global soft power.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-                {/* Scientific Sovereignty */}
-                <FrameworkCard
-                  number="5"
-                  title="Scientific Sovereignty: Innovation on Our Terms"
-                >
-                  <p className="mb-5">
-                    Scientific sovereignty requires strengthening Africa’s
-                    capacity to conduct research, develop technology, and
-                    retain scientific talent.
-                  </p>
-
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Increase investment in research and development.
-                    </li>
-
-                    <li>
-                      Establish African-led research hubs in areas including
-                      artificial intelligence, renewable energy, and
-                      medicine.
-                    </li>
-
-                    <li>
-                      Create competitive opportunities for African
-                      scientists and innovators.
-                    </li>
-
-                    <li>
-                      Reduce the effects of brain drain by strengthening
-                      local scientific and innovation ecosystems.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-                {/* Philosophical Sovereignty */}
-                <FrameworkCard
-                  number="6"
-                  title="Philosophical Sovereignty: Decolonizing African Thought"
-                >
-                  <p className="mb-5">
-                    The legacy framework argued for greater recognition of
-                    endogenous African knowledge systems and intellectual
-                    traditions in shaping policies and institutions.
-                  </p>
-
-                  <ul className="list-disc pl-6 space-y-3">
-
-                    <li>
-                      Promote endogenous knowledge systems, including Ubuntu,
-                      Negritude, and African feminist thought.
-                    </li>
-
-                    <li>
-                      Develop educational curricula that reflect Africa’s
-                      historical and philosophical contributions.
-                    </li>
-
-                    <li>
-                      Foster critical thinking aligned with African
-                      socio-economic realities.
-                    </li>
-
-                  </ul>
-                </FrameworkCard>
-
-              </div>
-
             </div>
 
           </div>
-
         </section>
 
-        {/* =========================================================
-            OUR STRATEGIC ROLE
-        ========================================================= */}
-        <section className="py-24 bg-blue-950 text-white">
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <div className="max-w-5xl mx-auto text-center">
-
-              <span className="text-blue-300 font-semibold uppercase tracking-wider text-sm">
-                Permanent Strategic Platform
-              </span>
-
-              <h2 className="text-4xl lg:text-5xl font-bold mt-3 mb-8">
-                Our Strategic Role
-              </h2>
-
-              <p className="text-xl text-blue-100 leading-relaxed mb-8">
-                The Africa Economic Forum is designed as a permanent
-                strategic platform, not a one-off event. It aligns African
-                sovereign priorities with global capital, policy frameworks,
-                and execution capacity in a structured and continuous manner.
-              </p>
-
-              <p className="text-lg text-blue-100 leading-relaxed mb-8">
-                Through sector-specific forums, high-level deal rooms, and
-                year-round engagement, the AEF enables governments, investors,
-                and institutions to move beyond dialogue toward partnerships,
-                co-investment structures, and policy alignment.
-              </p>
-
-              <p className="text-lg text-blue-100 leading-relaxed">
-                The AEF serves as a bridge between strategy and execution,
-                bringing political vision, private capital, and institutional
-                capacity into the same architecture — with Africa setting
-                the agenda and defining the terms of cooperation.
-              </p>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* =========================================================
-            MISSION
-        ========================================================= */}
+        {/* ================= MISSION ================= */}
         <section className="py-20 bg-gray-50">
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center mb-16">
@@ -1383,7 +807,7 @@ export default function AboutPage() {
                 {t('about.missionTitle')}
               </h2>
 
-              <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+              <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-12">
                 {t('about.missionSubtitle')}
               </p>
 
@@ -1391,97 +815,97 @@ export default function AboutPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-              {[
-                {
-                  icon: 'ri-handshake-line',
-                  bg: 'bg-blue-100',
-                  text: 'text-blue-600',
-                  title: t('about.winWinTitle'),
-                  textContent: t('about.winWinText'),
-                },
-                {
-                  icon: 'ri-user-star-line',
-                  bg: 'bg-green-100',
-                  text: 'text-green-600',
-                  title: t('about.visionaryLeadershipTitle'),
-                  textContent: t('about.visionaryLeadershipText'),
-                },
-                {
-                  icon: 'ri-links-line',
-                  bg: 'bg-purple-100',
-                  text: 'text-purple-600',
-                  title: t('about.strategicConnectionsTitle'),
-                  textContent: t('about.strategicConnectionsText'),
-                },
-                {
-                  icon: 'ri-megaphone-line',
-                  bg: 'bg-orange-100',
-                  text: 'text-orange-600',
-                  title: t('about.narrativeElevationTitle'),
-                  textContent: t('about.narrativeElevationText'),
-                },
-                {
-                  icon: 'ri-community-line',
-                  bg: 'bg-teal-100',
-                  text: 'text-teal-600',
-                  title: t('about.communityEmpowermentTitle'),
-                  textContent: t('about.communityEmpowermentText'),
-                },
-              ].map((item) => (
-                <div
-                  key={item.title}
-                  className="bg-white p-8 rounded-xl shadow-md"
-                >
+              {/* Win-Win */}
+              <div className="bg-white p-8 rounded-lg shadow-md">
 
-                  <div
-                    className={`w-16 h-16 ${item.bg} rounded-full flex items-center justify-center mx-auto mb-6`}
-                  >
-                    <i
-                      className={`${item.icon} text-2xl ${item.text}`}
-                    />
-                  </div>
-
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-gray-600 text-center leading-relaxed">
-                    {item.textContent}
-                  </p>
-
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <i className="ri-handshake-line text-2xl text-blue-600" />
                 </div>
-              ))}
+
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
+                  {t('about.winWinTitle')}
+                </h3>
+
+                <p className="text-gray-600 text-center">
+                  {t('about.winWinText')}
+                </p>
+
+              </div>
+
+              {/* Visionary Leadership */}
+              <div className="bg-white p-8 rounded-lg shadow-md">
+
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <i className="ri-user-star-line text-2xl text-green-600" />
+                </div>
+
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
+                  {t('about.visionaryLeadershipTitle')}
+                </h3>
+
+                <p className="text-gray-600 text-center">
+                  {t('about.visionaryLeadershipText')}
+                </p>
+
+              </div>
+
+              {/* Strategic Connections */}
+              <div className="bg-white p-8 rounded-lg shadow-md">
+
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <i className="ri-links-line text-2xl text-purple-600" />
+                </div>
+
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
+                  {t('about.strategicConnectionsTitle')}
+                </h3>
+
+                <p className="text-gray-600 text-center">
+                  {t('about.strategicConnectionsText')}
+                </p>
+
+              </div>
+
+              {/* Narrative Elevation */}
+              <div className="bg-white p-8 rounded-lg shadow-md">
+
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <i className="ri-megaphone-line text-2xl text-orange-600" />
+                </div>
+
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
+                  {t('about.narrativeElevationTitle')}
+                </h3>
+
+                <p className="text-gray-600 text-center">
+                  {t('about.narrativeElevationText')}
+                </p>
+
+              </div>
+
+              {/* Community Empowerment */}
+              <div className="bg-white p-8 rounded-lg shadow-md">
+
+                <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <i className="ri-community-line text-2xl text-teal-600" />
+                </div>
+
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
+                  {t('about.communityEmpowermentTitle')}
+                </h3>
+
+                <p className="text-gray-600 text-center">
+                  {t('about.communityEmpowermentText')}
+                </p>
+
+              </div>
 
             </div>
-
           </div>
-
         </section>
 
-        {/* =========================================================
-            VISION
-        ========================================================= */}
-        <section className="py-20 bg-blue-900 text-white">
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-
-            <h2 className="text-4xl font-bold mb-8">
-              {t('about.visionTitle')}
-            </h2>
-
-            <p className="text-2xl text-blue-100 max-w-5xl mx-auto leading-relaxed">
-              {t('about.visionText')}
-            </p>
-
-          </div>
-
-        </section>
-
-        {/* =========================================================
-            CORE VALUES
-        ========================================================= */}
+        {/* ================= VALUES ================= */}
         <section className="py-20 bg-white">
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center mb-16">
@@ -1498,82 +922,89 @@ export default function AboutPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-              {[
-                {
-                  icon: '🌍',
-                  title: t('about.sovereigntyTitle'),
-                  text: t('about.sovereigntyText'),
-                },
-                {
-                  icon: '🤝',
-                  title: t('about.equityTitle'),
-                  text: t('about.equityText'),
-                },
-                {
-                  icon: '🔥',
-                  title: t('about.transformationalLeadershipTitle'),
-                  text: t('about.transformationalLeadershipText'),
-                },
-                {
-                  icon: '📣',
-                  title: t('about.narrativeJusticeTitle'),
-                  text: t('about.narrativeJusticeText'),
-                },
-                {
-                  icon: '💡',
-                  title: t('about.innovationTitle'),
-                  text: t('about.innovationText'),
-                },
-                {
-                  icon: '👥',
-                  title: t('about.inclusionTitle'),
-                  text: t('about.inclusionText'),
-                },
-              ].map((item) => (
-                <div
-                  key={item.title}
-                  className="bg-gray-50 p-8 rounded-xl"
-                >
-
-                  <div className="flex items-center mb-6">
-
-                    <div className="text-3xl mr-4">
-                      {item.icon}
-                    </div>
-
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      {item.title}
-                    </h3>
-
-                  </div>
-
-                  <p className="text-gray-600 leading-relaxed">
-                    {item.text}
-                  </p>
-
+              <div className="bg-gray-50 p-8 rounded-lg">
+                <div className="flex items-center mb-6">
+                  <div className="text-3xl mr-4">🌍</div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {t('about.sovereigntyTitle')}
+                  </h3>
                 </div>
-              ))}
+                <p className="text-gray-600">
+                  {t('about.sovereigntyText')}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-8 rounded-lg">
+                <div className="flex items-center mb-6">
+                  <div className="text-3xl mr-4">🤝</div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {t('about.equityTitle')}
+                  </h3>
+                </div>
+                <p className="text-gray-600">
+                  {t('about.equityText')}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-8 rounded-lg">
+                <div className="flex items-center mb-6">
+                  <div className="text-3xl mr-4">🔥</div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {t('about.transformationalLeadershipTitle')}
+                  </h3>
+                </div>
+                <p className="text-gray-600">
+                  {t('about.transformationalLeadershipText')}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-8 rounded-lg">
+                <div className="flex items-center mb-6">
+                  <div className="text-3xl mr-4">📣</div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {t('about.narrativeJusticeTitle')}
+                  </h3>
+                </div>
+                <p className="text-gray-600">
+                  {t('about.narrativeJusticeText')}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-8 rounded-lg">
+                <div className="flex items-center mb-6">
+                  <div className="text-3xl mr-4">💡</div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {t('about.innovationTitle')}
+                  </h3>
+                </div>
+                <p className="text-gray-600">
+                  {t('about.innovationText')}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-8 rounded-lg">
+                <div className="flex items-center mb-6">
+                  <div className="text-3xl mr-4">👥</div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {t('about.inclusionTitle')}
+                  </h3>
+                </div>
+                <p className="text-gray-600">
+                  {t('about.inclusionText')}
+                </p>
+              </div>
 
             </div>
-
           </div>
-
         </section>
 
-        {/* =========================================================
-            ORGANIZING COMMITTEE
-        ========================================================= */}
+        {/* ================= ORGANIZING COMMITTEE ================= */}
         <section className="py-20 bg-gray-50">
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center mb-16">
 
-              <span className="text-blue-600 font-semibold uppercase tracking-wider text-sm">
-                Leadership
-              </span>
-
-              <h2 className="text-4xl font-bold text-gray-900 mt-3 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 {t('about.organizingCommitteeTitle')}
               </h2>
 
@@ -1600,12 +1031,12 @@ export default function AboutPage() {
 
               <div className="max-w-md mx-auto">
 
-                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
 
                   <img
                     src="/images/billy-issa.jpg"
                     alt="Dr. Billy Issa"
-                    className="w-full h-72 object-cover object-top"
+                    className="w-full h-64 object-cover object-top"
                   />
 
                   <div className="p-6">
@@ -1623,11 +1054,8 @@ export default function AboutPage() {
                     </p>
 
                   </div>
-
                 </div>
-
               </div>
-
             </div>
 
             {/* Strategic Advisory Board */}
@@ -1656,7 +1084,6 @@ export default function AboutPage() {
                 ))}
 
               </div>
-
             </div>
 
             {/* Executive Board */}
@@ -1685,7 +1112,6 @@ export default function AboutPage() {
                 ))}
 
               </div>
-
             </div>
 
             {/* Scientific Committee */}
@@ -1718,14 +1144,52 @@ export default function AboutPage() {
             </div>
 
           </div>
-
         </section>
 
-        {/* =========================================================
-            CTA
-        ========================================================= */}
-        <section className="py-20 bg-blue-900 text-white">
+        {/* ================= STRATEGIC ROLE ================= */}
+        <section className="py-24 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
+            <div className="text-center mb-14">
+
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                Our Strategic Role
+              </h2>
+
+              <div className="w-20 h-1 bg-blue-800 mx-auto" />
+
+            </div>
+
+            <div className="space-y-8">
+
+              <p className="text-lg lg:text-xl text-gray-700 leading-relaxed">
+                The Africa Economic Forum is designed as a permanent strategic
+                platform, not a one-off event. It aligns African sovereign
+                priorities with global capital, policy frameworks, and
+                execution capacity in a structured and continuous manner.
+              </p>
+
+              <p className="text-lg lg:text-xl text-gray-700 leading-relaxed">
+                Through sector-specific forums, high-level deal rooms, and
+                year-round engagement, the AEF enables governments, investors,
+                and institutions to move beyond dialogue into partnerships,
+                co-investment structures, and policy alignment.
+              </p>
+
+              <p className="text-lg lg:text-xl text-gray-700 leading-relaxed">
+                The AEF serves as a bridge between strategy and execution,
+                bringing political vision, private capital, and institutional
+                capacity into the same architecture — with Africa setting the
+                agenda and defining the terms of cooperation.
+              </p>
+
+            </div>
+
+          </div>
+        </section>
+
+        {/* ================= CTA ================= */}
+        <section className="py-20 bg-blue-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
             <h2 className="text-4xl font-bold mb-6">
@@ -1744,14 +1208,11 @@ export default function AboutPage() {
             </Link>
 
           </div>
-
         </section>
 
       </main>
 
-      {/* =========================================================
-          FOOTER
-      ========================================================= */}
+      {/* ================= FOOTER ================= */}
       <footer className="bg-gray-900 text-white py-16">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1760,7 +1221,6 @@ export default function AboutPage() {
 
             {/* About */}
             <div>
-
               <h3 className="font-semibold text-lg mb-6">
                 {t('footer.aboutUs')}
               </h3>
@@ -1804,7 +1264,6 @@ export default function AboutPage() {
                 </li>
 
               </ul>
-
             </div>
 
             {/* More */}
@@ -1889,7 +1348,6 @@ export default function AboutPage() {
                 </li>
 
               </ul>
-
             </div>
 
             {/* Engage */}
@@ -1965,7 +1423,6 @@ export default function AboutPage() {
                 </li>
 
               </ul>
-
             </div>
 
             {/* Quick Links */}
@@ -2117,13 +1574,11 @@ export default function AboutPage() {
               </div>
 
             </div>
-
           </div>
 
         </div>
-
       </footer>
 
     </div>
   );
-              }
+}
