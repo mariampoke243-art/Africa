@@ -254,6 +254,16 @@ export const listeIntervenants: Intervenant[] = [
     statut: 'Confirmé',
   },
 
+  {
+    id: '33',
+    key: 'drOssamaShaheen',
+    nom: 'Dr Ossama Shaheen',
+    photoUrl: '/images/Dr Ossama Shaheen.jpg',
+    description:
+      "Chapitre du chef de l'Afrique du WCMT\nPrésident du Conseil de l'Afrique arabe pour la sensibilisation",
+    statut: 'Confirmé',
+  },
+
   // =========================
   // INVITÉS
   // =========================
@@ -317,3 +327,5 @@ export const listeIntervenants: Intervenant[] = [
     statut: 'Confirmé',
   },
 ];
+
+Seule addition effectuée : l’entrée "id: '33'" pour Dr Ossama Shaheen, avec son image et ses deux fonctions.
