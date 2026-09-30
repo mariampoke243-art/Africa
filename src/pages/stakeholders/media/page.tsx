@@ -192,35 +192,213 @@ const MediaPage: React.FC = () => {
     });
   };
 
-  const mediaPartners = [
+  // Page content
+  const changeLines = [
+    'Its economies are expanding.',
+    'Its markets are evolving.',
+    'Its industries are attracting global capital.',
+    'Its cities are transforming.',
+    'And its role in the global economy is becoming increasingly significant.',
+  ];
+
+  const whyLines = [
+    'Investors need reliable information.',
+    'Governments need to communicate national priorities.',
+    'Businesses need to explain their markets and ambitions.',
+    'Institutions need their work understood.',
+  ];
+
+  const focusAreas = [
     {
-      name: 'Sarah Williams',
-      organization: 'Global Economic Times',
-      role: 'Senior Economic Correspondent',
-      expertise: 'International Trade & Policy',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20female%20journalist%2C%20confident%20expression%2C%20newsroom%20background%2C%20business%20attire%2C%20media%20environment%2C%20broadcast%20journalism%20setting&width=300&height=300&seq=21&orientation=squarish',
+      title: 'Economic Journalism',
+      text: 'Access conversations and perspectives on investment, trade, business, finance and economic transformation.',
+      icon: 'ri-line-chart-line',
+      card: 'bg-gradient-to-br from-red-50 to-red-100',
+      iconBg: 'bg-red-500',
     },
     {
-      name: 'Michael Chen',
-      organization: 'Innovation Today',
-      role: 'Technology Editor',
-      expertise: 'Digital Innovation & Startups',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20Asian%20male%20journalist%2C%20modern%20media%20studio%20background%2C%20confident%20smile%2C%20technology%20journalism%20setting%2C%20broadcast%20equipment&width=300&height=300&seq=22&orientation=squarish',
+      title: 'Investment & Business Reporting',
+      text: "Connect with investors, CEOs, entrepreneurs and project developers shaping Africa's markets.",
+      icon: 'ri-funds-line',
+      card: 'bg-gradient-to-br from-blue-50 to-blue-100',
+      iconBg: 'bg-blue-500',
     },
     {
-      name: 'Dr. Fatima Al-Rashid',
-      organization: 'Sustainability Weekly',
-      role: 'Environmental Correspondent',
-      expertise: 'Climate & Environmental Policy',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20Middle%20Eastern%20female%20journalist%2C%20environmental%20reporting%20background%2C%20confident%20expression%2C%20sustainability%20journalism%20setting%2C%20green%20technology&width=300&height=300&seq=23&orientation=squarish',
+      title: 'Strategic Communications',
+      text: 'Explore how governments, institutions and companies communicate their priorities and engage global audiences.',
+      icon: 'ri-chat-voice-line',
+      card: 'bg-gradient-to-br from-green-50 to-green-100',
+      iconBg: 'bg-green-500',
     },
     {
-      name: 'James Rodriguez',
-      organization: 'Business Network International',
-      role: 'Documentary Producer',
-      expertise: 'Economic Development Stories',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20Latino%20male%20documentary%20producer%2C%20film%20production%20background%2C%20confident%20expression%2C%20media%20production%20setting%2C%20camera%20equipment&width=300&height=300&seq=24&orientation=squarish',
+      title: "Africa's Global Positioning",
+      text: "Contribute to a more informed understanding of Africa's role in global investment, trade and geopolitics.",
+      icon: 'ri-earth-line',
+      card: 'bg-gradient-to-br from-purple-50 to-purple-100',
+      iconBg: 'bg-purple-500',
     },
+    {
+      title: 'Digital Media & Storytelling',
+      text: 'Connect traditional media with digital platforms, creators and emerging forms of economic storytelling.',
+      icon: 'ri-live-line',
+      card: 'bg-gradient-to-br from-orange-50 to-orange-100',
+      iconBg: 'bg-orange-500',
+    },
+    {
+      title: 'Public Affairs & Thought Leadership',
+      text: 'Engage with leaders and institutions shaping public policy, business and development.',
+      icon: 'ri-government-line',
+      card: 'bg-gradient-to-br from-teal-50 to-teal-100',
+      iconBg: 'bg-teal-500',
+    },
+    {
+      title: 'Media Partnerships',
+      text: 'Develop relationships that create opportunities for interviews, editorial collaborations, special reports and strategic media initiatives.',
+      icon: 'ri-handshake-line',
+      card: 'bg-gradient-to-br from-red-50 to-red-100',
+      iconBg: 'bg-red-500',
+    },
+  ];
+
+  const whoShouldJoin = [
+    {
+      title: 'Journalists & Correspondents',
+      text: 'Professionals covering business, economics, politics, investment, diplomacy and development.',
+      icon: 'ri-news-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Editors & Publishers',
+      text: 'Leaders responsible for shaping editorial agendas and media platforms.',
+      icon: 'ri-article-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Broadcasting Executives',
+      text: 'Television, radio and multimedia professionals covering Africa and global affairs.',
+      icon: 'ri-broadcast-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Business & Financial Media',
+      text: 'Publications and platforms specializing in markets, investment, finance and corporate affairs.',
+      icon: 'ri-bar-chart-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Digital Media Leaders',
+      text: 'Founders and executives building Africa-focused digital media platforms.',
+      icon: 'ri-computer-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Content Creators',
+      text: "Creators producing high-quality content on business, economics, leadership and Africa's global role.",
+      icon: 'ri-video-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Strategic Communications Professionals',
+      text: 'Experts working across public affairs, corporate communications, reputation and stakeholder engagement.',
+      icon: 'ri-megaphone-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+  ];
+
+  const memberGains = [
+    {
+      title: 'Access',
+      text: 'Direct access to CEOs, investors, government officials, diplomats, entrepreneurs and institutional leaders.',
+      icon: 'ri-key-2-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Information',
+      text: 'Engage with the people directly involved in major investment, policy and development initiatives.',
+      icon: 'ri-information-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Stories',
+      text: 'Discover emerging business opportunities, investment themes, innovations and African success stories.',
+      icon: 'ri-lightbulb-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Visibility',
+      text: 'Position your media platform within a high-level ecosystem of African and international decision-makers.',
+      icon: 'ri-eye-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Relationships',
+      text: 'Build direct relationships with sources, institutions, companies and potential media partners.',
+      icon: 'ri-user-voice-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Opportunities',
+      text: 'Access interviews, briefings, media engagements, special initiatives and strategic communications opportunities.',
+      icon: 'ri-compass-3-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Network',
+      text: "Become part of a cross-sector ecosystem connecting media with the people shaping Africa's economic future.",
+      icon: 'ri-team-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+  ];
+
+  const membershipBenefits = [
+    'AEF Media Network Membership',
+    'Official Access to the Africa Economic Forum',
+    'Media Accreditation & Priority Access',
+    'Press & Media Briefings',
+    'CEO & Government Leader Interviews',
+    'Closed-Door Media Sessions',
+    'Access to Selected AEF Roundtables',
+    'Access to the AEF Member Network',
+    'Media Networking & Editorial Meetings',
+    'Strategic Media Partnership Opportunities',
+    'Access to AEF Reports & Economic Intelligence',
+    'Opportunities for Special Features & Interviews',
+    'Visibility Across Selected AEF Platforms',
+    'Year-Round Media Engagement',
+    'Curated Introductions to Key Stakeholders',
+  ];
+
+  const membershipIncludes = [
+    'AEF Media Network Membership',
+    'Africa Economic Forum Media Access',
+    'Priority Media & Press Opportunities',
+    'Executive Interview Opportunities',
+    'Media Briefings',
+    'Access to Selected AEF Sessions',
+    'AEF Member Network Access',
+    'Strategic Media Networking',
+    'Partnership Opportunities',
+    'Year-Round Community Engagement',
+  ];
+
+  const closingLines = [
+    'Stories Shape Perception.',
+    'Perception Shapes Engagement.',
+    'Engagement Shapes Opportunity.',
   ];
 
   return (
@@ -276,185 +454,152 @@ const MediaPage: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section 
-        className="relative h-96 bg-cover bg-center bg-no-repeat flex items-center"
+      <section
+        className="relative min-h-[24rem] bg-cover bg-center bg-no-repeat flex items-center py-16"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Modern%20media%20newsroom%2C%20journalists%20working%2C%20broadcast%20equipment%2C%20professional%20news%20environment%2C%20media%20production%2C%20journalism%20and%20communication&width=1200&height=400&seq=25&orientation=landscape')`
         }}
       >
         <div className="container mx-auto px-6">
           <div className="max-w-3xl text-white">
-            <h1 className="text-5xl font-bold mb-6">Media Partnership Network</h1>
+            <h1 className="text-5xl font-bold mb-6">AEF Media Network</h1>
+            <p className="text-2xl font-semibold mb-4 leading-snug">
+              Where Africa's Story Meets Global Influence
+            </p>
             <p className="text-xl mb-8 leading-relaxed">
-              Connecting journalists, media professionals, and content creators to amplify stories of economic development, innovation, and positive global impact.
+              Africa is changing.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
               className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors whitespace-nowrap cursor-pointer"
             >
-              Join Media Network
+              Apply for Membership
             </button>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Introduction */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Amplifying Impact Through Media</h2>
-            <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-              The AEF Media Partnership Network brings together journalists, content creators, and media professionals 
-              committed to telling stories that matter. We facilitate access to newsworthy content, expert sources, 
-              and collaborative opportunities that highlight economic development, innovation, and positive social impact.
-            </p>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-news-line text-2xl text-red-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Story Access</h3>
-                <p className="text-gray-600">
-                  Exclusive access to impactful stories, expert interviews, and breaking developments.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-team-line text-2xl text-blue-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Expert Network</h3>
-                <p className="text-gray-600">
-                  Connect with thought leaders, policymakers, and industry experts for authoritative sources.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-global-line text-2xl text-green-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Global Reach</h3>
-                <p className="text-gray-600">
-                  Collaborate with international media partners to amplify important stories worldwide.
-                </p>
-              </div>
+            <div className="space-y-2 mb-8">
+              {changeLines.map((line) => (
+                <p key={line} className="text-lg text-gray-700">{line}</p>
+              ))}
+            </div>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                But economic transformation is not only about what happens.
+              </p>
+              <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+                It is also about how the world sees what happens.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The stories that are told about Africa influence perceptions, investment decisions, political relationships, consumer confidence and international partnerships.
+              </p>
+              <p className="text-xl font-semibold text-red-600 leading-relaxed">
+                The AEF Media Network was created for the people who shape those narratives.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Partnership Benefits */}
+      {/* Media & Strategic Communications Community */}
+      <section className="py-16">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">The Media & Strategic Communications Community of the Africa Economic Forum</h2>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The AEF Media Network is the media and strategic communications community within the Africa Economic Forum.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                It brings together journalists, editors, publishers, broadcasters, media executives, business publications, digital platforms, content creators, strategic communications professionals and thought leaders covering Africa and the global economy.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The Network connects media professionals directly with the governments, investors, CEOs, institutions and innovators shaping Africa's next chapter.
+              </p>
+              <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+                Because access creates better journalism. And better journalism creates better understanding.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why the AEF Media Network */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Why the AEF Media Network?</h2>
+            <p className="text-lg text-gray-700 text-center mb-8 leading-relaxed">
+              Africa's economic story is increasingly global.
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-6 mb-8">
+              {whyLines.map((line) => (
+                <div key={line} className="bg-white p-6 rounded-lg shadow-md flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i className="ri-check-double-line text-xl text-red-600"></i>
+                  </div>
+                  <p className="font-semibold text-gray-900">{line}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-6 text-center">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                And international audiences need deeper perspectives on a continent too often reduced to headlines.
+              </p>
+              <p className="text-xl font-semibold text-red-600 leading-relaxed">
+                The AEF Media Network creates a trusted environment where media professionals can access the people, information and conversations behind Africa's most important economic developments.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Shaping the Narrative */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Partnership Benefits</h2>
-            
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">Shaping the Narrative Around Africa's Transformation</h2>
+            <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12 leading-relaxed">
+              The Network focuses on the intersection of media, economics, investment, diplomacy and strategic communication.
+            </p>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-article-line text-xl text-white"></i>
+              {focusAreas.map((area) => (
+                <div key={area.title} className={`${area.card} p-6 rounded-lg`}>
+                  <div className={`w-12 h-12 ${area.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                    <i className={`${area.icon} text-xl text-white`}></i>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-3">{area.title}</h3>
+                  <p className="text-gray-600">{area.text}</p>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Exclusive Content Access</h3>
-                <p className="text-gray-600 mb-4">First access to breaking news, research findings, and exclusive interviews.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Breaking news alerts</li>
-                  <li>• Research reports</li>
-                  <li>• Expert interviews</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-user-voice-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Expert Source Network</h3>
-                <p className="text-gray-600 mb-4">Direct access to economists, policymakers, and industry leaders.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Expert database</li>
-                  <li>• Interview coordination</li>
-                  <li>• Background briefings</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-calendar-event-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Event Coverage</h3>
-                <p className="text-gray-600 mb-4">Priority access to conferences, summits, and exclusive events.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Press credentials</li>
-                  <li>• Media kits</li>
-                  <li>• Live streaming access</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-share-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Content Syndication</h3>
-                <p className="text-gray-600 mb-4">Opportunities to syndicate content across partner networks.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Content sharing</li>
-                  <li>• Cross-promotion</li>
-                  <li>• Audience expansion</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-graduation-cap-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Professional Development</h3>
-                <p className="text-gray-600 mb-4">Training workshops and skill development opportunities.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Media workshops</li>
-                  <li>• Digital skills training</li>
-                  <li>• Industry insights</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-award-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Recognition Programs</h3>
-                <p className="text-gray-600 mb-4">Awards and recognition for outstanding journalism and reporting.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Journalism awards</li>
-                  <li>• Excellence recognition</li>
-                  <li>• Career advancement</li>
-                </ul>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Media Partners */}
+      {/* Who Should Join */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Featured Media Partners</h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {mediaPartners.map((partner, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <img
-                    src={partner.image}
-                    alt={partner.name}
-                    className="w-full h-48 object-cover object-top"
-                  />
-                  <div className="p-6">
-                    <h3 className="font-semibold text-gray-900 mb-1">{partner.name}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{partner.organization}</p>
-                    <p className="text-sm text-red-600 mb-3">{partner.role}</p>
-                    <div className="flex items-center text-sm text-green-600">
-                      <i className="ri-focus-line mr-2"></i>
-                      {partner.expertise}
-                    </div>
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Who Should Join?</h2>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {whoShouldJoin.map((item) => (
+                <div key={item.title} className="bg-white p-6 rounded-lg shadow-md flex items-start space-x-4">
+                  <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    <i className={`${item.icon} text-xl ${item.iconColor}`}></i>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600">{item.text}</p>
                   </div>
                 </div>
               ))}
@@ -463,101 +608,125 @@ const MediaPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Coverage Areas */}
+      {/* What Members Gain */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Key Coverage Areas</h2>
-            
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">What Members Gain</h2>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-line-chart-line text-xl text-red-600"></i>
+              {memberGains.map((item) => (
+                <div key={item.title} className="flex items-start space-x-4">
+                  <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    <i className={`${item.icon} text-xl ${item.iconColor}`}></i>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600">{item.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Economic Development</h3>
-                  <p className="text-gray-600">Trade policies, economic growth, and development initiatives.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-lightbulb-line text-xl text-blue-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Innovation & Technology</h3>
-                  <p className="text-gray-600">Breakthrough technologies, startups, and digital transformation.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-earth-line text-xl text-green-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Sustainability</h3>
-                  <p className="text-gray-600">Climate action, environmental policies, and green initiatives.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-government-line text-xl text-purple-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Policy & Governance</h3>
-                  <p className="text-gray-600">Government policies, international relations, and regulatory changes.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-group-line text-xl text-orange-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Social Impact</h3>
-                  <p className="text-gray-600">Community development, social entrepreneurship, and impact stories.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-global-line text-xl text-teal-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">International Cooperation</h3>
-                  <p className="text-gray-600">Global partnerships, trade agreements, and diplomatic initiatives.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Impact Statistics */}
+      {/* Membership Benefits */}
       <section className="py-16 bg-red-600">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-12">Media Network Impact</h2>
-            
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <div className="text-4xl font-bold text-red-100 mb-2">800+</div>
-                <p className="text-red-100">Media Partners</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-red-100 mb-2">150+</div>
-                <p className="text-red-100">Countries Covered</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-red-100 mb-2">2,500+</div>
-                <p className="text-red-100">Stories Published</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-red-100 mb-2">50M+</div>
-                <p className="text-red-100">Global Reach</p>
-              </div>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-white text-center mb-12">Membership Benefits</h2>
+
+            <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+              {membershipBenefits.map((benefit) => (
+                <div key={benefit} className="flex items-start space-x-3 text-red-50">
+                  <i className="ri-check-line text-xl text-white flex-shrink-0"></i>
+                  <span>{benefit}</span>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Membership */}
+      <section className="py-16">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Membership</h2>
+            <div className="space-y-6 mb-12">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The AEF Media Network is a curated professional community within the Africa Economic Forum.
+              </p>
+              <p className="text-lg font-semibold text-gray-900 leading-relaxed">
+                Membership is granted through application and approval.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The objective is to bring together credible media professionals and platforms capable of contributing to meaningful conversations about Africa's economy, investment landscape and global position.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                This is not simply a media accreditation list.
+              </p>
+              <p className="text-xl font-semibold text-red-600 leading-relaxed">
+                It is a year-round network connecting media with access, information and relationships.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 p-8 rounded-lg text-left">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Membership includes:</h3>
+              <ul className="grid md:grid-cols-2 gap-3 mb-6">
+                {membershipIncludes.map((item) => (
+                  <li key={item} className="flex items-start space-x-3 text-gray-700">
+                    <i className="ri-check-line text-xl text-red-600 flex-shrink-0"></i>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-sm text-gray-600">
+                Membership is subject to application and approval.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The World Is Watching Africa */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">The World Is Watching Africa.</h2>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The question is not only what Africa will become.
+              </p>
+              <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+                It is also who will tell the story.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The next decade will produce new industries, new markets, new leaders and new global partnerships.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The AEF Media Network brings together the professionals who document, explain and amplify those developments.
+              </p>
+              <p className="text-xl font-semibold text-red-600 leading-relaxed">
+                Because the way Africa is understood can influence how Africa is engaged.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Closing Banner */}
+      <section className="py-16 bg-gray-900 text-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="space-y-2 mb-8">
+              {closingLines.map((line) => (
+                <p key={line} className="text-2xl font-bold">{line}</p>
+              ))}
+            </div>
+            <p className="text-xl text-gray-200 mb-2">Welcome to the AEF Media Network.</p>
+            <p className="text-gray-400">The Media & Strategic Communications Community of the Africa Economic Forum.</p>
           </div>
         </div>
       </section>
@@ -566,15 +735,15 @@ const MediaPage: React.FC = () => {
       <section className="py-16">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Join Our Media Network</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Apply for Membership</h2>
             <p className="text-xl text-gray-600 mb-8">
-              Be part of a global network of media professionals committed to telling stories that drive positive change and economic development.
+              Join a trusted community of media professionals and communicators shaping how the world understands Africa's economic future.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
               className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors whitespace-nowrap cursor-pointer"
             >
-              Apply for Partnership
+              Apply for Membership
             </button>
           </div>
         </div>
@@ -1097,8 +1266,8 @@ const MediaPage: React.FC = () => {
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy & Terms of Service
                 </a>
-                
-                <p>© 2025 Africa Economic Forum</p>
+
+                <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
             </div>
