@@ -101,7 +101,7 @@ export default function Stakeholders() {
     },
     {
       id: 'social',
-      title: 'Social Entrepreneurs',
+      title: 'Civil Society Africa Peace Forum',
       description: 'Innovators driving sustainable solutions to Africa\'s most pressing challenges, blending social impact with business acumen.',
       image: 'https://readdy.ai/api/search-image?query=African%20social%20entrepreneurs%20working%20on%20sustainable%20development%20projects%2C%20community%20impact%20initiatives%2C%20innovative%20solutions%20for%20social%20challenges%2C%20inspiring%20grassroots%20leadership&width=600&height=400&seq=social&orientation=landscape',
       icon: 'ri-heart-line',
