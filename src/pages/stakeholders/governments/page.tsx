@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 export default function Governments() {
@@ -172,6 +171,197 @@ export default function Governments() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Page content
+  const whyQuestions = [
+    'How do they attract investment?',
+    'How do they promote national opportunities?',
+    'How do they secure strategic partnerships?',
+    'How do they position their countries in an increasingly competitive global environment?',
+  ];
+
+  const accessItems = [
+    'Access to investors.',
+    'Access to business leaders.',
+    'Access to decision-makers.',
+    'Access to trusted networks.',
+  ];
+
+  const engagementAreas = [
+    {
+      title: 'Investment Promotion',
+      text: 'Showcase national priorities, strategic sectors and investment-ready opportunities to a global audience of investors and business leaders.',
+      icon: 'ri-funds-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Trade & Market Access',
+      text: 'Strengthen commercial relationships and explore new opportunities for bilateral and regional cooperation.',
+      icon: 'ri-exchange-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Infrastructure & Industrial Development',
+      text: 'Connect with strategic partners capable of supporting transformational infrastructure and industrial projects.',
+      icon: 'ri-building-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Energy & Natural Resources',
+      text: 'Engage stakeholders shaping the future of energy security, critical minerals and sustainable development.',
+      icon: 'ri-flashlight-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Technology & Innovation',
+      text: 'Explore partnerships that support digital transformation, innovation ecosystems and emerging technologies.',
+      icon: 'ri-cpu-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Regional Integration',
+      text: 'Promote greater economic cooperation and connectivity across Africa and beyond.',
+      icon: 'ri-global-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Strategic Partnerships',
+      text: 'Build long-term relationships that contribute to national development priorities.',
+      icon: 'ri-handshake-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+  ];
+
+  const whoShouldJoin = [
+    {
+      title: 'Heads of State',
+      text: 'Leaders seeking to position their nations as destinations for investment, trade and partnership.',
+      icon: 'ri-vip-crown-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Prime Ministers & Ministers',
+      text: 'Government leaders responsible for economic development, finance, trade, foreign affairs, infrastructure, energy, mining, technology, agriculture and investment promotion.',
+      icon: 'ri-government-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Members of Parliament, Senate & Congress',
+      text: 'Legislators shaping policies that influence economic growth and international cooperation.',
+      icon: 'ri-bank-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Ambassadors & Diplomatic Missions',
+      text: 'Representatives responsible for advancing bilateral and multilateral relationships.',
+      icon: 'ri-flag-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Government Agencies',
+      text: 'Investment promotion agencies, special economic zones, export promotion authorities and national development institutions.',
+      icon: 'ri-building-2-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'International Organizations',
+      text: 'Institutions supporting cooperation, development and regional integration.',
+      icon: 'ri-earth-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+  ];
+
+  const memberGains = [
+    {
+      title: 'Access',
+      text: 'Direct engagement with investors, CEOs, development finance institutions, sovereign wealth funds and strategic partners.',
+      icon: 'ri-key-2-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Visibility',
+      text: 'A platform to promote national priorities, reforms and opportunities.',
+      icon: 'ri-megaphone-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Influence',
+      text: "Participation in high-level discussions shaping Africa's economic future.",
+      icon: 'ri-presentation-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Partnerships',
+      text: 'Opportunities to develop strategic relationships with governments, institutions and private sector leaders.',
+      icon: 'ri-handshake-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Intelligence',
+      text: 'Access to insights, trends and perspectives relevant to economic diplomacy and investment attraction.',
+      icon: 'ri-file-text-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+  ];
+
+  const membershipBenefits = [
+    'Membership in the AEF Diplomatic Club',
+    'Official Access to the Africa Economic Forum',
+    'Diplomatic Breakfast Sessions',
+    'Closed-Door Government Roundtables',
+    'Government-Investor Engagement Sessions',
+    'Priority Access to Bilateral Meetings',
+    'Invitation to Leadership Dinners',
+    'Access to the AEF Deal Room',
+    'Access to the AEF Member Directory',
+    'Year-Round Engagement Opportunities',
+    'Strategic Networking Events',
+    'Visibility Across AEF Platforms',
+    'Participation in High-Level Policy Discussions',
+    'Curated Introductions to Strategic Partners',
+  ];
+
+  const membershipIncludes = [
+    'Flagship Africa Economic Forum Delegate Pass',
+    'Full Access to Diplomatic Club Activities',
+    'Closed-Door Sessions',
+    'Government-Investor Engagement Platforms',
+    'Access to the Member Directory',
+    'Year-Round Community Engagement',
+    'Strategic Networking Opportunities',
+    'Priority Participation in AEF Initiatives',
+  ];
+
+  const resultsLines = [
+    'Success is no longer measured solely by the relationships a nation maintains.',
+    'It is increasingly measured by the investments it attracts.',
+    'The partnerships it secures.',
+    'The opportunities it creates for its people.',
+  ];
+
+  const closingLines = [
+    'Diplomacy Creates Access.',
+    'Access Creates Partnerships.',
+    'Partnerships Create Opportunity.',
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -311,8 +501,11 @@ export default function Governments() {
                   <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
                     AEF Diplomatic Club
                   </h1>
+                  <p className="text-2xl font-semibold text-blue-100 leading-snug">
+                    Where Economic Diplomacy Becomes Opportunity
+                  </p>
                   <p className="text-xl text-blue-100 leading-relaxed">
-                    Connecting Heads of State, Government Officials, and Diplomatic Corps to drive Africa's economic transformation through strategic policy dialogue and international cooperation.
+                    The world is entering a new era.
                   </p>
                   <button
                     onClick={() => setShowMembershipForm(true)}
@@ -333,214 +526,246 @@ export default function Governments() {
           </div>
         </section>
 
-        {/* About Section */}
+        {/* Introduction */}
         <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-8">
-                <h2 className="text-4xl font-bold text-gray-900">Diplomatic Excellence</h2>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  The AEF Diplomatic Club brings together the highest levels of African leadership to foster economic diplomacy, regional integration, and strategic partnerships that advance Africa's position in the global economy.
-                </p>
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <i className="ri-government-line text-blue-600"></i>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">High-Level Policy Dialogue</h3>
-                      <p className="text-gray-600">Exclusive forums for heads of state and senior officials to discuss economic policy and regional cooperation.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <i className="ri-global-line text-green-600"></i>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">International Relations</h3>
-                      <p className="text-gray-600">Strengthening diplomatic ties and economic partnerships between African nations and global partners.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <i className="ri-handshake-line text-purple-600"></i>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Regional Integration</h3>
-                      <p className="text-gray-600">Advancing continental free trade agreements and economic integration initiatives.</p>
-                    </div>
-                  </div>
-                </div>
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Global alliances are shifting. Supply chains are being reconfigured. Competition for resources, markets, investment and influence is intensifying.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              In this environment, diplomacy is no longer limited to political relations.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              It has become a strategic tool for attracting investment, expanding trade, building partnerships and advancing national priorities.
+            </p>
+            <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+              For Africa, this moment presents a historic opportunity.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              For governments seeking to attract capital, accelerate development and strengthen international cooperation, the ability to engage the right partners has never been more important.
+            </p>
+            <p className="text-xl font-semibold text-blue-900 leading-relaxed">
+              The AEF Diplomatic Club was created for this purpose.
+            </p>
+          </div>
+        </section>
+
+        {/* Government & Diplomacy Community */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">
+              The Government & Diplomacy Community of the Africa Economic Forum
+            </h2>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The AEF Diplomatic Club is a high-level community of Heads of State, Prime Ministers, Ministers, Parliamentarians, Senators, Congress Members, Ambassadors, Diplomatic Missions, International Organizations and Government Agencies.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                It serves as the diplomatic pillar of the Africa Economic Forum.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                A platform where governments engage directly with investors, business leaders, financial institutions, development partners and strategic stakeholders shaping Africa's future.
+              </p>
+              <div className="pt-4 space-y-1">
+                <p className="text-xl font-semibold text-gray-900">More than a network.</p>
+                <p className="text-xl font-semibold text-gray-900">More than a forum.</p>
               </div>
-              <div className="relative">
-                <img
-                  src="https://readdy.ai/api/search-image?query=African%20Union%20summit%20meeting%20with%20heads%20of%20state%20around%20conference%20table%2C%20formal%20diplomatic%20setting%20with%20African%20flags%20and%20modern%20architecture%2C%20diverse%20African%20leaders%20in%20official%20government%20meeting%20discussing%20economic%20policies&width=600&height=500&seq=diplomatic-meeting&orientation=portrait"
-                  alt="Diplomatic Meeting"
-                  className="w-full h-96 object-cover object-top rounded-lg shadow-lg"
-                />
-              </div>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                A platform designed to transform relationships into partnerships and partnerships into tangible outcomes.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Statistics */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-4 gap-8 text-center">
-              <div className="space-y-2">
-                <div className="text-4xl font-bold text-blue-600">54</div>
-                <div className="text-gray-600">African Nations Represented</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-4xl font-bold text-green-600">120+</div>
-                <div className="text-gray-600">Government Officials</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-4xl font-bold text-purple-600">25</div>
-                <div className="text-gray-600">Heads of State</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-4xl font-bold text-orange-600">200+</div>
-                <div className="text-gray-600">Diplomatic Corps Members</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Member Showcase */}
+        {/* Why the AEF Diplomatic Club */}
         <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Distinguished Members</h2>
-              <p className="text-gray-600 text-lg">Leading voices in African diplomacy and governance</p>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">Why the AEF Diplomatic Club?</h2>
+            <p className="text-lg text-gray-700 text-center mb-8 leading-relaxed">
+              Governments today face a common challenge.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6 mb-10">
+              {whyQuestions.map((q) => (
+                <div key={q} className="bg-white rounded-lg p-6 shadow-md flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i className="ri-question-line text-xl text-blue-600"></i>
+                  </div>
+                  <p className="font-semibold text-gray-900">{q}</p>
+                </div>
+              ))}
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-government-line text-blue-600 text-2xl"></i>
+            <p className="text-lg text-gray-700 text-center mb-8 leading-relaxed">
+              The answer often begins with access.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+              {accessItems.map((item) => (
+                <div key={item} className="bg-white rounded-lg p-6 shadow-md text-center">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i className="ri-key-2-line text-xl text-green-600"></i>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Ministry of Trade & Industry</h3>
-                    <p className="text-gray-600">Republic of Ghana</p>
-                    <p className="text-sm text-gray-500 mt-2">Leading regional trade initiatives and industrial development policies</p>
-                  </div>
+                  <p className="font-semibold text-gray-900">{item}</p>
                 </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-global-line text-green-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Ministry of Foreign Affairs</h3>
-                    <p className="text-gray-600">Federal Republic of Nigeria</p>
-                    <p className="text-sm text-gray-500 mt-2">Advancing diplomatic relations and economic partnerships across Africa</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-bank-line text-purple-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Ministry of Finance</h3>
-                    <p className="text-gray-600">Republic of Kenya</p>
-                    <p className="text-sm text-gray-500 mt-2">Driving financial sector reforms and economic integration policies</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-building-line text-orange-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Presidential Office</h3>
-                    <p className="text-gray-600">Republic of Rwanda</p>
-                    <p className="text-sm text-gray-500 mt-2">Championing digital transformation and economic modernization</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-earth-line text-teal-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">African Union Commission</h3>
-                    <p className="text-gray-600">Continental Leadership</p>
-                    <p className="text-sm text-gray-500 mt-2">Coordinating continental economic integration and development</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-flag-line text-red-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Embassy of South Africa</h3>
-                    <p className="text-gray-600">Diplomatic Mission</p>
-                    <p className="text-sm text-gray-500 mt-2">Facilitating bilateral trade and investment partnerships</p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
+            <p className="text-xl font-semibold text-blue-900 text-center">
+              The AEF Diplomatic Club provides that access.
+            </p>
           </div>
         </section>
 
-        {/* Benefits */}
+        {/* A New Era of Economic Diplomacy */}
+        <section className="py-20 bg-blue-900 text-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold mb-8">A New Era of Economic Diplomacy</h2>
+            <p className="text-xl text-blue-100 mb-4 leading-relaxed">
+              The most successful nations of the coming decade will not simply compete for opportunities.
+            </p>
+            <p className="text-xl font-semibold mb-8 leading-relaxed">
+              They will build the relationships that create them.
+            </p>
+            <p className="text-lg text-blue-100 leading-relaxed">
+              The AEF Diplomatic Club helps governments strengthen their economic diplomacy efforts through meaningful engagement with stakeholders who influence investment, trade and development outcomes.
+            </p>
+          </div>
+        </section>
+
+        {/* Areas of Engagement */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Membership Benefits</h2>
-              <p className="text-gray-600 text-lg">Exclusive access to high-level diplomatic and economic forums</p>
-            </div>
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Areas of Engagement</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-vip-crown-line text-blue-600 text-2xl"></i>
+              {engagementAreas.map((area) => (
+                <div key={area.title} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+                  <div className={`w-14 h-14 ${area.iconBg} rounded-full flex items-center justify-center mb-4`}>
+                    <i className={`${area.icon} ${area.iconColor} text-2xl`}></i>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-3">{area.title}</h3>
+                  <p className="text-gray-600">{area.text}</p>
                 </div>
-                <h3 className="font-semibold text-gray-900">Exclusive Summits</h3>
-                <p className="text-gray-600">Access to private meetings with heads of state and senior government officials</p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-file-text-line text-green-600 text-2xl"></i>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Who Should Join */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Who Should Join?</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {whoShouldJoin.map((item) => (
+                <div key={item.title} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="text-center space-y-4">
+                    <div className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}>
+                      <i className={`${item.icon} ${item.iconColor} text-2xl`}></i>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                      <p className="text-gray-600">{item.text}</p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-semibold text-gray-900">Policy Briefings</h3>
-                <p className="text-gray-600">Early access to policy papers and economic intelligence reports</p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-handshake-line text-purple-600 text-2xl"></i>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* What Members Gain */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">What Members Gain</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {memberGains.map((item) => (
+                <div key={item.title} className="text-center space-y-4">
+                  <div className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}>
+                    <i className={`${item.icon} ${item.iconColor} text-2xl`}></i>
+                  </div>
+                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                  <p className="text-gray-600">{item.text}</p>
                 </div>
-                <h3 className="font-semibold text-gray-900">Diplomatic Networks</h3>
-                <p className="text-gray-600">Direct connections with diplomatic corps and international organizations</p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-global-line text-orange-600 text-2xl"></i>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Membership Benefits */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Membership Benefits</h2>
+            <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+              {membershipBenefits.map((benefit) => (
+                <div key={benefit} className="flex items-start space-x-3">
+                  <i className="ri-check-line text-xl text-blue-600 flex-shrink-0"></i>
+                  <span className="text-gray-700">{benefit}</span>
                 </div>
-                <h3 className="font-semibold text-gray-900">Regional Integration</h3>
-                <p className="text-gray-600">Participation in continental trade and economic integration initiatives</p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-presentation-line text-teal-600 text-2xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900">Strategic Dialogue</h3>
-                <p className="text-gray-600">Platform for high-level economic policy discussions and consensus building</p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-award-line text-red-600 text-2xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900">Recognition</h3>
-                <p className="text-gray-600">Platform to showcase national economic achievements and best practices</p>
-              </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Membership */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">Membership</h2>
+            <div className="space-y-6 mb-12">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The AEF Diplomatic Club is a curated community designed to maintain the highest standards of engagement and relevance.
+              </p>
+              <p className="text-lg font-semibold text-gray-900 leading-relaxed">
+                Membership is granted through application and approval.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                To preserve the quality of interactions and ensure meaningful engagement among participants, membership is intentionally selective.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Representation is balanced across regions, governments and institutions to maintain a productive and results-oriented environment.
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-8 text-left">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Membership includes:</h3>
+              <ul className="grid md:grid-cols-2 gap-3">
+                {membershipIncludes.map((item) => (
+                  <li key={item} className="flex items-start space-x-3 text-gray-700">
+                    <i className="ri-check-line text-xl text-blue-600 flex-shrink-0"></i>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* From Representation to Results */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">From Representation to Results</h2>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              The role of diplomacy is evolving.
+            </p>
+            <div className="space-y-3 mb-8">
+              {resultsLines.map((line) => (
+                <p key={line} className="text-lg text-gray-700 leading-relaxed">{line}</p>
+              ))}
+            </div>
+            <p className="text-xl font-semibold text-blue-900 leading-relaxed">
+              The AEF Diplomatic Club exists to help governments achieve those outcomes.
+            </p>
+          </div>
+        </section>
+
+        {/* Africa's Future Will Be Built Through Partnerships */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">Africa's Future Will Be Built Through Partnerships</h2>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The next decade will redefine global investment, trade and geopolitical influence.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Africa will be at the center of that transformation.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The governments that engage early, build relationships and position themselves strategically will be best placed to benefit from the opportunities ahead.
+              </p>
             </div>
           </div>
         </section>
@@ -548,9 +773,9 @@ export default function Governments() {
         {/* CTA Section */}
         <section className="py-20 bg-blue-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl font-bold mb-6">Join the Diplomatic Club</h2>
+            <h2 className="text-4xl font-bold mb-6">Apply for Membership</h2>
             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-              Be part of Africa's premier diplomatic and economic leadership network. Shape the continent's economic future through strategic dialogue and cooperation.
+              Join a trusted community of leaders, diplomats and decision-makers shaping the future of economic diplomacy between Africa and the world.
             </p>
             <button
               onClick={() => setShowMembershipForm(true)}
@@ -558,6 +783,19 @@ export default function Governments() {
             >
               Apply for Membership
             </button>
+          </div>
+        </section>
+
+        {/* Closing Banner */}
+        <section className="py-16 bg-gray-900 text-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="space-y-2 mb-8">
+              {closingLines.map((line) => (
+                <p key={line} className="text-2xl font-bold">{line}</p>
+              ))}
+            </div>
+            <p className="text-xl text-gray-200 mb-2">Welcome to the AEF Diplomatic Club.</p>
+            <p className="text-gray-400">The Government & Diplomacy Community of the Africa Economic Forum.</p>
           </div>
         </section>
       </main>
