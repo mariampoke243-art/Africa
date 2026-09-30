@@ -185,35 +185,196 @@ const YouthPage: React.FC = () => {
     });
   };
 
-  const youthLeaders = [
+  const accessItems = [
+    'Access to knowledge.',
+    'Access to capital.',
+    'Access to mentors.',
+    'Access to markets.',
+    'Access to technology.',
+    'Access to decision-makers.',
+  ];
+
+  const focusAreas = [
     {
-      name: 'Kofi Mensah',
-      age: 24,
-      title: 'Tech Entrepreneur',
-      achievement: 'Founded EdTech Startup',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20young%20African%20male%20entrepreneur%2C%20confident%20expression%2C%20tech%20startup%20environment%2C%20millennial%20business%20leader%2C%20modern%20office&width=300&height=300&seq=yl1&orientation=squarish',
+      title: 'Entrepreneurship & Startups',
+      text: 'Connecting young founders with investors, mentors, corporations and strategic partners.',
+      icon: 'ri-rocket-line',
+      card: 'bg-gradient-to-br from-orange-50 to-orange-100',
+      iconBg: 'bg-orange-500',
     },
     {
-      name: 'Amara Diop',
-      age: 22,
-      title: 'Climate Activist',
-      achievement: 'Environmental Advocate',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20young%20African%20female%20activist%2C%20confident%20smile%2C%20environmental%20climate%20advocate%2C%20sustainability%20movement&width=300&height=300&seq=yl2&orientation=squarish',
+      title: 'Technology & Innovation',
+      text: 'Exploring how AI, digital platforms, fintech, biotechnology and emerging technologies can transform African economies.',
+      icon: 'ri-cpu-line',
+      card: 'bg-gradient-to-br from-blue-50 to-blue-100',
+      iconBg: 'bg-blue-500',
     },
     {
-      name: 'Jamal Hassan',
-      age: 25,
-      title: 'Social Impact Leader',
-      achievement: 'Community Development Leader',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20young%20man%20African%20social%20impact%20leader%2C%20confident%20expression%2C%20community%20development%20environment%2C%20youth%20empowerment&width=300&height=300&seq=yl3&orientation=squarish',
+      title: 'Skills & Future of Work',
+      text: 'Preparing young professionals for industries and opportunities emerging across Africa and globally.',
+      icon: 'ri-graduation-cap-line',
+      card: 'bg-gradient-to-br from-green-50 to-green-100',
+      iconBg: 'bg-green-500',
     },
     {
-      name: 'Zara Okafor',
-      age: 23,
-      title: 'Digital Innovator',
-      achievement: 'App Developer & Innovator',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20young%20African%20female%20app%20developer%2C%20confident%20smile%2C%20tech%20innovation%20environment%2C%20digital%20solutions%20creator&width=300&height=300&seq=yl4&orientation=squarish',
+      title: 'Investment & Access to Capital',
+      text: 'Creating pathways between promising young businesses and investors, financial institutions and development partners.',
+      icon: 'ri-funds-line',
+      card: 'bg-gradient-to-br from-purple-50 to-purple-100',
+      iconBg: 'bg-purple-500',
     },
+    {
+      title: 'Leadership & Public Service',
+      text: 'Developing a generation capable of contributing to government, business and society.',
+      icon: 'ri-government-line',
+      card: 'bg-gradient-to-br from-red-50 to-red-100',
+      iconBg: 'bg-red-500',
+    },
+    {
+      title: 'Creativity & Digital Economy',
+      text: 'Supporting young creators, designers, developers, filmmakers, musicians and digital entrepreneurs.',
+      icon: 'ri-palette-line',
+      card: 'bg-gradient-to-br from-teal-50 to-teal-100',
+      iconBg: 'bg-teal-500',
+    },
+    {
+      title: 'Regional & Global Opportunities',
+      text: 'Connecting young Africans across borders and creating opportunities for collaboration beyond national markets.',
+      icon: 'ri-earth-line',
+      card: 'bg-gradient-to-br from-orange-50 to-orange-100',
+      iconBg: 'bg-orange-500',
+    },
+  ];
+
+  const whoShouldJoin = [
+    {
+      title: 'Young Entrepreneurs',
+      text: 'Founders building companies and solving real-world problems.',
+      icon: 'ri-briefcase-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Innovators & Technology Leaders',
+      text: 'Young people developing products, technologies and new business models.',
+      icon: 'ri-lightbulb-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Young Professionals',
+      text: 'Emerging leaders building careers across business, government, finance and international organizations.',
+      icon: 'ri-user-star-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Students & Researchers',
+      text: 'Students, academics and researchers contributing new ideas and knowledge.',
+      icon: 'ri-book-open-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Startup Founders',
+      text: 'Entrepreneurs seeking capital, partnerships, visibility and market access.',
+      icon: 'ri-rocket-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Young Creatives',
+      text: "Artists, designers, filmmakers, musicians, creators and digital entrepreneurs shaping Africa's cultural economy.",
+      icon: 'ri-palette-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Emerging Public Leaders',
+      text: 'Young people contributing to policy, governance, diplomacy and development.',
+      icon: 'ri-government-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+  ];
+
+  const memberGains = [
+    {
+      title: 'Access',
+      text: 'Engage directly with CEOs, investors, government leaders and established African and global decision-makers.',
+      icon: 'ri-key-2-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Mentorship',
+      text: 'Build relationships with experienced leaders who can provide perspective, guidance and connections.',
+      icon: 'ri-user-voice-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Opportunity',
+      text: 'Discover investment, employment, entrepreneurship, partnership and learning opportunities.',
+      icon: 'ri-compass-3-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Visibility',
+      text: 'Showcase your ideas, company, research, projects or achievements through the AEF ecosystem.',
+      icon: 'ri-megaphone-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Network',
+      text: 'Connect with ambitious young leaders from across Africa and beyond.',
+      icon: 'ri-team-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Influence',
+      text: 'Contribute to conversations about the economic and social issues that will define your generation.',
+      icon: 'ri-chat-voice-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+  ];
+
+  const membershipBenefits = [
+    'Africa Youth Forum Membership',
+    'Official Access to the Africa Economic Forum',
+    'Youth Leadership Sessions',
+    'Entrepreneurship & Innovation Roundtables',
+    'Access to the AEF Member Network',
+    'Young Founder & Investor Networking',
+    'Mentorship Opportunities',
+    'Access to Selected AEF Deal Room Opportunities',
+    'Access to Youth-Focused Opportunities & Initiatives',
+    'Participation in Leadership & Skills Sessions',
+    'Visibility Across AEF Platforms',
+    'Year-Round Community Engagement',
+    'Opportunities to Engage with Senior Decision-Makers',
+  ];
+
+  const membershipIncludes = [
+    'Africa Youth Forum Membership',
+    'Africa Economic Forum Delegate Access',
+    'Youth Leadership Sessions',
+    'Networking Opportunities',
+    'Mentorship Opportunities',
+    'Access to the AEF Member Network',
+    'Year-Round Community Engagement',
+    'Participation in Selected AEF Initiatives',
+  ];
+
+  const closingLines = [
+    'The decisions being made today will define the Africa you will live and work in tomorrow.',
+    "The businesses being built today will create tomorrow's industries.",
+    "The technologies being developed today will transform tomorrow's economies.",
+    "The leaders emerging today will shape tomorrow's institutions.",
   ];
 
   return (
@@ -269,184 +430,138 @@ const YouthPage: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section 
-        className="relative h-96 bg-cover bg-center bg-no-repeat flex items-center"
+      <section
+        className="relative min-h-[24rem] bg-cover bg-center bg-no-repeat flex items-center py-16"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Young%20people%20diverse%20leaders%20collaboration%2C%20youth%20empowerment%2C%20bright%20ambitious%20generation%2C%20millennial%20conference%2C%20next%20generation%20leaders&width=1200&height=400&seq=youth-hero&orientation=landscape')`
         }}
       >
         <div className="container mx-auto px-6">
           <div className="max-w-3xl text-white">
-            <h1 className="text-5xl font-bold mb-6">AEF Youth Network</h1>
+            <h1 className="text-5xl font-bold mb-6">Africa Youth Forum</h1>
+            <p className="text-2xl font-semibold mb-4 leading-snug">
+              Where Africa's Next Generation Meets Opportunity
+            </p>
             <p className="text-xl mb-8 leading-relaxed">
-              Empower the next generation of leaders, innovators, and changemakers. Connect with ambitious young people transforming Africa and the world.
+              Africa is the world's youngest continent. Africa's youth are not waiting for the future. They are building it now.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
               className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors whitespace-nowrap cursor-pointer"
             >
-              Join the Movement
+              Apply for Membership
             </button>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Introduction */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Empowering Youth Leadership</h2>
-            <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-              The AEF Youth Network is dedicated to empowering young people with the knowledge, skills, and connections they need to become leaders and change-makers. 
-              We provide mentorship, opportunities, and a community of support to help young people build successful careers and create positive impact.
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              Its future will be shaped by a generation that is already building businesses, creating technologies, transforming industries, producing culture and solving problems in ways that challenge the old models of development.
             </p>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-lightbulb-line text-2xl text-orange-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Innovation</h3>
-                <p className="text-gray-600">
-                  Create and innovate solutions that address Africa's most pressing challenges.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-team-line text-2xl text-blue-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Community</h3>
-                <p className="text-gray-600">
-                  Build meaningful connections with peers who share your vision and values.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-graduation-cap-line text-2xl text-green-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Growth</h3>
-                <p className="text-gray-600">
-                  Develop skills and knowledge to advance your career and leadership journey.
-                </p>
-              </div>
-            </div>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The Africa Youth Forum was created to connect that generation to the people, institutions, capital and opportunities that can help turn ambition into impact.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Programs & Opportunities */}
+      {/* Future Leaders Community */}
+      <section className="py-16">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">The Future Leaders Community of the Africa Economic Forum</h2>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              The Africa Youth Forum is the youth leadership community of the Africa Economic Forum.
+            </p>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              It brings together young entrepreneurs, innovators, founders, professionals, researchers, students, creatives and emerging leaders from Africa and around the world.
+            </p>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              The Forum creates a space where the next generation can engage directly with investors, CEOs, governments, policymakers and established leaders.
+            </p>
+            <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+              Because young people should not only be invited to discuss Africa's future. They should have a seat at the table where it is being built.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Why the Africa Youth Forum */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Why the Africa Youth Forum?</h2>
+            <p className="text-lg text-gray-700 text-center mb-4 leading-relaxed">
+              Africa's demographic transformation is creating a generation of young people with enormous potential.
+            </p>
+            <p className="text-lg font-semibold text-gray-900 text-center mb-10">
+              But potential needs access.
+            </p>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              {accessItems.map((item) => (
+                <div key={item} className="bg-white p-6 rounded-lg shadow-md text-center">
+                  <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i className="ri-key-2-line text-xl text-orange-600"></i>
+                  </div>
+                  <p className="font-semibold text-gray-900">{item}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-lg text-gray-700 text-center mb-4 leading-relaxed">
+              The Africa Youth Forum brings these connections together.
+            </p>
+            <p className="text-lg text-gray-700 text-center leading-relaxed">
+              It is designed to move young people from participation to opportunity, from ideas to execution and from ambition to leadership.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* From Potential to Possibility */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Programs & Opportunities</h2>
-            
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">From Potential to Possibility</h2>
+            <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12 leading-relaxed">
+              The Forum focuses on the opportunities and challenges that will define the next generation of African economies.
+            </p>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-briefcase-line text-xl text-white"></i>
+              {focusAreas.map((area) => (
+                <div key={area.title} className={`${area.card} p-6 rounded-lg`}>
+                  <div className={`w-12 h-12 ${area.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                    <i className={`${area.icon} text-xl text-white`}></i>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-3">{area.title}</h3>
+                  <p className="text-gray-600">{area.text}</p>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Internship & Job Placement</h3>
-                <p className="text-gray-600 mb-4">Access to exclusive internships and career opportunities with leading organizations.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Job board access</li>
-                  <li>• Internship placements</li>
-                  <li>• Career development</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-graduation-cap-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Skill Development</h3>
-                <p className="text-gray-600 mb-4">Build in-demand skills through workshops and training programs.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Online courses</li>
-                  <li>• Workshops</li>
-                  <li>• Certifications</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-user-voice-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Mentorship</h3>
-                <p className="text-gray-600 mb-4">Get guidance from successful mentors and industry leaders.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• One-on-one mentoring</li>
-                  <li>• Expert guidance</li>
-                  <li>• Career coaching</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-lightbulb-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Startup Support</h3>
-                <p className="text-gray-600 mb-4">Guidance and resources for young entrepreneurs launching ventures.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Business mentoring</li>
-                  <li>• Funding access</li>
-                  <li>• Pitch opportunities</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-hearts-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Social Impact Projects</h3>
-                <p className="text-gray-600 mb-4">Collaborate on projects creating positive community and environmental change.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Impact projects</li>
-                  <li>• Volunteering</li>
-                  <li>• Social enterprises</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-calendar-event-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Networking Events</h3>
-                <p className="text-gray-600 mb-4">Meet fellow youth leaders and professionals at exclusive events.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Youth summits</li>
-                  <li>• Conferences</li>
-                  <li>• Meetups</li>
-                </ul>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Youth Leaders */}
+      {/* Who Should Join */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Featured Youth Leaders</h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {youthLeaders.map((leader, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <img
-                    src={leader.image}
-                    alt={leader.name}
-                    className="w-full h-48 object-cover object-top"
-                  />
-                  <div className="p-6">
-                    <h3 className="font-semibold text-gray-900 mb-1">{leader.name}</h3>
-                    <p className="text-sm text-gray-500 mb-2">Age {leader.age}</p>
-                    <p className="text-sm text-gray-600 mb-2">{leader.title}</p>
-                    <div className="flex items-center text-sm text-orange-600">
-                      <i className="ri-star-line mr-2"></i>
-                      {leader.achievement}
-                    </div>
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Who Should Join?</h2>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {whoShouldJoin.map((item) => (
+                <div key={item.title} className="bg-white p-6 rounded-lg shadow-md flex items-start space-x-4">
+                  <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    <i className={`${item.icon} text-xl ${item.iconColor}`}></i>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600">{item.text}</p>
                   </div>
                 </div>
               ))}
@@ -455,101 +570,94 @@ const YouthPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Network Benefits */}
+      {/* What Members Gain */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Network Benefits</h2>
-            
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">What Members Gain</h2>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-team-line text-xl text-orange-600"></i>
+              {memberGains.map((item) => (
+                <div key={item.title} className="flex items-start space-x-4">
+                  <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    <i className={`${item.icon} text-xl ${item.iconColor}`}></i>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600">{item.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Global Network</h3>
-                  <p className="text-gray-600">Connect with ambitious youth leaders from around the world.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-graduation-cap-line text-xl text-blue-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Learning Resources</h3>
-                  <p className="text-gray-600">Access exclusive courses, workshops, and educational content.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-briefcase-line text-xl text-green-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Career Opportunities</h3>
-                  <p className="text-gray-600">Discover internships, jobs, and professional development opportunities.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-lightbulb-line text-xl text-purple-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Innovation Hub</h3>
-                  <p className="text-gray-600">Collaborate on innovative projects and startup ideas.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-megaphone-line text-xl text-red-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Amplify Your Voice</h3>
-                  <p className="text-gray-600">Share your ideas and be heard by a global audience.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-shield-check-line text-xl text-teal-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Exclusive Access</h3>
-                  <p className="text-gray-600">Get priority access to events, resources, and opportunities.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Impact Statistics */}
+      {/* Membership Benefits */}
       <section className="py-16 bg-orange-600">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-12">Network Impact</h2>
-            
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <div className="text-4xl font-bold text-orange-100 mb-2">2500+</div>
-                <p className="text-orange-100">Youth Members</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-orange-100 mb-2">85+</div>
-                <p className="text-orange-100">Countries Represented</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-orange-100 mb-2">150+</div>
-                <p className="text-orange-100">Partner Organizations</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-orange-100 mb-2">500K+</div>
-                <p className="text-orange-100">Lives Impacted</p>
-              </div>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-white text-center mb-12">Membership Benefits</h2>
+
+            <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+              {membershipBenefits.map((benefit) => (
+                <div key={benefit} className="flex items-start space-x-3 text-orange-50">
+                  <i className="ri-check-line text-xl text-white flex-shrink-0"></i>
+                  <span>{benefit}</span>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Membership */}
+      <section className="py-16">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Membership</h2>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              The Africa Youth Forum is a community for ambitious young people who want to contribute to Africa's transformation and connect with the people and opportunities capable of accelerating their journey.
+            </p>
+            <p className="text-lg font-semibold text-gray-900 mb-6 leading-relaxed">
+              Membership is granted through application and approval.
+            </p>
+            <p className="text-lg text-gray-700 mb-12 leading-relaxed">
+              The Forum is designed to bring together people who are not simply looking for opportunities, but are building them.
+            </p>
+
+            <div className="bg-gray-50 p-8 rounded-lg text-left">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Membership includes:</h3>
+              <ul className="grid md:grid-cols-2 gap-3 mb-6">
+                {membershipIncludes.map((item) => (
+                  <li key={item} className="flex items-start space-x-3 text-gray-700">
+                    <i className="ri-check-line text-xl text-orange-600 flex-shrink-0"></i>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-sm text-gray-600">
+                Special student and emerging-leader access may be available subject to eligibility.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Your Generation Will Inherit Africa */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Your Generation Will Inherit Africa.</h2>
+            <p className="text-xl text-gray-700 mb-8">But you don't have to wait to shape it.</p>
+            <div className="space-y-4 mb-8">
+              {closingLines.map((line) => (
+                <p key={line} className="text-lg text-gray-700 leading-relaxed">{line}</p>
+              ))}
+            </div>
+            <p className="text-lg font-semibold text-gray-900 leading-relaxed">
+              The Africa Youth Forum exists to give that generation a place in the conversation — and a pathway into the opportunities.
+            </p>
           </div>
         </div>
       </section>
@@ -558,15 +666,15 @@ const YouthPage: React.FC = () => {
       <section className="py-16">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Join the Youth Movement</h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Take your place among Africa's most ambitious and innovative young leaders. Together, we're building a future of opportunity and impact.
-            </p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Don't Wait for a Seat at the Table.</h2>
+            <h2 className="text-3xl font-bold text-orange-600 mb-6">Build the Table.</h2>
+            <p className="text-xl text-gray-600 mb-2">Welcome to the Africa Youth Forum.</p>
+            <p className="text-lg text-gray-600 mb-8">The Future Leaders Community of the Africa Economic Forum.</p>
             <button
               onClick={() => setIsFormOpen(true)}
               className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors whitespace-nowrap cursor-pointer"
             >
-              Join Youth Network
+              Apply for Membership
             </button>
           </div>
         </div>
@@ -1077,8 +1185,8 @@ const YouthPage: React.FC = () => {
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy & Terms of Service
                 </a>
-                
-                <p>© 2025 Africa Economic Forum</p>
+
+                <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
             </div>
