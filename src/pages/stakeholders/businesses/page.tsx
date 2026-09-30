@@ -143,6 +143,191 @@ export default function BusinessesPage() {
     }
   };
 
+  // Page content
+  const buildersLines = [
+    'They develop industries.',
+    'Create jobs.',
+    'Build infrastructure.',
+    'Expand trade.',
+    'Drive innovation.',
+  ];
+
+  const accessItems = [
+    'Access to decision-makers.',
+    'Access to capital.',
+    'Access to markets.',
+    'Access to partnerships.',
+  ];
+
+  const engagementAreas = [
+    {
+      title: 'Market Expansion',
+      text: 'Explore opportunities to enter new markets, establish partnerships and strengthen regional presence.',
+      icon: 'ri-global-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Infrastructure & Industrialization',
+      text: 'Engage in conversations shaping the future of infrastructure, manufacturing and industrial development across Africa.',
+      icon: 'ri-building-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Investment & Capital Access',
+      text: 'Connect with investors, development finance institutions, sovereign funds and financial partners.',
+      icon: 'ri-funds-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Trade & Commerce',
+      text: 'Strengthen commercial relationships and identify opportunities within Africa and international markets.',
+      icon: 'ri-exchange-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Technology & Innovation',
+      text: 'Discover emerging trends, partnerships and technologies transforming industries.',
+      icon: 'ri-lightbulb-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Public-Private Partnerships',
+      text: 'Build relationships with governments and institutions seeking private sector participation.',
+      icon: 'ri-handshake-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Leadership & Corporate Strategy',
+      text: "Exchange insights with some of Africa's most influential business leaders and decision-makers.",
+      icon: 'ri-presentation-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+  ];
+
+  const whoShouldJoin = [
+    {
+      title: 'CEOs & Chairpersons',
+      text: 'Leaders driving corporate growth and expansion.',
+      icon: 'ri-vip-crown-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Founders & Entrepreneurs',
+      text: 'Visionaries building the next generation of African businesses.',
+      icon: 'ri-rocket-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Corporate Executives',
+      text: 'Senior leaders responsible for strategy, operations, investment and growth.',
+      icon: 'ri-briefcase-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Industrial Leaders',
+      text: 'Executives operating across manufacturing, infrastructure, energy, mining and logistics.',
+      icon: 'ri-store-2-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Multinational Corporations',
+      text: 'Global companies seeking opportunities and partnerships across Africa.',
+      icon: 'ri-earth-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Chambers of Commerce & Business Associations',
+      text: 'Organizations supporting private sector development and regional cooperation.',
+      icon: 'ri-team-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+  ];
+
+  const memberGains = [
+    {
+      title: 'Access',
+      text: 'Direct engagement with governments, investors, financial institutions and strategic partners.',
+      icon: 'ri-key-2-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Visibility',
+      text: 'A platform to showcase your company, projects, capabilities and growth ambitions.',
+      icon: 'ri-megaphone-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Influence',
+      text: "Participation in conversations shaping Africa's economic and business environment.",
+      icon: 'ri-chat-voice-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Partnerships',
+      text: 'Opportunities to build relationships that lead to joint ventures, commercial agreements and strategic collaborations.',
+      icon: 'ri-handshake-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Intelligence',
+      text: 'Access to insights, trends and opportunities relevant to business growth across Africa.',
+      icon: 'ri-bar-chart-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+  ];
+
+  const membershipBenefits = [
+    'Membership in the AEF Business Council',
+    'Official Access to the Africa Economic Forum',
+    'CEO & Executive Leadership Sessions',
+    'Private Business Roundtables',
+    'Access to the AEF Deal Room',
+    'Access to the Annual AEF Deal Book',
+    'Business-to-Government Engagement Opportunities',
+    'Business-to-Investor Matchmaking',
+    'Strategic Networking Events',
+    'Leadership Dinners and Private Receptions',
+    'Access to the AEF Member Directory',
+    'Year-Round Community Engagement',
+    'Visibility Across AEF Platforms',
+    'Participation in Sector-Specific Discussions',
+  ];
+
+  const membershipIncludes = [
+    'Africa Economic Forum Delegate Pass',
+    'Full Business Council Membership',
+    'Access to Executive Sessions',
+    'Access to Closed-Door Discussions',
+    'Access to the AEF Deal Room',
+    'Access to the AEF Deal Book',
+    'Year-Round Community Engagement',
+    'Member Directory Access',
+    'Strategic Networking Opportunities',
+  ];
+
+  const closingLines = [
+    'Growth Requires Vision.',
+    'Growth Requires Partnerships.',
+    'Growth Requires Leadership.',
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -282,191 +467,268 @@ export default function BusinessesPage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-white">
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">Business & Private Sector</h1>
-            <h2 className="text-2xl lg:text-3xl font-semibold mb-8 text-blue-100">Private Sector as the Engine of Africa's Transformation</h2>
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6">AEF Business Council</h1>
+            <h2 className="text-2xl lg:text-3xl font-semibold mb-8 text-blue-100">Where Africa's Builders Meet</h2>
             <p className="text-lg text-blue-100 max-w-4xl mb-8 leading-relaxed">
-              The Business & Private Sector platform connects African and international companies, corporate leaders, industry associations, and business ecosystems to drive investment, innovation, job creation, and sustainable economic growth across the continent.
+              But businesses build economies.
             </p>
             <button
               onClick={() => setShowMembershipForm(true)}
               className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
             >
-              Apply for Partnership
+              Apply for Membership
             </button>
           </div>
         </div>
       </section>
 
-      {/* Building Resilient Ecosystem Section */}
+      {/* Introduction */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">Building a Resilient African Business Ecosystem</h2>
-            <p className="text-lg text-gray-600 max-w-4xl mb-12 leading-relaxed">
-              The AEF Business Platform is designed to serve as a strategic interface between African governments, global corporations, African enterprises, investors, and industry leaders. It facilitates market entry strategies, partnerships, and long-term value creation in Africa's most dynamic sectors.
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="space-y-2 mb-8">
+            <p className="text-lg text-gray-700">Governments create policies.</p>
+            <p className="text-lg text-gray-700">Investors provide capital.</p>
+            <p className="text-2xl font-bold text-blue-900">But businesses build economies.</p>
+          </div>
+          <div className="space-y-2 mb-8">
+            {buildersLines.map((line) => (
+              <p key={line} className="text-lg text-gray-700">{line}</p>
+            ))}
+          </div>
+          <p className="text-xl font-semibold text-gray-900 mb-8">
+            And transform opportunity into growth.
+          </p>
+          <div className="space-y-6">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              As Africa enters a new era of industrialization, urbanization, digital transformation and regional integration, the role of business leadership has never been more important.
             </p>
-
-            <div className="space-y-8">
-              {/* Item 1 */}
-              <div className="flex gap-6">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex-shrink-0 flex items-center justify-center">
-                  <i className="ri-handshake-line text-2xl text-blue-600"></i>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Strategic Partnerships & Market Entry</h3>
-                  <p className="text-gray-600">
-                    Facilitation of cross-border partnerships, joint ventures, and market access strategies for companies seeking to expand their operations in Africa.
-                  </p>
-                </div>
-              </div>
-
-              {/* Item 2 */}
-              <div className="flex gap-6">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex-shrink-0 flex items-center justify-center">
-                  <i className="ri-building-line text-2xl text-green-600"></i>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Corporate-to-Government Dialogue & Policy Alignment</h3>
-                  <p className="text-gray-600">
-                    Private dialogue platforms, policy roundtables, and business councils connecting corporate leaders with policymakers to shape regulatory frameworks and investment environments.
-                  </p>
-                </div>
-              </div>
-
-              {/* Item 3 */}
-              <div className="flex gap-6">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex-shrink-0 flex items-center justify-center">
-                  <i className="ri-store-2-line text-2xl text-purple-600"></i>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Sector-Specific Collaboration & Supply Chain Development</h3>
-                  <p className="text-gray-600">
-                    Industry forums, supply chain optimization programs, and sector-based investment roadmaps across key industries including agriculture, manufacturing, logistics, energy, and technology.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The companies that build relationships today will be the companies that shape Africa's future tomorrow.
+            </p>
+            <p className="text-xl font-semibold text-blue-900">
+              The AEF Business Council was created for those leaders.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Platform Features Section */}
+      {/* Corporate Leadership Community */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">The Corporate Leadership Community of the Africa Economic Forum</h2>
+          <div className="space-y-6">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The AEF Business Council is a high-level community of CEOs, Chairpersons, Founders, Managing Directors, Corporate Executives, Industrial Leaders, Entrepreneurs and Business Owners committed to advancing business, investment and economic growth across Africa.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              As the corporate pillar of the Africa Economic Forum, the Council provides a platform where business leaders engage directly with governments, investors, financial institutions, development partners and strategic stakeholders.
+            </p>
+            <p className="text-xl font-semibold text-gray-900">
+              Because growth happens when the right people sit around the same table.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Why the AEF Business Council */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">Why the AEF Business Council?</h2>
+          <div className="space-y-6 text-center mb-10">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Africa is home to one of the world's most significant growth opportunities.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              From infrastructure and manufacturing to energy, mining, technology, healthcare, agriculture, tourism and logistics, opportunities exist across every major sector.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Yet opportunity alone is not enough.
+            </p>
+            <p className="text-xl font-semibold text-gray-900">
+              Success depends on access.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            {accessItems.map((item) => (
+              <div key={item} className="bg-gray-50 rounded-lg p-6 text-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i className="ri-key-2-line text-xl text-blue-600"></i>
+                </div>
+                <p className="font-semibold text-gray-900">{item}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-xl font-semibold text-blue-900 text-center">
+            The AEF Business Council exists to create that access.
+          </p>
+        </div>
+      </section>
+
+      {/* Building Africa's Next Growth Chapter */}
+      <section className="py-20 bg-blue-900 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold mb-8">Building Africa's Next Growth Chapter</h2>
+          <p className="text-xl text-blue-100 mb-6 leading-relaxed">
+            The future of Africa will be shaped by businesses willing to invest, innovate and expand.
+          </p>
+          <p className="text-lg text-blue-100 leading-relaxed">
+            The Council provides a platform for companies to connect with the people and institutions capable of accelerating their growth ambitions.
+          </p>
+        </div>
+      </section>
+
+      {/* Areas of Engagement */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-20">
-            <div className="relative mb-16">
-              <img
-                src="https://readdy.ai/api/search-image?query=African%20business%20leaders%20in%20modern%20corporate%20boardroom%2C%20diverse%20group%20of%20executives%20in%20professional%20attire%20discussing%20strategy%2C%20contemporary%20office%20setting%20with%20African%20art%20and%20city%20skyline&width=1200&height=500&seq=businesses-meeting&orientation=landscape"
-                alt="Business Meeting"
-                className="w-full h-96 object-cover rounded-lg shadow-lg"
-              />
-            </div>
-
-            <div className="text-center mb-16">
-              <p className="text-gray-600 text-lg mb-16">Direct connections to African governments, businesses, and civil society</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-12">
-              {/* Program Implementation */}
-              <div className="text-center space-y-4">
-                <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-notification-badge-line text-4xl text-purple-600"></i>
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Areas of Engagement</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {engagementAreas.map((area) => (
+              <div key={area.title} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+                <div className={`w-14 h-14 ${area.iconBg} rounded-full flex items-center justify-center mb-4`}>
+                  <i className={`${area.icon} ${area.iconColor} text-2xl`}></i>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900">Program Implementation</h3>
-                <p className="text-gray-600">Efficient delivery of development programs and initiatives</p>
+                <h3 className="font-semibold text-gray-900 mb-3">{area.title}</h3>
+                <p className="text-gray-600">{area.text}</p>
               </div>
-
-              {/* Impact Measurement */}
-              <div className="text-center space-y-4">
-                <div className="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-bar-chart-line text-4xl text-orange-600"></i>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900">Impact Measurement</h3>
-                <p className="text-gray-600">Comprehensive monitoring and evaluation of development outcomes</p>
-              </div>
-
-              {/* Innovation Hub */}
-              <div className="text-center space-y-4">
-                <div className="w-24 h-24 bg-teal-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-lightbulb-line text-4xl text-teal-600"></i>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900">Innovation Hub</h3>
-                <p className="text-gray-600">Platform for testing and scaling innovative development solutions</p>
-              </div>
-
-              {/* Risk Mitigation */}
-              <div className="text-center space-y-4">
-                <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-shield-check-line text-4xl text-red-600"></i>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900">Risk Mitigation</h3>
-                <p className="text-gray-600">Reduced operational risks through local partnerships and knowledge</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Partnership Benefits Section */}
+      {/* Who Should Join */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Partnership Benefits</h2>
-            <p className="text-lg text-gray-600">Advantages of collaborating with the Africa Economic Forum</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-16">
-            {/* Local Expertise */}
-            <div className="text-center space-y-4">
-              <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                <i className="ri-map-pin-line text-4xl text-blue-600"></i>
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Who Should Join?</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {whoShouldJoin.map((item) => (
+              <div key={item.title} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow text-center space-y-4">
+                <div className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}>
+                  <i className={`${item.icon} ${item.iconColor} text-2xl`}></i>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                  <p className="text-gray-600">{item.text}</p>
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Local Expertise</h3>
-              <p className="text-gray-600">Deep understanding of African markets, cultures, and business environments</p>
-            </div>
-
-            {/* Network Access */}
-            <div className="text-center space-y-4">
-              <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                <i className="ri-group-line text-4xl text-green-600"></i>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Network Access</h3>
-              <p className="text-gray-600">Direct connections to African governments, businesses, and civil society</p>
-            </div>
-
-            {/* Program Implementation */}
-            <div className="text-center space-y-4">
-              <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
-                <i className="ri-notification-badge-line text-4xl text-purple-600"></i>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Program Implementation</h3>
-              <p className="text-gray-600">Efficient delivery of development programs and initiatives</p>
-            </div>
-
-            {/* Risk Mitigation */}
-            <div className="text-center space-y-4">
-              <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-                <i className="ri-shield-check-line text-4xl text-red-600"></i>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Risk Mitigation</h3>
-              <p className="text-gray-600">Reduced operational risks through local partnerships and knowledge</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Partner with Us Section */}
+      {/* What Members Gain */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">What Members Gain</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {memberGains.map((item) => (
+              <div key={item.title} className="text-center space-y-4">
+                <div className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}>
+                  <i className={`${item.icon} ${item.iconColor} text-2xl`}></i>
+                </div>
+                <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                <p className="text-gray-600">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Membership Benefits */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Membership Benefits</h2>
+          <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+            {membershipBenefits.map((benefit) => (
+              <div key={benefit} className="flex items-start space-x-3">
+                <i className="ri-check-line text-xl text-blue-600 flex-shrink-0"></i>
+                <span className="text-gray-700">{benefit}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Membership */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">Membership</h2>
+          <div className="space-y-6 mb-12">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The AEF Business Council is a curated community of corporate leaders committed to shaping Africa's economic future.
+            </p>
+            <p className="text-lg font-semibold text-gray-900 leading-relaxed">
+              Membership is granted through application and approval.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              To preserve the quality of engagement and maintain meaningful access among members, participation is intentionally selective.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The objective is simple:
+            </p>
+            <p className="text-xl font-semibold text-blue-900 leading-relaxed">
+              To create an environment where business leaders can build relationships, identify opportunities and accelerate growth.
+            </p>
+          </div>
+          <div className="bg-gray-50 rounded-lg p-8 text-left">
+            <h3 className="text-xl font-semibold text-gray-900 mb-6">Membership includes:</h3>
+            <ul className="grid md:grid-cols-2 gap-3 mb-6">
+              {membershipIncludes.map((item) => (
+                <li key={item} className="flex items-start space-x-3 text-gray-700">
+                  <i className="ri-check-line text-xl text-blue-600 flex-shrink-0"></i>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-sm text-gray-600">
+              Seats are allocated to maintain a balanced representation of sectors, industries and regions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Next Business Opportunities */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">Africa's Next Business Opportunities Are Being Created Today</h2>
+          <div className="space-y-6">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The next decade will produce new markets, industries, technologies and partnerships across Africa.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The companies that position themselves early will be best placed to capture the opportunities ahead.
+            </p>
+            <p className="text-xl font-semibold text-blue-900 leading-relaxed">
+              The AEF Business Council exists to help make those connections possible.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Closing Banner */}
+      <section className="py-16 bg-gray-900 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="space-y-2 mb-8">
+            {closingLines.map((line) => (
+              <p key={line} className="text-2xl font-bold">{line}</p>
+            ))}
+          </div>
+          <p className="text-xl text-gray-200 mb-2">Welcome to the AEF Business Council.</p>
+          <p className="text-gray-400">The Corporate Leadership Community of the Africa Economic Forum.</p>
+        </div>
+      </section>
+
+      {/* Apply for Membership */}
       <section className="py-20 bg-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Partner with Us</h2>
+          <h2 className="text-4xl font-bold mb-6">Apply for Membership</h2>
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-            Join our network of business leaders driving sustainable economic growth and innovation across Africa.
+            Join a trusted community of CEOs, entrepreneurs and business leaders shaping the future of business in Africa.
           </p>
           <button
             onClick={() => setShowMembershipForm(true)}
             className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
           >
-            Apply for Partnership
+            Apply for Membership
           </button>
         </div>
       </section>
@@ -937,7 +1199,7 @@ export default function BusinessesPage() {
                 <a href="/sitemap" className="hover:text-white cursor-pointer">
                   Sitemap
                 </a>
-                <p>© 2025 Africa Economic Forum</p>
+                <p>© 2026 Africa Economic Forum</p>
                 <a href="https://readdy.ai/?origin=logo" className="hover:text-white cursor-pointer">Website Builder</a>
               </div>
             </div>
