@@ -107,82 +107,107 @@ export default function InvestorsPage() {
     }
   };
 
-  const benefits = [
+  const whyAfricaCards = [
     {
-      icon: 'ri-eye-line',
-      title: 'Curated Deal Pipeline',
-      description: 'Access to pre-screened, high-potential investment opportunities across Africa.'
+      icon: 'ri-team-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+      title: "The World's Youngest Workforce",
+      paragraphs: [
+        "Africa's population is expected to exceed 2.5 billion people by 2050.",
+        'With the youngest population globally, the continent is becoming one of the largest sources of talent, innovation, entrepreneurship and consumer demand.',
+        'For investors, this represents one of the most compelling long-term growth stories of the century.',
+      ],
     },
     {
-      icon: 'ri-shield-check-line',
-      title: 'Private Deal Rooms',
-      description: 'Exclusive access to confidential investment opportunities and due diligence materials.'
+      icon: 'ri-battery-charge-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+      title: 'The Resources Driving the Global Economy',
+      paragraphs: [
+        'Africa holds a significant share of the minerals required for batteries, electric vehicles, renewable energy systems, semiconductors and advanced technologies.',
+        "As governments and industries compete to secure critical supply chains, Africa's strategic importance continues to grow.",
+      ],
     },
     {
-      icon: 'ri-group-line',
-      title: 'Investor Networking',
-      description: 'Connect with leading global investors, family offices, and institutional funds.'
+      icon: 'ri-building-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+      title: 'A Trillion-Dollar Infrastructure Opportunity',
+      paragraphs: [
+        'Energy systems, transport corridors, ports, airports, logistics networks, housing, water systems and digital connectivity require substantial investment across the continent.',
+        'The scale of opportunity is among the largest anywhere in the world.',
+      ],
+    },
+  ];
+
+  const sectors = [
+    'Energy',
+    'Critical Minerals',
+    'Infrastructure',
+    'Technology & Artificial Intelligence',
+    'Healthcare',
+    'Agribusiness',
+    'Tourism',
+    'Financial Services',
+    'Manufacturing',
+    'Logistics & Transportation',
+    'Real Estate',
+    'Climate & Sustainability',
+  ];
+
+  const memberGains = [
+    {
+      icon: 'ri-key-2-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+      title: 'Access',
+      description: 'Direct engagement with policymakers, investors, project developers, government leaders and business executives.',
     },
     {
       icon: 'ri-bar-chart-line',
-      title: 'Market Intelligence',
-      description: 'Comprehensive market analysis, sector reports, and investment trends across Africa.'
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+      title: 'Intelligence',
+      description: 'Exclusive insights into market developments, investment trends, geopolitical shifts and emerging opportunities.',
     },
     {
-      icon: 'ri-handshake-line',
-      title: 'Co-Investment Opportunities',
-      description: 'Participate in syndicated deals with other alliance members and strategic partners.'
+      icon: 'ri-group-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+      title: 'Relationships',
+      description: 'Curated introductions and private networking opportunities that accelerate decision-making and partnership creation.',
     },
     {
-      icon: 'ri-calendar-line',
-      title: 'Exclusive Events',
-      description: 'Private investor roundtables, deal showcases, and strategic partnership meetings.'
-    }
+      icon: 'ri-shield-check-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+      title: 'Opportunities',
+      description: 'Access to investment-ready projects, strategic partnerships, co-investment opportunities and the AEF Deal Room ecosystem.',
+    },
+    {
+      icon: 'ri-presentation-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+      title: 'Influence',
+      description: "A seat at the table where conversations about Africa's economic future are being shaped.",
+    },
   ];
 
-  const memberInvestors = [
-    {
-      name: 'Africa Finance Corporation',
-      type: 'Development Finance',
-      country: 'Nigeria',
-      description: 'Leading pan-African multilateral development finance institution with $9 billion in assets.',
-      logo: 'https://readdy.ai/api/search-image?query=Africa%20Finance%20Corporation%20AFC%20logo%2C%20Nigerian%20development%20finance%20institution%20branding%2C%20multilateral%20financial%20organization%20logo&width=120&height=80&seq=afc-logo&orientation=landscape'
-    },
-    {
-      name: 'TLcom Capital',
-      type: 'Venture Capital',
-      country: 'Kenya/UK',
-      description: 'Africa-focused VC firm investing in scalable tech companies across the continent.',
-      logo: 'https://readdy.ai/api/search-image?query=TLcom%20Capital%20venture%20capital%20logo%2C%20African%20tech%20investment%20firm%20branding%2C%20VC%20company%20logo%20design&width=120&height=80&seq=tlcom-logo&orientation=landscape'
-    },
-    {
-      name: 'Helios Investment Partners',
-      type: 'Private Equity',
-      country: 'UK/Nigeria',
-      description: 'Premier Africa-focused private equity firm with over $4 billion in assets under management.',
-      logo: 'https://readdy.ai/api/search-image?query=Helios%20Investment%20Partners%20private%20equity%20logo%2C%20African%20investment%20firm%20branding%2C%20PE%20company%20logo%20design&width=120&height=80&seq=helios-logo&orientation=landscape'
-    },
-    {
-      name: 'Partech Africa',
-      type: 'Venture Capital',
-      country: 'Senegal/France',
-      description: 'Leading VC fund dedicated to African tech startups with $143 million fund.',
-      logo: 'https://readdy.ai/api/search-image?query=Partech%20Africa%20venture%20capital%20logo%2C%20African%20tech%20startup%20investment%20firm%20branding%2C%20VC%20fund%20logo&width=120&height=80&seq=partech-logo&orientation=landscape'
-    },
-    {
-      name: 'Development Bank of Southern Africa',
-      type: 'Development Finance',
-      country: 'South Africa',
-      description: 'Development finance institution focused on infrastructure and economic development.',
-      logo: 'https://readdy.ai/api/search-image?query=Development%20Bank%20of%20Southern%20Africa%20DBSA%20logo%2C%20South%20African%20development%20finance%20institution%20branding&width=120&height=80&seq=dbsa-logo&orientation=landscape'
-    },
-    {
-      name: 'Novastar Ventures',
-      type: 'Impact Investment',
-      country: 'Kenya',
-      description: 'Impact investor focused on scalable businesses serving low-income populations in Africa.',
-      logo: 'https://readdy.ai/api/search-image?query=Novastar%20Ventures%20impact%20investment%20logo%2C%20Kenyan%20impact%20investor%20branding%2C%20social%20impact%20fund%20logo&width=120&height=80&seq=novastar-logo&orientation=landscape'
-    }
+  const membershipIncludes = [
+    'Official AEF Investors Alliance Membership',
+    'Flagship Africa Economic Forum Delegate & Investor Pass',
+    'Full Access to the AEF Deal Room',
+    'Access to the Annual AEF Deal Book',
+    'Invitation to Closed-Door Investor Sessions',
+    'Private Investor Networking Events',
+    'Year-Round Investment Pipeline Access',
+    'Curated Introductions and Investor Matchmaking',
+    'Access to the Members Directory',
+    'Exclusive Market Intelligence Briefings',
+    'Priority Access to Investment Missions',
+    'Priority Access to Investor Roundtables',
+    'Opportunities to Engage with Governments and Project Sponsors',
   ];
 
   return (
@@ -266,193 +291,250 @@ export default function InvestorsPage() {
               <i className="ri-funds-line text-3xl text-white"></i>
             </div>
             <h1 className="text-5xl lg:text-6xl font-bold mb-6">AEF Investors Alliance</h1>
-            <p className="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-              Global financiers, family offices, venture capitalists, and strategic investors committed to Africa's growth. 
-              Members gain access to a curated investment pipeline, private deal rooms, and high-level networking with Africa's most promising ventures.
+            <p className="text-2xl font-semibold text-blue-100 mb-6">The Gateway for Investing in Africa</p>
+            <p className="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed mb-8">
+              Africa is not the future. Africa is now.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Alliance Benefits */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Alliance Benefits</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Join Africa's premier investor network and unlock exclusive access to the continent's most promising investment opportunities.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <i className={`${benefit.icon} text-2xl text-green-600`}></i>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Investment Focus Areas */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Investment Focus Areas</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Our alliance members are actively investing across key sectors driving Africa's economic transformation.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <i className="ri-smartphone-line text-2xl text-blue-600"></i>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Fintech</h3>
-              <p className="text-gray-600 text-sm">Digital payments, lending, and financial inclusion solutions</p>
-            </div>
-            <div className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <i className="ri-leaf-line text-2xl text-green-600"></i>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Agritech</h3>
-              <p className="text-gray-600 text-sm">Agricultural technology and food security innovations</p>
-            </div>
-            <div className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <i className="ri-health-book-line text-2xl text-purple-600"></i>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Healthtech</h3>
-              <p className="text-gray-600 text-sm">Digital health solutions and medical technology</p>
-            </div>
-            <div className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <i className="ri-graduation-cap-line text-2xl text-orange-600"></i>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Edtech</h3>
-              <p className="text-gray-600 text-sm">Educational technology and skills development platforms</p>
-            </div>
-            <div className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <i className="ri-flashlight-line text-2xl text-red-600"></i>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Energy</h3>
-              <p className="text-gray-600 text-sm">Renewable energy and clean technology solutions</p>
-            </div>
-            <div className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <i className="ri-truck-line text-2xl text-indigo-600"></i>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Logistics</h3>
-              <p className="text-gray-600 text-sm">Supply chain and transportation technology</p>
-            </div>
-            <div className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <i className="ri-building-line text-2xl text-teal-600"></i>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Real Estate</h3>
-              <p className="text-gray-600 text-sm">Property technology and urban development</p>
-            </div>
-            <div className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <i className="ri-shopping-cart-line text-2xl text-yellow-600"></i>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">E-commerce</h3>
-              <p className="text-gray-600 text-sm">Online retail and marketplace platforms</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Alliance Members */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Distinguished Alliance Members</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Join leading investors who are actively shaping Africa's investment landscape and driving economic growth.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {memberInvestors.map((investor, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-                <div className="flex items-center mb-4">
-                  <img
-                    src={investor.logo}
-                    alt={`${investor.name} logo`}
-                    className="w-16 h-12 object-contain mr-4"
-                  />
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{investor.name}</h3>
-                    <p className="text-sm text-gray-500">{investor.country}</p>
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
-                    {investor.type}
-                  </span>
-                </div>
-                <p className="text-gray-600 text-sm">{investor.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Statistics */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Alliance Impact</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">$2.5B+</div>
-              <div className="text-gray-600">Capital Deployed</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">150+</div>
-              <div className="text-gray-600">Portfolio Companies</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">85+</div>
-              <div className="text-gray-600">Alliance Members</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">25</div>
-              <div className="text-gray-600">Countries Covered</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-20 bg-blue-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Join the AEF Investors Alliance</h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-            Access exclusive investment opportunities, connect with leading investors, and be part of Africa's economic transformation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => setShowMembershipForm(true)}
               className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
             >
               Apply for Membership
             </button>
-            <a
-              href="/contact"
-              className="border-2 border-white text-white px-8 py-3 rounded-md hover:bg-white hover:text-blue-900 font-medium whitespace-nowrap cursor-pointer inline-block"
-            >
-              Learn More
-            </a>
           </div>
+        </div>
+      </section>
+
+      {/* Introduction */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <p className="text-lg text-gray-700 leading-relaxed">
+            The global race for resources, markets, talent and growth is accelerating. While mature economies face slowing demographics and constrained growth, Africa is emerging as one of the world's most significant investment frontiers.
+          </p>
+          <p className="text-2xl font-bold text-blue-900">
+            By 2050, one in four people on Earth will be African.
+          </p>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            The continent possesses the critical minerals powering the global energy transition, some of the world's fastest-growing cities, expanding digital economies, vast agricultural potential, and unprecedented infrastructure opportunities.
+          </p>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            From copper and cobalt in the Democratic Republic of Congo to lithium across Southern Africa, from renewable energy and digital infrastructure to healthcare, tourism, logistics, manufacturing and artificial intelligence, Africa is entering a defining decade.
+          </p>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            The question is no longer whether Africa matters.
+          </p>
+          <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+            The question is who will be positioned to participate in its rise.
+          </p>
+        </div>
+      </section>
+
+      {/* Where Conversations Are Shaped */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">Where Conversations About Investing in Africa Are Shaped</h2>
+          <div className="space-y-6">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The AEF Investors Alliance is a high-level community of investors, family offices, sovereign wealth funds, development finance institutions, private equity firms, venture capital leaders, multinational corporations and strategic partners committed to unlocking opportunities across Africa.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              More than a network, it is a platform where capital meets opportunity, where relationships become partnerships, and where conversations lead to action.
+            </p>
+            <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+              Because in Africa, access often determines who sees an opportunity—and who secures it.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The Alliance was created for decision-makers who understand that investment success requires more than information.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              It requires trusted relationships, strategic intelligence and direct access.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Africa? Why Now? */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900">Why Africa? Why Now?</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {whyAfricaCards.map((card) => (
+              <div key={card.title} className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                <div className={`w-12 h-12 ${card.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                  <i className={`${card.icon} text-2xl ${card.iconColor}`}></i>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{card.title}</h3>
+                <div className="space-y-3">
+                  {card.paragraphs.map((p) => (
+                    <p key={p} className="text-gray-600">{p}</p>
+                  ))}
+                </div>
+              </div>
+            ))}
+
+            <div className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                <i className="ri-line-chart-line text-2xl text-orange-600"></i>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">The Rise of African Markets</h3>
+              <p className="text-gray-600 mb-4">
+                Rapid urbanization, digital adoption, financial inclusion and a growing middle class are transforming sectors such as:
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {sectors.map((sector) => (
+                  <span key={sector} className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
+                    {sector}
+                  </span>
+                ))}
+              </div>
+              <p className="text-gray-600">
+                The next generation of global growth stories will increasingly be found in Africa.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What Members Gain */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900">What Members Gain</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {memberGains.map((gain) => (
+              <div key={gain.title} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                <div className={`w-12 h-12 ${gain.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                  <i className={`${gain.icon} text-2xl ${gain.iconColor}`}></i>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{gain.title}</h3>
+                <p className="text-gray-600">{gain.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Membership */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">Membership</h2>
+          <div className="space-y-6">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The AEF Investors Alliance is a curated community of investors, institutions and strategic leaders committed to shaping Africa's next growth chapter.
+            </p>
+            <p className="text-lg font-semibold text-gray-900 leading-relaxed">
+              Membership is not open enrollment.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Applications are reviewed to ensure the Alliance remains a high-value environment where capital, expertise and opportunities can be exchanged efficiently, professionally and confidentially.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Membership Includes */}
+      <section className="py-20 bg-blue-900 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center mb-12">Membership Includes</h2>
+          <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+            {membershipIncludes.map((item) => (
+              <div key={item} className="flex items-start space-x-3">
+                <i className="ri-check-line text-xl text-green-300 flex-shrink-0"></i>
+                <span className="text-blue-50">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Membership by Application and Approval */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">Membership by Application and Approval</h2>
+          <div className="space-y-6">
+            <p className="text-lg font-semibold text-gray-900 leading-relaxed">
+              Membership is granted through application and approval.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              To preserve the quality of engagement and maintain meaningful access among members, participation is intentionally limited.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Seats are allocated by region and sector to ensure the Alliance remains a working room for investors and decision-makers rather than a conference audience.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The objective is simple:
+            </p>
+            <p className="text-xl font-semibold text-blue-900 leading-relaxed">
+              To create an environment where conversations become partnerships, partnerships become investments, and investments create impact.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* A Seat at the Table */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">A Seat at the Table Where Africa's Investment Future Is Being Shaped</h2>
+          <div className="space-y-6">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The next decade will redefine global capital flows, supply chains, energy systems and growth markets.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Africa will be central to that transformation.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The investors who build relationships today will be better positioned to identify opportunities tomorrow.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The question is not whether opportunities will emerge.
+            </p>
+            <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+              The question is whether you will be positioned to access them.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Apply for Membership */}
+      <section className="py-20 bg-blue-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold mb-6">Apply for Membership</h2>
+          <p className="text-xl text-blue-100 mb-4 max-w-3xl mx-auto">
+            Join a trusted community of investors, institutions and business leaders shaping the future of investment in Africa.
+          </p>
+          <p className="text-blue-200 mb-8">
+            Membership is subject to application and approval.
+          </p>
+          <button
+            onClick={() => setShowMembershipForm(true)}
+            className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
+          >
+            Apply for Membership
+          </button>
+        </div>
+      </section>
+
+      {/* Bottom CTA Banner */}
+      <section className="py-16 bg-gray-900 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="space-y-2 mb-6">
+            <p className="text-2xl font-bold">Capital follows opportunity.</p>
+            <p className="text-2xl font-bold">Opportunity follows access.</p>
+          </div>
+          <p className="text-lg text-gray-300 mb-8">
+            Join the AEF Investors Alliance and connect with the people, projects and partnerships shaping Africa's next decade.
+          </p>
+          <button
+            onClick={() => setShowMembershipForm(true)}
+            className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
+          >
+            Apply for Membership
+          </button>
         </div>
       </section>
 
@@ -810,7 +892,7 @@ export default function InvestorsPage() {
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy & Terms of Service
                 </a>
-                
+
                 <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
