@@ -260,7 +260,7 @@ export const listeIntervenants: Intervenant[] = [
     nom: 'Dr Ossama Shaheen',
     photoUrl: '/images/Dr Ossama Shaheen.jpg',
     description:
-      "Chapitre du chef de l'Afrique du WCMT\nPrésident du Conseil de l'Afrique arabe pour la sensibilisation",
+      "Head of Africa Chapter, WCMT, President, Arab African Council for Awareness",
     statut: 'Confirmé',
   },
 
