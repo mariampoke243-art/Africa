@@ -327,5 +327,3 @@ export const listeIntervenants: Intervenant[] = [
     statut: 'Confirmé',
   },
 ];
-
-Seule addition effectuée : l’entrée "id: '33'" pour Dr Ossama Shaheen, avec son image et ses deux fonctions.
