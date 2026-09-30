@@ -188,35 +188,193 @@ const WomenPage: React.FC = () => {
     });
   };
 
-  const womenLeaders = [
+  // Page content
+  const barriers = [
+    'Access to capital.',
+    'Access to leadership opportunities.',
+    'Access to networks.',
+    'Access to mentorship.',
+  ];
+
+  const engagementAreas = [
     {
-      name: 'Dr. Amara Okafor',
-      title: 'Founder & CEO',
-      organization: 'TechVision Africa',
-      expertise: 'Technology & Innovation',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20Black%20female%20tech%20entrepreneur%2C%20confident%20expression%2C%20modern%20office%20setting%2C%20CEO%20business%20professional%2C%20African%20woman%20leader&width=300&height=300&seq=wl1&orientation=squarish',
+      title: 'Leadership & Governance',
+      text: "Promoting women's participation in leadership and decision-making across all sectors.",
+      icon: 'ri-user-voice-line',
+      card: 'bg-gradient-to-br from-pink-50 to-pink-100',
+      iconBg: 'bg-pink-500',
     },
     {
-      name: 'Zainab Al-Mansouri',
-      title: 'Investment Director',
-      organization: 'Arab Women Capital Fund',
-      expertise: 'Finance & Investment',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20Middle%20Eastern%20woman%2C%20investment%20professional%2C%20confident%20smile%2C%20financial%20services%20setting%2C%20female%20investor%20executive&width=300&height=300&seq=wl2&orientation=squarish',
+      title: 'Entrepreneurship & Business Growth',
+      text: 'Supporting women entrepreneurs and business leaders seeking growth, partnerships and market expansion.',
+      icon: 'ri-briefcase-line',
+      card: 'bg-gradient-to-br from-purple-50 to-purple-100',
+      iconBg: 'bg-purple-500',
     },
     {
-      name: 'Chioma Adeyemi',
-      title: 'Policy Advocate',
-      organization: 'Women Rights International',
-      expertise: 'Policy & Advocacy',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20African%20female%20advocate%2C%20policy%20professional%2C%20confident%20expression%2C%20NGO%20setting%2C%20women%20rights%20champion&width=300&height=300&seq=wl3&orientation=squarish',
+      title: 'Investment & Access to Capital',
+      text: 'Facilitating connections between women leaders, investors and financial institutions.',
+      icon: 'ri-funds-line',
+      card: 'bg-gradient-to-br from-teal-50 to-teal-100',
+      iconBg: 'bg-teal-500',
     },
     {
-      name: 'María Santos',
-      title: 'Sustainability Director',
-      organization: 'Latin America Green Initiative',
-      expertise: 'Environmental Sustainability',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20Latina%20woman%2C%20environmental%20professional%2C%20sustainability%20expert%2C%20confident%20smile%2C%20green%20business%20setting&width=300&height=300&seq=wl4&orientation=squarish',
+      title: 'Innovation & Technology',
+      text: 'Highlighting women driving innovation across emerging industries and technologies.',
+      icon: 'ri-lightbulb-line',
+      card: 'bg-gradient-to-br from-orange-50 to-orange-100',
+      iconBg: 'bg-orange-500',
     },
+    {
+      title: 'Economic Inclusion',
+      text: 'Advancing opportunities that contribute to more inclusive and sustainable growth.',
+      icon: 'ri-earth-line',
+      card: 'bg-gradient-to-br from-red-50 to-red-100',
+      iconBg: 'bg-red-500',
+    },
+    {
+      title: 'Mentorship & Next-Generation Leadership',
+      text: 'Connecting established leaders with emerging talent across Africa.',
+      icon: 'ri-hearts-line',
+      card: 'bg-gradient-to-br from-green-50 to-green-100',
+      iconBg: 'bg-green-500',
+    },
+    {
+      title: 'Public Policy & Advocacy',
+      text: "Encouraging dialogue on policies that support women's economic participation and leadership.",
+      icon: 'ri-megaphone-line',
+      card: 'bg-gradient-to-br from-pink-50 to-pink-100',
+      iconBg: 'bg-pink-500',
+    },
+  ];
+
+  const whoShouldJoin = [
+    {
+      title: 'Women Heads of State & Government Leaders',
+      text: 'Women shaping national and regional development agendas.',
+      icon: 'ri-vip-crown-line',
+      iconBg: 'bg-pink-100',
+      iconColor: 'text-pink-600',
+    },
+    {
+      title: 'Women Ministers & Public Officials',
+      text: 'Decision-makers advancing policies that support growth and opportunity.',
+      icon: 'ri-government-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Women CEOs & Corporate Executives',
+      text: 'Business leaders driving growth, innovation and transformation.',
+      icon: 'ri-briefcase-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Women Investors & Financial Leaders',
+      text: 'Leaders deploying capital and shaping investment decisions.',
+      icon: 'ri-funds-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Women Entrepreneurs',
+      text: 'Founders and innovators building the next generation of African enterprises.',
+      icon: 'ri-rocket-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Women in Academia & Research',
+      text: 'Experts contributing knowledge, ideas and strategic insights.',
+      icon: 'ri-book-open-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Women in Civil Society & Development',
+      text: 'Leaders advancing social impact and sustainable development.',
+      icon: 'ri-hearts-line',
+      iconBg: 'bg-pink-100',
+      iconColor: 'text-pink-600',
+    },
+  ];
+
+  const memberGains = [
+    {
+      title: 'Access',
+      text: 'Direct engagement with influential women leaders, policymakers, investors and executives.',
+      icon: 'ri-key-2-line',
+      iconBg: 'bg-pink-100',
+      iconColor: 'text-pink-600',
+    },
+    {
+      title: 'Visibility',
+      text: 'A platform to showcase leadership, expertise, initiatives and achievements.',
+      icon: 'ri-megaphone-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Influence',
+      text: "Participation in conversations shaping Africa's future.",
+      icon: 'ri-chat-voice-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Partnerships',
+      text: 'Opportunities to build meaningful relationships and collaborations.',
+      icon: 'ri-handshake-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Mentorship',
+      text: 'Access to a powerful network of accomplished leaders and rising talent.',
+      icon: 'ri-user-voice-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Opportunities',
+      text: 'Connections to investors, institutions, strategic partners and new markets.',
+      icon: 'ri-compass-3-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+  ];
+
+  const membershipBenefits = [
+    'Membership in the Africa Women Forum',
+    'Official Access to the Africa Economic Forum',
+    'Women Leadership Roundtables',
+    'Executive Networking Sessions',
+    'Access to the AEF Member Directory',
+    'Access to the AEF Deal Room',
+    'Strategic Partnership Opportunities',
+    'Leadership Dinners and Private Receptions',
+    'Mentorship and Peer Learning Opportunities',
+    'Visibility Across AEF Platforms',
+    'Participation in Special Initiatives and Programs',
+    'Year-Round Community Engagement',
+  ];
+
+  const membershipIncludes = [
+    'Africa Economic Forum Delegate Pass',
+    'Full Africa Women Forum Membership',
+    'Access to Leadership Sessions',
+    'Access to Exclusive Networking Events',
+    'Access to the AEF Deal Room',
+    'Access to the Member Directory',
+    'Year-Round Community Engagement',
+    'Strategic Partnership Opportunities',
+  ];
+
+  const closingLines = [
+    'Leadership Has No Gender.',
+    'Opportunity Should Have No Limits.',
+    'The Future Is Stronger When Women Lead.',
   ];
 
   return (
@@ -272,184 +430,165 @@ const WomenPage: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section 
-        className="relative h-96 bg-cover bg-center bg-no-repeat flex items-center"
+      <section
+        className="relative min-h-[24rem] bg-cover bg-center bg-no-repeat flex items-center py-16"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Diverse%20group%20of%20professional%20women%20networking%2C%20confident%20female%20leaders%2C%20business%20environment%2C%20women%20empowerment%2C%20female%20leadership%20conference&width=1200&height=400&seq=women-hero&orientation=landscape')`
         }}
       >
         <div className="container mx-auto px-6">
           <div className="max-w-3xl text-white">
-            <h1 className="text-5xl font-bold mb-6">Women Empowerment Network</h1>
+            <h1 className="text-5xl font-bold mb-6">Africa Women Forum</h1>
+            <p className="text-2xl font-semibold mb-4 leading-snug">
+              Where Women Shape Africa's Future
+            </p>
             <p className="text-xl mb-8 leading-relaxed">
-              Uniting brilliant women leaders, entrepreneurs, and changemakers across Africa and the world to create lasting economic and social impact.
+              Africa's future will not be built by half of its talent. It will be built by all of it.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
               className="bg-pink-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-pink-700 transition-colors whitespace-nowrap cursor-pointer"
             >
-              Join Our Network
+              Apply for Membership
             </button>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Introduction */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Empowering Women Leaders</h2>
-            <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-              The AEF Women Empowerment Network is dedicated to advancing women's leadership, entrepreneurship, and economic participation. 
-              We create spaces for women to connect, learn, share experiences, and collaborate on initiatives that drive positive change.
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Across government, business, finance, entrepreneurship, technology, academia and civil society, women are driving innovation, creating jobs, leading institutions and transforming communities.
             </p>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-team-line text-2xl text-pink-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Community & Connection</h3>
-                <p className="text-gray-600">
-                  Build meaningful relationships with accomplished women leaders and professionals.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-graduation-cap-line text-2xl text-purple-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Learning & Growth</h3>
-                <p className="text-gray-600">
-                  Access resources, training, and mentorship to advance your career and impact.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-lightbulb-line text-2xl text-teal-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Impact & Influence</h3>
-                <p className="text-gray-600">
-                  Collaborate on initiatives that create positive change in your community and globally.
-                </p>
-              </div>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              They are not simply participants in Africa's growth story.
+            </p>
+            <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+              They are among its architects.
+            </p>
+            <p className="text-xl font-semibold text-pink-600 leading-relaxed">
+              The Africa Women Forum was created to recognize, connect and elevate the women shaping Africa's economic future.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Women Leadership Community */}
+      <section className="py-16">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">The Women Leadership Community of the Africa Economic Forum</h2>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The Africa Women Forum is a high-level community of women leaders from government, business, finance, entrepreneurship, academia, technology, media and civil society.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                As a flagship platform of the Africa Economic Forum, it brings together accomplished women from across Africa and around the world to exchange ideas, build partnerships, unlock opportunities and inspire the next generation of leaders.
+              </p>
+              <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+                Because when women lead, economies grow stronger, businesses become more resilient and societies become more inclusive.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Programs & Initiatives */}
+      {/* Why the Africa Women Forum */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Why the Africa Women Forum?</h2>
+            <div className="space-y-6 text-center mb-10">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Africa is home to some of the world's most dynamic women leaders.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                From boardrooms and government offices to startups, investment funds and social enterprises, women are contributing to economic growth at every level.
+              </p>
+              <p className="text-lg font-semibold text-gray-900">
+                Yet barriers remain.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+              {barriers.map((item) => (
+                <div key={item} className="bg-white p-6 rounded-lg shadow-md text-center">
+                  <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i className="ri-key-2-line text-xl text-pink-600"></i>
+                  </div>
+                  <p className="font-semibold text-gray-900">{item}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-4 text-center">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The Africa Women Forum exists to help bridge those gaps.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                By creating a platform where women can connect with decision-makers, investors, institutions and opportunities that accelerate their impact.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Advancing Women's Leadership */}
+      <section className="py-16 bg-pink-600">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center text-white">
+            <h2 className="text-3xl font-bold mb-8">Advancing Women's Leadership in Africa</h2>
+            <p className="text-xl text-pink-100 mb-6 leading-relaxed">
+              The future of Africa's development depends on the full participation of women in shaping economic, political and social outcomes.
+            </p>
+            <p className="text-lg text-pink-100 mb-6 leading-relaxed">
+              The Africa Women Forum provides a platform for dialogue, collaboration and action.
+            </p>
+            <p className="text-lg text-pink-100 leading-relaxed">
+              A space where leaders can share experiences, develop partnerships and contribute to Africa's transformation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Areas of Engagement */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Programs & Initiatives</h2>
-            
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Areas of Engagement</h2>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-pink-50 to-pink-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-briefcase-line text-xl text-white"></i>
+              {engagementAreas.map((area) => (
+                <div key={area.title} className={`${area.card} p-6 rounded-lg`}>
+                  <div className={`w-12 h-12 ${area.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                    <i className={`${area.icon} text-xl text-white`}></i>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-3">{area.title}</h3>
+                  <p className="text-gray-600">{area.text}</p>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Women Entrepreneurs Program</h3>
-                <p className="text-gray-600 mb-4">Support for women starting and scaling businesses across all sectors.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Startup funding access</li>
-                  <li>• Business mentorship</li>
-                  <li>• Pitch competitions</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-user-voice-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Leadership Academy</h3>
-                <p className="text-gray-600 mb-4">Develop executive and board-level leadership capabilities.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Leadership coaching</li>
-                  <li>• Board training</li>
-                  <li>• Executive development</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-hearts-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Mentorship & Coaching</h3>
-                <p className="text-gray-600 mb-4">One-on-one mentoring with experienced leaders in your field.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Career mentoring</li>
-                  <li>• Executive coaching</li>
-                  <li>• Peer support groups</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-article-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Research & Advocacy</h3>
-                <p className="text-gray-600 mb-4">Evidence-based advocacy for women's economic participation.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Impact research</li>
-                  <li>• Policy advocacy</li>
-                  <li>• Data insights</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-calendar-event-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Events & Summits</h3>
-                <p className="text-gray-600 mb-4">Networking conferences and leadership summits throughout the year.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Annual summit</li>
-                  <li>• Regional meetups</li>
-                  <li>• Virtual events</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-shield-check-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Advocacy & Policy</h3>
-                <p className="text-gray-600 mb-4">Shaping policies that support women's economic empowerment.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Policy engagement</li>
-                  <li>• Stakeholder advocacy</li>
-                  <li>• Rights initiatives</li>
-                </ul>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Women Leaders */}
+      {/* Who Should Join */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Featured Women Leaders</h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {womenLeaders.map((leader, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <img
-                    src={leader.image}
-                    alt={leader.name}
-                    className="w-full h-48 object-cover object-top"
-                  />
-                  <div className="p-6">
-                    <h3 className="font-semibold text-gray-900 mb-1">{leader.name}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{leader.title}</p>
-                    <p className="text-sm text-pink-600 mb-3">{leader.organization}</p>
-                    <div className="flex items-center text-sm text-green-600">
-                      <i className="ri-focus-line mr-2"></i>
-                      {leader.expertise}
-                    </div>
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Who Should Join?</h2>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {whoShouldJoin.map((item) => (
+                <div key={item.title} className="bg-white p-6 rounded-lg shadow-md flex items-start space-x-4">
+                  <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    <i className={`${item.icon} text-xl ${item.iconColor}`}></i>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600">{item.text}</p>
                   </div>
                 </div>
               ))}
@@ -458,101 +597,116 @@ const WomenPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Network Benefits */}
+      {/* What Members Gain */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Network Benefits</h2>
-            
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">What Members Gain</h2>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-team-line text-xl text-pink-600"></i>
+              {memberGains.map((item) => (
+                <div key={item.title} className="flex items-start space-x-4">
+                  <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    <i className={`${item.icon} text-xl ${item.iconColor}`}></i>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600">{item.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Exclusive Network</h3>
-                  <p className="text-gray-600">Access to a curated network of successful women leaders and professionals.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-graduation-cap-line text-xl text-purple-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Learning Opportunities</h3>
-                  <p className="text-gray-600">Workshops, webinars, and training programs on leadership and business topics.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-lightbulb-line text-xl text-teal-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Mentorship</h3>
-                  <p className="text-gray-600">Connect with experienced mentors who can guide your career journey.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-briefcase-line text-xl text-orange-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Business Opportunities</h3>
-                  <p className="text-gray-600">Partnership and collaboration opportunities with other network members.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-article-line text-xl text-red-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Resources & Tools</h3>
-                  <p className="text-gray-600">Access to exclusive resources, toolkits, and industry insights.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <i className="ri-megaphone-line text-xl text-green-600"></i>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Visibility & Recognition</h3>
-                  <p className="text-gray-600">Opportunities to share your story and be recognized for your impact.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Impact Statistics */}
+      {/* Membership Benefits */}
       <section className="py-16 bg-pink-600">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-12">Network Impact</h2>
-            
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <div className="text-4xl font-bold text-pink-100 mb-2">5000+</div>
-                <p className="text-pink-100">Women Members</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-pink-100 mb-2">120+</div>
-                <p className="text-pink-100">Countries Represented</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-pink-100 mb-2">1200+</div>
-                <p className="text-pink-100">Businesses Supported</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-pink-100 mb-2">$25M+</div>
-                <p className="text-pink-100">Capital Mobilized</p>
-              </div>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-white text-center mb-12">Membership Benefits</h2>
+
+            <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+              {membershipBenefits.map((benefit) => (
+                <div key={benefit} className="flex items-start space-x-3 text-pink-50">
+                  <i className="ri-check-line text-xl text-white flex-shrink-0"></i>
+                  <span>{benefit}</span>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Membership */}
+      <section className="py-16">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Membership</h2>
+            <div className="space-y-6 mb-12">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The Africa Women Forum is a curated community of women leaders committed to shaping Africa's future through leadership, innovation and collaboration.
+              </p>
+              <p className="text-lg font-semibold text-gray-900 leading-relaxed">
+                Membership is granted through application and approval.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                To preserve the quality of engagement and ensure meaningful connections among members, participation is intentionally selective.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The goal is to create a trusted platform where women leaders can support one another, build partnerships and create lasting impact.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 p-8 rounded-lg text-left">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Membership includes:</h3>
+              <ul className="grid md:grid-cols-2 gap-3 mb-6">
+                {membershipIncludes.map((item) => (
+                  <li key={item} className="flex items-start space-x-3 text-gray-700">
+                    <i className="ri-check-line text-xl text-pink-600 flex-shrink-0"></i>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-sm text-gray-600">
+                Seats are allocated to ensure diversity of sectors, industries and geographic representation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership Creates Opportunity */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Leadership Creates Opportunity</h2>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The next chapter of Africa's growth will be shaped by leaders who bring vision, resilience and innovation.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Women are already leading that transformation.
+              </p>
+              <p className="text-xl font-semibold text-pink-600 leading-relaxed">
+                The Africa Women Forum exists to ensure those leaders are connected, empowered and positioned to create even greater impact.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Closing Banner */}
+      <section className="py-16 bg-gray-900 text-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="space-y-2 mb-8">
+              {closingLines.map((line) => (
+                <p key={line} className="text-2xl font-bold">{line}</p>
+              ))}
+            </div>
+            <p className="text-xl text-gray-200 mb-2">Welcome to the Africa Women Forum.</p>
+            <p className="text-gray-400">The Women Leadership Community of the Africa Economic Forum.</p>
           </div>
         </div>
       </section>
@@ -561,15 +715,15 @@ const WomenPage: React.FC = () => {
       <section className="py-16">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Become a Member Today</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Apply for Membership</h2>
             <p className="text-xl text-gray-600 mb-8">
-              Join a global community of women leaders committed to creating economic opportunity, advancing equality, and driving positive change.
+              Join a powerful community of women leaders shaping Africa's economic future.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
               className="bg-pink-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-pink-700 transition-colors whitespace-nowrap cursor-pointer"
             >
-              Join Our Network
+              Apply for Membership
             </button>
           </div>
         </div>
@@ -1095,7 +1249,7 @@ const WomenPage: React.FC = () => {
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy & Terms of Service
                 </a>
-                
+
                 <p>© 2025 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
