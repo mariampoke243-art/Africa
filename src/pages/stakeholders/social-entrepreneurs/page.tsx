@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 export default function SocialEntrepreneurs() {
@@ -95,39 +94,223 @@ export default function SocialEntrepreneurs() {
     });
   };
 
-  const entrepreneurs = [
+  // Page content
+  const economicChain = [
+    'Investment requires trust.',
+    'Businesses require secure environments.',
+    'Communities require opportunity.',
+    'And development requires peace.',
+  ];
+
+  const civilSocietyRoles = [
+    'They identify emerging risks.',
+    'They build trust.',
+    'They create local solutions.',
+  ];
+
+  const peaceChain = [
+    'A stable environment can attract investment.',
+    'Investment can create jobs.',
+    'Jobs can expand opportunity.',
+    'Opportunity can strengthen social stability.',
+  ];
+
+  const focusAreas = [
     {
-      name: 'Sarah Chen',
-      organization: 'EduTech Africa',
-      focus: 'Digital Education Solutions',
-      impact: '50,000+ students reached',
-      image:
-        'https://readdy.ai/api/search-image?query=Professional%20Asian%20woman%20entrepreneur%20in%20modern%20office%20setting%2C%20confident%20smile%2C%20business%20attire%2C%20technology%20background%2C%20clean%20professional%20lighting%2C%20corporate%20headshot%20style&width=300&height=300&seq=1&orientation=squarish',
+      title: 'Peacebuilding & Conflict Prevention',
+      text: 'Supporting dialogue, reconciliation, mediation and locally led approaches to peace.',
+      icon: 'ri-shield-check-line',
+      card: 'bg-gradient-to-br from-green-50 to-green-100',
+      iconBg: 'bg-green-500',
     },
     {
-      name: 'Marcus Johnson',
-      organization: 'Green Energy Collective',
-      focus: 'Renewable Energy Access',
-      impact: '200+ communities powered',
-      image:
-        'https://readdy.ai/api/search-image?query=Professional%20African%20American%20male%20entrepreneur%2C%20confident%20expression%2C%20business%20suit%2C%20renewable%20energy%20background%20with%20solar%20panels%2C%20professional%20corporate%20headshot&width=300&height=300&seq=2&orientation=squarish',
+      title: 'Governance & Social Cohesion',
+      text: 'Strengthening trust, participation, accountability and cooperation within communities and institutions.',
+      icon: 'ri-government-line',
+      card: 'bg-gradient-to-br from-blue-50 to-blue-100',
+      iconBg: 'bg-blue-500',
     },
     {
-      name: 'Priya Sharma',
-      organization: 'HealthBridge Initiative',
-      focus: 'Rural Healthcare Access',
-      impact: '100,000+ patients served',
-      image:
-        'https://readdy.ai/api/search-image?query=Professional%20Indian%20woman%20healthcare%20entrepreneur%2C%20warm%20smile%2C%20medical%20background%2C%20professional%20attire%2C%20clean%20lighting%2C%20corporate%20headshot%20style&width=300&height=300&seq=3&orientation=squarish',
+      title: 'Inclusive Economic Development',
+      text: 'Connecting development initiatives with economic opportunities, entrepreneurship and investment.',
+      icon: 'ri-funds-line',
+      card: 'bg-gradient-to-br from-purple-50 to-purple-100',
+      iconBg: 'bg-purple-500',
     },
     {
-      name: 'Ahmed Hassan',
-      organization: 'AgriTech Solutions',
-      focus: 'Sustainable Agriculture',
-      impact: '5,000+ farmers supported',
-      image:
-        'https://readdy.ai/api/search-image?query=Professional%20Middle%20Eastern%20male%20entrepreneur%2C%20confident%20smile%2C%20agricultural%20technology%20background%2C%20business%20attire%2C%20professional%20corporate%20headshot&width=300&height=300&seq=4&orientation=squarish',
+      title: 'Community Investment',
+      text: 'Highlighting projects and organizations creating measurable social and economic impact at community level.',
+      icon: 'ri-community-line',
+      card: 'bg-gradient-to-br from-orange-50 to-orange-100',
+      iconBg: 'bg-orange-500',
     },
+    {
+      title: 'Humanitarian & Development Partnerships',
+      text: 'Creating connections between civil society, governments, development agencies and private-sector partners.',
+      icon: 'ri-handshake-line',
+      card: 'bg-gradient-to-br from-red-50 to-red-100',
+      iconBg: 'bg-red-500',
+    },
+    {
+      title: 'Youth, Women & Community Leadership',
+      text: 'Supporting the participation of communities and emerging leaders in peacebuilding and development.',
+      icon: 'ri-team-line',
+      card: 'bg-gradient-to-br from-teal-50 to-teal-100',
+      iconBg: 'bg-teal-500',
+    },
+    {
+      title: 'Sustainable Development',
+      text: 'Advancing initiatives that connect social impact, environmental sustainability and long-term economic resilience.',
+      icon: 'ri-leaf-line',
+      card: 'bg-gradient-to-br from-green-50 to-green-100',
+      iconBg: 'bg-green-500',
+    },
+  ];
+
+  const whoShouldJoin = [
+    {
+      title: 'Civil Society Leaders',
+      text: 'NGO and civil society executives working across Africa.',
+      icon: 'ri-user-star-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Peacebuilding Organizations',
+      text: 'Institutions focused on mediation, reconciliation, conflict prevention and peacebuilding.',
+      icon: 'ri-shield-check-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Foundations & Philanthropic Institutions',
+      text: 'Organizations deploying resources toward social and economic development.',
+      icon: 'ri-hand-heart-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Development Organizations',
+      text: 'Institutions implementing development programs and community initiatives.',
+      icon: 'ri-building-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Faith & Community Leaders',
+      text: 'Trusted leaders contributing to dialogue, social cohesion and community development.',
+      icon: 'ri-community-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Social Entrepreneurs',
+      text: "Entrepreneurs developing solutions to Africa's social and economic challenges.",
+      icon: 'ri-lightbulb-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Researchers & Practitioners',
+      text: 'Experts working on peace, governance, development and inclusive growth.',
+      icon: 'ri-book-open-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+  ];
+
+  const memberGains = [
+    {
+      title: 'Access',
+      text: 'Engage directly with government officials, investors, CEOs, development institutions and international partners.',
+      icon: 'ri-key-2-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Partnerships',
+      text: 'Build relationships with organizations capable of supporting, scaling or financing impactful initiatives.',
+      icon: 'ri-handshake-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Visibility',
+      text: 'Position your organization, programs and community initiatives before a high-level African and international audience.',
+      icon: 'ri-megaphone-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Intelligence',
+      text: 'Gain access to discussions and insights on geopolitics, development, investment, governance and emerging risks.',
+      icon: 'ri-bar-chart-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Funding Connections',
+      text: 'Connect relevant initiatives with philanthropic institutions, development finance organizations, investors and strategic partners.',
+      icon: 'ri-funds-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Influence',
+      text: "Bring civil society perspectives into conversations shaping Africa's economic and development agenda.",
+      icon: 'ri-chat-voice-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Network',
+      text: 'Join a cross-sector community connecting civil society with the broader Africa Economic Forum ecosystem.',
+      icon: 'ri-team-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+  ];
+
+  const membershipBenefits = [
+    'Civil Society Africa Peace Forum Membership',
+    'Official Access to the Africa Economic Forum',
+    'Peace & Development Roundtables',
+    'Closed-Door Civil Society Dialogues',
+    'Government & Civil Society Engagement Sessions',
+    'Access to the AEF Member Network',
+    'Strategic Partnership Opportunities',
+    'Access to Selected AEF Deal Room Opportunities',
+    'Access to Development & Impact Investment Discussions',
+    'Invitations to Leadership Dinners and Private Receptions',
+    'Visibility Across AEF Platforms',
+    'Participation in Special Peace & Development Initiatives',
+    'Curated Introductions to Relevant Institutions and Partners',
+    'Year-Round Community Engagement',
+  ];
+
+  const membershipIncludes = [
+    'Civil Society Africa Peace Forum Membership',
+    'Africa Economic Forum Delegate Pass',
+    'Peace & Development Leadership Sessions',
+    'Closed-Door Civil Society Dialogues',
+    'Strategic Networking Opportunities',
+    'Access to the AEF Member Network',
+    'Selected AEF Deal Room Opportunities',
+    'Partnership & Funding Connections',
+    'Year-Round Community Engagement',
+    'Participation in AEF Special Initiatives',
+  ];
+
+  const imperativeLines = [
+    'It will require trust.',
+    'It will require resilient communities.',
+    'It will require institutions capable of working across borders, sectors and generations.',
+  ];
+
+  const closingLines = [
+    'Where Communities Meet Decision-Makers.',
+    'Where Peace Meets Development.',
+    'Where Partnerships Become Impact.',
   ];
 
   // Auth & UI handlers
@@ -396,163 +579,170 @@ export default function SocialEntrepreneurs() {
       <main>
         {/* Hero Section */}
         <section
-          className="relative h-96 bg-cover bg-center bg-no-repeat flex items-center"
+          className="relative min-h-[24rem] bg-cover bg-center bg-no-repeat flex items-center py-16"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Social%20entrepreneurs%20working%20together%20in%20modern%20collaborative%20workspace%2C%20diverse%20team%20brainstorming%2C%20innovation%20hub%2C%20social%20impact%20projects%2C%20bright%20natural%20lighting%2C%20professional%20business%20environment&width=1200&height=400&seq=5&orientation=landscape')`,
           }}
         >
           <div className="container mx-auto px-6">
             <div className="max-w-3xl text-white">
-              <h1 className="text-5xl font-bold mb-6">Social Entrepreneurs Network</h1>
+              <h1 className="text-5xl font-bold mb-6">Civil Society Africa Peace Forum</h1>
+              <p className="text-2xl font-semibold mb-4 leading-snug">
+                Where Peace Becomes the Foundation for Prosperity
+              </p>
               <p className="text-xl mb-8 leading-relaxed">
-                Empowering changemakers who are building sustainable solutions to the world's most pressing social and
-                environmental challenges.
+                Economic transformation cannot happen without stability.
               </p>
               <button
                 onClick={() => setIsFormOpen(true)}
                 className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors whitespace-nowrap cursor-pointer"
               >
-                Join Our Network
+                Apply for Membership
               </button>
             </div>
           </div>
         </section>
 
-        {/* Mission Section */}
+        {/* Introduction */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Mission</h2>
-              <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-                The AEF Social Entrepreneurs Network connects innovative leaders who are creating scalable solutions to address
-                social, environmental, and economic challenges. We provide a platform for collaboration, knowledge sharing, and
-                resource mobilization to amplify positive impact globally.
-              </p>
-
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i className="ri-lightbulb-line text-2xl text-green-600"></i>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">Innovation Hub</h3>
-                  <p className="text-gray-600">
-                    Foster breakthrough solutions through collaborative innovation and cross-sector partnerships.
-                  </p>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i className="ri-team-line text-2xl text-blue-600"></i>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">Community Building</h3>
-                  <p className="text-gray-600">
-                    Connect like-minded entrepreneurs to share experiences, challenges, and success stories.
-                  </p>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i className="ri-rocket-line text-2xl text-purple-600"></i>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">Scale Impact</h3>
-                  <p className="text-gray-600">
-                    Accelerate growth and expand reach through strategic partnerships and resource access.
-                  </p>
-                </div>
+              <div className="space-y-2 mb-8">
+                {economicChain.map((line) => (
+                  <p key={line} className="text-lg text-gray-700">{line}</p>
+                ))}
+              </div>
+              <div className="space-y-6">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Across Africa, civil society organizations, foundations, community leaders, faith-based organizations, peacebuilders and development practitioners are working every day to strengthen the conditions in which societies can prosper.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  The Civil Society Africa Peace Forum was created to connect these efforts with the institutions, governments, investors and business leaders shaping Africa's economic future.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Because peace is not separate from development.
+                </p>
+                <p className="text-2xl font-bold text-green-700">
+                  Peace is an economic foundation.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Network Benefits */}
+        {/* Peace & Civil Society Community */}
+        <section className="py-16">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">The Peace & Civil Society Community of the Africa Economic Forum</h2>
+              <div className="space-y-6">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  The Civil Society Africa Peace Forum is the peace and civil society community within the Africa Economic Forum.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  It brings together civil society leaders, NGOs, foundations, peacebuilding organizations, development practitioners, faith leaders, community representatives, social entrepreneurs and institutions working to strengthen peace, inclusion and sustainable development across Africa.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  The Forum creates a space where civil society can engage directly with governments, investors, businesses, development institutions and international partners.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Not simply to discuss challenges.
+                </p>
+                <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+                  But to connect community realities with capital, policy and action.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Why the Civil Society Africa Peace Forum */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Why the Civil Society Africa Peace Forum?</h2>
+              <div className="space-y-6 mb-8">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Africa's development challenges cannot be addressed by governments and markets alone.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Communities understand realities on the ground.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Civil society organizations often work closest to the people affected by conflict, poverty, displacement, inequality and social exclusion.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                {civilSocietyRoles.map((role) => (
+                  <div key={role} className="bg-white p-6 rounded-lg shadow-md">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <i className="ri-check-double-line text-xl text-green-600"></i>
+                    </div>
+                    <p className="font-semibold text-gray-900">{role}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="space-y-6">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  And they help ensure that economic transformation reaches beyond institutions and into communities.
+                </p>
+                <p className="text-xl font-semibold text-green-700 leading-relaxed">
+                  The Civil Society Africa Peace Forum provides a platform for these voices to connect with the decision-makers and resources capable of supporting lasting solutions.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* From Peacebuilding to Sustainable Development */}
         <section className="py-16">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Network Benefits</h2>
+              <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">From Peacebuilding to Sustainable Development</h2>
+              <div className="max-w-3xl mx-auto text-center mb-10">
+                <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                  Peace and economic development are deeply connected.
+                </p>
+                <div className="space-y-2 mb-6">
+                  {peaceChain.map((line) => (
+                    <p key={line} className="text-lg text-gray-700">{line}</p>
+                  ))}
+                </div>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  The Forum therefore focuses on the intersection between peace, development, investment and inclusive growth.
+                </p>
+              </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-funds-line text-xl text-green-600"></i>
+                {focusAreas.map((area) => (
+                  <div key={area.title} className={`${area.card} p-6 rounded-lg`}>
+                    <div className={`w-12 h-12 ${area.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                      <i className={`${area.icon} text-xl text-white`}></i>
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-3">{area.title}</h3>
+                    <p className="text-gray-600">{area.text}</p>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Funding Opportunities</h3>
-                    <p className="text-gray-600">Access to impact investors, grants, and funding networks.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-graduation-cap-line text-xl text-blue-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Capacity Building</h3>
-                    <p className="text-gray-600">Training programs and workshops to enhance skills and knowledge.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-global-line text-xl text-purple-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Global Network</h3>
-                    <p className="text-gray-600">Connect with entrepreneurs and organizations worldwide.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-handshake-line text-xl text-orange-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Strategic Partnerships</h3>
-                    <p className="text-gray-600">Collaborate with corporations, governments, and NGOs.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-bar-chart-line text-xl text-red-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Impact Measurement</h3>
-                    <p className="text-gray-600">Tools and frameworks to measure and communicate impact.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-megaphone-line text-xl text-teal-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Advocacy Platform</h3>
-                    <p className="text-gray-600">Amplify voice in policy discussions and social change initiatives.</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Featured Entrepreneurs */}
+        {/* Who Should Join */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Featured Social Entrepreneurs</h2>
+              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Who Should Join?</h2>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {entrepreneurs.map((entrepreneur, index) => (
-                  <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src={entrepreneur.image} alt={entrepreneur.name} className="w-full h-48 object-cover object-top" />
-                    <div className="p-6">
-                      <h3 className="font-semibold text-gray-900 mb-1">{entrepreneur.name}</h3>
-                      <p className="text-sm text-gray-600 mb-2">{entrepreneur.organization}</p>
-                      <p className="text-sm text-blue-600 mb-3">{entrepreneur.focus}</p>
-                      <div className="flex items-center text-sm text-green-600">
-                        <i className="ri-trophy-line mr-2"></i>
-                        {entrepreneur.impact}
-                      </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {whoShouldJoin.map((item) => (
+                  <div key={item.title} className="bg-white p-6 rounded-lg shadow-md flex items-start space-x-4">
+                    <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                      <i className={`${item.icon} text-xl ${item.iconColor}`}></i>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                      <p className="text-gray-600">{item.text}</p>
                     </div>
                   </div>
                 ))}
@@ -561,30 +751,120 @@ export default function SocialEntrepreneurs() {
           </div>
         </section>
 
-        {/* Impact Statistics */}
+        {/* What Members Gain */}
+        <section className="py-16">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">What Members Gain</h2>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {memberGains.map((item) => (
+                  <div key={item.title} className="flex items-start space-x-4">
+                    <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                      <i className={`${item.icon} text-xl ${item.iconColor}`}></i>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                      <p className="text-gray-600">{item.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Membership Benefits */}
+        <section className="py-16 bg-green-600">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-white text-center mb-12">Membership Benefits</h2>
+
+              <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+                {membershipBenefits.map((benefit) => (
+                  <div key={benefit} className="flex items-start space-x-3 text-green-50">
+                    <i className="ri-check-line text-xl text-white flex-shrink-0"></i>
+                    <span>{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Membership */}
         <section className="py-16">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-gray-900 mb-12">Network Impact</h2>
-
-              <div className="grid md:grid-cols-4 gap-8">
-                <div>
-                  <div className="text-4xl font-bold text-green-600 mb-2">500+</div>
-                  <p className="text-gray-600">Social Entrepreneurs</p>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-blue-600 mb-2">2M+</div>
-                  <p className="text-gray-600">Lives Impacted</p>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-purple-600 mb-2">$50M+</div>
-                  <p className="text-gray-600">Funding Mobilized</p>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-orange-600 mb-2">75+</div>
-                  <p className="text-gray-600">Countries Reached</p>
-                </div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Membership</h2>
+              <div className="space-y-6 mb-12">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  The Civil Society Africa Peace Forum is a curated community within the Africa Economic Forum.
+                </p>
+                <p className="text-lg font-semibold text-gray-900 leading-relaxed">
+                  Membership is granted through application and approval to ensure that participating organizations and leaders contribute meaningfully to the community.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  The objective is not to create another large membership database.
+                </p>
+                <p className="text-xl font-semibold text-green-700 leading-relaxed">
+                  It is to build a trusted working network where civil society leaders can meet the institutions, decision-makers and partners capable of turning ideas into measurable impact.
+                </p>
               </div>
+
+              <div className="bg-gray-50 p-8 rounded-lg text-left">
+                <h3 className="text-xl font-semibold text-gray-900 mb-6">Membership includes:</h3>
+                <ul className="grid md:grid-cols-2 gap-3 mb-6">
+                  {membershipIncludes.map((item) => (
+                    <li key={item} className="flex items-start space-x-3 text-gray-700">
+                      <i className="ri-check-line text-xl text-green-600 flex-shrink-0"></i>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-sm text-gray-600">
+                  Membership is subject to application and approval.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Peace Is an Economic Imperative */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Peace Is Not Only a Social Priority.</h2>
+              <h2 className="text-3xl font-bold text-green-700 mb-8">It Is an Economic Imperative.</h2>
+              <div className="space-y-6">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  The next decade will require more than capital and infrastructure.
+                </p>
+                {imperativeLines.map((line) => (
+                  <p key={line} className="text-lg text-gray-700 leading-relaxed">{line}</p>
+                ))}
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  And it will require partnerships between those who make policy, those who deploy capital and those who understand communities from the ground up.
+                </p>
+                <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+                  The Civil Society Africa Peace Forum exists to help build those connections.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Closing Banner */}
+        <section className="py-16 bg-gray-900 text-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="space-y-2 mb-8">
+                {closingLines.map((line) => (
+                  <p key={line} className="text-2xl font-bold">{line}</p>
+                ))}
+              </div>
+              <p className="text-xl text-gray-200 mb-2">Welcome to the Civil Society Africa Peace Forum.</p>
+              <p className="text-gray-400">The Peace & Civil Society Community of the Africa Economic Forum.</p>
             </div>
           </div>
         </section>
@@ -593,9 +873,9 @@ export default function SocialEntrepreneurs() {
         <section className="py-16 bg-green-600">
           <div className="container mx-auto px-6 text-center">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold text-white mb-6">Ready to Amplify Your Impact?</h2>
+              <h2 className="text-3xl font-bold text-white mb-6">Apply for Membership</h2>
               <p className="text-xl text-green-100 mb-8">
-                Join a community of changemakers who are transforming challenges into opportunities for positive change.
+                Join a trusted community of civil society leaders, institutions and partners connecting peace with sustainable development across Africa.
               </p>
               <button
                 onClick={() => setIsFormOpen(true)}
@@ -1150,7 +1430,7 @@ export default function SocialEntrepreneurs() {
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy &amp; Terms of Service
                 </a>
-                
+
                 <p>© 2025 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
