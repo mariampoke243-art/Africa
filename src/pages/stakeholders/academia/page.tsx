@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 export default function Academia() {
@@ -124,6 +123,263 @@ export default function Academia() {
     });
   };
 
+  // Page content
+  type Block =
+    | { k: 'p'; t: string }
+    | { k: 'b'; t: string }
+    | { k: 'l'; label?: string; items: string[] }
+    | { k: 'c'; label?: string; items: string[] };
+
+  const changeLines = [
+    'Global powers are redefining their partnerships with the continent.',
+    'Capital is searching for new opportunities.',
+    'Supply chains are being reorganised.',
+    'Critical minerals are becoming strategic assets.',
+    'Energy systems are being transformed.',
+    'Artificial intelligence is reshaping economies.',
+    'African governments are placing greater emphasis on sovereignty, industrialisation and local value creation.',
+  ];
+
+  const missionChain = ['Research', 'Intelligence', 'Policy', 'Investment', 'Action'];
+
+  const researchAreas: { num: string; title: string; icon: string; color: string; blocks: Block[] }[] = [
+    {
+      num: '01',
+      title: 'Economic Sovereignty',
+      icon: 'ri-shield-star-line',
+      color: 'bg-blue-100 text-blue-600',
+      blocks: [
+        { k: 'p', t: 'Examining how African countries can strengthen productive capacity, diversify economies and increase control over strategic economic assets.' },
+        {
+          k: 'l',
+          label: 'Key questions:',
+          items: [
+            'What does economic sovereignty mean in a globalised economy?',
+            'How can African economies move beyond commodity dependence?',
+            'What policies can accelerate local value creation?',
+            'How can African countries strengthen domestic capital formation?',
+          ],
+        },
+      ],
+    },
+    {
+      num: '02',
+      title: 'Critical Minerals & Industrialisation',
+      icon: 'ri-hammer-line',
+      color: 'bg-green-100 text-green-600',
+      blocks: [
+        { k: 'p', t: 'Africa possesses resources that are increasingly central to the global energy and technology transition.' },
+        { k: 'p', t: 'The question is no longer simply:' },
+        { k: 'b', t: 'Who owns the resources?' },
+        { k: 'p', t: 'It is increasingly:' },
+        { k: 'b', t: 'Who captures the value?' },
+        { k: 'p', t: 'Our research examines the transition from extraction to processing, manufacturing and industrial ecosystems.' },
+        { k: 'c', items: ['From mines to materials.', 'From resources to industries.', 'From extraction to transformation.'] },
+      ],
+    },
+    {
+      num: '03',
+      title: 'Energy & Energy Transition',
+      icon: 'ri-flashlight-line',
+      color: 'bg-orange-100 text-orange-600',
+      blocks: [
+        { k: 'p', t: "Africa's energy future will influence industrialisation, competitiveness and social development." },
+        {
+          k: 'l',
+          label: 'The AEF Think Tank examines:',
+          items: [
+            'Energy access',
+            'Renewable energy',
+            'Natural gas',
+            'Power infrastructure',
+            'Energy investment',
+            'Industrial energy demand',
+            'Energy transition financing',
+            'Regional energy markets',
+          ],
+        },
+        { k: 'p', t: 'Our focus is on the intersection between energy security, affordability and industrial development.' },
+      ],
+    },
+    {
+      num: '04',
+      title: 'Global Capital & Investment',
+      icon: 'ri-funds-line',
+      color: 'bg-purple-100 text-purple-600',
+      blocks: [
+        { k: 'b', t: 'Where is global capital moving?' },
+        { k: 'b', t: 'Why is it moving?' },
+        { k: 'b', t: 'And what will determine where it invests next?' },
+        {
+          k: 'l',
+          label: 'Our research examines the evolving relationship between Africa and:',
+          items: [
+            'Gulf capital',
+            'Chinese investment',
+            'American capital',
+            'European institutions',
+            'Asian investors',
+            'African institutional investors',
+            'Sovereign wealth funds',
+            'Private equity',
+            'Development finance institutions',
+          ],
+        },
+      ],
+    },
+    {
+      num: '05',
+      title: 'Geopolitics of Investment',
+      icon: 'ri-global-line',
+      color: 'bg-red-100 text-red-600',
+      blocks: [
+        { k: 'p', t: 'Africa is increasingly situated at the intersection of competing strategic interests.' },
+        { k: 'p', t: 'The AEF Think Tank analyses how geopolitical shifts influence:' },
+        { k: 'c', items: ['Capital', 'Trade', 'Infrastructure', 'Technology', 'Energy', 'Minerals', 'Partnerships'] },
+        { k: 'p', t: 'The objective is not to choose sides.' },
+        { k: 'b', t: 'It is to understand the changing strategic environment in which African decision-makers operate.' },
+      ],
+    },
+    {
+      num: '06',
+      title: 'Artificial Intelligence & Digital Transformation',
+      icon: 'ri-cpu-line',
+      color: 'bg-teal-100 text-teal-600',
+      blocks: [
+        { k: 'p', t: 'AI is rapidly changing productivity, business models, public services and labour markets.' },
+        { k: 'p', t: 'Our research examines how African economies can move from being consumers of digital technologies to becoming active participants in the global digital economy.' },
+        {
+          k: 'l',
+          label: 'Areas include:',
+          items: [
+            'AI adoption',
+            'Digital infrastructure',
+            'African data ecosystems',
+            'Digital public infrastructure',
+            'Fintech',
+            'Digital skills',
+            'AI governance',
+            'Technology investment',
+          ],
+        },
+      ],
+    },
+    {
+      num: '07',
+      title: 'Intra-African Trade',
+      icon: 'ri-exchange-line',
+      color: 'bg-blue-100 text-blue-600',
+      blocks: [
+        { k: 'p', t: "The African Continental Free Trade Area represents one of the continent's most significant economic integration projects." },
+        { k: 'p', t: 'The Think Tank studies the practical conditions required to translate market integration into increased production, trade and investment.' },
+        { k: 'c', items: ['Trade corridors.', 'Industrial corridors.', 'Financial connectivity.', 'Regional value chains.'] },
+      ],
+    },
+    {
+      num: '08',
+      title: 'Africa & Emerging Economic Powers',
+      icon: 'ri-compass-3-line',
+      color: 'bg-green-100 text-green-600',
+      blocks: [
+        { k: 'p', t: "Africa's partnerships are becoming increasingly diversified." },
+        { k: 'p', t: "The AEF Think Tank studies Africa's evolving economic relationships with emerging centres of capital, technology and influence across the Gulf, Asia, Central Asia and other rapidly developing markets." },
+      ],
+    },
+  ];
+
+  const outlookChips = ['Investment', 'Trade', 'Capital', 'Technology', 'Energy', 'Industrialisation', 'Geopolitics'];
+
+  const outlookAudience = [
+    'Heads of State and Government',
+    'Ministers',
+    'CEOs',
+    'Investors',
+    'Financial institutions',
+    'Sovereign wealth funds',
+    'Development institutions',
+    'Diplomats',
+    'Policymakers',
+    'Researchers',
+  ];
+
+  const briefFocus = ['The issue.', 'The evidence.', 'The implications.', 'The policy choices.'];
+
+  const strategicTopics = [
+    "Africa's critical minerals opportunity",
+    'The future of African industrialisation',
+    'Gulf capital and African infrastructure',
+    'AI and the African workforce',
+    "Africa's new economic diplomacy",
+    'The future of African energy',
+    'Sovereign wealth and African development',
+    'The geopolitics of African trade corridors',
+  ];
+
+  const dataChips = ['Capital flows', 'Trade', 'Investment', 'Commodities', 'Energy', 'Infrastructure', 'Demographics', 'Technology'];
+
+  const expertChips = [
+    'Economists',
+    'Researchers',
+    'Policy specialists',
+    'Academics',
+    'CEOs',
+    'Investors',
+    'Diplomats',
+    'Technology experts',
+    'Energy specialists',
+    'Trade experts',
+    'Development practitioners',
+  ];
+
+  const cycle = ['THINK', 'CONNECT', 'DECIDE', 'INVEST', 'DELIVER'];
+
+  const whoWeServe = [
+    { title: 'Governments', text: 'Strategic intelligence for economic policy and international partnerships.', icon: 'ri-government-line', color: 'bg-blue-100 text-blue-600' },
+    { title: 'Investors', text: 'Market perspectives and analysis of structural opportunities.', icon: 'ri-funds-line', color: 'bg-green-100 text-green-600' },
+    { title: 'Businesses', text: 'Understanding the economic and geopolitical environment shaping markets.', icon: 'ri-briefcase-line', color: 'bg-purple-100 text-purple-600' },
+    { title: 'Financial Institutions', text: 'Research on investment themes, capital flows and economic transformation.', icon: 'ri-bank-line', color: 'bg-orange-100 text-orange-600' },
+    { title: 'Development Institutions', text: 'Evidence and perspectives on structural development challenges.', icon: 'ri-earth-line', color: 'bg-red-100 text-red-600' },
+    { title: 'Academia & Research', text: 'A platform for African economic research and intellectual exchange.', icon: 'ri-graduation-cap-line', color: 'bg-teal-100 text-teal-600' },
+    { title: 'Media', text: 'Research-driven perspectives on major African economic developments.', icon: 'ri-news-line', color: 'bg-blue-100 text-blue-600' },
+  ];
+
+  const joinCards = [
+    { title: 'Researchers', text: 'Contribute expertise and original research.', icon: 'ri-flask-line', color: 'bg-blue-100 text-blue-600' },
+    { title: 'Institutions', text: 'Collaborate on research initiatives and strategic studies.', icon: 'ri-building-line', color: 'bg-green-100 text-green-600' },
+    { title: 'Corporate Partners', text: 'Support research around strategic sectors and economic transformation.', icon: 'ri-handshake-line', color: 'bg-purple-100 text-purple-600' },
+    { title: 'Policy Leaders', text: "Engage with evidence and perspectives informing Africa's economic agenda.", icon: 'ri-government-line', color: 'bg-orange-100 text-orange-600' },
+    { title: 'Experts', text: 'Join the AEF Expert Network.', icon: 'ri-user-star-line', color: 'bg-teal-100 text-teal-600' },
+  ];
+
+  const closingWords = ['Capital.', 'Technology.', 'Industrialisation.', 'Energy.', 'Trade.', 'Talent.', 'Sovereignty.', 'Partnerships.'];
+
+  const renderBlocks = (blocks: Block[]) =>
+    blocks.map((b, i) => {
+      if (b.k === 'p') return <p key={i} className="text-gray-600 mb-3">{b.t}</p>;
+      if (b.k === 'b') return <p key={i} className="font-semibold text-gray-900 mb-2">{b.t}</p>;
+      if (b.k === 'c')
+        return (
+          <div key={i} className="flex flex-wrap gap-2 mb-3">
+            {b.items.map((item) => (
+              <span key={item} className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">{item}</span>
+            ))}
+          </div>
+        );
+      return (
+        <div key={i} className="mb-3">
+          {b.label && <p className="text-sm font-semibold text-gray-900 mb-2">{b.label}</p>}
+          <ul className="space-y-1">
+            {b.items.map((item) => (
+              <li key={item} className="flex items-start space-x-2 text-sm text-gray-600">
+                <i className="ri-arrow-right-s-line text-blue-600 flex-shrink-0"></i>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    });
+
   // Modified component handlers
   useEffect(() => {
     try {
@@ -209,7 +465,7 @@ export default function Academia() {
       };
 
       try {
-        localStorage.setItem('aEF_user', JSON.stringify(userData));
+        localStorage.setItem('aef_user', JSON.stringify(userData));
         setUser(userData);
         alert('Account created successfully! Welcome to Africa Economic Forum.');
         setShowSignInModal(false);
@@ -425,246 +681,307 @@ export default function Academia() {
       <main>
         {/* Hero Section */}
         <section
-          className="relative h-96 bg-cover bg-center bg-no-repeat flex items-center"
+          className="relative min-h-[24rem] bg-cover bg-center bg-no-repeat flex items-center py-16"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Modern%20university%20research%20facility%2C%20academics%20collaborating%2C%20books%20and%20research%20materials%2C%20intellectual%20environment%2C%20bright%20natural%20lighting%2C%20scholarly%20atmosphere&width=1200&height=400&seq=10&orientation=landscape')`,
           }}
         >
           <div className="container mx-auto px-6">
             <div className="max-w-3xl text-white">
-              <h1 className="text-5xl font-bold mb-6">Academia Think Tank</h1>
+              <h1 className="text-5xl font-bold mb-6">AEF Think Tank</h1>
+              <p className="text-2xl font-semibold mb-4 leading-snug">
+                Africa's Strategic Intelligence Platform
+              </p>
               <p className="text-xl mb-8 leading-relaxed">
-                Connecting leading researchers, academics, and policy experts to
-                advance knowledge and inform evidence-based decision making on
-                global challenges.
+                Research. Foresight. Policy. Influence.
               </p>
               <button
                 onClick={() => setIsFormOpen(true)}
                 className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors whitespace-nowrap cursor-pointer"
               >
-                Join Think Tank
+                Join the Think Tank
               </button>
             </div>
           </div>
         </section>
 
-        {/* Mission Section */}
+        {/* Introduction */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-6">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">
-                Our Academic Mission
-              </h2>
-              <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-                The AEF Academia Think Tank brings together distinguished scholars,
-                researchers, and policy experts from leading institutions
-                worldwide. We foster interdisciplinary collaboration to generate
-                innovative research, inform policy debates, and contribute to
-                evidence-based solutions for global challenges.
+            <div className="max-w-4xl mx-auto text-center space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Africa is no longer simply responding to global transformations.
               </p>
-
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i className="ri-book-open-line text-2xl text-blue-600"></i>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">
-                    Research Excellence
-                  </h3>
-                  <p className="text-gray-600">
-                    Conduct cutting-edge research on economic, social, and
-                    environmental challenges.
-                  </p>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i className="ri-government-line text-2xl text-green-600"></i>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">Policy Impact</h3>
-                  <p className="text-gray-600">
-                    Bridge the gap between academic research and practical policy
-                    implementation.
-                  </p>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i className="ri-global-line text-2xl text-purple-600"></i>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">
-                    Global Collaboration
-                  </h3>
-                  <p className="text-gray-600">
-                    Foster international academic partnerships and knowledge
-                    exchange.
-                  </p>
-                </div>
-              </div>
+              <p className="text-xl font-semibold text-gray-900 leading-relaxed">
+                It is becoming one of the places where the next global economic order will be shaped.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The AEF Think Tank is the strategic intelligence and policy research platform of the Africa Economic Forum, dedicated to understanding Africa's evolving position in the global economy and translating complex geopolitical, economic and technological shifts into actionable intelligence.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                From economic sovereignty and critical minerals to artificial intelligence, energy, trade, investment and global capital flows, the AEF Think Tank brings together researchers, economists, policymakers, business leaders, investors and institutional experts to examine the forces shaping Africa's future.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                We do not simply analyse the African agenda.
+              </p>
+              <p className="text-2xl font-bold text-blue-700">
+                We help define it.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Research Areas */}
+        {/* The Question */}
+        <section className="py-16">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-sm font-semibold tracking-widest text-blue-600 mb-3">THE QUESTION WE ARE ADDRESSING</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Who will shape Africa's next economic era?</h2>
+              <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+                Africa is experiencing a profound transformation.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 text-left mb-8">
+                {changeLines.map((line) => (
+                  <div key={line} className="bg-white p-5 rounded-lg shadow-md flex items-start space-x-3">
+                    <i className="ri-arrow-right-circle-line text-xl text-blue-600 flex-shrink-0"></i>
+                    <p className="text-gray-700">{line}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-lg text-gray-700 mb-2">These changes require more than conferences.</p>
+              <p className="text-xl font-semibold text-gray-900 mb-2">They require intelligence.</p>
+              <p className="text-xl font-semibold text-blue-700">The AEF Think Tank exists to provide that intelligence.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Mission */}
+        <section className="py-16 bg-blue-600">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center text-white">
+              <p className="text-sm font-semibold tracking-widest text-blue-200 mb-3">OUR MISSION</p>
+              <h2 className="text-3xl font-bold mb-8">Turning African realities into strategic intelligence.</h2>
+              <p className="text-lg text-blue-100 mb-8 leading-relaxed">
+                The AEF Think Tank produces research, analysis and strategic perspectives designed to help decision-makers understand the forces transforming African economies and Africa's role in the world.
+              </p>
+              <p className="text-lg text-blue-100 mb-4">Our work connects:</p>
+              <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
+                {missionChain.map((step, index) => (
+                  <React.Fragment key={step}>
+                    <span className="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold">{step}</span>
+                    {index < missionChain.length - 1 && <i className="ri-arrow-right-line text-xl text-blue-200"></i>}
+                  </React.Fragment>
+                ))}
+              </div>
+              <p className="text-lg text-blue-100 leading-relaxed">
+                We aim to create a trusted space where evidence, African perspectives and global expertise meet.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Areas of Research */}
         <section className="py-16">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-                Key Research Areas
-              </h2>
+              <p className="text-sm font-semibold tracking-widest text-blue-600 text-center mb-3">OUR AREAS OF RESEARCH</p>
+              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Eight Areas Shaping Africa's Economic Future</h2>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-line-chart-line text-xl text-blue-600"></i>
+              <div className="grid md:grid-cols-2 gap-8">
+                {researchAreas.map((area) => (
+                  <div key={area.num} className="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
+                    <div className="flex items-center space-x-4 mb-4">
+                      <div className={`w-12 h-12 ${area.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                        <i className={`${area.icon} text-xl`}></i>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-blue-600">{area.num}</p>
+                        <h3 className="font-semibold text-gray-900">{area.title}</h3>
+                      </div>
+                    </div>
+                    {renderBlocks(area.blocks)}
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">
-                      Economic Policy
-                    </h3>
-                    <p className="text-gray-600">
-                      Macroeconomic analysis, development economics, and policy
-                      evaluation.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-earth-line text-xl text-green-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">
-                      Sustainability
-                    </h3>
-                    <p className="text-gray-600">
-                      Climate change, environmental policy, and sustainable
-                      development.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-rocket-line text-xl text-purple-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">
-                      Innovation Policy
-                    </h3>
-                    <p className="text-gray-600">
-                      Technology transfer, R&amp;D policy, and innovation
-                      ecosystems.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-group-line text-xl text-orange-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">
-                      Social Policy
-                    </h3>
-                    <p className="text-gray-600">
-                      Education, healthcare, inequality, and social welfare
-                      systems.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-exchange-line text-xl text-red-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">
-                      International Trade
-                    </h3>
-                    <p className="text-gray-600">
-                      Global trade patterns, investment flows, and economic
-                      integration.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i className="ri-shield-line text-xl text-teal-600"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">
-                      Governance
-                    </h3>
-                    <p className="text-gray-600">
-                      Public administration, institutional quality, and policy
-                      effectiveness.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Featured Academics */}
+        {/* AEF Africa Outlook */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-sm font-semibold tracking-widest text-blue-600 mb-3">THE AEF AFRICA OUTLOOK</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Our flagship research publication.</h2>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                The AEF Africa Outlook brings together data, expert analysis and strategic perspectives on the forces reshaping African economies.
+              </p>
+              <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+                Each edition examines the major trends influencing:
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 mb-8">
+                {outlookChips.map((chip) => (
+                  <span key={chip} className="bg-blue-100 text-blue-800 px-4 py-1 rounded-full text-sm font-medium">{chip}</span>
+                ))}
+              </div>
+              <p className="text-lg text-gray-700 mb-4">The Outlook is designed for:</p>
+              <ul className="grid sm:grid-cols-2 gap-3 text-left max-w-2xl mx-auto">
+                {outlookAudience.map((a) => (
+                  <li key={a} className="flex items-start space-x-3 text-gray-700">
+                    <i className="ri-check-line text-xl text-blue-600 flex-shrink-0"></i>
+                    <span>{a}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Policy Briefs & Strategic Papers */}
+        <section className="py-16">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-lg">
+                <p className="text-sm font-semibold tracking-widest text-blue-600 mb-3">POLICY BRIEFS</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">From complex issues to decision-ready intelligence.</h3>
+                <p className="text-gray-700 mb-4">
+                  AEF Think Tank Policy Briefs provide concise analysis of specific strategic questions facing African decision-makers.
+                </p>
+                <p className="text-gray-700 mb-3">Each brief focuses on:</p>
+                <ul className="space-y-2">
+                  {briefFocus.map((f) => (
+                    <li key={f} className="flex items-start space-x-3 text-gray-800 font-medium">
+                      <i className="ri-check-line text-xl text-blue-600 flex-shrink-0"></i>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-lg">
+                <p className="text-sm font-semibold tracking-widest text-green-700 mb-3">AEF STRATEGIC PAPERS</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Long-form research on structural transformations.</h3>
+                <p className="text-gray-700 mb-4">
+                  Long-form research examining structural transformations affecting Africa.
+                </p>
+                <p className="text-gray-700 mb-3">Topics may include:</p>
+                <ul className="space-y-2">
+                  {strategicTopics.map((t) => (
+                    <li key={t} className="flex items-start space-x-3 text-gray-800">
+                      <i className="ri-arrow-right-s-line text-xl text-green-700 flex-shrink-0"></i>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Data & Intelligence */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-sm font-semibold tracking-widest text-blue-600 mb-3">AEF DATA & INTELLIGENCE</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Evidence matters.</h2>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                The Think Tank develops analytical resources designed to help decision-makers understand African markets and strategic trends.
+              </p>
+              <p className="text-lg text-gray-700 mb-4">Our intelligence work may cover:</p>
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
+                {dataChips.map((chip) => (
+                  <span key={chip} className="bg-blue-100 text-blue-800 px-4 py-1 rounded-full text-sm font-medium">{chip}</span>
+                ))}
+              </div>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Where appropriate, research is developed in collaboration with economists, institutions, universities, industry experts and data partners.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Expert Network */}
+        <section className="py-16">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-sm font-semibold tracking-widest text-blue-600 mb-3">THE AEF EXPERT NETWORK</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">A multidisciplinary community.</h2>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                The Think Tank brings together a multidisciplinary community of:
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 mb-8">
+                {expertChips.map((chip) => (
+                  <span key={chip} className="bg-white border border-blue-200 text-blue-800 px-4 py-2 rounded-lg text-sm font-medium shadow-sm">{chip}</span>
+                ))}
+              </div>
+              <p className="text-xl font-semibold text-blue-700">
+                The objective is to create a bridge between knowledge and decision-making.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* From Research to the Deal Room */}
+        <section className="py-16 bg-gray-900 text-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-sm font-semibold tracking-widest text-blue-300 mb-3">FROM RESEARCH TO THE AEF DEAL ROOM</p>
+              <h2 className="text-3xl font-bold mb-6">Research should not remain on a bookshelf.</h2>
+              <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+                Insights generated through the AEF Think Tank can inform discussions taking place across the wider AEF ecosystem — including investment dialogues, sector roundtables, diplomatic engagements and the AEF Deal Room.
+              </p>
+              <p className="text-lg text-gray-300 mb-6">This creates a unique cycle:</p>
+              <div className="flex flex-wrap justify-center items-center gap-3">
+                {cycle.map((step, index) => (
+                  <React.Fragment key={step}>
+                    <span className="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold tracking-wide">{step}</span>
+                    {index < cycle.length - 1 && <i className="ri-arrow-right-line text-xl text-blue-300"></i>}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Independent Thinking */}
+        <section className="py-16">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Independent Thinking. African Perspective. Global Reach.</h2>
+              <div className="space-y-6">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  The AEF Think Tank is designed to create space for rigorous debate.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  We welcome different perspectives, challenge assumptions and encourage evidence-based discussion.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Our objective is not to produce consensus for its own sake.
+                </p>
+                <p className="text-xl font-semibold text-blue-700 leading-relaxed">
+                  It is to improve the quality of the conversation surrounding Africa's economic future.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Who We Serve */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-                Distinguished Fellows
-              </h2>
+              <p className="text-sm font-semibold tracking-widest text-blue-600 text-center mb-3">WHO WE SERVE</p>
+              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Intelligence for Africa's Decision-Makers</h2>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {[
-                  {
-                    name: 'Dr. Elena Rodriguez',
-                    institution: 'Global Policy Institute',
-                    expertise: 'International Economic Policy',
-                    publications: '150+ peer-reviewed articles',
-                    image:
-                      'https://readdy.ai/api/search-image?query=Professional%20female%20academic%20researcher%2C%20confident%20expression%2C%20university%20library%20background%2C%20business%20attire%2C%20intellectual%20atmosphere%2C%20professional%20headshot&width=300&height=300&seq=6&orientation=squarish',
-                  },
-                  {
-                    name: 'Prof. James Mitchell',
-                    institution: 'Center for Sustainable Development',
-                    expertise: 'Climate Policy & Economics',
-                    publications: '12 books, 200+ articles',
-                    image:
-                      'https://readdy.ai/api/search-image?query=Distinguished%20male%20professor%2C%20academic%20setting%2C%20books%20and%20research%20materials%20background%2C%20professional%20attire%2C%20scholarly%20atmosphere%2C%20corporate%20headshot&width=300&height=300&seq=7&orientation=squarish',
-                  },
-                  {
-                    name: 'Dr. Aisha Patel',
-                    institution: 'Technology Innovation Lab',
-                    expertise: 'Digital Transformation Policy',
-                    publications: '80+ research papers',
-                    image:
-                      'https://readdy.ai/api/search-image?query=Professional%20Indian%20female%20researcher%2C%20modern%20technology%20lab%20background%2C%20confident%20smile%2C%20business%20attire%2C%20innovation%20environment%2C%20professional%20headshot&width=300&height=300&seq=8&orientation=squarish',
-                  },
-                  {
-                    name: 'Prof. Michael Zhang',
-                    institution: 'International Trade Institute',
-                    expertise: 'Global Trade & Investment',
-                    publications: '5 books, 120+ articles',
-                    image:
-                      'https://readdy.ai/api/search-image?query=Professional%20Asian%20male%20academic%2C%20international%20business%20background%2C%20confident%20expression%2C%20formal%20attire%2C%20global%20economic%20setting%2C%20professional%20headshot&width=300&height=300&seq=9&orientation=squarish',
-                  },
-                ].map((academic, index) => (
-                  <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-                    <img
-                      src={academic.image}
-                      alt={academic.name}
-                      className="w-full h-48 object-cover object-top"
-                    />
-                    <div className="p-6">
-                      <h3 className="font-semibold text-gray-900 mb-1">{academic.name}</h3>
-                      <p className="text-sm text-gray-600 mb-2">{academic.institution}</p>
-                      <p className="text-sm text-blue-600 mb-3">{academic.expertise}</p>
-                      <div className="flex items-center text-sm text-green-600">
-                        <i className="ri-file-text-line mr-2"></i>
-                        {academic.publications}
-                      </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {whoWeServe.map((item) => (
+                  <div key={item.title} className="bg-white p-6 rounded-lg shadow-md flex items-start space-x-4">
+                    <div className={`w-12 h-12 ${item.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                      <i className={`${item.icon} text-xl`}></i>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                      <p className="text-gray-600">{item.text}</p>
                     </div>
                   </div>
                 ))}
@@ -673,132 +990,62 @@ export default function Academia() {
           </div>
         </section>
 
-        {/* Think Tank Benefits */}
+        {/* Join the Think Tank */}
         <section className="py-16">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-                Think Tank Benefits
-              </h2>
+              <p className="text-sm font-semibold tracking-widest text-blue-600 text-center mb-3">JOIN THE THINK TANK</p>
+              <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">Become part of the knowledge ecosystem.</h2>
+              <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12 leading-relaxed">
+                The AEF Think Tank is building a network of people committed to understanding and shaping Africa's economic transformation.
+              </p>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
-                  <h3 className="font-semibold text-gray-900 mb-3">
-                    Research Collaboration
-                  </h3>
-                  <p className="text-gray-600">
-                    Access to interdisciplinary research networks and joint
-                    project opportunities.
-                  </p>
-                </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+                {joinCards.map((item) => (
+                  <div key={item.title} className="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div className={`w-14 h-14 ${item.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                      <i className={`${item.icon} text-2xl`}></i>
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-sm text-gray-600">{item.text}</p>
+                  </div>
+                ))}
+              </div>
 
-                <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
-                  <h3 className="font-semibold text-gray-900 mb-3">
-                    Publication Platform
-                  </h3>
-                  <p className="text-gray-600">
-                    Opportunities to publish research findings and policy
-                    recommendations.
-                  </p>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-500">
-                  <h3 className="font-semibold text-gray-900 mb-3">
-                    Policy Engagement
-                  </h3>
-                  <p className="text-gray-600">
-                    Direct engagement with policymakers and government officials.
-                  </p>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
-                  <h3 className="font-semibold text-gray-900 mb-3">
-                    Conference Access
-                  </h3>
-                  <p className="text-gray-600">
-                    Exclusive access to academic conferences and expert
-                    symposiums.
-                  </p>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500">
-                  <h3 className="font-semibold text-gray-900 mb-3">
-                    Funding Opportunities
-                  </h3>
-                  <p className="text-gray-600">
-                    Access to research grants and funding for collaborative
-                    projects.
-                  </p>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-teal-500">
-                  <h3 className="font-semibold text-gray-900 mb-3">
-                    Global Network
-                  </h3>
-                  <p className="text-gray-600">
-                    Connect with leading academics and researchers worldwide.
-                  </p>
-                </div>
+              <div className="text-center">
+                <button
+                  onClick={() => setIsFormOpen(true)}
+                  className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors whitespace-nowrap cursor-pointer"
+                >
+                  Join the Think Tank
+                </button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Impact Statistics */}
+        {/* Closing */}
         <section className="py-16 bg-blue-600">
           <div className="container mx-auto px-6">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-white mb-12">
-                Academic Impact
-              </h2>
-
-              <div className="grid md:grid-cols-4 gap-8">
-                <div>
-                  <div className="text-4xl font-bold text-blue-100 mb-2">
-                    200+
-                  </div>
-                  <p className="text-blue-100">Distinguished Fellows</p>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-blue-100 mb-2">
-                    50+
-                  </div>
-                  <p className="text-blue-100">Partner Institutions</p>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-blue-100 mb-2">
-                    500+
-                  </div>
-                  <p className="text-blue-100">Research Publications</p>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-blue-100 mb-2">
-                    25+
-                  </div>
-                  <p className="text-blue-100">Policy Recommendations</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Call to Action */}
-        <section className="py-16">
-          <div className="container mx-auto px-6 text-center">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Join Our Academic Community
-              </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Contribute to cutting-edge research and help shape
-                evidence-based policies for a better future.
+            <div className="max-w-4xl mx-auto text-center text-white">
+              <p className="text-sm font-semibold tracking-widest text-blue-200 mb-3">A KNOWLEDGE PLATFORM FOR A CHANGING AFRICA</p>
+              <p className="text-xl mb-6 leading-relaxed">
+                Africa's next chapter will not be defined only by the resources beneath its soil.
               </p>
-              <button
-                onClick={() => setIsFormOpen(true)}
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors whitespace-nowrap cursor-pointer"
-              >
-                Apply for Fellowship
-              </button>
+              <p className="text-lg text-blue-100 mb-4">It will be defined by the decisions made around:</p>
+              <div className="flex flex-wrap justify-center gap-3 mb-8">
+                {closingWords.map((w) => (
+                  <span key={w} className="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold">{w}</span>
+                ))}
+              </div>
+              <p className="text-lg text-blue-100 mb-6 leading-relaxed">
+                The AEF Think Tank exists to study those decisions, understand their implications and contribute to the ideas that will shape the continent's future.
+              </p>
+              <p className="text-2xl font-bold mb-8">
+                The future belongs to those who understand the forces shaping it.
+              </p>
+              <p className="text-xl font-semibold">AEF Think Tank</p>
+              <p className="text-blue-100">Research Africa. Understand the world. Shape what comes next.</p>
             </div>
           </div>
         </section>
@@ -1473,8 +1720,8 @@ export default function Academia() {
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy &amp; Terms of Service
                 </a>
-                
-                <p>© 2025 Africa Economic Forum</p>
+
+                <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">
                   Code Design Global
                 </a>
