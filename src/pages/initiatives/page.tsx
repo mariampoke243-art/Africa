@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -122,13 +121,6 @@ export default function InitiativesPage() {
       icon: 'ri-women-line',
       category: 'Women'
     }
-  ];
-
-  const stats = [
-    { number: '50+', label: 'Active Programs' },
-    { number: '25', label: 'Countries Reached' },
-    { number: '1000+', label: 'Entrepreneurs Supported' },
-    { number: '$500M+', label: 'Capital Mobilized' }
   ];
 
   return (
@@ -330,16 +322,6 @@ export default function InitiativesPage() {
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             Driving real transformation beyond dialogue through innovative programs, strategic partnerships, and impactful initiatives that empower Africa's economic sovereignty.
           </p>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl font-bold mb-2">{stat.number}</div>
-                <div className="text-sm opacity-90">{stat.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -596,7 +578,7 @@ export default function InitiativesPage() {
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <a href="/privacy" className="hover:text-white cursor-pointer">Privacy Policy &amp; Terms of Service</a>
                 
-                <p>© 2025 Africa Economic Forum</p>
+                <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com/" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
             </div>
@@ -605,4 +587,4 @@ export default function InitiativesPage() {
       </footer>
     </div>
   );
-}
+              }
