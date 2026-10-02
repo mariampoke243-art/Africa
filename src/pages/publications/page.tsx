@@ -44,6 +44,7 @@ export default function PublicationsPage() {
 
   return (
     <div className="min-h-screen bg-white">
+
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,28 +63,59 @@ export default function PublicationsPage() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 Home
               </Link>
-              <Link to="/about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+
+              <Link
+                to="/about"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 About
               </Link>
-              <Link to="/initiatives" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+
+              <Link
+                to="/initiatives"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 Initiative
               </Link>
-              <Link to="/stakeholders" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+
+              <Link
+                to="/stakeholders"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 Stakeholders
               </Link>
-              <Link to="/agenda" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+
+              <Link
+                to="/agenda"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 Agenda
               </Link>
-              <Link to="/publications" className="text-blue-600 font-medium">
+
+              <Link
+                to="/publications"
+                className="text-blue-600 font-medium"
+              >
                 Publications
               </Link>
-              <Link to="/meetings" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+
+              <Link
+                to="/meetings"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 Meetings
               </Link>
-              <Link to="/contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+
+              <Link
+                to="/contact"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 Contact
               </Link>
             </nav>
@@ -93,7 +125,9 @@ export default function PublicationsPage() {
               {user ? (
                 <div className="relative">
                   <button
-                    onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                    onClick={() =>
+                      setIsProfileDropdownOpen(!isProfileDropdownOpen)
+                    }
                     className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
                     title={user.user_metadata?.full_name || user.email}
                   >
@@ -120,7 +154,9 @@ export default function PublicationsPage() {
                         <div className="font-medium">
                           {user.user_metadata?.full_name || 'User'}
                         </div>
-                        <div className="text-gray-500">{user.email}</div>
+                        <div className="text-gray-500">
+                          {user.email}
+                        </div>
                       </div>
 
                       <button
@@ -166,41 +202,67 @@ export default function PublicationsPage() {
           {isMenuOpen && (
             <div className="md:hidden border-t border-gray-100 py-4">
               <div className="flex flex-col space-y-4">
-                <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium">
+
+                <Link
+                  to="/"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
                   Home
                 </Link>
 
-                <Link to="/about" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link
+                  to="/about"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
                   About
                 </Link>
 
-                <Link to="/initiatives" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link
+                  to="/initiatives"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
                   Initiative
                 </Link>
 
-                <Link to="/stakeholders" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link
+                  to="/stakeholders"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
                   Stakeholders
                 </Link>
 
-                <Link to="/agenda" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link
+                  to="/agenda"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
                   Agenda
                 </Link>
 
-                <Link to="/publications" className="text-blue-600 font-medium">
+                <Link
+                  to="/publications"
+                  className="text-blue-600 font-medium"
+                >
                   Publications
                 </Link>
 
-                <Link to="/meetings" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link
+                  to="/meetings"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
                   Meetings
                 </Link>
 
-                <Link to="/contact" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link
+                  to="/contact"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
                   Contact
                 </Link>
 
                 {user ? (
                   <div className="pt-4 border-t border-gray-100">
                     <div className="flex items-center space-x-3 mb-4">
+
                       {user.user_metadata?.avatar_url ? (
                         <img
                           src={user.user_metadata.avatar_url}
@@ -266,150 +328,175 @@ export default function PublicationsPage() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-            INSIGHTS DE L'AEF
+            AEF INSIGHTS
           </h1>
 
           <p className="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-            Perspectives sur l’économie, le capital, la géopolitique et la transformation stratégique de l’Afrique
+            Perspectives on Africa’s Economy, Capital, Geopolitics and Strategic Transformation
           </p>
+
         </div>
       </section>
 
       {/* Introduction */}
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
           <div className="w-20 h-1 bg-blue-900 mx-auto mb-8"></div>
 
           <p className="text-xl text-gray-600 leading-relaxed">
-            Plate-forme éditoriale du Forum économique africain explorant les
-            forces économiques, géopolitiques et d'investissement qui façonnent
-            le rôle de l'Afrique dans l'évolution de l'ordre mondial.
+            Africa Economic Forum’s editorial platform exploring the economic,
+            geopolitical and investment forces shaping Africa’s role in the
+            changing global order.
           </p>
+
         </div>
       </section>
 
-      {/* Perspectives de l'AEF */}
+      {/* AEF Perspectives */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <div className="max-w-4xl mx-auto">
+
             <div className="text-center mb-12">
+
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Perspectives de l’AEF
+                AEF Perspectives
               </h2>
 
               <p className="text-lg text-gray-600 leading-relaxed">
-                Perspectives de l’AEF rassemble des commentaires et des analyses
-                sur les questions qui façonnent l’agenda économique de l’Afrique.
+                AEF Perspectives brings together commentary and analysis on the
+                issues shaping Africa’s economic agenda.
               </p>
 
               <p className="text-lg text-gray-600 mt-4">
-                La plate-forme portera sur les thèmes suivants :
+                The platform will cover themes including:
               </p>
+
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
+
               {[
-                'Réalignement économique mondial',
-                'Flux d’investissements et d’investissements',
-                'Partenariats Afrique-Golfe',
-                'Échanges et AFLE',
-                'Industrialisation et création de valeur',
-                'Minéraux critiques et ressources stratégiques',
-                'Énergie et infrastructure',
-                'Souveraineté de la santé',
-                'Technologie et transformation numérique',
-                'Agriculture et sécurité alimentaire',
-                'Partenariats stratégiques et diplomatie économique'
+                'Global economic realignment',
+                'Investment and capital flows',
+                'Africa–Gulf partnerships',
+                'Trade and AfCFTA',
+                'Industrialisation and value creation',
+                'Critical minerals and strategic resources',
+                'Energy and infrastructure',
+                'Health sovereignty',
+                'Technology and digital transformation',
+                'Agriculture and food security',
+                'Strategic partnerships and economic diplomacy'
               ].map((item, index) => (
                 <div
                   key={index}
                   className="bg-white rounded-lg p-5 shadow-sm border border-gray-100 flex items-start"
                 >
                   <div className="w-2 h-2 bg-blue-900 rounded-full mt-2.5 mr-4 flex-shrink-0"></div>
+
                   <span className="text-gray-700 leading-relaxed">
                     {item}
                   </span>
                 </div>
               ))}
+
             </div>
 
             <div className="mt-10 text-center">
+
               <p className="text-lg font-semibold text-blue-900">
-                Les publications arrivent bientôt.
+                Publications coming soon.
               </p>
+
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* Briefs stratégiques */}
+      {/* AEF Strategic Briefs */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <div className="max-w-4xl mx-auto text-center">
+
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Briefs stratégiques de l'AEF
+              AEF Strategic Briefs
             </h2>
 
             <p className="text-xl text-gray-700 leading-relaxed mb-8">
-              Analyse ciblée sur l'économie stratégique, l'investissement et les
-              questions géopolitiques qui affectent l'Afrique.
+              Focused analysis on strategic economic, investment and
+              geopolitical questions affecting Africa.
             </p>
 
             <div className="bg-gray-50 rounded-xl p-8 text-left">
+
               <p className="text-lg text-gray-600 leading-relaxed">
-                Les briefs stratégiques de l'AEF donneront aux investisseurs,
-                aux décideurs, aux chefs d'entreprise et aux institutions des
-                perspectives concises.
+                AEF Strategic Briefs will provide concise, evidence-based
+                perspectives for investors, policymakers, business leaders
+                and institutions.
               </p>
+
             </div>
 
             <p className="mt-8 text-lg font-semibold text-blue-900">
-              Les premiers briefs arrivent bientôt.
+              First briefs coming soon.
             </p>
+
           </div>
         </div>
       </section>
 
-      {/* Recherche et Intelligence AEF */}
+      {/* AEF Research & Intelligence */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <div className="max-w-5xl mx-auto">
+
             <div className="text-center mb-12">
+
               <h2 className="text-4xl font-bold text-gray-900 mb-5">
-                Recherche et Intelligence AEF
+                AEF Research &amp; Intelligence
               </h2>
 
               <h3 className="text-2xl font-semibold text-blue-900 mb-6">
-                Établissement d'une Plate-forme Africaine de Recherche et d'Intelligence
+                Building an African Research and Intelligence Platform
               </h3>
 
               <p className="text-lg text-gray-600 leading-relaxed">
-                Africa Economic Forum élabore un programme de recherche et
-                d'intelligence dédié, axé sur la transformation économique,
-                les flux d'investissements, les secteurs stratégiques et
-                l'évolution de la position de l'Afrique dans l'économie mondiale.
+                Africa Economic Forum is developing a dedicated research and
+                intelligence programme focused on Africa’s economic
+                transformation, investment flows, strategic sectors and
+                changing position in the global economy.
               </p>
 
               <p className="text-lg text-gray-600 mt-6">
-                Le programme se développera progressivement :
+                The programme will progressively develop:
               </p>
+
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
               {[
-                'Documents de recherche',
-                'Briefs de politique',
-                'Analyse par pays et secteur',
-                'Intelligence d’investissements',
-                'Perspectives économiques',
-                'Rapports spéciaux',
-                'Données et publications analytiques'
+                'Research papers',
+                'Policy briefs',
+                'Country and sector analysis',
+                'Investment intelligence',
+                'Economic outlooks',
+                'Special reports',
+                'Data and analytical publications'
               ].map((item, index) => (
                 <div
                   key={index}
                   className="bg-white rounded-lg p-6 shadow-sm border border-gray-100"
                 >
+
                   <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                     <i className="ri-line-chart-line text-xl text-blue-900"></i>
                   </div>
@@ -417,61 +504,68 @@ export default function PublicationsPage() {
                   <h4 className="font-semibold text-gray-900">
                     {item}
                   </h4>
+
                 </div>
               ))}
+
             </div>
 
             <div className="mt-10 text-center">
+
               <p className="text-lg font-semibold text-blue-900">
-                Le programme AEF Research &amp; Intelligence est en cours d'élaboration.
+                The AEF Research &amp; Intelligence programme is currently under development.
               </p>
+
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* Des idées à l'investissement */}
+      {/* From Ideas to Investment */}
       <section className="py-20 bg-blue-900 text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
           <h2 className="text-4xl font-bold mb-6">
-            Des idées à l'investissement
+            From Ideas to Investment
           </h2>
 
           <p className="text-xl text-blue-100 leading-relaxed mb-12">
-            L'AEF connecte les idées et l'analyse avec les personnes et les
-            institutions capables de transformer les opportunités en
-            investissements, partenariats et exécution.
+            AEF connects ideas and analysis with the people and institutions
+            capable of turning opportunities into investment, partnerships
+            and execution.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 text-left">
+
             <div className="bg-white/10 rounded-lg p-6">
               <p className="text-lg">
-                <strong>Les gouvernements</strong> apportent des opportunités.
+                <strong>Governments</strong> bring opportunities.
               </p>
             </div>
 
             <div className="bg-white/10 rounded-lg p-6">
               <p className="text-lg">
-                <strong>Les investisseurs</strong> apportent du capital.
+                <strong>Investors</strong> bring capital.
               </p>
             </div>
 
             <div className="bg-white/10 rounded-lg p-6">
               <p className="text-lg">
-                <strong>Les partenaires internationaux</strong> apportent les
-                marchés et l'expertise.
+                <strong>International partners</strong> bring markets and expertise.
               </p>
             </div>
 
             <div className="bg-white/10 rounded-lg p-6">
               <p className="text-lg">
-                <strong>Les projets</strong> rencontrent les personnes qui
-                peuvent les financer et les exécuter.
+                <strong>Projects</strong> meet the people who can finance and execute them.
               </p>
             </div>
+
           </div>
 
           <div className="mt-12">
+
             <Link
               to="/"
               className="inline-flex items-center bg-white text-blue-900 px-8 py-4 rounded-md hover:bg-gray-100 font-semibold transition-colors"
@@ -479,30 +573,34 @@ export default function PublicationsPage() {
               Explore Africa Economic Forum 2026
               <i className="ri-arrow-right-line ml-2"></i>
             </Link>
+
           </div>
+
         </div>
       </section>
 
-      {/* Restez connecté */}
+      {/* Stay Connected */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Restez connecté
+            Stay Connected
           </h2>
 
           <p className="text-xl text-gray-600 leading-relaxed mb-10">
-            Suivez Africa Economic Forum pour de nouvelles perspectives,
-            des analyses stratégiques et des annonces de l'écosystème AEF.
+            Follow Africa Economic Forum for new perspectives, strategic
+            analysis and announcements from the AEF ecosystem.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
+
             <a
               href="https://www.linkedin.com/company/the-africa-economic-forum/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-blue-900 text-white px-8 py-4 rounded-md hover:bg-blue-800 font-semibold transition-colors"
             >
-              Suivez l'AEF
+              Follow AEF
             </a>
 
             <Link
@@ -511,16 +609,22 @@ export default function PublicationsPage() {
             >
               Explore AEF 2026
             </Link>
+
           </div>
+
         </div>
       </section>
 
       {/* Sign In Modal */}
       {showSignInModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+
           <div className="bg-white rounded-lg max-w-md w-full">
+
             <div className="p-6">
+
               <div className="flex justify-between items-center mb-6">
+
                 <h3 className="text-2xl font-bold text-gray-900">
                   {showCreateAccount ? 'Create Account' : 'Sign In'}
                 </h3>
@@ -531,11 +635,16 @@ export default function PublicationsPage() {
                 >
                   <i className="ri-close-line text-2xl"></i>
                 </button>
+
               </div>
 
               {!showCreateAccount ? (
                 <>
-                  <form onSubmit={handleSignInSubmit} className="space-y-4">
+                  <form
+                    onSubmit={handleSignInSubmit}
+                    className="space-y-4"
+                  >
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Email Address *
@@ -565,15 +674,19 @@ export default function PublicationsPage() {
                     </div>
 
                     <div className="flex items-center justify-between">
+
                       <label className="flex items-center space-x-2">
+
                         <input
                           type="checkbox"
                           name="remember_me"
                           className="cursor-pointer"
                         />
+
                         <span className="text-sm text-gray-600">
                           Remember me
                         </span>
+
                       </label>
 
                       <button
@@ -582,6 +695,7 @@ export default function PublicationsPage() {
                       >
                         Forgot password?
                       </button>
+
                     </div>
 
                     <button
@@ -590,9 +704,11 @@ export default function PublicationsPage() {
                     >
                       Sign In
                     </button>
+
                   </form>
 
                   <div className="mt-6 text-center">
+
                     <p className="text-sm text-gray-600">
                       Don't have an account?
 
@@ -603,12 +719,18 @@ export default function PublicationsPage() {
                         Create Account
                       </button>
                     </p>
+
                   </div>
                 </>
               ) : (
                 <>
-                  <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
+                  <form
+                    onSubmit={handleCreateAccountSubmit}
+                    className="space-y-4"
+                  >
+
                     <div className="grid grid-cols-2 gap-4">
+
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           First Name *
@@ -636,6 +758,7 @@ export default function PublicationsPage() {
                           placeholder="Last name"
                         />
                       </div>
+
                     </div>
 
                     <div>
@@ -694,6 +817,7 @@ export default function PublicationsPage() {
                     </div>
 
                     <div className="flex items-start space-x-3">
+
                       <input
                         type="checkbox"
                         name="terms_agreement"
@@ -704,9 +828,11 @@ export default function PublicationsPage() {
                       <span className="text-sm text-gray-600">
                         I agree to the Terms of Service and Privacy Policy
                       </span>
+
                     </div>
 
                     <div className="flex items-start space-x-3">
+
                       <input
                         type="checkbox"
                         name="newsletter_consent"
@@ -716,6 +842,7 @@ export default function PublicationsPage() {
                       <span className="text-sm text-gray-600">
                         I would like to receive updates about Forum activities and events
                       </span>
+
                     </div>
 
                     <button
@@ -724,9 +851,11 @@ export default function PublicationsPage() {
                     >
                       Create Account
                     </button>
+
                   </form>
 
                   <div className="mt-6 text-center">
+
                     <p className="text-sm text-gray-600">
                       Already have an account?
 
@@ -737,6 +866,7 @@ export default function PublicationsPage() {
                         Sign In
                       </button>
                     </p>
+
                   </div>
                 </>
               )}
@@ -744,19 +874,25 @@ export default function PublicationsPage() {
               {/* Social Auth */}
               {!showCreateAccount && (
                 <div className="mt-6">
+
                   <div className="relative">
+
                     <div className="absolute inset-0 flex items-center">
                       <div className="w-full border-t border-gray-300"></div>
                     </div>
 
                     <div className="relative flex justify-center text-sm">
+
                       <span className="px-2 bg-white text-gray-500">
                         Or continue with
                       </span>
+
                     </div>
+
                   </div>
 
                   <div className="mt-4 grid grid-cols-2 gap-3">
+
                     <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
                       <i className="ri-google-fill text-red-500 text-lg"></i>
                       <span className="ml-2">Google</span>
@@ -766,9 +902,12 @@ export default function PublicationsPage() {
                       <i className="ri-linkedin-fill text-blue-600 text-lg"></i>
                       <span className="ml-2">LinkedIn</span>
                     </button>
+
                   </div>
+
                 </div>
               )}
+
             </div>
           </div>
         </div>
@@ -776,42 +915,63 @@ export default function PublicationsPage() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
 
             <div>
-              <h3 className="font-semibold text-lg mb-6">About us</h3>
+              <h3 className="font-semibold text-lg mb-6">
+                About us
+              </h3>
 
               <ul className="space-y-3">
+
                 <li>
-                  <Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/about"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Our mission
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/framework" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/framework"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Our Institutional Framework
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/history" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/history"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     History
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/about"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Leadership and governance
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/about"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Our Impact
                   </Link>
                 </li>
+
               </ul>
             </div>
 
@@ -821,53 +981,79 @@ export default function PublicationsPage() {
               </h3>
 
               <ul className="space-y-3">
+
                 <li>
-                  <Link to="/initiatives" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/initiatives"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Centres
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/meetings" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/meetings"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Meetings
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/stakeholders" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/stakeholders"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Stakeholders
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/agenda" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/agenda"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Forum Stories
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/publications" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/publications"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Press releases
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/gallery" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/gallery"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Photo gallery
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/publications" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/publications"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Podcasts
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/publications" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/publications"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Videos
                   </Link>
                 </li>
+
               </ul>
             </div>
 
@@ -877,6 +1063,7 @@ export default function PublicationsPage() {
               </h3>
 
               <ul className="space-y-3">
+
                 <li>
                   {user ? (
                     <button
@@ -896,34 +1083,50 @@ export default function PublicationsPage() {
                 </li>
 
                 <li>
-                  <Link to="/partners" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/partners"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Partner with us
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/join" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/join"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Become a member
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/contact" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/contact"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Sign up for our press releases
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/contact" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/contact"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Subscribe to our newsletters
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/contact" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/contact"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Contact us
                   </Link>
                 </li>
+
               </ul>
             </div>
 
@@ -933,55 +1136,82 @@ export default function PublicationsPage() {
               </h3>
 
               <ul className="space-y-3 mb-8">
+
                 <li>
-                  <Link to="/about" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/about"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Sustainability at the Forum
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/careers" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/careers"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     Careers
                   </Link>
                 </li>
+
               </ul>
 
               <div>
+
                 <h4 className="font-semibold mb-4">
                   Language editions
                 </h4>
 
                 <div className="flex space-x-2">
-                  <Link to="/" className="text-gray-300 hover:text-white cursor-pointer">
+
+                  <Link
+                    to="/"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     EN
                   </Link>
 
                   <span className="text-gray-500">•</span>
 
-                  <Link to="/es" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/es"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     ES
                   </Link>
 
                   <span className="text-gray-500">•</span>
 
-                  <Link to="/cn" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/cn"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     中文
                   </Link>
 
                   <span className="text-gray-500">•</span>
 
-                  <Link to="/jp" className="text-gray-300 hover:text-white cursor-pointer">
+                  <Link
+                    to="/jp"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
                     日本語
                   </Link>
+
                 </div>
+
               </div>
             </div>
+
           </div>
 
           <div className="border-t border-gray-700 pt-8">
+
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-6 text-sm text-gray-400">
 
               <div className="flex space-x-4">
+
                 <a
                   href="https://www.facebook.com/share/17Jr8NpqZJ/"
                   className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
@@ -1009,9 +1239,11 @@ export default function PublicationsPage() {
                 >
                   <i className="ri-youtube-fill text-xl"></i>
                 </a>
+
               </div>
 
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
+
                 <Link
                   to="/privacy"
                   className="hover:text-white cursor-pointer"
@@ -1019,7 +1251,9 @@ export default function PublicationsPage() {
                   Privacy Policy &amp; Terms of Service
                 </Link>
 
-                <p>© 2026 Africa Economic Forum</p>
+                <p>
+                  © 2026 Africa Economic Forum
+                </p>
 
                 <a
                   href="https://codesignglobal.com"
@@ -1027,11 +1261,16 @@ export default function PublicationsPage() {
                 >
                   Code Design Global
                 </a>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
       </footer>
+
     </div>
   );
-}
+                  }
