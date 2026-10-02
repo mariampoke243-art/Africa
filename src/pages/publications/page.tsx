@@ -567,7 +567,7 @@ export default function PublicationsPage() {
           <div className="mt-12">
 
             <Link
-              to="/"
+              to="/agenda"
               className="inline-flex items-center bg-white text-blue-900 px-8 py-4 rounded-md hover:bg-gray-100 font-semibold transition-colors"
             >
               Explore Africa Economic Forum 2026
@@ -1273,4 +1273,4 @@ export default function PublicationsPage() {
 
     </div>
   );
-                  }
+                      }
