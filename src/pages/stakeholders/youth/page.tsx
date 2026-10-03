@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../../../supabase/client';
 
 const YouthPage: React.FC = () => {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
@@ -163,9 +164,40 @@ const YouthPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const { error } = await supabase
+      .from('youth_network_applications')
+      .insert([
+        {
+          full_name: formData.fullName,
+          age: formData.age ? parseInt(formData.age, 10) : null,
+          email: formData.email,
+          phone: formData.phone,
+          country: formData.country,
+          city: formData.city,
+          education: formData.education,
+          institution: formData.institution,
+          field_of_study: formData.fieldOfStudy,
+          interests: formData.interests,
+          experience: formData.experience,
+          goals: formData.goals,
+          skills: formData.skills,
+          availability: formData.availability,
+          terms_accepted: formData.termsAccepted,
+        },
+      ]);
+
+    if (error) {
+      console.error('Failed to submit Youth Network application:', error);
+      alert('An error occurred while submitting your application. Please try again.');
+      return;
+    }
+
     console.log('Youth Network application submitted:', formData);
     alert('Application submitted successfully! Welcome to the AEF Youth Network!');
+
     setIsFormOpen(false);
+
     setFormData({
       fullName: '',
       age: '',
