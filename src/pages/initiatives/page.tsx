@@ -1,6 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+
+type Program = {
+  title: string;
+  description: string;
+  icon: string;
+  category: string;
+  // Paragraphes affichés dans la modale "Learn More".
+  // Si le tableau est vide, la modale affiche la description courte.
+  details: string[];
+};
 
 export default function InitiativesPage() {
   // Original state
@@ -10,6 +20,9 @@ export default function InitiativesPage() {
   // Modified state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  // Modal "Learn More" (comme sur l'ancien site africaef.com/initiatives)
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
 
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -33,6 +46,31 @@ export default function InitiativesPage() {
   const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
+
+  const closeModal = () => setSelectedProgram(null);
+
+  // "Get Involved" : redirige vers la page Contact avec le nom de l'initiative
+  const handleGetInvolved = () => {
+    if (!selectedProgram) return;
+    const initiative = encodeURIComponent(selectedProgram.title);
+    setSelectedProgram(null);
+    navigate(`/contact?initiative=${initiative}`);
+  };
+
+  // Fermer la modale avec Échap + bloquer le défilement de la page derrière
+  useEffect(() => {
+    if (!selectedProgram) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedProgram(null);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedProgram]);
 
   const magazineSections = [
     {
@@ -72,54 +110,97 @@ export default function InitiativesPage() {
     }
   ];
 
-  const programs = [
+  const programs: Program[] = [
     {
       title: 'Sovereign Growth Partnerships',
       description: 'With governments to co-develop national branding & investment promotion strategies.',
       icon: 'ri-government-line',
-      category: 'Government'
+      category: 'Government',
+      details: [
+        "Sovereign Growth Partnerships is AEF's platform for working directly with African governments to co-design national economic positioning, investment promotion strategies, and long-term growth narratives.",
+        'Through this initiative, AEF supports governments in structuring compelling country investment stories, aligning national priorities with global capital, and strengthening institutional frameworks for attracting high-quality, long-term investment.',
+        // TODO : ajouter le 3e paragraphe de l'ancien site ("The program focuses on translating policy ambition into actionable…")
+      ]
     },
     {
       title: 'Africa Investment & Innovation Fund (AIIF)',
       description: 'Supporting transformative startups and scalable projects across key sectors.',
       icon: 'ri-funds-line',
-      category: 'Investment'
+      category: 'Investment',
+      details: [
+        "The Africa Investment & Innovation Fund (AIIF) is AEF's investment facilitation and capital-mobilization platform designed to support scalable African ventures and strategic projects across priority sectors.",
+        'AIIF works to connect high-potential companies and projects with aligned investors, strategic partners, and institutional capital, helping bridge the gap between innovative ideas and deployable funding.',
+        // TODO : ajouter le 3e paragraphe de l'ancien site ("The fund focuses on ventures that contribute to economic sovereignty…")
+      ]
     },
     {
       title: 'AEF Labs',
       description: 'Startup incubator for early-stage African ventures.',
       icon: 'ri-flask-line',
-      category: 'Incubation'
+      category: 'Incubation',
+      details: [
+        "AEF Labs serves as AEF's incubation and experimentation platform, designed to support early-stage African ventures, new business models, and innovative solutions.",
+        'The Labs provide structured support for entrepreneurs to refine their ideas, validate market fit, and build scalable operating models. This includes mentorship, strategic guidance, exposure to partners, and access to networks that can accelerate growth.',
+        'AEF Labs acts as a bridge between early innovation and later-stage acceleration or investment pathways within the broader AEF ecosystem.'
+      ]
     },
     {
       title: 'Next Africa Accelerator',
       description: 'For growth-stage ventures & family businesses.',
       icon: 'ri-speed-up-line',
-      category: 'Acceleration'
+      category: 'Acceleration',
+      details: [
+        "The Next Africa Accelerator is AEF's growth-stage acceleration platform focused on helping promising African ventures and family businesses scale regionally and globally.",
+        'The accelerator supports companies that have demonstrated traction and are ready to expand operations, professionalize governance, and attract strategic partnerships or capital.',
+        'Through tailored support, the program helps participating ventures strengthen leadership, optimize business models, and position themselves for long-term competitiveness and cross-border growth.'
+      ]
     },
     {
       title: 'Pan-African Economic Missions',
       description: 'Delegations and roadshows across Africa & globally to attract partnerships and capital.',
       icon: 'ri-plane-line',
-      category: 'Missions'
+      category: 'Missions',
+      details: [] // TODO : texte détaillé à ajouter
     },
     {
       title: 'African Economic Intelligence Hub',
       description: 'A data platform providing fresh analysis, sector dashboards & forecasts.',
       icon: 'ri-database-line',
-      category: 'Intelligence'
+      category: 'Intelligence',
+      details: [] // TODO : texte détaillé à ajouter
     },
     {
       title: 'Young Builders Fellowship',
       description: 'Empowering youth in policy, business & innovation.',
       icon: 'ri-user-star-line',
-      category: 'Youth'
+      category: 'Youth',
+      details: [
+        "The Young Builders Fellowship is AEF's leadership and capacity-building program for emerging African leaders in policy, business, innovation, and entrepreneurship.",
+        "The fellowship aims to equip young professionals with the skills, networks, and exposure needed to contribute meaningfully to Africa's economic transformation.",
+        'Participants engage in learning, mentorship, and practical engagement with real economic and development challenges, building a pipeline of future African decision-makers and builders.'
+      ]
     },
     {
       title: 'Women Lead Africa Program',
       description: 'Empowering women-led enterprises and voices in the economic discourse.',
       icon: 'ri-women-line',
-      category: 'Women'
+      category: 'Women',
+      details: [
+        "The Women Lead Africa Program is AEF's platform dedicated to supporting women-led enterprises and amplifying women's leadership in Africa's economic landscape.",
+        'The program focuses on strengthening women entrepreneurs, executives, and leaders by providing access to networks, visibility, strategic support, and partnership opportunities.',
+        'It aims to increase the participation and influence of women in shaping economic policy, investment, and business growth across the continent.'
+      ]
+    },
+    {
+      title: 'Global Inspiration Awards',
+      description: 'An Initiative of the Africa Economic Forum - Honoring the heroes shaping a better world.',
+      icon: 'ri-award-line',
+      category: 'Recognition',
+      details: [
+        'An Initiative of the Africa Economic Forum\nHonoring the heroes shaping a better world',
+        'Essence of the Awards\nThe Global Inspiration Awards (GIA), created by the Africa Economic Forum, are a prestigious platform to honor modern-day heroes whose vision, courage, and leadership transcend borders.',
+        // TODO : ajouter la suite de l'ancien site ("They celebrate individuals and institutions advancing humanity through peace, innovation, sustainability, and cooperation…")
+      ]
     }
   ];
 
@@ -423,7 +504,11 @@ export default function InitiativesPage() {
             {/* Programs Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {programs.map((program, index) => (
-                <div key={index} className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer">
+                <div
+                  key={index}
+                  onClick={() => setSelectedProgram(program)}
+                  className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer"
+                >
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
                       <i className={`${program.icon} text-teal-600 text-xl`}></i>
@@ -434,7 +519,10 @@ export default function InitiativesPage() {
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">{program.title}</h3>
                   <p className="text-gray-600 mb-4">{program.description}</p>
-                  <button className="text-teal-600 font-medium hover:text-teal-700 transition-colors whitespace-nowrap cursor-pointer">
+                  <button
+                    type="button"
+                    className="text-teal-600 font-medium hover:text-teal-700 transition-colors whitespace-nowrap cursor-pointer"
+                  >
                     Learn More →
                   </button>
                 </div>
@@ -482,6 +570,78 @@ export default function InitiativesPage() {
           </p>
         </div>
       </section>
+
+      {/* Initiative Details Modal */}
+      {selectedProgram && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4"
+          onClick={closeModal}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="initiative-modal-title"
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header (fixe) */}
+            <div className="bg-gradient-to-r from-teal-600 to-blue-600 border-b-4 border-teal-800 text-white p-6 sm:p-8 flex-shrink-0">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                    <i className={`${selectedProgram.icon} text-2xl`}></i>
+                  </div>
+                  <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-medium">
+                    {selectedProgram.category}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  aria-label="Close"
+                  className="text-white/90 hover:text-white cursor-pointer"
+                >
+                  <i className="ri-close-line text-3xl"></i>
+                </button>
+              </div>
+              <h2 id="initiative-modal-title" className="text-2xl sm:text-3xl font-bold mb-2">
+                {selectedProgram.title}
+              </h2>
+              <p className="text-white/90 text-lg">{selectedProgram.description}</p>
+            </div>
+
+            {/* Corps (défilant) */}
+            <div className="p-6 sm:p-8 overflow-y-auto flex-1 space-y-6">
+              {(selectedProgram.details.length > 0
+                ? selectedProgram.details
+                : [selectedProgram.description]
+              ).map((paragraph, i) => (
+                <p key={i} className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            {/* Pied (fixe) */}
+            <div className="bg-gray-50 border-t border-gray-200 px-6 sm:px-8 py-4 flex justify-end space-x-3 flex-shrink-0">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition-colors whitespace-nowrap cursor-pointer"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                onClick={handleGetInvolved}
+                className="px-6 py-2.5 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition-colors whitespace-nowrap cursor-pointer"
+              >
+                Get Involved
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer Links */}
       <footer className="bg-gray-900 text-white py-16">
@@ -577,7 +737,7 @@ export default function InitiativesPage() {
               </div>
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <a href="/privacy" className="hover:text-white cursor-pointer">Privacy Policy &amp; Terms of Service</a>
-                
+
                 <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com/" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
@@ -587,4 +747,4 @@ export default function InitiativesPage() {
       </footer>
     </div>
   );
-              }
+}
