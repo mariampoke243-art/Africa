@@ -119,6 +119,7 @@ export default function InitiativesPage() {
       details: [
         "Sovereign Growth Partnerships is AEF's platform for working directly with African governments to co-design national economic positioning, investment promotion strategies, and long-term growth narratives.",
         'Through this initiative, AEF supports governments in structuring compelling country investment stories, aligning national priorities with global capital, and strengthening institutional frameworks for attracting high-quality, long-term investment.',
+        'The program focuses on translating policy ambition into actionable investment pipelines, helping countries move from visibility to real deal flow, partnerships, and execution.',
         // TODO : ajouter le 3e paragraphe de l'ancien site ("The program focuses on translating policy ambition into actionable…")
       ]
     },
