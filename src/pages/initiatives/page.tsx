@@ -131,6 +131,7 @@ export default function InitiativesPage() {
       details: [
         "The Africa Investment & Innovation Fund (AIIF) is AEF's investment facilitation and capital-mobilization platform designed to support scalable African ventures and strategic projects across priority sectors.",
         'AIIF works to connect high-potential companies and projects with aligned investors, strategic partners, and institutional capital, helping bridge the gap between innovative ideas and deployable funding.',
+        'The fund focuses on ventures that contribute to economic sovereignty, industrial upgrading, and sustainable growth, supporting both early-stage innovation and later-stage scale-up opportunities.',
         // TODO : ajouter le 3e paragraphe de l'ancien site ("The fund focuses on ventures that contribute to economic sovereignty…")
       ]
     },
@@ -161,14 +162,22 @@ export default function InitiativesPage() {
       description: 'Delegations and roadshows across Africa & globally to attract partnerships and capital.',
       icon: 'ri-plane-line',
       category: 'Missions',
-      details: [] // TODO : texte détaillé à ajouter
+      details: [
+        "Pan-African Economic Missions organizes targeted delegations, roadshows, and strategic visits across Africa and to key global financial and commercial centers.",
+        'These missions are designed to facilitate direct engagement between African governments, companies, and international investors, corporates, and institutions.',
+        'The program supports deal-making, partnership formation, and relationship-building, helping convert dialogue into concrete cooperation and investment outcomes.',
+      ]
     },
     {
       title: 'African Economic Intelligence Hub',
       description: 'A data platform providing fresh analysis, sector dashboards & forecasts.',
       icon: 'ri-database-line',
       category: 'Intelligence',
-      details: [] // TODO : texte détaillé à ajouter
+      details: [
+        "The African Economic Intelligence Hub is AEF's analytical and insight platform, providing data-driven perspectives on African economies, sectors, and investment trends.",
+        'The Hub produces analysis, dashboards, sector intelligence, and forward-looking insights to support policymakers, investors, and business leaders in making informed strategic decisions.',
+        'It serves as a centralized resource for understanding economic dynamics, identifying opportunities, and tracking structural transformation across African markets.',
+      ]
     },
     {
       title: 'Young Builders Fellowship',
@@ -200,8 +209,42 @@ export default function InitiativesPage() {
       details: [
         'An Initiative of the Africa Economic Forum\nHonoring the heroes shaping a better world',
         'Essence of the Awards\nThe Global Inspiration Awards (GIA), created by the Africa Economic Forum, are a prestigious platform to honor modern-day heroes whose vision, courage, and leadership transcend borders.',
-        // TODO : ajouter la suite de l'ancien site ("They celebrate individuals and institutions advancing humanity through peace, innovation, sustainability, and cooperation…")
-      ]
+        'They celebrate individuals and institutions advancing humanity through peace, innovation, sustainability, and cooperation — reminding the world that Africa is not just a continent of opportunities, but also a beacon of inspiration and values-driven leadership.',
+        'Our Mission',
+        'To celebrate greatness that moves the world forward, amplifying those who embody conscience, courage, and legacy. Through the Awards, the Africa Economic Forum reinforces its mission to drive global partnerships rooted in honor, equity, and shared prosperity.',
+        'Our Distinction',
+        'The GIA are:',
+        '• A Global Platform Born in Africa: Elevating stories of global leaders while positioning Africa at the heart of the new global order.',
+        '• Beyond Borders, Politics, and Profits: Recognizing impact that is timeless and universal.',
+        '• A Call to Action: Every award is not an end, but a starting point to inspire collective responsibility',
+        'Thematic Pillars',
+        "The Awards honor leaders across eight categories, reflecting humanity's highest priorities:",
+        '• Dr. Sunday Adelaja Voice of Democracy Award',
+        '• Peace & Humanitarian Leadership Award',
+        '• Climate & Sustainability Champions',
+        '• Ana-Helena Chacon Gender Equity & Inclusion Advocates',
+        '• Ameenah Gurib-Fakim Health & Science Innovators Award',
+        '• Youth & Education Pioneers',
+        '• Business with Purpose',
+        '• Rosalia Arteaga Global Cooperation Catalysts',
+        '• Leadership & Good Governance',
+
+        'Format & Experience',
+        '• Strategic Integration: Organized as a flagship initiative of the Africa Economic Forum, complementing its annual meeting and sectoral forums.',
+        "• Global Stages: Hosted in iconic locations such as Dubai, New York, Geneva, or Addis Ababa — reinforcing Africa's voice in the world.",
+        "• Leadership Convergence: Bringing together governments, philanthropists, entrepreneurs, investors, and cultural leaders.",
+        '• Legacy Beyond the Ceremony: Each edition leaves behind commitments, partnerships, and actions to advance global causes.',
+
+        'Why It Matters',
+        'The Africa Economic Forum believes that celebrating those who inspire is itself a strategy for change.
+
+        'By showcasing exemplary figures, the GIA:',
+        '• Inspire leaders in Africa and worldwide to act with honor.',
+        ",• Strengthen Africa's positioning in global conversations.",
+        '• Create a legacy of values-driven leadership for future generations.',
+        'Our Call',
+        'Because honoring greatness is how we ignite global change.',
+         ]
     }
   ];
 
