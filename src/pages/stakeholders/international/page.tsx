@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../../supabase/client';
 
 export default function International() {
   // Original state and handlers for membership form
@@ -41,8 +42,34 @@ export default function International() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const { error } = await supabase
+      .from('international_institution_applications')
+      .insert([
+        {
+          organization_name: formData.organizationName,
+          organization_type: formData.organizationType,
+          headquarters: formData.headquarters,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          position: formData.position,
+          email: formData.email,
+          phone: formData.phone,
+          focus_areas: formData.focusAreas,
+          current_programs: formData.currentPrograms || null,
+          partnership_goals: formData.partnershipGoals || null,
+          agree_to_terms: formData.agreeToTerms,
+        },
+      ]);
+
+    if (error) {
+      console.error('Failed to submit international institution application:', error);
+      alert('An error occurred while submitting your application. Please try again.');
+      return;
+    }
+
     console.log('International institution membership application:', formData);
     setShowMembershipForm(false);
     // Reset form
