@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../../../supabase/client';
 
 export default function Governments() {
   // Original state
@@ -45,8 +46,34 @@ export default function Governments() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const { error } = await supabase
+      .from('government_diplomatic_membership_applications')
+      .insert([
+        {
+          country: formData.country,
+          ministry: formData.ministry,
+          position: formData.position,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          diplomatic_rank: formData.diplomaticRank,
+          areas_of_interest: formData.areasOfInterest,
+          current_initiatives: formData.currentInitiatives || null,
+          collaboration_goals: formData.collaborationGoals || null,
+          agree_to_terms: formData.agreeToTerms,
+        },
+      ]);
+
+    if (error) {
+      console.error('Failed to submit diplomatic membership application:', error);
+      alert('An error occurred while submitting your application. Please try again.');
+      return;
+    }
+
     console.log('Diplomatic membership application:', formData);
     setShowMembershipForm(false);
     // Reset form
@@ -1312,4 +1339,4 @@ export default function Governments() {
       )}
     </div>
   );
-}
+          }
