@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { supabase } from '../../../supabase/client';
 
 export default function BusinessesPage() {
-  // ✅ State variables (ÉTAIENT MANQUANTS)
+  // ✅ State variables
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
   const [showMembershipForm, setShowMembershipForm] = useState(false);
@@ -14,9 +15,15 @@ export default function BusinessesPage() {
   useEffect(() => {
     try {
       const savedUser = localStorage.getItem('aef_user');
+
       if (savedUser) {
         const parsed = JSON.parse(savedUser);
-        if (parsed && typeof parsed.name === 'string' && typeof parsed.email === 'string') {
+
+        if (
+          parsed &&
+          typeof parsed.name === 'string' &&
+          typeof parsed.email === 'string'
+        ) {
           setUser(parsed);
         }
       }
@@ -25,7 +32,7 @@ export default function BusinessesPage() {
     }
   }, []);
 
-  // ✅ Handlers (ÉTAIENT MANQUANTS OU INCOMPLETS)
+  // ✅ Handlers
   const handleSignIn = () => {
     setShowSignInModal(true);
     setShowCreateAccount(false);
@@ -37,6 +44,7 @@ export default function BusinessesPage() {
     } catch (err) {
       console.error('Failed to remove user from localStorage:', err);
     }
+
     setUser(null);
   };
 
@@ -44,45 +52,72 @@ export default function BusinessesPage() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleSignInSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignInSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
+
     try {
       const formData = new FormData(e.currentTarget);
+
       const email = formData.get('email') as string;
       const password = formData.get('password') as string;
 
       if (email && password) {
         const userName = email.split('@')[0];
+
         const userData = {
-          name: userName.charAt(0).toUpperCase() + userName.slice(1),
+          name:
+            userName.charAt(0).toUpperCase() +
+            userName.slice(1),
           email: email,
         };
 
         try {
-          localStorage.setItem('aef_user', JSON.stringify(userData));
+          localStorage.setItem(
+            'aef_user',
+            JSON.stringify(userData)
+          );
+
           setUser(userData);
+
           alert('Sign in successful! Welcome back.');
+
           setShowSignInModal(false);
         } catch (err) {
-          console.error('Failed to store user data:', err);
-          alert('An error occurred while signing in. Please try again.');
+          console.error(
+            'Failed to store user data:',
+            err
+          );
+
+          alert(
+            'An error occurred while signing in. Please try again.'
+          );
         }
       } else {
         alert('Please fill in all required fields.');
       }
     } catch (err) {
       console.error('Login error:', err);
-      alert('An unexpected error occurred. Please try again later.');
+
+      alert(
+        'An unexpected error occurred. Please try again later.'
+      );
     }
   };
 
-  const handleCreateAccountSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCreateAccountSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
+
     const formData = new FormData(e.currentTarget);
 
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    const confirmPassword = formData.get('confirm_password') as string;
+    const confirmPassword = formData.get(
+      'confirm_password'
+    ) as string;
     const firstName = formData.get('first_name') as string;
     const lastName = formData.get('last_name') as string;
 
@@ -91,21 +126,40 @@ export default function BusinessesPage() {
       return;
     }
 
-    if (email && password && firstName && lastName) {
+    if (
+      email &&
+      password &&
+      firstName &&
+      lastName
+    ) {
       const userData = {
         name: `${firstName} ${lastName}`,
         email: email,
       };
 
       try {
-        localStorage.setItem('aef_user', JSON.stringify(userData));
+        localStorage.setItem(
+          'aef_user',
+          JSON.stringify(userData)
+        );
+
         setUser(userData);
-        alert('Account created successfully! Welcome to Africa Economic Forum.');
+
+        alert(
+          'Account created successfully! Welcome to Africa Economic Forum.'
+        );
+
         setShowSignInModal(false);
         setShowCreateAccount(false);
       } catch (err) {
-        console.error('Failed to store new account data:', err);
-        alert('An error occurred while creating the account. Please try again.');
+        console.error(
+          'Failed to store new account data:',
+          err
+        );
+
+        alert(
+          'An error occurred while creating the account. Please try again.'
+        );
       }
     } else {
       alert('Please fill in all required fields.');
@@ -120,26 +174,124 @@ export default function BusinessesPage() {
     setShowCreateAccount(false);
   };
 
-  const handleMembershipSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // =========================================================
+  // ✅ BUSINESS MEMBERSHIP → SUPABASE
+  // =========================================================
+  const handleMembershipSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
+
     try {
       const formData = new FormData(e.currentTarget);
-      const companyName = formData.get('company_name') as string;
-      const contactName = formData.get('contact_name') as string;
-      const email = formData.get('email') as string;
-      const phone = formData.get('phone') as string;
-      const industry = formData.get('industry') as string;
-      const companySize = formData.get('company_size') as string;
 
-      if (companyName && contactName && email && phone && industry && companySize) {
-        alert('Membership application submitted successfully! We will contact you within 48 hours.');
-        setShowMembershipForm(false);
-      } else {
+      const companyName =
+        (formData.get('company_name') as string)?.trim();
+
+      const contactName =
+        (formData.get('contact_name') as string)?.trim();
+
+      const email =
+        (formData.get('email') as string)?.trim();
+
+      const phone =
+        (formData.get('phone') as string)?.trim();
+
+      const industry =
+        (formData.get('industry') as string)?.trim();
+
+      const companySize =
+        (formData.get('company_size') as string)?.trim();
+
+      const companyDescription =
+        (formData.get('company_description') as string)?.trim() || null;
+
+      const interestNetworking =
+        formData.get('interest_networking') === 'on';
+
+      const interestInvestment =
+        formData.get('interest_investment') === 'on';
+
+      const interestPartnerships =
+        formData.get('interest_partnerships') === 'on';
+
+      const interestPolicy =
+        formData.get('interest_policy') === 'on';
+
+      const termsAgreement =
+        formData.get('terms_agreement') === 'on';
+
+      // Vérification des champs obligatoires
+      if (
+        !companyName ||
+        !contactName ||
+        !email ||
+        !phone ||
+        !industry ||
+        !companySize
+      ) {
         alert('Please fill in all required fields.');
+        return;
       }
+
+      // Vérification des conditions
+      if (!termsAgreement) {
+        alert(
+          'Please agree to the Terms of Service and Privacy Policy.'
+        );
+        return;
+      }
+
+      // =====================================================
+      // INSERTION DANS SUPABASE
+      // =====================================================
+      const { error } = await supabase
+        .from('business_membership_applications')
+        .insert([
+          {
+            company_name: companyName,
+            contact_name: contactName,
+            email: email,
+            phone: phone,
+            industry: industry,
+            company_size: companySize,
+            company_description: companyDescription,
+            interest_networking: interestNetworking,
+            interest_investment: interestInvestment,
+            interest_partnerships: interestPartnerships,
+            interest_policy: interestPolicy,
+            terms_agreement: termsAgreement,
+          },
+        ]);
+
+      if (error) {
+        console.error(
+          'Error submitting Business Council application:',
+          error
+        );
+
+        alert(
+          'An error occurred while submitting your application. Please try again.'
+        );
+
+        return;
+      }
+
+      // Succès
+      alert(
+        'Membership application submitted successfully! We will contact you within 48 hours.'
+      );
+
+      setShowMembershipForm(false);
     } catch (err) {
-      console.error('Membership application error:', err);
-      alert('An unexpected error occurred. Please try again later.');
+      console.error(
+        'Membership application error:',
+        err
+      );
+
+      alert(
+        'An unexpected error occurred. Please try again later.'
+      );
     }
   };
 
@@ -331,10 +483,12 @@ export default function BusinessesPage() {
 
   return (
     <div className="min-h-screen bg-white">
+
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
+
             <div className="flex items-center">
               <a href="/" className="flex items-center">
                 <img
@@ -344,36 +498,72 @@ export default function BusinessesPage() {
                 />
               </a>
             </div>
+
             <nav className="hidden md:flex space-x-8">
-              <a href="/" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+              <a
+                href="/"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 Home
               </a>
-              <a href="/about" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+              <a
+                href="/about"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 About
               </a>
-              <a href="/initiatives" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+              <a
+                href="/initiatives"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 Initiatives
               </a>
-              <a href="/stakeholders" className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600">
+
+              <a
+                href="/stakeholders"
+                className="text-teal-600 px-3 py-2 text-sm font-medium border-b-2 border-teal-600"
+              >
                 Stakeholders
               </a>
-              <a href="/agenda" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+              <a
+                href="/agenda"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 Agenda
               </a>
-              <a href="/publications" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+              <a
+                href="/publications"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 Publications
               </a>
-              <a href="/meetings" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+              <a
+                href="/meetings"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 Meetings
               </a>
-              <a href="/contact" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+
+              <a
+                href="/contact"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 Contact
               </a>
             </nav>
+
             <div className="hidden md:flex items-center space-x-4">
               {user ? (
                 <div className="flex items-center space-x-3">
-                  <span className="text-gray-700">Welcome, {user.name}</span>
+                  <span className="text-gray-700">
+                    Welcome, {user.name}
+                  </span>
+
                   <button
                     onClick={handleLogout}
                     className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
@@ -390,11 +580,16 @@ export default function BusinessesPage() {
                 </button>
               )}
             </div>
+
             <button
               className="md:hidden p-2 cursor-pointer"
               onClick={toggleMobileMenu}
             >
-              <i className={`ri-${isMobileMenuOpen ? 'close' : 'menu'}-line text-2xl`}></i>
+              <i
+                className={`ri-${
+                  isMobileMenuOpen ? 'close' : 'menu'
+                }-line text-2xl`}
+              ></i>
             </button>
           </div>
         </div>
@@ -403,34 +598,78 @@ export default function BusinessesPage() {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <a href="/" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+
+              <a
+                href="/"
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Home
               </a>
-              <a href="/about" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+
+              <a
+                href="/about"
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 About
               </a>
-              <a href="/initiatives" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+
+              <a
+                href="/initiatives"
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Initiatives
               </a>
-              <a href="/stakeholders" className="block px-3 py-2 text-base font-medium text-teal-600 bg-teal-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+
+              <a
+                href="/stakeholders"
+                className="block px-3 py-2 text-base font-medium text-teal-600 bg-teal-50 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Stakeholders
               </a>
-              <a href="/agenda" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+
+              <a
+                href="/agenda"
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Agenda
               </a>
-              <a href="/publications" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+
+              <a
+                href="/publications"
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Publications
               </a>
-              <a href="/meetings" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+
+              <a
+                href="/meetings"
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Meetings
               </a>
-              <a href="/contact" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+
+              <a
+                href="/contact"
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Contact
               </a>
+
               <div className="px-3 py-2">
                 {user ? (
                   <div className="space-y-2">
-                    <div className="text-gray-700">Welcome, {user.name}</div>
+                    <div className="text-gray-700">
+                      Welcome, {user.name}
+                    </div>
+
                     <button
                       onClick={() => {
                         handleLogout();
@@ -467,17 +706,26 @@ export default function BusinessesPage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-white">
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">AEF Business Council</h1>
-            <h2 className="text-2xl lg:text-3xl font-semibold mb-8 text-blue-100">Where Africa's Builders Meet</h2>
+
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
+              AEF Business Council
+            </h1>
+
+            <h2 className="text-2xl lg:text-3xl font-semibold mb-8 text-blue-100">
+              Where Africa's Builders Meet
+            </h2>
+
             <p className="text-lg text-blue-100 max-w-4xl mb-8 leading-relaxed">
               But businesses build economies.
             </p>
+
             <button
               onClick={() => setShowMembershipForm(true)}
               className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
             >
               Apply for Membership
             </button>
+
           </div>
         </div>
       </section>
@@ -485,29 +733,54 @@ export default function BusinessesPage() {
       {/* Introduction */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
           <div className="space-y-2 mb-8">
-            <p className="text-lg text-gray-700">Governments create policies.</p>
-            <p className="text-lg text-gray-700">Investors provide capital.</p>
-            <p className="text-2xl font-bold text-blue-900">But businesses build economies.</p>
+            <p className="text-lg text-gray-700">
+              Governments create policies.
+            </p>
+
+            <p className="text-lg text-gray-700">
+              Investors provide capital.
+            </p>
+
+            <p className="text-2xl font-bold text-blue-900">
+              But businesses build economies.
+            </p>
           </div>
+
           <div className="space-y-2 mb-8">
             {buildersLines.map((line) => (
-              <p key={line} className="text-lg text-gray-700">{line}</p>
+              <p
+                key={line}
+                className="text-lg text-gray-700"
+              >
+                {line}
+              </p>
             ))}
           </div>
+
           <p className="text-xl font-semibold text-gray-900 mb-8">
             And transform opportunity into growth.
           </p>
+
           <div className="space-y-6">
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              As Africa enters a new era of industrialization, urbanization, digital transformation and regional integration, the role of business leadership has never been more important.
+              As Africa enters a new era of industrialization,
+              urbanization, digital transformation and regional
+              integration, the role of business leadership has
+              never been more important.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              The companies that build relationships today will be the companies that shape Africa's future tomorrow.
+              The companies that build relationships today will
+              be the companies that shape Africa's future tomorrow.
             </p>
+
             <p className="text-xl font-semibold text-blue-900">
               The AEF Business Council was created for those leaders.
             </p>
+
           </div>
         </div>
       </section>
@@ -515,17 +788,33 @@ export default function BusinessesPage() {
       {/* Corporate Leadership Community */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">The Corporate Leadership Community of the Africa Economic Forum</h2>
+
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">
+            The Corporate Leadership Community of the Africa Economic Forum
+          </h2>
+
           <div className="space-y-6">
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              The AEF Business Council is a high-level community of CEOs, Chairpersons, Founders, Managing Directors, Corporate Executives, Industrial Leaders, Entrepreneurs and Business Owners committed to advancing business, investment and economic growth across Africa.
+              The AEF Business Council is a high-level community of
+              CEOs, Chairpersons, Founders, Managing Directors,
+              Corporate Executives, Industrial Leaders, Entrepreneurs
+              and Business Owners committed to advancing business,
+              investment and economic growth across Africa.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              As the corporate pillar of the Africa Economic Forum, the Council provides a platform where business leaders engage directly with governments, investors, financial institutions, development partners and strategic stakeholders.
+              As the corporate pillar of the Africa Economic Forum,
+              the Council provides a platform where business leaders
+              engage directly with governments, investors, financial
+              institutions, development partners and strategic stakeholders.
             </p>
+
             <p className="text-xl font-semibold text-gray-900">
-              Because growth happens when the right people sit around the same table.
+              Because growth happens when the right people sit around
+              the same table.
             </p>
+
           </div>
         </div>
       </section>
@@ -533,64 +822,115 @@ export default function BusinessesPage() {
       {/* Why the AEF Business Council */}
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">Why the AEF Business Council?</h2>
+
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">
+            Why the AEF Business Council?
+          </h2>
+
           <div className="space-y-6 text-center mb-10">
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              Africa is home to one of the world's most significant growth opportunities.
+              Africa is home to one of the world's most significant
+              growth opportunities.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              From infrastructure and manufacturing to energy, mining, technology, healthcare, agriculture, tourism and logistics, opportunities exist across every major sector.
+              From infrastructure and manufacturing to energy, mining,
+              technology, healthcare, agriculture, tourism and logistics,
+              opportunities exist across every major sector.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               Yet opportunity alone is not enough.
             </p>
+
             <p className="text-xl font-semibold text-gray-900">
               Success depends on access.
             </p>
+
           </div>
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+
             {accessItems.map((item) => (
-              <div key={item} className="bg-gray-50 rounded-lg p-6 text-center">
+              <div
+                key={item}
+                className="bg-gray-50 rounded-lg p-6 text-center"
+              >
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <i className="ri-key-2-line text-xl text-blue-600"></i>
                 </div>
-                <p className="font-semibold text-gray-900">{item}</p>
+
+                <p className="font-semibold text-gray-900">
+                  {item}
+                </p>
               </div>
             ))}
+
           </div>
+
           <p className="text-xl font-semibold text-blue-900 text-center">
             The AEF Business Council exists to create that access.
           </p>
+
         </div>
       </section>
 
       {/* Building Africa's Next Growth Chapter */}
       <section className="py-20 bg-blue-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-8">Building Africa's Next Growth Chapter</h2>
+
+          <h2 className="text-4xl font-bold mb-8">
+            Building Africa's Next Growth Chapter
+          </h2>
+
           <p className="text-xl text-blue-100 mb-6 leading-relaxed">
-            The future of Africa will be shaped by businesses willing to invest, innovate and expand.
+            The future of Africa will be shaped by businesses willing
+            to invest, innovate and expand.
           </p>
+
           <p className="text-lg text-blue-100 leading-relaxed">
-            The Council provides a platform for companies to connect with the people and institutions capable of accelerating their growth ambitions.
+            The Council provides a platform for companies to connect
+            with the people and institutions capable of accelerating
+            their growth ambitions.
           </p>
+
         </div>
       </section>
 
       {/* Areas of Engagement */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Areas of Engagement</h2>
+
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+            Areas of Engagement
+          </h2>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
             {engagementAreas.map((area) => (
-              <div key={area.title} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className={`w-14 h-14 ${area.iconBg} rounded-full flex items-center justify-center mb-4`}>
-                  <i className={`${area.icon} ${area.iconColor} text-2xl`}></i>
+              <div
+                key={area.title}
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
+              >
+                <div
+                  className={`w-14 h-14 ${area.iconBg} rounded-full flex items-center justify-center mb-4`}
+                >
+                  <i
+                    className={`${area.icon} ${area.iconColor} text-2xl`}
+                  ></i>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">{area.title}</h3>
-                <p className="text-gray-600">{area.text}</p>
+
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  {area.title}
+                </h3>
+
+                <p className="text-gray-600">
+                  {area.text}
+                </p>
               </div>
             ))}
+
           </div>
         </div>
       </section>
@@ -598,19 +938,38 @@ export default function BusinessesPage() {
       {/* Who Should Join */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Who Should Join?</h2>
+
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+            Who Should Join?
+          </h2>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
             {whoShouldJoin.map((item) => (
-              <div key={item.title} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow text-center space-y-4">
-                <div className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}>
-                  <i className={`${item.icon} ${item.iconColor} text-2xl`}></i>
+              <div
+                key={item.title}
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow text-center space-y-4"
+              >
+                <div
+                  className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}
+                >
+                  <i
+                    className={`${item.icon} ${item.iconColor} text-2xl`}
+                  ></i>
                 </div>
+
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-gray-600">{item.text}</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-gray-600">
+                    {item.text}
+                  </p>
                 </div>
               </div>
             ))}
+
           </div>
         </div>
       </section>
@@ -618,17 +977,36 @@ export default function BusinessesPage() {
       {/* What Members Gain */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">What Members Gain</h2>
+
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+            What Members Gain
+          </h2>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
             {memberGains.map((item) => (
-              <div key={item.title} className="text-center space-y-4">
-                <div className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}>
-                  <i className={`${item.icon} ${item.iconColor} text-2xl`}></i>
+              <div
+                key={item.title}
+                className="text-center space-y-4"
+              >
+                <div
+                  className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}
+                >
+                  <i
+                    className={`${item.icon} ${item.iconColor} text-2xl`}
+                  ></i>
                 </div>
-                <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                <p className="text-gray-600">{item.text}</p>
+
+                <h3 className="font-semibold text-gray-900">
+                  {item.title}
+                </h3>
+
+                <p className="text-gray-600">
+                  {item.text}
+                </p>
               </div>
             ))}
+
           </div>
         </div>
       </section>
@@ -636,14 +1014,26 @@ export default function BusinessesPage() {
       {/* Membership Benefits */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Membership Benefits</h2>
+
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
+            Membership Benefits
+          </h2>
+
           <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+
             {membershipBenefits.map((benefit) => (
-              <div key={benefit} className="flex items-start space-x-3">
+              <div
+                key={benefit}
+                className="flex items-start space-x-3"
+              >
                 <i className="ri-check-line text-xl text-blue-600 flex-shrink-0"></i>
-                <span className="text-gray-700">{benefit}</span>
+
+                <span className="text-gray-700">
+                  {benefit}
+                </span>
               </div>
             ))}
+
           </div>
         </div>
       </section>
@@ -651,37 +1041,64 @@ export default function BusinessesPage() {
       {/* Membership */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Membership</h2>
+
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">
+            Membership
+          </h2>
+
           <div className="space-y-6 mb-12">
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              The AEF Business Council is a curated community of corporate leaders committed to shaping Africa's economic future.
+              The AEF Business Council is a curated community of
+              corporate leaders committed to shaping Africa's economic future.
             </p>
+
             <p className="text-lg font-semibold text-gray-900 leading-relaxed">
               Membership is granted through application and approval.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              To preserve the quality of engagement and maintain meaningful access among members, participation is intentionally selective.
+              To preserve the quality of engagement and maintain
+              meaningful access among members, participation is intentionally selective.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               The objective is simple:
             </p>
+
             <p className="text-xl font-semibold text-blue-900 leading-relaxed">
-              To create an environment where business leaders can build relationships, identify opportunities and accelerate growth.
+              To create an environment where business leaders can build
+              relationships, identify opportunities and accelerate growth.
             </p>
+
           </div>
+
           <div className="bg-gray-50 rounded-lg p-8 text-left">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">Membership includes:</h3>
+
+            <h3 className="text-xl font-semibold text-gray-900 mb-6">
+              Membership includes:
+            </h3>
+
             <ul className="grid md:grid-cols-2 gap-3 mb-6">
+
               {membershipIncludes.map((item) => (
-                <li key={item} className="flex items-start space-x-3 text-gray-700">
+                <li
+                  key={item}
+                  className="flex items-start space-x-3 text-gray-700"
+                >
                   <i className="ri-check-line text-xl text-blue-600 flex-shrink-0"></i>
+
                   <span>{item}</span>
                 </li>
               ))}
+
             </ul>
+
             <p className="text-sm text-gray-600">
-              Seats are allocated to maintain a balanced representation of sectors, industries and regions.
+              Seats are allocated to maintain a balanced representation
+              of sectors, industries and regions.
             </p>
+
           </div>
         </div>
       </section>
@@ -689,17 +1106,28 @@ export default function BusinessesPage() {
       {/* Next Business Opportunities */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Africa's Next Business Opportunities Are Being Created Today</h2>
+
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">
+            Africa's Next Business Opportunities Are Being Created Today
+          </h2>
+
           <div className="space-y-6">
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              The next decade will produce new markets, industries, technologies and partnerships across Africa.
+              The next decade will produce new markets, industries,
+              technologies and partnerships across Africa.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
-              The companies that position themselves early will be best placed to capture the opportunities ahead.
+              The companies that position themselves early will be
+              best placed to capture the opportunities ahead.
             </p>
+
             <p className="text-xl font-semibold text-blue-900 leading-relaxed">
-              The AEF Business Council exists to help make those connections possible.
+              The AEF Business Council exists to help make those
+              connections possible.
             </p>
+
           </div>
         </div>
       </section>
@@ -707,57 +1135,92 @@ export default function BusinessesPage() {
       {/* Closing Banner */}
       <section className="py-16 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
           <div className="space-y-2 mb-8">
+
             {closingLines.map((line) => (
-              <p key={line} className="text-2xl font-bold">{line}</p>
+              <p
+                key={line}
+                className="text-2xl font-bold"
+              >
+                {line}
+              </p>
             ))}
+
           </div>
-          <p className="text-xl text-gray-200 mb-2">Welcome to the AEF Business Council.</p>
-          <p className="text-gray-400">The Corporate Leadership Community of the Africa Economic Forum.</p>
+
+          <p className="text-xl text-gray-200 mb-2">
+            Welcome to the AEF Business Council.
+          </p>
+
+          <p className="text-gray-400">
+            The Corporate Leadership Community of the Africa Economic Forum.
+          </p>
+
         </div>
       </section>
 
       {/* Apply for Membership */}
       <section className="py-20 bg-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Apply for Membership</h2>
+
+          <h2 className="text-4xl font-bold mb-6">
+            Apply for Membership
+          </h2>
+
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-            Join a trusted community of CEOs, entrepreneurs and business leaders shaping the future of business in Africa.
+            Join a trusted community of CEOs, entrepreneurs and business
+            leaders shaping the future of business in Africa.
           </p>
+
           <button
             onClick={() => setShowMembershipForm(true)}
             className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
           >
             Apply for Membership
           </button>
+
         </div>
       </section>
 
       {/* Sign In Modal */}
       {showSignInModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+
           <div className="bg-white rounded-lg max-w-md w-full">
+
             <div className="p-6">
+
               <div className="flex justify-between items-center mb-6">
+
                 <h3 className="text-2xl font-bold text-gray-900">
-                  {showCreateAccount ? 'Create Account' : 'Sign In'}
+                  {showCreateAccount
+                    ? 'Create Account'
+                    : 'Sign In'}
                 </h3>
+
                 <button
                   onClick={() => setShowSignInModal(false)}
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
                 >
                   <i className="ri-close-line text-2xl"></i>
                 </button>
+
               </div>
 
-              {/* Sign‑In Form */}
+              {/* Sign-In Form */}
               {!showCreateAccount && (
                 <>
-                  <form onSubmit={handleSignInSubmit} className="space-y-4">
+                  <form
+                    onSubmit={handleSignInSubmit}
+                    className="space-y-4"
+                  >
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Email Address *
                       </label>
+
                       <input
                         type="email"
                         name="email"
@@ -766,10 +1229,12 @@ export default function BusinessesPage() {
                         placeholder="Enter your email address"
                       />
                     </div>
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Password *
                       </label>
+
                       <input
                         type="password"
                         name="password"
@@ -778,25 +1243,44 @@ export default function BusinessesPage() {
                         placeholder="Enter your password"
                       />
                     </div>
+
                     <div className="flex items-center justify-between">
+
                       <label className="flex items-center space-x-2">
-                        <input type="checkbox" name="remember_me" className="cursor-pointer" />
-                        <span className="text-sm text-gray-600">Remember me</span>
+                        <input
+                          type="checkbox"
+                          name="remember_me"
+                          className="cursor-pointer"
+                        />
+
+                        <span className="text-sm text-gray-600">
+                          Remember me
+                        </span>
                       </label>
-                      <button type="button" className="text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
+
+                      <button
+                        type="button"
+                        className="text-sm text-blue-600 hover:text-blue-800 cursor-pointer"
+                      >
                         Forgot password?
                       </button>
+
                     </div>
+
                     <button
                       type="submit"
                       className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
                     >
                       Sign In
                     </button>
+
                   </form>
+
                   <div className="mt-6 text-center">
+
                     <p className="text-sm text-gray-600">
                       Don't have an account?
+
                       <button
                         onClick={switchToCreateAccount}
                         className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
@@ -804,6 +1288,7 @@ export default function BusinessesPage() {
                         Create Account
                       </button>
                     </p>
+
                   </div>
                 </>
               )}
@@ -811,10 +1296,18 @@ export default function BusinessesPage() {
               {/* Create Account Form */}
               {showCreateAccount && (
                 <>
-                  <form onSubmit={handleCreateAccountSubmit} className="space-y-4">
+                  <form
+                    onSubmit={handleCreateAccountSubmit}
+                    className="space-y-4"
+                  >
+
                     <div className="grid grid-cols-2 gap-4">
+
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          First Name *
+                        </label>
+
                         <input
                           type="text"
                           name="first_name"
@@ -823,8 +1316,12 @@ export default function BusinessesPage() {
                           placeholder="First name"
                         />
                       </div>
+
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Last Name *
+                        </label>
+
                         <input
                           type="text"
                           name="last_name"
@@ -833,9 +1330,14 @@ export default function BusinessesPage() {
                           placeholder="Last name"
                         />
                       </div>
+
                     </div>
+
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Email Address *
+                      </label>
+
                       <input
                         type="email"
                         name="email"
@@ -844,8 +1346,12 @@ export default function BusinessesPage() {
                         placeholder="Enter your email address"
                       />
                     </div>
+
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Password *</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Password *
+                      </label>
+
                       <input
                         type="password"
                         name="password"
@@ -854,8 +1360,12 @@ export default function BusinessesPage() {
                         placeholder="Create a password"
                       />
                     </div>
+
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password *</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Confirm Password *
+                      </label>
+
                       <input
                         type="password"
                         name="confirm_password"
@@ -864,27 +1374,36 @@ export default function BusinessesPage() {
                         placeholder="Confirm your password"
                       />
                     </div>
+
                     <div className="flex items-start space-x-3">
+
                       <input
                         type="checkbox"
                         name="terms_agreement"
                         required
                         className="mt-1 cursor-pointer"
                       />
+
                       <span className="text-sm text-gray-600">
                         I agree to the Terms of Service and Privacy Policy
                       </span>
+
                     </div>
+
                     <button
                       type="submit"
                       className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
                     >
                       Create Account
                     </button>
+
                   </form>
+
                   <div className="mt-6 text-center">
+
                     <p className="text-sm text-gray-600">
                       Already have an account?
+
                       <button
                         onClick={switchToSignIn}
                         className="text-blue-600 hover:text-blue-800 font-medium ml-1 cursor-pointer"
@@ -892,33 +1411,45 @@ export default function BusinessesPage() {
                         Sign In
                       </button>
                     </p>
+
                   </div>
                 </>
               )}
 
-              {/* Social Auth Buttons – shown only for sign‑in */}
+              {/* Social Auth Buttons */}
               {!showCreateAccount && (
                 <div className="mt-6">
+
                   <div className="relative">
+
                     <div className="absolute inset-0 flex items-center">
                       <div className="w-full border-t border-gray-300"></div>
                     </div>
+
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                      <span className="px-2 bg-white text-gray-500">
+                        Or continue with
+                      </span>
                     </div>
+
                   </div>
+
                   <div className="mt-4 grid grid-cols-2 gap-3">
+
                     <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
                       <i className="ri-google-fill text-red-500 text-lg"></i>
                       <span className="ml-2">Google</span>
                     </button>
+
                     <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer">
                       <i className="ri-linkedin-fill text-blue-600 text-lg"></i>
                       <span className="ml-2">LinkedIn</span>
                     </button>
+
                   </div>
                 </div>
               )}
+
             </div>
           </div>
         </div>
@@ -927,24 +1458,38 @@ export default function BusinessesPage() {
       {/* Membership Application Modal */}
       {showMembershipForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+
             <div className="p-6">
+
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Business Partnership Application</h3>
+
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Business Partnership Application
+                </h3>
+
                 <button
                   onClick={() => setShowMembershipForm(false)}
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
                 >
                   <i className="ri-close-line text-2xl"></i>
                 </button>
+
               </div>
 
-              <form onSubmit={handleMembershipSubmit} className="space-y-6">
+              <form
+                onSubmit={handleMembershipSubmit}
+                className="space-y-6"
+              >
+
                 <div className="grid md:grid-cols-2 gap-4">
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Company Name *
                     </label>
+
                     <input
                       type="text"
                       name="company_name"
@@ -953,10 +1498,12 @@ export default function BusinessesPage() {
                       placeholder="Enter company name"
                     />
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Contact Person *
                     </label>
+
                     <input
                       type="text"
                       name="contact_name"
@@ -965,13 +1512,16 @@ export default function BusinessesPage() {
                       placeholder="Full name"
                     />
                   </div>
+
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Email Address *
                     </label>
+
                     <input
                       type="email"
                       name="email"
@@ -980,10 +1530,12 @@ export default function BusinessesPage() {
                       placeholder="company@example.com"
                     />
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Phone Number *
                     </label>
+
                     <input
                       type="tel"
                       name="phone"
@@ -992,55 +1544,114 @@ export default function BusinessesPage() {
                       placeholder="+1 (555) 000-0000"
                     />
                   </div>
+
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Industry *
                     </label>
+
                     <select
                       name="industry"
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm pr-8"
                     >
-                      <option value="">Select industry</option>
-                      <option value="agriculture">Agriculture</option>
-                      <option value="banking">Banking & Finance</option>
-                      <option value="construction">Construction</option>
-                      <option value="energy">Energy & Mining</option>
-                      <option value="healthcare">Healthcare</option>
-                      <option value="manufacturing">Manufacturing</option>
-                      <option value="retail">Retail & Consumer Goods</option>
-                      <option value="technology">Technology</option>
-                      <option value="telecommunications">Telecommunications</option>
-                      <option value="transportation">Transportation & Logistics</option>
-                      <option value="other">Other</option>
+                      <option value="">
+                        Select industry
+                      </option>
+
+                      <option value="agriculture">
+                        Agriculture
+                      </option>
+
+                      <option value="banking">
+                        Banking & Finance
+                      </option>
+
+                      <option value="construction">
+                        Construction
+                      </option>
+
+                      <option value="energy">
+                        Energy & Mining
+                      </option>
+
+                      <option value="healthcare">
+                        Healthcare
+                      </option>
+
+                      <option value="manufacturing">
+                        Manufacturing
+                      </option>
+
+                      <option value="retail">
+                        Retail & Consumer Goods
+                      </option>
+
+                      <option value="technology">
+                        Technology
+                      </option>
+
+                      <option value="telecommunications">
+                        Telecommunications
+                      </option>
+
+                      <option value="transportation">
+                        Transportation & Logistics
+                      </option>
+
+                      <option value="other">
+                        Other
+                      </option>
                     </select>
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Company Size *
                     </label>
+
                     <select
                       name="company_size"
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm pr-8"
                     >
-                      <option value="">Select size</option>
-                      <option value="startup">Startup (1-10 employees)</option>
-                      <option value="small">Small (11-50 employees)</option>
-                      <option value="medium">Medium (51-250 employees)</option>
-                      <option value="large">Large (251-1000 employees)</option>
-                      <option value="enterprise">Enterprise (1000+ employees)</option>
+                      <option value="">
+                        Select size
+                      </option>
+
+                      <option value="startup">
+                        Startup (1-10 employees)
+                      </option>
+
+                      <option value="small">
+                        Small (11-50 employees)
+                      </option>
+
+                      <option value="medium">
+                        Medium (51-250 employees)
+                      </option>
+
+                      <option value="large">
+                        Large (251-1000 employees)
+                      </option>
+
+                      <option value="enterprise">
+                        Enterprise (1000+ employees)
+                      </option>
                     </select>
                   </div>
+
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Company Description
                   </label>
+
                   <textarea
                     name="company_description"
                     rows={4}
@@ -1051,42 +1662,82 @@ export default function BusinessesPage() {
                 </div>
 
                 <div>
+
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Membership Interests
                   </label>
+
                   <div className="grid grid-cols-2 gap-3">
+
                     <label className="flex items-center space-x-2">
-                      <input type="checkbox" name="interest_networking" className="cursor-pointer" />
-                      <span className="text-sm text-gray-700">Networking</span>
+                      <input
+                        type="checkbox"
+                        name="interest_networking"
+                        className="cursor-pointer"
+                      />
+
+                      <span className="text-sm text-gray-700">
+                        Networking
+                      </span>
                     </label>
+
                     <label className="flex items-center space-x-2">
-                      <input type="checkbox" name="interest_investment" className="cursor-pointer" />
-                      <span className="text-sm text-gray-700">Investment Opportunities</span>
+                      <input
+                        type="checkbox"
+                        name="interest_investment"
+                        className="cursor-pointer"
+                      />
+
+                      <span className="text-sm text-gray-700">
+                        Investment Opportunities
+                      </span>
                     </label>
+
                     <label className="flex items-center space-x-2">
-                      <input type="checkbox" name="interest_partnerships" className="cursor-pointer" />
-                      <span className="text-sm text-gray-700">Strategic Partnerships</span>
+                      <input
+                        type="checkbox"
+                        name="interest_partnerships"
+                        className="cursor-pointer"
+                      />
+
+                      <span className="text-sm text-gray-700">
+                        Strategic Partnerships
+                      </span>
                     </label>
+
                     <label className="flex items-center space-x-2">
-                      <input type="checkbox" name="interest_policy" className="cursor-pointer" />
-                      <span className="text-sm text-gray-700">Policy Influence</span>
+                      <input
+                        type="checkbox"
+                        name="interest_policy"
+                        className="cursor-pointer"
+                      />
+
+                      <span className="text-sm text-gray-700">
+                        Policy Influence
+                      </span>
                     </label>
+
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-3">
+
                   <input
                     type="checkbox"
                     name="terms_agreement"
                     required
                     className="mt-1 cursor-pointer"
                   />
+
                   <span className="text-sm text-gray-600">
-                    I agree to the Terms of Service and Privacy Policy, and consent to being contacted regarding membership opportunities.
+                    I agree to the Terms of Service and Privacy Policy,
+                    and consent to being contacted regarding membership opportunities.
                   </span>
+
                 </div>
 
                 <div className="flex justify-end space-x-4">
+
                   <button
                     type="button"
                     onClick={() => setShowMembershipForm(false)}
@@ -1094,13 +1745,16 @@ export default function BusinessesPage() {
                   >
                     Cancel
                   </button>
+
                   <button
                     type="submit"
                     className="px-6 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 cursor-pointer"
                   >
                     Submit Application
                   </button>
+
                 </div>
+
               </form>
             </div>
           </div>
@@ -1109,103 +1763,375 @@ export default function BusinessesPage() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+
             <div>
-              <h3 className="font-semibold text-lg mb-6">About us</h3>
+              <h3 className="font-semibold text-lg mb-6">
+                About us
+              </h3>
+
               <ul className="space-y-3">
-                <li><a href="/about" className="text-gray-300 hover:text-white cursor-pointer">Our mission</a></li>
-                <li><a href="/framework" className="text-gray-300 hover:text-white cursor-pointer">Our Institutional Framework</a></li>
-                <li><a href="/history" className="text-gray-300 hover:text-white cursor-pointer">History</a></li>
-                <li><a href="/about" className="text-gray-300 hover:text-white cursor-pointer">Leadership and governance</a></li>
-                <li><a href="/about" className="text-gray-300 hover:text-white cursor-pointer">Our Impact</a></li>
+
+                <li>
+                  <a
+                    href="/about"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Our mission
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/framework"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Our Institutional Framework
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/history"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    History
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/about"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Leadership and governance
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/about"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Our Impact
+                  </a>
+                </li>
+
               </ul>
             </div>
+
             <div>
-              <h3 className="font-semibold text-lg mb-6">More from the Forum</h3>
+              <h3 className="font-semibold text-lg mb-6">
+                More from the Forum
+              </h3>
+
               <ul className="space-y-3">
-                <li><a href="/initiatives" className="text-gray-300 hover:text-white cursor-pointer">Centres</a></li>
-                <li><a href="/meetings" className="text-gray-300 hover:text-white cursor-pointer">Meetings</a></li>
-                <li><a href="/stakeholders" className="text-gray-300 hover:text-white cursor-pointer">Stakeholders</a></li>
-                <li><a href="/agenda" className="text-gray-300 hover:text-white cursor-pointer">Forum Stories</a></li>
-                <li><a href="/publications" className="text-gray-300 hover:text-white cursor-pointer">Press releases</a></li>
-                <li><a href="/gallery" className="text-gray-300 hover:text-white cursor-pointer">Photo gallery</a></li>
-                <li><a href="/publications" className="text-gray-300 hover:text-white cursor-pointer">Podcasts</a></li>
-                <li><a href="/publications" className="text-gray-300 hover:text-white cursor-pointer">Videos</a></li>
+
+                <li>
+                  <a
+                    href="/initiatives"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Centres
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/meetings"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Meetings
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/stakeholders"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Stakeholders
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/agenda"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Forum Stories
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/publications"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Press releases
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/gallery"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Photo gallery
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/publications"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Podcasts
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/publications"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Videos
+                  </a>
+                </li>
+
               </ul>
             </div>
+
             <div>
-              <h3 className="font-semibold text-lg mb-6">Engage with us</h3>
+              <h3 className="font-semibold text-lg mb-6">
+                Engage with us
+              </h3>
+
               <ul className="space-y-3">
+
                 <li>
                   {user ? (
-                    <button onClick={handleLogout} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer">
+                    <button
+                      onClick={handleLogout}
+                      className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                    >
                       Logout
                     </button>
                   ) : (
-                    <button onClick={handleSignIn} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer">
+                    <button
+                      onClick={handleSignIn}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer"
+                    >
                       Sign in
                     </button>
                   )}
                 </li>
-                <li><a href="/partners" className="text-gray-300 hover:text-white cursor-pointer">Become our partner</a></li>
-                <li><a href="/join" className="text-gray-300 hover:text-white cursor-pointer">Become a member</a></li>
-                <li><a href="/publications" className="text-gray-300 hover:text-white cursor-pointer">Subscribe to our press releases</a></li>
-                <li><a href="/publications" className="text-gray-300 hover:text-white cursor-pointer">Subscribe to our newsletters</a></li>
-                <li><a href="/contact" className="text-gray-300 hover:text-white cursor-pointer">Contact us</a></li>
+
+                <li>
+                  <a
+                    href="/partners"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Become our partner
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/join"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Become a member
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/publications"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Subscribe to our press releases
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/publications"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Subscribe to our newsletters
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/contact"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Contact us
+                  </a>
+                </li>
+
               </ul>
             </div>
+
             <div>
-              <h3 className="font-semibold text-lg mb-6">Quick links</h3>
+
+              <h3 className="font-semibold text-lg mb-6">
+                Quick links
+              </h3>
+
               <ul className="space-y-3 mb-8">
-                <li><a href="/initiatives" className="text-gray-300 hover:text-white cursor-pointer">Sustainability at the Forum</a></li>
-                <li><a href="/careers" className="text-gray-300 hover:text-white cursor-pointer">Careers</a></li>
+
+                <li>
+                  <a
+                    href="/initiatives"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Sustainability at the Forum
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/careers"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    Careers
+                  </a>
+                </li>
+
               </ul>
+
               <div>
-                <h4 className="font-semibold mb-4">Language editions</h4>
+
+                <h4 className="font-semibold mb-4">
+                  Language editions
+                </h4>
+
                 <div className="flex space-x-2">
-                  <a href="/" className="text-gray-300 hover:text-white cursor-pointer">PT</a>
-                  <span className="text-gray-500">•</span>
-                  <a href="/en" className="text-gray-300 hover:text-white cursor-pointer">EN</a>
-                  <span className="text-gray-500">•</span>
-                  <a href="/es" className="text-gray-300 hover:text-white cursor-pointer">ES</a>
-                  <span className="text-gray-500">•</span>
-                  <a href="/fr" className="text-gray-300 hover:text-white cursor-pointer">FR</a>
+
+                  <a
+                    href="/"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    PT
+                  </a>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <a
+                    href="/en"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    EN
+                  </a>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <a
+                    href="/es"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    ES
+                  </a>
+
+                  <span className="text-gray-500">
+                    •
+                  </span>
+
+                  <a
+                    href="/fr"
+                    className="text-gray-300 hover:text-white cursor-pointer"
+                  >
+                    FR
+                  </a>
+
                 </div>
               </div>
+
             </div>
+
           </div>
 
           <div className="border-t border-gray-700 pt-8">
+
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+
               <div className="flex space-x-4">
-                <a href="https://www.facebook.com/share/17Jr8NpqZJ/" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="https://www.facebook.com/share/17Jr8NpqZJ/"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-facebook-fill text-xl"></i>
                 </a>
-                <a href="https://www.linkedin.com/company/the-africa-economic-forum/" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="https://www.linkedin.com/company/the-africa-economic-forum/"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-linkedin-fill text-xl"></i>
                 </a>
-                <a href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ==" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ=="
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-instagram-fill text-xl"></i>
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-youtube-fill text-xl"></i>
                 </a>
+
               </div>
+
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
-                <a href="/privacy" className="hover:text-white cursor-pointer">
+
+                <a
+                  href="/privacy"
+                  className="hover:text-white cursor-pointer"
+                >
                   Privacy Policy &amp; Terms of Service
                 </a>
-                <a href="/sitemap" className="hover:text-white cursor-pointer">
+
+                <a
+                  href="/sitemap"
+                  className="hover:text-white cursor-pointer"
+                >
                   Sitemap
                 </a>
-                <p>© 2026 Africa Economic Forum</p>
-                <a href="https://readdy.ai/?origin=logo" className="hover:text-white cursor-pointer">Website Builder</a>
+
+                <p>
+                  © 2026 Africa Economic Forum
+                </p>
+
+                <a
+                  href="https://readdy.ai/?origin=logo"
+                  className="hover:text-white cursor-pointer"
+                >
+                  Website Builder
+                </a>
+
               </div>
+
             </div>
           </div>
+
         </div>
       </footer>
+
     </div>
   );
-}
+        }
