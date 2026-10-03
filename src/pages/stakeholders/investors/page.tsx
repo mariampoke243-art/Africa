@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { supabase } from '../../../supabase/client';
 
 export default function InvestorsPage() {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
@@ -86,8 +87,10 @@ export default function InvestorsPage() {
 
   const handleMembershipSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
       const formData = new FormData(e.currentTarget);
+
       const organizationName = formData.get('organization_name') as string;
       const contactName = formData.get('contact_name') as string;
       const email = formData.get('email') as string;
@@ -95,8 +98,37 @@ export default function InvestorsPage() {
       const investorType = formData.get('investor_type') as string;
       const investmentFocus = formData.get('investment_focus') as string;
 
-      if (organizationName && contactName && email && phone && investorType && investmentFocus) {
-        alert('Membership application submitted successfully! We will contact you within 48 hours to discuss exclusive opportunities.');
+      if (
+        organizationName &&
+        contactName &&
+        email &&
+        phone &&
+        investorType &&
+        investmentFocus
+      ) {
+        const { error } = await supabase
+          .from('investors_alliance_applications')
+          .insert([
+            {
+              organization_name: organizationName,
+              contact_name: contactName,
+              email: email,
+              phone: phone,
+              investor_type: investorType,
+              investment_focus: investmentFocus,
+            },
+          ]);
+
+        if (error) {
+          console.error('Failed to submit Investors Alliance application:', error);
+          alert('An error occurred while submitting your application. Please try again.');
+          return;
+        }
+
+        alert(
+          'Membership application submitted successfully! We will contact you within 48 hours to discuss exclusive opportunities.'
+        );
+
         setShowMembershipForm(false);
       } else {
         alert('Please fill in all required fields.');
@@ -225,6 +257,7 @@ export default function InvestorsPage() {
                 />
               </a>
             </div>
+
             <nav className="hidden md:flex space-x-8">
               <a href="/" className="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium transition-colors">
                 Home
@@ -251,6 +284,7 @@ export default function InvestorsPage() {
                 Contact
               </a>
             </nav>
+
             <div className="hidden md:flex items-center space-x-4">
               {user ? (
                 <>
@@ -271,6 +305,7 @@ export default function InvestorsPage() {
                 </button>
               )}
             </div>
+
             <button onClick={toggleMobileMenu} className="md:hidden p-2 cursor-pointer">
               <i className="ri-menu-line text-2xl"></i>
             </button>
@@ -290,11 +325,19 @@ export default function InvestorsPage() {
             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <i className="ri-funds-line text-3xl text-white"></i>
             </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">AEF Investors Alliance</h1>
-            <p className="text-2xl font-semibold text-blue-100 mb-6">The Gateway for Investing in Africa</p>
+
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
+              AEF Investors Alliance
+            </h1>
+
+            <p className="text-2xl font-semibold text-blue-100 mb-6">
+              The Gateway for Investing in Africa
+            </p>
+
             <p className="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed mb-8">
               Africa is not the future. Africa is now.
             </p>
+
             <button
               onClick={() => setShowMembershipForm(true)}
               className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
@@ -311,18 +354,23 @@ export default function InvestorsPage() {
           <p className="text-lg text-gray-700 leading-relaxed">
             The global race for resources, markets, talent and growth is accelerating. While mature economies face slowing demographics and constrained growth, Africa is emerging as one of the world's most significant investment frontiers.
           </p>
+
           <p className="text-2xl font-bold text-blue-900">
             By 2050, one in four people on Earth will be African.
           </p>
+
           <p className="text-lg text-gray-700 leading-relaxed">
             The continent possesses the critical minerals powering the global energy transition, some of the world's fastest-growing cities, expanding digital economies, vast agricultural potential, and unprecedented infrastructure opportunities.
           </p>
+
           <p className="text-lg text-gray-700 leading-relaxed">
             From copper and cobalt in the Democratic Republic of Congo to lithium across Southern Africa, from renewable energy and digital infrastructure to healthcare, tourism, logistics, manufacturing and artificial intelligence, Africa is entering a defining decade.
           </p>
+
           <p className="text-lg text-gray-700 leading-relaxed">
             The question is no longer whether Africa matters.
           </p>
+
           <p className="text-xl font-semibold text-gray-900 leading-relaxed">
             The question is who will be positioned to participate in its rise.
           </p>
@@ -332,20 +380,27 @@ export default function InvestorsPage() {
       {/* Where Conversations Are Shaped */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Where Conversations About Investing in Africa Are Shaped</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">
+            Where Conversations About Investing in Africa Are Shaped
+          </h2>
+
           <div className="space-y-6">
             <p className="text-lg text-gray-700 leading-relaxed">
               The AEF Investors Alliance is a high-level community of investors, family offices, sovereign wealth funds, development finance institutions, private equity firms, venture capital leaders, multinational corporations and strategic partners committed to unlocking opportunities across Africa.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               More than a network, it is a platform where capital meets opportunity, where relationships become partnerships, and where conversations lead to action.
             </p>
+
             <p className="text-xl font-semibold text-gray-900 leading-relaxed">
               Because in Africa, access often determines who sees an opportunity—and who secures it.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               The Alliance was created for decision-makers who understand that investment success requires more than information.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               It requires trusted relationships, strategic intelligence and direct access.
             </p>
@@ -357,19 +412,32 @@ export default function InvestorsPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900">Why Africa? Why Now?</h2>
+            <h2 className="text-4xl font-bold text-gray-900">
+              Why Africa? Why Now?
+            </h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {whyAfricaCards.map((card) => (
-              <div key={card.title} className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <div className={`w-12 h-12 ${card.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+              <div
+                key={card.title}
+                className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-shadow"
+              >
+                <div
+                  className={`w-12 h-12 ${card.iconBg} rounded-lg flex items-center justify-center mb-4`}
+                >
                   <i className={`${card.icon} text-2xl ${card.iconColor}`}></i>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{card.title}</h3>
+
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  {card.title}
+                </h3>
+
                 <div className="space-y-3">
                   {card.paragraphs.map((p) => (
-                    <p key={p} className="text-gray-600">{p}</p>
+                    <p key={p} className="text-gray-600">
+                      {p}
+                    </p>
                   ))}
                 </div>
               </div>
@@ -379,17 +447,26 @@ export default function InvestorsPage() {
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                 <i className="ri-line-chart-line text-2xl text-orange-600"></i>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">The Rise of African Markets</h3>
+
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                The Rise of African Markets
+              </h3>
+
               <p className="text-gray-600 mb-4">
                 Rapid urbanization, digital adoption, financial inclusion and a growing middle class are transforming sectors such as:
               </p>
+
               <div className="flex flex-wrap gap-2 mb-4">
                 {sectors.map((sector) => (
-                  <span key={sector} className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
+                  <span
+                    key={sector}
+                    className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium"
+                  >
                     {sector}
                   </span>
                 ))}
               </div>
+
               <p className="text-gray-600">
                 The next generation of global growth stories will increasingly be found in Africa.
               </p>
@@ -402,17 +479,30 @@ export default function InvestorsPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900">What Members Gain</h2>
+            <h2 className="text-4xl font-bold text-gray-900">
+              What Members Gain
+            </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {memberGains.map((gain) => (
-              <div key={gain.title} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div className={`w-12 h-12 ${gain.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+              <div
+                key={gain.title}
+                className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div
+                  className={`w-12 h-12 ${gain.iconBg} rounded-lg flex items-center justify-center mb-4`}
+                >
                   <i className={`${gain.icon} text-2xl ${gain.iconColor}`}></i>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{gain.title}</h3>
-                <p className="text-gray-600">{gain.description}</p>
+
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  {gain.title}
+                </h3>
+
+                <p className="text-gray-600">
+                  {gain.description}
+                </p>
               </div>
             ))}
           </div>
@@ -422,14 +512,19 @@ export default function InvestorsPage() {
       {/* Membership */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Membership</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">
+            Membership
+          </h2>
+
           <div className="space-y-6">
             <p className="text-lg text-gray-700 leading-relaxed">
               The AEF Investors Alliance is a curated community of investors, institutions and strategic leaders committed to shaping Africa's next growth chapter.
             </p>
+
             <p className="text-lg font-semibold text-gray-900 leading-relaxed">
               Membership is not open enrollment.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               Applications are reviewed to ensure the Alliance remains a high-value environment where capital, expertise and opportunities can be exchanged efficiently, professionally and confidentially.
             </p>
@@ -440,7 +535,10 @@ export default function InvestorsPage() {
       {/* Membership Includes */}
       <section className="py-20 bg-blue-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Membership Includes</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">
+            Membership Includes
+          </h2>
+
           <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
             {membershipIncludes.map((item) => (
               <div key={item} className="flex items-start space-x-3">
@@ -455,20 +553,27 @@ export default function InvestorsPage() {
       {/* Membership by Application and Approval */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Membership by Application and Approval</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">
+            Membership by Application and Approval
+          </h2>
+
           <div className="space-y-6">
             <p className="text-lg font-semibold text-gray-900 leading-relaxed">
               Membership is granted through application and approval.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               To preserve the quality of engagement and maintain meaningful access among members, participation is intentionally limited.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               Seats are allocated by region and sector to ensure the Alliance remains a working room for investors and decision-makers rather than a conference audience.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               The objective is simple:
             </p>
+
             <p className="text-xl font-semibold text-blue-900 leading-relaxed">
               To create an environment where conversations become partnerships, partnerships become investments, and investments create impact.
             </p>
@@ -479,20 +584,27 @@ export default function InvestorsPage() {
       {/* A Seat at the Table */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">A Seat at the Table Where Africa's Investment Future Is Being Shaped</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">
+            A Seat at the Table Where Africa's Investment Future Is Being Shaped
+          </h2>
+
           <div className="space-y-6">
             <p className="text-lg text-gray-700 leading-relaxed">
               The next decade will redefine global capital flows, supply chains, energy systems and growth markets.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               Africa will be central to that transformation.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               The investors who build relationships today will be better positioned to identify opportunities tomorrow.
             </p>
+
             <p className="text-lg text-gray-700 leading-relaxed">
               The question is not whether opportunities will emerge.
             </p>
+
             <p className="text-xl font-semibold text-gray-900 leading-relaxed">
               The question is whether you will be positioned to access them.
             </p>
@@ -503,13 +615,18 @@ export default function InvestorsPage() {
       {/* Apply for Membership */}
       <section className="py-20 bg-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Apply for Membership</h2>
+          <h2 className="text-4xl font-bold mb-6">
+            Apply for Membership
+          </h2>
+
           <p className="text-xl text-blue-100 mb-4 max-w-3xl mx-auto">
             Join a trusted community of investors, institutions and business leaders shaping the future of investment in Africa.
           </p>
+
           <p className="text-blue-200 mb-8">
             Membership is subject to application and approval.
           </p>
+
           <button
             onClick={() => setShowMembershipForm(true)}
             className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
@@ -523,12 +640,19 @@ export default function InvestorsPage() {
       <section className="py-16 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="space-y-2 mb-6">
-            <p className="text-2xl font-bold">Capital follows opportunity.</p>
-            <p className="text-2xl font-bold">Opportunity follows access.</p>
+            <p className="text-2xl font-bold">
+              Capital follows opportunity.
+            </p>
+
+            <p className="text-2xl font-bold">
+              Opportunity follows access.
+            </p>
           </div>
+
           <p className="text-lg text-gray-300 mb-8">
             Join the AEF Investors Alliance and connect with the people, projects and partnerships shaping Africa's next decade.
           </p>
+
           <button
             onClick={() => setShowMembershipForm(true)}
             className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
@@ -544,7 +668,10 @@ export default function InvestorsPage() {
           <div className="bg-white rounded-lg max-w-md w-full">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Sign In</h3>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Sign In
+                </h3>
+
                 <button
                   onClick={() => setShowSignInModal(false)}
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -558,6 +685,7 @@ export default function InvestorsPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Email Address *
                   </label>
+
                   <input
                     type="email"
                     name="email"
@@ -566,10 +694,12 @@ export default function InvestorsPage() {
                     placeholder="Enter your email address"
                   />
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Password *
                   </label>
+
                   <input
                     type="password"
                     name="password"
@@ -578,12 +708,14 @@ export default function InvestorsPage() {
                     placeholder="Enter your password"
                   />
                 </div>
+
                 <button
                   type="submit"
                   className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
                 >
                   Sign In
                 </button>
+
                 <p className="text-center text-sm text-gray-600">
                   Don't have an account?{' '}
                   <button
@@ -606,7 +738,10 @@ export default function InvestorsPage() {
           <div className="bg-white rounded-lg max-w-md w-full">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Create Account</h3>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Create Account
+                </h3>
+
                 <button
                   onClick={() => setShowCreateAccountModal(false)}
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -620,6 +755,7 @@ export default function InvestorsPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Full Name *
                   </label>
+
                   <input
                     type="text"
                     name="name"
@@ -628,10 +764,12 @@ export default function InvestorsPage() {
                     placeholder="Enter your full name"
                   />
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Email Address *
                   </label>
+
                   <input
                     type="email"
                     name="email"
@@ -640,10 +778,12 @@ export default function InvestorsPage() {
                     placeholder="Enter your email address"
                   />
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Password *
                   </label>
+
                   <input
                     type="password"
                     name="password"
@@ -652,12 +792,14 @@ export default function InvestorsPage() {
                     placeholder="Create a password"
                   />
                 </div>
+
                 <button
                   type="submit"
                   className="w-full bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 font-medium whitespace-nowrap cursor-pointer"
                 >
                   Create Account
                 </button>
+
                 <p className="text-center text-sm text-gray-600">
                   Already have an account?{' '}
                   <button
@@ -680,7 +822,10 @@ export default function InvestorsPage() {
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-screen overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Investors Alliance Application</h3>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Investors Alliance Application
+                </h3>
+
                 <button
                   onClick={() => setShowMembershipForm(false)}
                   className="text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -695,6 +840,7 @@ export default function InvestorsPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Organization Name *
                     </label>
+
                     <input
                       type="text"
                       name="organization_name"
@@ -703,10 +849,12 @@ export default function InvestorsPage() {
                       placeholder="Fund/Organization name"
                     />
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Contact Person *
                     </label>
+
                     <input
                       type="text"
                       name="contact_name"
@@ -722,6 +870,7 @@ export default function InvestorsPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Email Address *
                     </label>
+
                     <input
                       type="email"
                       name="email"
@@ -730,10 +879,12 @@ export default function InvestorsPage() {
                       placeholder="contact@fund.com"
                     />
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Phone Number *
                     </label>
+
                     <input
                       type="tel"
                       name="phone"
@@ -749,6 +900,7 @@ export default function InvestorsPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Investor Type *
                     </label>
+
                     <select
                       name="investor_type"
                       required
@@ -766,10 +918,12 @@ export default function InvestorsPage() {
                       <option value="other">Other</option>
                     </select>
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Investment Focus *
                     </label>
+
                     <select
                       name="investment_focus"
                       required
@@ -817,6 +971,7 @@ export default function InvestorsPage() {
                 <li><a href="/about" className="text-gray-300 hover:text-white cursor-pointer">Our Impact</a></li>
               </ul>
             </div>
+
             <div>
               <h3 className="font-semibold text-lg mb-6">More from the Forum</h3>
               <ul className="space-y-3">
@@ -830,20 +985,28 @@ export default function InvestorsPage() {
                 <li><a href="/publications" className="text-gray-300 hover:text-white cursor-pointer">Videos</a></li>
               </ul>
             </div>
+
             <div>
               <h3 className="font-semibold text-lg mb-6">Engage with us</h3>
               <ul className="space-y-3">
                 <li>
                   {user ? (
-                    <button onClick={handleLogout} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer">
+                    <button
+                      onClick={handleLogout}
+                      className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 whitespace-nowrap cursor-pointer"
+                    >
                       Logout
                     </button>
                   ) : (
-                    <button onClick={handleSignIn} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer">
+                    <button
+                      onClick={handleSignIn}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 whitespace-nowrap cursor-pointer"
+                    >
                       Sign in
                     </button>
                   )}
                 </li>
+
                 <li><a href="/partners" className="text-gray-300 hover:text-white cursor-pointer">Become our partner</a></li>
                 <li><a href="/join" className="text-gray-300 hover:text-white cursor-pointer">Become a member</a></li>
                 <li><a href="/publications" className="text-gray-300 hover:text-white cursor-pointer">Subscribe to our press releases</a></li>
@@ -851,14 +1014,18 @@ export default function InvestorsPage() {
                 <li><a href="/contact" className="text-gray-300 hover:text-white cursor-pointer">Contact us</a></li>
               </ul>
             </div>
+
             <div>
               <h3 className="font-semibold text-lg mb-6">Quick links</h3>
+
               <ul className="space-y-3 mb-8">
                 <li><a href="/initiatives" className="text-gray-300 hover:text-white cursor-pointer">Sustainability at the Forum</a></li>
                 <li><a href="/careers" className="text-gray-300 hover:text-white cursor-pointer">Careers</a></li>
               </ul>
+
               <div>
                 <h4 className="font-semibold mb-4">Language editions</h4>
+
                 <div className="flex space-x-2">
                   <a href="/" className="text-gray-300 hover:text-white cursor-pointer">PT</a>
                   <span className="text-gray-500">•</span>
@@ -875,26 +1042,48 @@ export default function InvestorsPage() {
           <div className="border-t border-gray-700 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <div className="flex space-x-4">
-                <a href="https://www.facebook.com/share/17Jr8NpqZJ/" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+                <a
+                  href="https://www.facebook.com/share/17Jr8NpqZJ/"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-facebook-fill text-xl"></i>
                 </a>
-                <a href="https://www.linkedin.com/company/the-africa-economic-forum/" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="https://www.linkedin.com/company/the-africa-economic-forum/"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-linkedin-fill text-xl"></i>
                 </a>
-                <a href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ==" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="https://www.instagram.com/theafricaeconomicforum?igsh=MWowNmw1NjdueXNkbQ=="
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-instagram-fill text-xl"></i>
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer">
+
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
+                >
                   <i className="ri-youtube-fill text-xl"></i>
                 </a>
               </div>
+
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy & Terms of Service
                 </a>
 
                 <p>© 2026 Africa Economic Forum</p>
-                <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
+
+                <a
+                  href="https://codesignglobal.com"
+                  className="hover:text-white cursor-pointer"
+                >
+                  Code Design Global
+                </a>
               </div>
             </div>
           </div>
@@ -902,4 +1091,4 @@ export default function InvestorsPage() {
       </footer>
     </div>
   );
-}
+              }
