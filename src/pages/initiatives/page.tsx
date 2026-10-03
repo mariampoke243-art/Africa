@@ -236,7 +236,7 @@ export default function InitiativesPage() {
         '• Legacy Beyond the Ceremony: Each edition leaves behind commitments, partnerships, and actions to advance global causes.',
 
         'Why It Matters',
-        'The Africa Economic Forum believes that celebrating those who inspire is itself a strategy for change.
+        'The Africa Economic Forum believes that celebrating those who inspire is itself a strategy for change.',
 
         'By showcasing exemplary figures, the GIA:',
         '• Inspire leaders in Africa and worldwide to act with honor.',
@@ -791,4 +791,4 @@ export default function InitiativesPage() {
       </footer>
     </div>
   );
-}
+      }
