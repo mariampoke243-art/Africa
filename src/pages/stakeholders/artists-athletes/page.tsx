@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../../../supabase/client';
 
 const ArtistsAthletesPage: React.FC = () => {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
@@ -153,9 +154,52 @@ const ArtistsAthletesPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Artists & Athletes Network application submitted:', formData);
-    alert('Application submitted successfully! Welcome to the AEF Artists & Athletes Network!');
+
+    const { error } = await supabase
+      .from('artists_athletes_applications')
+      .insert([
+        {
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          country: formData.country,
+          city: formData.city,
+          category: formData.category,
+          discipline: formData.discipline,
+          experience: formData.experience,
+          achievements: formData.achievements,
+          social_impact: formData.socialImpact,
+          interests: formData.interests,
+          collaboration_goals: formData.collaborationGoals,
+          availability: formData.availability,
+          portfolio: formData.portfolio,
+          social_media: formData.socialMedia,
+          terms_accepted: formData.termsAccepted,
+        },
+      ]);
+
+    if (error) {
+      console.error(
+        'Failed to submit Artists & Athletes application:',
+        error
+      );
+      alert(
+        'An error occurred while submitting your application. Please try again.'
+      );
+      return;
+    }
+
+    console.log(
+      'Artists & Athletes Network application submitted:',
+      formData
+    );
+
+    alert(
+      'Application submitted successfully! Welcome to the AEF Artists & Athletes Network!'
+    );
+
     setIsFormOpen(false);
+
     setFormData({
       fullName: '',
       email: '',
@@ -1213,6 +1257,7 @@ const ArtistsAthletesPage: React.FC = () => {
                 <li><a href="/about" className="text-gray-300 hover:text-white cursor-pointer">Our Impact</a></li>
               </ul>
             </div>
+
             <div>
               <h3 className="font-semibold text-lg mb-6">More from the Forum</h3>
               <ul className="space-y-3">
@@ -1226,6 +1271,7 @@ const ArtistsAthletesPage: React.FC = () => {
                 <li><a href="/publications" className="text-gray-300 hover:text-white cursor-pointer">Videos</a></li>
               </ul>
             </div>
+
             <div>
               <h3 className="font-semibold text-lg mb-6">Engage with us</h3>
               <ul className="space-y-3">
@@ -1247,12 +1293,14 @@ const ArtistsAthletesPage: React.FC = () => {
                 <li><a href="/contact" className="text-gray-300 hover:text-white cursor-pointer">Contact us</a></li>
               </ul>
             </div>
+
             <div>
               <h3 className="font-semibold text-lg mb-6">Quick links</h3>
               <ul className="space-y-3 mb-8">
                 <li><a href="/initiatives" className="text-gray-300 hover:text-white cursor-pointer">Sustainability at the Forum</a></li>
                 <li><a href="/careers" className="text-gray-300 hover:text-white cursor-pointer">Careers</a></li>
               </ul>
+
               <div>
                 <h4 className="font-semibold mb-4">Language editions</h4>
                 <div className="flex space-x-2">
@@ -1284,6 +1332,7 @@ const ArtistsAthletesPage: React.FC = () => {
                   <i className="ri-youtube-fill text-xl"></i>
                 </a>
               </div>
+
               <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy & Terms of Service
