@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../../supabase/client';
 
 const ArtistsAthletesPage: React.FC = () => {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
@@ -153,27 +154,61 @@ const ArtistsAthletesPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Artists & Athletes Network application submitted:', formData);
-    alert('Application submitted successfully! Welcome to the AEF Artists & Athletes Network!');
-    setIsFormOpen(false);
-    setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      country: '',
-      city: '',
-      category: '',
-      discipline: '',
-      experience: '',
-      achievements: '',
-      socialImpact: '',
-      interests: [],
-      collaborationGoals: '',
-      availability: '',
-      portfolio: '',
-      socialMedia: '',
-      termsAccepted: false,
-    });
+
+    try {
+      const { error } = await supabase
+        .from('artists_athletes_applications')
+        .insert([
+          {
+            full_name: formData.fullName,
+            email: formData.email,
+            phone: formData.phone,
+            country: formData.country,
+            city: formData.city,
+            category: formData.category,
+            discipline: formData.discipline,
+            experience: formData.experience,
+            achievements: formData.achievements,
+            social_impact: formData.socialImpact,
+            interests: formData.interests,
+            collaboration_goals: formData.collaborationGoals,
+            availability: formData.availability,
+            portfolio: formData.portfolio || null,
+            social_media: formData.socialMedia || null,
+            terms_accepted: formData.termsAccepted,
+          },
+        ]);
+
+      if (error) {
+        console.error('Artists & Athletes application submission error:', error);
+        alert('Unable to submit your application. Please try again later.');
+        return;
+      }
+
+      alert('Application submitted successfully! Welcome to the AEF Artists & Athletes Network!');
+      setIsFormOpen(false);
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        country: '',
+        city: '',
+        category: '',
+        discipline: '',
+        experience: '',
+        achievements: '',
+        socialImpact: '',
+        interests: [],
+        collaborationGoals: '',
+        availability: '',
+        portfolio: '',
+        socialMedia: '',
+        termsAccepted: false,
+      });
+    } catch (err) {
+      console.error('Unexpected Artists & Athletes application error:', err);
+      alert('An unexpected error occurred. Please try again later.');
+    }
   };
 
   // Page content
