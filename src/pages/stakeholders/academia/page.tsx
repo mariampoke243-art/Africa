@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../../../supabase/client';
 
 export default function Academia() {
   // Modified component state
@@ -103,24 +104,61 @@ export default function Academia() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Academia Think Tank application submitted:', formData);
-    alert('Application submitted successfully! We will contact you soon.');
-    setIsFormOpen(false);
-    setFormData({
-      institutionName: '',
-      contactName: '',
-      title: '',
-      email: '',
-      phone: '',
-      website: '',
-      institutionType: '',
-      researchAreas: [],
-      currentProjects: '',
-      collaborationGoals: '',
-      publicationInterests: [],
-      networkingPreferences: [],
-      termsAccepted: false,
-    });
+
+    if (!formData.termsAccepted) {
+      alert('Please accept the terms and conditions and privacy policy.');
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('academia_think_tank_applications')
+        .insert([
+          {
+            institution_name: formData.institutionName,
+            contact_name: formData.contactName,
+            title: formData.title,
+            email: formData.email,
+            phone: formData.phone,
+            website: formData.website || null,
+            institution_type: formData.institutionType,
+            research_areas: formData.researchAreas,
+            current_projects: formData.currentProjects,
+            collaboration_goals: formData.collaborationGoals,
+            publication_interests: formData.publicationInterests,
+            networking_preferences: formData.networkingPreferences,
+            terms_accepted: formData.termsAccepted,
+          },
+        ]);
+
+      if (error) {
+        console.error('Error submitting Academia Think Tank application:', error);
+        alert('An error occurred while submitting your application. Please try again.');
+        return;
+      }
+
+      console.log('Academia Think Tank application submitted:', formData);
+      alert('Application submitted successfully! We will contact you soon.');
+      setIsFormOpen(false);
+      setFormData({
+        institutionName: '',
+        contactName: '',
+        title: '',
+        email: '',
+        phone: '',
+        website: '',
+        institutionType: '',
+        researchAreas: [],
+        currentProjects: '',
+        collaborationGoals: '',
+        publicationInterests: [],
+        networkingPreferences: [],
+        termsAccepted: false,
+      });
+    } catch (err) {
+      console.error('Academia Think Tank application error:', err);
+      alert('An unexpected error occurred. Please try again later.');
+    }
   };
 
   // Page content
@@ -1732,4 +1770,4 @@ export default function Academia() {
       </footer>
     </div>
   );
-}
+            }
