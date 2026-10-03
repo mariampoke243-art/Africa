@@ -176,35 +176,245 @@ const ArtistsAthletesPage: React.FC = () => {
     });
   };
 
-  const featuredMembers = [
+  // Page content
+  const influenceLines = [
+    'Sport fills stadiums.',
+    'Music crosses languages.',
+    'Film changes perceptions.',
+    'Fashion creates markets.',
+    'Digital creators build communities.',
+  ];
+
+  const industryNeeds = [
+    'Capital.',
+    'Infrastructure.',
+    'Professional management.',
+    'Intellectual property protection.',
+    'Technology.',
+    'Markets.',
+    'Partnerships.',
+  ];
+
+  const meetingLines = [
+    'A space where talent meets capital.',
+    'Where creators meet brands.',
+    'Where athletes meet investors.',
+    'Where culture meets diplomacy.',
+    'And where ideas can become businesses.',
+  ];
+
+  const sectors = [
     {
-      name: 'Kwesi Mensah',
-      title: 'Contemporary Artist',
-      discipline: 'Visual Arts',
-      achievement: 'International Exhibition Winner',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20male%20artist%2C%20confident%20expression%2C%20art%20studio%20background%2C%20creative%20professional%2C%20African%20artist%20portrait&width=300&height=300&seq=aa1&orientation=squarish',
+      title: 'Sports Business & Investment',
+      text: 'Connecting athletes, clubs, federations, investors, sponsors and sports executives around the business of sport.',
+      icon: 'ri-trophy-line',
+      card: 'bg-gradient-to-br from-purple-50 to-purple-100',
+      iconBg: 'bg-purple-500',
     },
     {
-      name: 'Amara Okonkwo',
-      title: 'Professional Footballer',
-      discipline: 'Sports',
-      achievement: 'National Team Captain',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20female%20athlete%2C%20confident%20smile%2C%20sports%20setting%2C%20African%20sportswoman%2C%20team%20captain%20portrait&width=300&height=300&seq=aa2&orientation=squarish',
+      title: 'Music & Entertainment',
+      text: 'Creating opportunities across music, live entertainment, production, distribution and global partnerships.',
+      icon: 'ri-music-2-line',
+      card: 'bg-gradient-to-br from-blue-50 to-blue-100',
+      iconBg: 'bg-blue-500',
     },
     {
-      name: 'Jamal Ahmed',
-      title: 'Hip-Hop Producer',
-      discipline: 'Music',
-      achievement: 'Grammy-Nominated Artist',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20male%20music%20producer%2C%20confident%20expression%2C%20recording%20studio%20background%2C%20African%20musician%20artist&width=300&height=300&seq=aa3&orientation=squarish',
+      title: 'Film & Television',
+      text: "Connecting filmmakers, producers, studios, platforms and investors to develop Africa's screen industries.",
+      icon: 'ri-movie-2-line',
+      card: 'bg-gradient-to-br from-red-50 to-red-100',
+      iconBg: 'bg-red-500',
     },
     {
-      name: 'Zara Konaté',
-      title: 'Contemporary Dancer',
-      discipline: 'Dance',
-      achievement: 'International Dance Festival Winner',
-      image: 'https://readdy.ai/api/search-image?query=Professional%20female%20dancer%2C%20confident%20expression%2C%20dance%20studio%20background%2C%20contemporary%20dancer%20African%20woman&width=300&height=300&seq=aa4&orientation=squarish',
+      title: 'Fashion & Design',
+      text: 'Supporting African designers, brands and creative entrepreneurs as they expand into regional and international markets.',
+      icon: 'ri-t-shirt-line',
+      card: 'bg-gradient-to-br from-orange-50 to-orange-100',
+      iconBg: 'bg-orange-500',
     },
+    {
+      title: 'Digital Content & Creator Economy',
+      text: 'Connecting creators, platforms, brands and technology companies shaping the next generation of African media.',
+      icon: 'ri-live-line',
+      card: 'bg-gradient-to-br from-teal-50 to-teal-100',
+      iconBg: 'bg-teal-500',
+    },
+    {
+      title: 'Cultural Diplomacy',
+      text: "Using culture, sport and creativity to strengthen international relationships and Africa's global presence.",
+      icon: 'ri-earth-line',
+      card: 'bg-gradient-to-br from-green-50 to-green-100',
+      iconBg: 'bg-green-500',
+    },
+    {
+      title: 'Tourism & Destination Branding',
+      text: 'Connecting creative industries, sports and cultural assets with tourism, investment and national branding.',
+      icon: 'ri-map-pin-line',
+      card: 'bg-gradient-to-br from-purple-50 to-purple-100',
+      iconBg: 'bg-purple-500',
+    },
+    {
+      title: 'Intellectual Property',
+      text: 'Promoting stronger commercial opportunities around African creativity, content, brands and intellectual property.',
+      icon: 'ri-copyright-line',
+      card: 'bg-gradient-to-br from-blue-50 to-blue-100',
+      iconBg: 'bg-blue-500',
+    },
+  ];
+
+  const whoShouldJoin = [
+    {
+      title: 'Athletes & Sports Leaders',
+      text: 'Professional athletes, sports executives, club owners, federations and sports entrepreneurs.',
+      icon: 'ri-medal-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Artists & Musicians',
+      text: 'Artists, musicians, performers and entertainment professionals.',
+      icon: 'ri-mic-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Filmmakers & Producers',
+      text: 'Directors, producers, actors, studios and film industry executives.',
+      icon: 'ri-clapperboard-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Fashion & Design Leaders',
+      text: 'Designers, fashion houses, creative directors and industry entrepreneurs.',
+      icon: 'ri-scissors-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Creative Entrepreneurs',
+      text: "Founders building businesses across Africa's creative economy.",
+      icon: 'ri-lightbulb-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Agents & Managers',
+      text: 'Professionals representing and developing talent.',
+      icon: 'ri-user-star-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Investors & Brands',
+      text: 'Investors, sponsors and corporations seeking opportunities across sports and creative industries.',
+      icon: 'ri-funds-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Cultural Institutions',
+      text: 'Organizations promoting African culture, heritage and international cultural exchange.',
+      icon: 'ri-bank-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+  ];
+
+  const memberGains = [
+    {
+      title: 'Access',
+      text: 'Engage with investors, governments, CEOs, brands, institutions and strategic partners.',
+      icon: 'ri-key-2-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Capital',
+      text: 'Connect relevant creative and sports ventures with investors, sponsors and financing opportunities.',
+      icon: 'ri-funds-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Partnerships',
+      text: 'Develop relationships with brands, media companies, technology platforms, institutions and international partners.',
+      icon: 'ri-handshake-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Visibility',
+      text: 'Position your talent, organization, brand or project within a high-level African and international ecosystem.',
+      icon: 'ri-megaphone-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Opportunities',
+      text: 'Discover commercial, sponsorship, investment, licensing and collaboration opportunities.',
+      icon: 'ri-compass-3-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+    {
+      title: 'Market Access',
+      text: 'Build relationships that can support expansion across African and international markets.',
+      icon: 'ri-store-2-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Influence',
+      text: "Participate in conversations shaping the future of Africa's creative economy, sports industry and cultural diplomacy.",
+      icon: 'ri-chat-voice-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+  ];
+
+  const membershipBenefits = [
+    'Africa Creative & Sports Forum Membership',
+    'Official Access to the Africa Economic Forum',
+    'Creative & Sports Leadership Sessions',
+    'Sports Business & Investment Roundtables',
+    'Creative Economy Roundtables',
+    'Access to the AEF Member Network',
+    'Access to Selected AEF Deal Room Opportunities',
+    'Investor & Brand Matchmaking',
+    'Strategic Partnership Opportunities',
+    'Invitations to Leadership Dinners & Private Receptions',
+    'Opportunities for Sponsorship & Commercial Partnerships',
+    'Visibility Across Selected AEF Platforms',
+    'Cultural Diplomacy & International Engagement Opportunities',
+    'Year-Round Community Engagement',
+    'Curated Introductions to Relevant Investors, Brands & Institutions',
+  ];
+
+  const membershipIncludes = [
+    'Africa Creative & Sports Forum Membership',
+    'Africa Economic Forum Delegate Pass',
+    'Creative & Sports Leadership Sessions',
+    'Investor & Brand Networking',
+    'Selected AEF Deal Room Access',
+    'Strategic Partnership Opportunities',
+    'Member Network Access',
+    'Year-Round Community Engagement',
+    'Participation in Selected AEF Initiatives',
+  ];
+
+  const futureBrands = [
+    'The athletes who become global brands.',
+    'The artists who build international businesses.',
+    'The filmmakers who tell African stories to the world.',
+    'The designers who create globally recognized brands.',
+    'The entrepreneurs who turn creativity into scalable companies.',
+  ];
+
+  const closingLines = [
+    'Talent Creates Influence.',
+    'Influence Creates Opportunity.',
+    'Opportunity Creates Industries.',
   ];
 
   return (
@@ -260,184 +470,183 @@ const ArtistsAthletesPage: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section 
-        className="relative h-96 bg-cover bg-center bg-no-repeat flex items-center"
+      <section
+        className="relative min-h-[24rem] bg-cover bg-center bg-no-repeat flex items-center py-16"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Artists%20and%20athletes%20collaboration%2C%20creative%20professionals%2C%20performance%20stage%2C%20cultural%20diversity%2C%20arts%20and%20sports%20event&width=1200&height=400&seq=aa-hero&orientation=landscape')`
         }}
       >
         <div className="container mx-auto px-6">
           <div className="max-w-3xl text-white">
-            <h1 className="text-5xl font-bold mb-6">Artists & Athletes Network</h1>
+            <h1 className="text-5xl font-bold mb-6">Africa Creative & Sports Forum</h1>
+            <p className="text-2xl font-semibold mb-4 leading-snug">
+              Where Africa's Influence Becomes an Industry
+            </p>
             <p className="text-xl mb-8 leading-relaxed">
-              Bringing together creative talents and sports champions to amplify their voice, expand their impact, and create meaningful partnerships for social and economic change.
+              Africa does not only produce resources. It produces talent, culture, creativity and influence.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
               className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors whitespace-nowrap cursor-pointer"
             >
-              Join Our Network
+              Apply for Membership
             </button>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Introduction */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Empowering Creative and Athletic Excellence</h2>
-            <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-              The AEF Artists & Athletes Network celebrates and amplifies the voices of artists, performers, and athletes who are creating cultural impact 
-              and driving social change. We provide platforms, partnerships, and opportunities to expand their reach and influence globally.
-            </p>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-creativity-line text-2xl text-purple-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Creative Expression</h3>
-                <p className="text-gray-600">
-                  Celebrate and amplify diverse artistic voices and athletic excellence.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-global-line text-2xl text-blue-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Global Platform</h3>
-                <p className="text-gray-600">
-                  Reach international audiences and expand your global influence.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-lightbulb-line text-2xl text-green-600"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Social Impact</h3>
-                <p className="text-gray-600">
-                  Drive meaningful change through your art and athletic achievements.
-                </p>
-              </div>
+            <div className="space-y-6 mb-8">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                From athletes competing on the world's biggest stages to artists, musicians, filmmakers, designers and creators reaching global audiences, Africa's cultural influence is expanding far beyond its borders.
+              </p>
+            </div>
+            <div className="space-y-2 mb-8">
+              {influenceLines.map((line) => (
+                <p key={line} className="text-lg font-semibold text-gray-900">{line}</p>
+              ))}
+            </div>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                And culture increasingly shapes how Africa is understood by the world.
+              </p>
+              <p className="text-xl font-semibold text-purple-700 leading-relaxed">
+                The Africa Creative & Sports Forum was created for the leaders building these industries.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Programs & Initiatives */}
+      {/* Community */}
+      <section className="py-16">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">The Creative, Sports & Cultural Leadership Community of the Africa Economic Forum</h2>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The Africa Creative & Sports Forum is the creative industries, sports and cultural leadership community within the Africa Economic Forum.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                It brings together athletes, artists, musicians, actors, filmmakers, producers, fashion leaders, sports executives, club owners, federations, entertainment companies, creative entrepreneurs, agents, investors and cultural institutions.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The Forum connects these leaders with governments, investors, corporations, brands and international partners.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Because creativity is no longer only cultural.
+              </p>
+              <p className="text-2xl font-bold text-purple-700">
+                It is economic.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why the Forum */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Why the Africa Creative & Sports Forum?</h2>
+            <div className="space-y-6 text-center mb-10">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Africa's creative and sports industries represent significant opportunities for entrepreneurship, employment, investment, tourism and international visibility.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                But talent alone does not build an industry.
+              </p>
+              <p className="text-lg font-semibold text-gray-900">
+                Industries require:
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+              {industryNeeds.map((item) => (
+                <div key={item} className="bg-white p-6 rounded-lg shadow-md text-center">
+                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i className="ri-check-double-line text-xl text-purple-600"></i>
+                  </div>
+                  <p className="font-semibold text-gray-900">{item}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-lg text-gray-700 text-center mb-8 leading-relaxed">
+              The Africa Creative & Sports Forum brings the people who control these elements into the same ecosystem.
+            </p>
+            <div className="space-y-2 text-center">
+              {meetingLines.map((line) => (
+                <p key={line} className="text-xl font-semibold text-purple-700">{line}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Building Africa's Creative Economy */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Programs & Initiatives</h2>
-            
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">Building Africa's Creative Economy</h2>
+            <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto mb-12 leading-relaxed">
+              The Forum focuses on the sectors transforming Africa's cultural and commercial landscape.
+            </p>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-stage-line text-xl text-white"></i>
+              {sectors.map((sector) => (
+                <div key={sector.title} className={`${sector.card} p-6 rounded-lg`}>
+                  <div className={`w-12 h-12 ${sector.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                    <i className={`${sector.icon} text-xl text-white`}></i>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-3">{sector.title}</h3>
+                  <p className="text-gray-600">{sector.text}</p>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Performance Showcase</h3>
-                <p className="text-gray-600 mb-4">International stages and platforms to showcase your talent.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Festival participation</li>
-                  <li>• Concert tours</li>
-                  <li>• Exhibition opportunities</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-briefcase-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Sponsorship & Partnerships</h3>
-                <p className="text-gray-600 mb-4">Connect with sponsors, brands, and strategic partners.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Sponsorship opportunities</li>
-                  <li>• Brand partnerships</li>
-                  <li>• Endorsement deals</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-team-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Collaborative Projects</h3>
-                <p className="text-gray-600 mb-4">Create impactful projects with fellow artists and athletes.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Joint ventures</li>
-                  <li>• Cross-genre projects</li>
-                  <li>• Community initiatives</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-hearts-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Social Impact Programs</h3>
-                <p className="text-gray-600 mb-4">Use your platform for positive social and environmental change.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Advocacy campaigns</li>
-                  <li>• Community outreach</li>
-                  <li>• Cause marketing</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-graduation-cap-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Mentorship & Training</h3>
-                <p className="text-gray-600 mb-4">Develop skills and get guidance from industry experts.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Masterclasses</li>
-                  <li>• One-on-one coaching</li>
-                  <li>• Skill development</li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-lg">
-                <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center mb-4">
-                  <i className="ri-money-dollar-circle-line text-xl text-white"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-3">Monetization Support</h3>
-                <p className="text-gray-600 mb-4">Build sustainable income from your creative and athletic work.</p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Revenue strategies</li>
-                  <li>• Licensing support</li>
-                  <li>• Business consulting</li>
-                </ul>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Members */}
+      {/* Who Should Join */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Featured Members</h2>
-            
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Who Should Join?</h2>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {featuredMembers.map((member, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-48 object-cover object-top"
-                  />
-                  <div className="p-6">
-                    <h3 className="font-semibold text-gray-900 mb-1">{member.name}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{member.title}</p>
-                    <p className="text-sm text-purple-600 mb-3">{member.discipline}</p>
-                    <div className="flex items-center text-sm text-green-600">
-                      <i className="ri-award-line mr-2"></i>
-                      {member.achievement}
-                    </div>
+              {whoShouldJoin.map((item) => (
+                <div key={item.title} className="bg-white p-6 rounded-lg shadow-md text-center">
+                  <div className={`w-14 h-14 ${item.iconBg} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                    <i className={`${item.icon} text-2xl ${item.iconColor}`}></i>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-600">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What Members Gain */}
+      <section className="py-16">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">What Members Gain</h2>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {memberGains.map((item) => (
+                <div key={item.title} className="flex items-start space-x-4">
+                  <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    <i className={`${item.icon} text-xl ${item.iconColor}`}></i>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600">{item.text}</p>
                   </div>
                 </div>
               ))}
@@ -446,73 +655,106 @@ const ArtistsAthletesPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Impact Focus Areas */}
-      <section className="py-16">
+      {/* Membership Benefits */}
+      <section className="py-16 bg-purple-600">
         <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Impact Focus Areas</h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-earth-line text-2xl text-purple-600"></i>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-white text-center mb-12">Membership Benefits</h2>
+
+            <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+              {membershipBenefits.map((benefit) => (
+                <div key={benefit} className="flex items-start space-x-3 text-purple-50">
+                  <i className="ri-check-line text-xl text-white flex-shrink-0"></i>
+                  <span>{benefit}</span>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Environmental Sustainability</h3>
-                <p className="text-sm text-gray-600">Using art and athletics to advocate for climate action and environmental conservation.</p>
-              </div>
-              
-              <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-team-line text-2xl text-blue-600"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Social Inclusion</h3>
-                <p className="text-sm text-gray-600">Promoting diversity, equality, and social inclusion through creative expression.</p>
-              </div>
-              
-              <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-graduation-cap-line text-2xl text-green-600"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Youth Empowerment</h3>
-                <p className="text-sm text-gray-600">Mentoring and inspiring young talent to reach their potential.</p>
-              </div>
-              
-              <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-hearts-line text-2xl text-orange-600"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Health & Wellness</h3>
-                <p className="text-sm text-gray-600">Promoting physical and mental well-being through sports and creative arts.</p>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Impact Statistics */}
-      <section className="py-16 bg-purple-600">
+      {/* Membership */}
+      <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-12">Network Impact</h2>
-            
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <div className="text-4xl font-bold text-purple-100 mb-2">1200+</div>
-                <p className="text-purple-100">Network Members</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-purple-100 mb-2">95+</div>
-                <p className="text-purple-100">Countries Represented</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-purple-100 mb-2">300+</div>
-                <p className="text-purple-100">Projects Supported</p>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-purple-100 mb-2">2M+</div>
-                <p className="text-purple-100">Lives Impacted</p>
-              </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Membership</h2>
+            <div className="space-y-6 mb-12">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The Africa Creative & Sports Forum is a curated community within the Africa Economic Forum.
+              </p>
+              <p className="text-lg font-semibold text-gray-900 leading-relaxed">
+                Membership is granted through application and approval.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The objective is to bring together established and emerging leaders with the credibility, ambition and capacity to contribute to the development of Africa's creative and sports industries.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                This is not simply a community for talent.
+              </p>
+              <p className="text-xl font-semibold text-purple-700 leading-relaxed">
+                It is a platform connecting talent, capital, brands, institutions and markets.
+              </p>
             </div>
+
+            <div className="bg-gray-50 p-8 rounded-lg text-left">
+              <div className="text-center mb-8">
+                <p className="text-sm font-semibold tracking-widest text-purple-600 mb-2">ANNUAL MEMBERSHIP</p>
+                <p className="text-3xl font-bold text-gray-900">USD [X,XXX]</p>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Membership includes:</h3>
+              <ul className="grid md:grid-cols-2 gap-3 mb-6">
+                {membershipIncludes.map((item) => (
+                  <li key={item} className="flex items-start space-x-3 text-gray-700">
+                    <i className="ri-check-line text-xl text-purple-600 flex-shrink-0"></i>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-sm text-gray-600">
+                Membership is subject to application and approval.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Africa Has the Talent */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Africa Has the Talent.</h2>
+            <h2 className="text-3xl font-bold text-purple-700 mb-8">Now the Opportunity Is to Build the Industries Around It.</h2>
+            <div className="space-y-6 mb-8">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The next generation of African global brands will not come only from finance, technology or natural resources.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                They will also come from music, sport, film, fashion, entertainment, design and digital creativity.
+              </p>
+            </div>
+            <div className="space-y-2 mb-8">
+              {futureBrands.map((line) => (
+                <p key={line} className="text-lg font-semibold text-gray-900">{line}</p>
+              ))}
+            </div>
+            <p className="text-xl font-semibold text-purple-700 leading-relaxed">
+              The Africa Creative & Sports Forum exists to connect these leaders with the capital, partnerships and markets that can accelerate that journey.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Closing Banner */}
+      <section className="py-16 bg-gray-900 text-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="space-y-2 mb-8">
+              {closingLines.map((line) => (
+                <p key={line} className="text-2xl font-bold">{line}</p>
+              ))}
+            </div>
+            <p className="text-xl text-gray-200 mb-2">Welcome to the Africa Creative & Sports Forum.</p>
+            <p className="text-gray-400">The Creative, Sports & Cultural Leadership Community of the Africa Economic Forum.</p>
           </div>
         </div>
       </section>
@@ -521,15 +763,15 @@ const ArtistsAthletesPage: React.FC = () => {
       <section className="py-16">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Join the Network</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Apply for Membership</h2>
             <p className="text-xl text-gray-600 mb-8">
-              Connect with fellow creative talents and athletes, amplify your voice, and create lasting impact on the world stage.
+              Join a trusted community of creative, sports and cultural leaders building the industries shaping Africa's global influence.
             </p>
             <button
               onClick={() => setIsFormOpen(true)}
               className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors whitespace-nowrap cursor-pointer"
             >
-              Join Our Network
+              Apply for Membership
             </button>
           </div>
         </div>
@@ -1046,8 +1288,8 @@ const ArtistsAthletesPage: React.FC = () => {
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy & Terms of Service
                 </a>
-                
-                <p>© 2025 Africa Economic Forum</p>
+
+                <p>© 2026 Africa Economic Forum</p>
                 <a href="https://codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
             </div>
