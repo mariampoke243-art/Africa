@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 export default function International() {
@@ -181,6 +180,204 @@ export default function International() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Page content
+  const engagementList = [
+    'Engage directly with African governments and decision-makers',
+    'Present institutional priorities, programmes and initiatives',
+    "Contribute expertise to Africa's economic and development agenda",
+    'Build relationships with investors, corporations and project developers',
+    'Identify opportunities for strategic cooperation',
+    'Support investment, infrastructure, trade and development initiatives',
+    'Participate in high-level policy and economic dialogues',
+    'Connect global priorities with African realities',
+    'Develop partnerships across countries and sectors',
+  ];
+
+  const whoWeEngage = [
+    {
+      title: 'Multilateral Institutions',
+      text: 'United Nations agencies, regional and international organisations, multilateral development institutions and other global platforms.',
+      icon: 'ri-global-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Development & Cooperation Institutions',
+      text: "Development agencies, bilateral cooperation agencies, international development organisations and institutions supporting Africa's transformation.",
+      icon: 'ri-hand-heart-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Regional Institutions',
+      text: 'African and international regional organisations working across trade, investment, infrastructure, integration, peace, development and economic cooperation.',
+      icon: 'ri-map-2-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'International Policy & Economic Institutions',
+      text: 'Institutions shaping global economic policy, trade, investment, technology, sustainability and development frameworks.',
+      icon: 'ri-bank-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'International Cooperation Platforms',
+      text: 'Global initiatives, alliances and institutional networks seeking deeper engagement with African governments and economic stakeholders.',
+      icon: 'ri-share-circle-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+  ];
+
+  const stakeholders = [
+    'Heads of State & Government',
+    'Ministers & Public Decision-Makers',
+    'Investment Promotion Agencies',
+    'Sovereign Wealth Funds',
+    'Development Finance Institutions',
+    'Banks & Investors',
+    'Corporate Leaders',
+    'Project Developers',
+    'Technology & Infrastructure Companies',
+    'Academia & Think Tanks',
+    'Civil Society',
+  ];
+
+  const policyToPartnership = [
+    {
+      title: 'Policy Dialogue',
+      text: "Contribute to conversations shaping Africa's economic future.",
+      icon: 'ri-chat-voice-line',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
+    },
+    {
+      title: 'Institutional Engagement',
+      text: 'Meet governments, ministers, agencies and institutional decision-makers.',
+      icon: 'ri-government-line',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
+    },
+    {
+      title: 'Investment & Development',
+      text: 'Connect programmes and priorities with investors, financial institutions and project developers.',
+      icon: 'ri-funds-line',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+    },
+    {
+      title: 'Strategic Cooperation',
+      text: 'Identify institutions, governments and companies with complementary objectives.',
+      icon: 'ri-handshake-line',
+      iconBg: 'bg-orange-100',
+      iconColor: 'text-orange-600',
+    },
+    {
+      title: 'Knowledge & Intelligence',
+      text: "Exchange research, expertise, data and perspectives on Africa's changing economic landscape.",
+      icon: 'ri-bar-chart-line',
+      iconBg: 'bg-teal-100',
+      iconColor: 'text-teal-600',
+    },
+    {
+      title: 'Project & Opportunity Pipeline',
+      text: 'Explore initiatives requiring institutional, technical, financial or strategic support.',
+      icon: 'ri-road-map-line',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600',
+    },
+  ];
+
+  const meetings = [
+    {
+      title: 'Open Forums',
+      text: 'Public high-level sessions bringing together governments, institutions, investors, companies and experts around major African economic themes.',
+      icon: 'ri-slideshow-line',
+    },
+    {
+      title: 'Selected Roundtables',
+      text: 'Smaller, curated discussions focused on specific sectors, policy questions or strategic priorities.',
+      icon: 'ri-team-line',
+    },
+    {
+      title: 'Closed-Door Institutional Dialogues',
+      text: 'Highly selective conversations involving senior institutional representatives and decision-makers.',
+      icon: 'ri-lock-line',
+    },
+    {
+      title: 'Government & Institutional Meetings',
+      text: 'Targeted engagements connecting international institutions with relevant ministers, government agencies and public-sector leaders.',
+      icon: 'ri-government-line',
+    },
+    {
+      title: 'Investment & Development Dialogues',
+      text: 'Meetings bringing together institutions, investors, financial institutions and project developers around concrete initiatives.',
+      icon: 'ri-funds-line',
+    },
+  ];
+
+  const meetingColors = [
+    { bg: 'bg-blue-100', text: 'text-blue-600' },
+    { bg: 'bg-green-100', text: 'text-green-600' },
+    { bg: 'bg-purple-100', text: 'text-purple-600' },
+    { bg: 'bg-orange-100', text: 'text-orange-600' },
+    { bg: 'bg-teal-100', text: 'text-teal-600' },
+  ];
+
+  const knowledgeTopics = [
+    'Economic transformation',
+    'Trade and regional integration',
+    'Infrastructure',
+    'Energy transition',
+    'Critical minerals',
+    'Digital transformation',
+    'Artificial intelligence',
+    'Healthcare',
+    'Food security',
+    'Climate and sustainability',
+    'Investment',
+    'Financial inclusion',
+    'Industrialisation',
+    'Economic diplomacy',
+    'Youth and employment',
+  ];
+
+  const bridgePairs = [
+    'Investment rather than dependency.',
+    'Value creation rather than extraction.',
+    'Industrialisation rather than raw-material exports.',
+    'Technology transfer rather than technology dependence.',
+    'Strategic partnerships rather than transactional relationships.',
+  ];
+
+  const partnershipItems = [
+    'Institutional visibility',
+    'Strategic programme collaboration',
+    'Knowledge partnerships',
+    'Research and content',
+    'Thematic forums',
+    'Institutional dialogues',
+    'Delegation engagement',
+    'Strategic introductions',
+    'Joint initiatives',
+    'Agreed communication and visibility',
+  ];
+
+  const dealRoomChain = [
+    'Governments',
+    'Investors',
+    'Financial Institutions',
+    'Corporates',
+    'Project Developers',
+    'Institutions',
+  ];
+
+  const diplomacyWords = ['Government.', 'Capital.', 'Business.', 'Institutions.', 'Development.'];
+
+  const joinWords = ['Engage.', 'Contribute.', 'Connect.', 'Build.'];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -318,10 +515,13 @@ export default function International() {
               <div className="space-y-8">
                 <div className="space-y-6">
                   <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
-                    International Institutions
+                    AEF International Institutions
                   </h1>
+                  <p className="text-2xl font-semibold text-blue-100 leading-snug">
+                    Connecting Global Institutions with Africa's Next Chapter
+                  </p>
                   <p className="text-xl text-blue-100 leading-relaxed">
-                    Partnering with global organizations, multilateral institutions, and international bodies to advance Africa's economic development and integration into the global economy.
+                    Africa's economic transformation is no longer a regional conversation.
                   </p>
                   <button
                     onClick={() => setShowMembershipForm(true)}
@@ -342,225 +542,320 @@ export default function International() {
           </div>
         </section>
 
-        {/* About Section */}
+        {/* Introduction */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              It is increasingly shaped by international institutions, multilateral cooperation, development finance, global policy frameworks, investment flows, technology, trade, infrastructure and strategic partnerships.
+            </p>
+            <p className="text-xl font-semibold text-blue-900 leading-relaxed">
+              The Africa Economic Forum (AEF) brings these worlds together.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              From Kinshasa, AEF convenes governments, international institutions, investors, business leaders, financial institutions, development partners and project developers around the decisions, partnerships and opportunities shaping Africa's next growth cycle.
+            </p>
+          </div>
+        </section>
+
+        {/* A Platform for Institutional Engagement */}
+        <section className="py-20 bg-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">A Platform for Institutional Engagement</h2>
+            <p className="text-lg text-gray-700 text-center mb-10 leading-relaxed max-w-3xl mx-auto">
+              AEF provides international institutions with a high-level platform to engage directly with the African ecosystem — beyond traditional conferences and formal diplomatic channels.
+            </p>
+            <p className="text-lg font-semibold text-gray-900 text-center mb-6">It is a space to:</p>
+            <div className="grid md:grid-cols-2 gap-4 mb-10">
+              {engagementList.map((item) => (
+                <div key={item} className="flex items-start space-x-3 bg-gray-50 rounded-lg p-4">
+                  <i className="ri-check-line text-xl text-blue-600 flex-shrink-0"></i>
+                  <span className="text-gray-700">{item}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-xl font-semibold text-blue-900 text-center leading-relaxed">
+              AEF is designed to turn dialogue into institutional connections, partnerships and actionable opportunities.
+            </p>
+          </div>
+        </section>
+
+        {/* Who We Engage */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-8">
-                <h2 className="text-4xl font-bold text-gray-900">Global Partnership</h2>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  We collaborate with international institutions to leverage global expertise, resources, and networks for Africa's sustainable economic development and prosperity.
-                </p>
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <i className="ri-global-line text-blue-600"></i>
+            <p className="text-sm font-semibold tracking-widest text-blue-600 text-center mb-3">WHO WE ENGAGE</p>
+            <p className="text-lg text-gray-700 text-center mb-16 leading-relaxed max-w-3xl mx-auto">
+              AEF welcomes institutions operating across the global economic, development and cooperation ecosystem.
+            </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {whoWeEngage.map((item) => (
+                <div key={item.title} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="text-center space-y-4">
+                    <div className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}>
+                      <i className={`${item.icon} ${item.iconColor} text-2xl`}></i>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Multilateral Cooperation</h3>
-                      <p className="text-gray-600">Strategic partnerships with UN agencies, World Bank, IMF, and regional development banks.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <i className="ri-funds-line text-green-600"></i>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Development Finance</h3>
-                      <p className="text-gray-600">Access to international funding mechanisms and development finance institutions.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <i className="ri-exchange-line text-purple-600"></i>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Knowledge Exchange</h3>
-                      <p className="text-gray-600">Technical assistance, capacity building, and best practice sharing programs.</p>
+                      <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                      <p className="text-gray-600 text-sm">{item.text}</p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="relative">
-                <img
-                  src="https://readdy.ai/api/search-image?query=International%20development%20meeting%20with%20African%20officials%20and%20global%20institution%20representatives%2C%20modern%20conference%20room%20with%20world%20maps%20and%20development%20charts&width=600&height=500&seq=international-meeting&orientation=portrait"
-                  alt="International Cooperation"
-                  className="w-full h-96 object-cover object-top rounded-lg shadow-lg"
-                />
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Statistics */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-4 gap-8 text-center">
-              <div className="space-y-2">
-                <div className="text-4xl font-bold text-blue-600">50+</div>
-                <div className="text-gray-600">Partner Institutions</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-4xl font-bold text-green-600">$2.5B</div>
-                <div className="text-gray-600">Development Funding</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-4px font-bold text-purple-600">15</div>
-                <div className="text-gray-600">UN Agencies</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-4xl font-bold text-orange-600">100+</div>
-                <div className="text-gray-600">Joint Programs</div>
-              </div>
+        {/* Why AEF */}
+        <section className="py-20 bg-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm font-semibold tracking-widest text-blue-600 mb-3">WHY AEF</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">Africa's Decision-Making Ecosystem, in One Place</h2>
+            <div className="space-y-6 mb-8">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                International institutions often engage Africa through individual governments, programmes, missions and bilateral relationships.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">AEF adds another layer:</p>
+              <p className="text-xl font-semibold text-blue-900 leading-relaxed">
+                a multi-stakeholder economic platform where governments, capital and business meet around common priorities.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Through AEF, institutions can engage simultaneously with:
+              </p>
             </div>
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {stakeholders.map((s) => (
+                <span key={s} className="bg-blue-50 text-blue-800 px-4 py-2 rounded-lg text-sm font-medium">{s}</span>
+              ))}
+            </div>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              This creates an environment for cross-sector and cross-border institutional engagement.
+            </p>
           </div>
         </section>
 
-        {/* Partner Showcase */}
+        {/* From Policy to Partnership */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Key Partners</h2>
-              <p className="text-gray-600 text-lg">Leading international institutions driving Africa's development</p>
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">From Policy to Partnership</h2>
+            <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The African transformation agenda requires more than policy dialogue.
+              </p>
+              <p className="text-xl font-semibold text-gray-900">It requires implementation.</p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                AEF therefore creates opportunities for international institutions to connect their programmes, expertise and priorities with actors capable of implementing them.
+              </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-bank-line text-blue-600 text-2xl"></i>
+              {policyToPartnership.map((item) => (
+                <div key={item.title} className="text-center space-y-4">
+                  <div className={`w-16 h-16 ${item.iconBg} rounded-full flex items-center justify-center mx-auto`}>
+                    <i className={`${item.icon} ${item.iconColor} text-2xl`}></i>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">World Bank Group</h3>
-                    <p className="text-gray-600">International Financial Institution</p>
-                    <p className="text-sm text-gray-500 mt-2">Supporting infrastructure development and poverty reduction across Africa</p>
-                  </div>
+                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                  <p className="text-gray-600">{item.text}</p>
                 </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-earth-line text-green-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">United Nations</h3>
-                    <p className="text-gray-600">Global Organization</p>
-                    <p className="text-sm text-gray-500 mt-2">Coordinating sustainable development goals and humanitarian programs</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-funds-line text-purple-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">International Monetary Fund</h3>
-                    <p className="text-gray-600">Financial Institution</p>
-                    <p className="text-sm text-gray-500 mt-2">Providing financial stability and economic policy guidance</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-building-line text-orange-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">African Development Bank</h3>
-                    <p className="text-gray-600">Regional Development Bank</p>
-                    <p className="text-sm text-gray-500 mt-2">Financing infrastructure and private sector development</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-global-line text-teal-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">European Union</h3>
-                    <p className="text-gray-600">Regional Organization</p>
-                    <p className="text-sm text-gray-500 mt-2">Supporting trade partnerships and development cooperation</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-                    <i className="ri-exchange-line text-red-600 text-2xl"></i>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">World Trade Organization</h3>
-                    <p className="text-gray-600">Trade Organization</p>
-                    <p className="text-sm text-gray-500 mt-2">Facilitating international trade and market access</p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Benefits */}
+        {/* AEF Meetings & Forums */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Partnership Benefits</h2>
-              <p className="text-gray-600 text-lg">Advantages of collaborating with the Africa Economic Forum</p>
+            <p className="text-sm font-semibold tracking-widest text-blue-600 text-center mb-3">AEF MEETINGS & FORUMS</p>
+            <p className="text-lg text-gray-700 text-center mb-16 leading-relaxed max-w-3xl mx-auto">
+              International institutions can participate across the AEF meeting architecture according to the relevance and level of each engagement.
+            </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+              {meetings.map((m, i) => (
+                <div key={m.title} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+                  <div className={`w-12 h-12 ${meetingColors[i % meetingColors.length].bg} rounded-lg flex items-center justify-center mb-4`}>
+                    <i className={`${m.icon} text-xl ${meetingColors[i % meetingColors.length].text}`}></i>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-3">{m.title}</h3>
+                  <p className="text-gray-600 text-sm">{m.text}</p>
+                </div>
+              ))}
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-map-pin-line text-blue-600 text-2xl"></i>
+            <div className="text-center space-y-2">
+              <p className="text-gray-700">Participation is determined by the format, relevance and objectives of each meeting.</p>
+              <p className="font-semibold text-blue-900">Membership is not required for every AEF meeting.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Knowledge & Thought Leadership */}
+        <section className="py-20 bg-blue-900 text-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm font-semibold tracking-widest text-blue-300 mb-3">KNOWLEDGE & THOUGHT LEADERSHIP</p>
+            <h2 className="text-3xl font-bold mb-6">International institutions can contribute to the intellectual architecture of AEF.</h2>
+            <p className="text-lg text-blue-100 mb-8 leading-relaxed">
+              Through research, data, expertise and institutional perspectives, participating organisations can help shape conversations around:
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {knowledgeTopics.map((t) => (
+                <span key={t} className="bg-white text-blue-800 px-4 py-2 rounded-lg text-sm font-medium">{t}</span>
+              ))}
+            </div>
+            <p className="text-lg text-blue-100 leading-relaxed">
+              AEF provides a platform where institutional knowledge can reach decision-makers, investors and business leaders.
+            </p>
+          </div>
+        </section>
+
+        {/* A Bridge */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">A Bridge Between Global Priorities and African Opportunities</h2>
+            <div className="space-y-4 mb-8">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                The relationship between Africa and the international community is evolving.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Africa is increasingly seeking partnerships built around:
+              </p>
+            </div>
+            <div className="space-y-3 mb-8">
+              {bridgePairs.map((p) => (
+                <div key={p} className="bg-white rounded-lg shadow-sm p-4">
+                  <p className="font-semibold text-gray-900">{p}</p>
                 </div>
-                <h3 className="font-semibold text-gray-900">Local Expertise</h3>
-                <p className="text-gray-600">Deep understanding of African markets, cultures, and business environments</p>
+              ))}
+            </div>
+            <p className="text-lg text-gray-700 mb-2">
+              International institutions have an important role to play in this transformation.
+            </p>
+            <p className="text-xl font-semibold text-blue-900">
+              AEF provides a platform for that engagement.
+            </p>
+          </div>
+        </section>
+
+        {/* Participation Pathways */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="text-sm font-semibold tracking-widest text-blue-600 text-center mb-3">PARTICIPATION PATHWAYS</p>
+            <p className="text-lg text-gray-700 text-center mb-16 leading-relaxed">
+              International institutions can engage with AEF through three complementary pathways.
+            </p>
+            <div className="grid lg:grid-cols-3 gap-8">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-8">
+                <p className="text-sm font-bold text-blue-600 mb-2">01</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Institutional Engagement</h3>
+                <p className="text-gray-700">
+                  Participate in AEF forums, roundtables, dialogues and institutional meetings according to relevance and invitation.
+                </p>
               </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-team-line text-green-600 text-2xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900">Network Access</h3>
-                <p className="text-gray-600">Direct connections to African governments, businesses, and civil society</p>
+
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-8">
+                <p className="text-sm font-bold text-green-700 mb-2">02</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">AEF Membership</h3>
+                <p className="text-gray-700 mb-4">
+                  Relevant institutional representatives may participate through appropriate AEF membership communities, where applicable, gaining access to the wider AEF ecosystem and selected activities.
+                </p>
+                <p className="text-sm text-gray-600">Membership means:</p>
+                <p className="font-semibold text-gray-900">Belonging to the AEF ecosystem.</p>
               </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-rocket-line text-purple-600 text-2xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900">Program Implementation</h3>
-                <p className="text-gray-600">Efficient delivery of development programs and initiatives</p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-bar-chart-line text-orange-600 text-2xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900">Impact Measurement</h3>
-                <p className="text-gray-600">Comprehensive monitoring and evaluation of development outcomes</p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-lightbulb-line text-teal-600 text-2xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900">Innovation Hub</h3>
-                <p className="text-gray-600">Platform for testing and scaling innovative development solutions</p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-                  <i className="ri-shield-check-line text-red-600 text-2xl"></i>
-                </div>
-                <h3 className="font-semibold text-gray-900">Risk Mitigation</h3>
-                <p className="text-gray-600">Reduced operational risks through local partnerships and knowledge</p>
+
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-8">
+                <p className="text-sm font-bold text-purple-700 mb-2">03</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Strategic Partnership</h3>
+                <p className="text-gray-700 mb-4">
+                  Institutions may establish a formal partnership with AEF around specific programmes, sectors, initiatives or strategic priorities.
+                </p>
+                <p className="text-sm text-gray-600 mb-2">Partnership may include:</p>
+                <ul className="space-y-1 mb-4">
+                  {partnershipItems.map((item) => (
+                    <li key={item} className="flex items-start space-x-2 text-sm text-gray-700">
+                      <i className="ri-check-line text-purple-600 flex-shrink-0"></i>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-sm text-gray-600">Partnership means:</p>
+                <p className="font-semibold text-gray-900">Building with AEF.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
+        {/* The AEF Deal Room */}
+        <section className="py-20 bg-gray-900 text-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm font-semibold tracking-widest text-blue-300 mb-3">THE AEF DEAL ROOM</p>
+            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+              International institutions can also engage with the AEF Deal Room where relevant to their mandate.
+            </p>
+            <p className="text-lg text-gray-300 mb-4">The Deal Room connects selected:</p>
+            <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
+              {dealRoomChain.map((step, index) => (
+                <React.Fragment key={step}>
+                  <span className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold">{step}</span>
+                  {index < dealRoomChain.length - 1 && <i className="ri-arrow-right-line text-xl text-blue-300"></i>}
+                </React.Fragment>
+              ))}
+            </div>
+            <p className="text-gray-300 mb-4">
+              around concrete projects, investment opportunities, partnerships and strategic initiatives.
+            </p>
+            <p className="text-gray-300 leading-relaxed">
+              For institutions involved in development, infrastructure, investment facilitation or technical cooperation, this creates an additional layer of engagement beyond the conference floor.
+            </p>
+          </div>
+        </section>
+
+        {/* A Platform for Economic Diplomacy */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">A Platform for Economic Diplomacy</h2>
+            <p className="text-lg text-gray-700 mb-4">AEF operates at the intersection of:</p>
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {diplomacyWords.map((w) => (
+                <span key={w} className="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-semibold">{w}</span>
+              ))}
+            </div>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              International institutions therefore become part of a broader economic diplomacy ecosystem.
+            </p>
+            <p className="text-lg text-gray-700 mb-2">The objective is not simply to attend a conference.</p>
+            <p className="text-xl font-semibold text-blue-900">
+              It is to build relationships that can continue beyond the event.
+            </p>
+          </div>
+        </section>
+
+        {/* Why Kinshasa */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm font-semibold tracking-widest text-blue-600 mb-3">WHY KINSHASA</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">A Strategic African Base</h2>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Kinshasa provides AEF with a strategic African base.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                From the Democratic Republic of Congo — home to critical minerals, significant natural resources, a major population market and strategic regional importance — AEF creates a platform connecting African realities with global capital and international decision-making.
+              </p>
+              <p className="text-lg text-gray-700">The Forum brings the global conversation into Africa.</p>
+              <p className="text-xl font-semibold text-blue-900">
+                And brings Africa's opportunities to the global conversation.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Join the AEF Ecosystem */}
         <section className="py-20 bg-blue-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl font-bold mb-6">Partner with Us</h2>
+            <h2 className="text-4xl font-bold mb-6">Join the AEF Ecosystem</h2>
             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-              Join our network of international institutions working to transform Africa's economic landscape. Together, we can achieve sustainable development and prosperity.
+              Whether your institution works in development, trade, infrastructure, investment, technology, health, climate, economic cooperation or international policy, AEF provides a platform to engage with the people and institutions shaping Africa's next chapter.
             </p>
+            <div className="flex flex-wrap justify-center gap-4 mb-10">
+              {joinWords.map((w) => (
+                <span key={w} className="text-2xl font-bold">{w}</span>
+              ))}
+            </div>
             <button
               onClick={() => setShowMembershipForm(true)}
               className="bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 font-medium whitespace-nowrap cursor-pointer"
@@ -757,7 +1052,7 @@ export default function International() {
                     Partnership Goals
                   </label>
                   <textarea
-                    name=" partnershipGoals"
+                    name="partnershipGoals"
                     value={formData.partnershipGoals}
                     onChange={handleInputChange}
                     rows={3}
@@ -1100,8 +1395,8 @@ export default function International() {
                 <a href="/privacy" className="hover:text-white cursor-pointer">
                   Privacy Policy &amp; Terms of Service
                 </a>
-                
-                <p>© 2025 Africa Economic Forum</p>
+
+                <p>© 2026 Africa Economic Forum</p>
                 <a href="https://Codesignglobal.com" className="hover:text-white cursor-pointer">Code Design Global</a>
               </div>
             </div>
